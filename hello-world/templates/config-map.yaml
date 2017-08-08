@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "hello-world.full_name" . }}
+  labels:
+    {{- include "hello-world.release_labels" . | indent 4 }}
+data:
+  magic-number: '11'

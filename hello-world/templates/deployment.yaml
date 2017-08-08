@@ -17,3 +17,9 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+          env:
+            - name: MAGIC_NUMBER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "hello-world.full_name" . }}
+                  key: magic-number
