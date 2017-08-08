@@ -1,12 +1,19 @@
 apiVersion: v1
 entries:
+  hello-world:
+  - created: 2017-08-08T11:16:03.614386099+02:00
+    digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
+    name: hello-world
+    urls:
+    - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
+    version: 1.0.0
   newchart:
   - apiVersion: v1
-    created: 2017-08-08T10:49:37.174339358+02:00
+    created: 2017-08-08T11:16:03.614919087+02:00
     description: A Helm chart for Kubernetes
     digest: 4e1a9859108e215cb1043976f9f2338629377ce27daf020589bb553fd23ab3ed
     name: newchart
     urls:
     - https://camptocamp.github.io/charts/newchart-0.1.0.tgz
     version: 0.1.0
-generated: 2017-08-08T10:49:37.173831253+02:00
+generated: 2017-08-08T11:16:03.610705377+02:00
