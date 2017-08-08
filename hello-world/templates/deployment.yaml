@@ -11,7 +11,7 @@ spec:
     spec:
       containers:
         - name: hello-world
-          image: gcr.io/google-samples/node-hello:1.0
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
           ports:
             - containerPort: 8080
               protocol: TCP
