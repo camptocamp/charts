@@ -5,4 +5,4 @@ metadata:
   labels:
     {{- include "hello-world.release_labels" . | indent 4 }}
 data:
-  magic-number: '11'
+  magic-number: '12'
