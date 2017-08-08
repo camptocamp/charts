@@ -34,3 +34,7 @@ git push origin master
 ```
 helm repo add c2c https://camptocamp.github.io/charts
 ```
+
+### Hello-world chart
+
+The hello-world chart was created from a [tutorial](https://hackernoon.com/the-missing-ci-cd-kubernetes-component-helm-package-manager-1fe002aac680) on charts. It's here as an example to understand basic concepts of charts.
