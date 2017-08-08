@@ -1,13 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hello-world
+  name: {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 }}
+  labels:
+    app: {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 }}
+    version: {{ .Chart.Version }}
+    release: {{ .Release.Name }}
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: hello-world
+        app: {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 }}
+        version: {{ .Chart.Version }}
+        release: {{ .Release.Name }}
     spec:
       containers:
         - name: hello-world
