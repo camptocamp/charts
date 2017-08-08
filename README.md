@@ -12,10 +12,13 @@ GitHub Pages points to the `docs` folder.
 $ helm create newchart
 $ helm package newchart -d docs
 $ helm repo index docs --url https://camptocamp.github.io/charts
-$ git add -i
+$ git add .
 $ git commit -m 'update charts'
 $ git push origin master
 ```
 
-From there, I can do a `helm repo add tscharts
-https://technosophos.github.com/tscharts`
+From there, we can add the repo to helm if not already done
+
+```
+helm repo add c2c https://camptocamp.github.io/charts
+```
