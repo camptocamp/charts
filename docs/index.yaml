@@ -1,16 +1,16 @@
 apiVersion: v1
 entries:
   hello-world:
-  - created: 2017-08-08T18:22:09.015703104+02:00
+  - created: 2017-08-08T18:22:21.762455766+02:00
     digest: b8789ade3c328b75e4e915d7c8113ae80d01a0c58a3535633317c750aec0b120
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: 2017-08-08T18:22:09.015525866+02:00
+  - created: 2017-08-08T18:22:21.762287557+02:00
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
-generated: 2017-08-08T18:22:09.015158845+02:00
+generated: 2017-08-08T18:22:21.761943101+02:00
