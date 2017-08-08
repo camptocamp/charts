@@ -1,4 +1,4 @@
-# CampToCamp Help Charts Repo
+# CampToCamp Helm Charts Repo
 
 This is the camptocamp charts repository.
 
