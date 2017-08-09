@@ -12,6 +12,12 @@ We use the master branch to store our charts code, and gh-pages branch as the ch
 
 GitHub Pages points to the `docs` folder and our repository is accessible on https://camptocamp.github.io/charts
 
+### Add this repo to helm
+
+```
+helm repo add c2c https://camptocamp.github.io/charts
+```
+
 ### Add a chart
 
 ```bash
@@ -33,12 +39,6 @@ helm repo index docs --url https://camptocamp.github.io/charts
 git add .
 git commit -m "add chart $CHART"
 git push origin master
-```
-
-### Add repo to helm
-
-```
-helm repo add c2c https://camptocamp.github.io/charts
 ```
 
 ### Hello-world chart
