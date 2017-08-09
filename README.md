@@ -6,6 +6,10 @@ This is the camptocamp charts repository.
 
 https://github.com/kubernetes/helm/blob/master/docs/index.md
 
+### Install helm on minishift
+
+https://blog.openshift.com/deploy-helm-charts-minishifts-openshift-local-development/
+
 ### How It Works
 
 We use the master branch to store our charts code, and gh-pages branch as the charts repository.
