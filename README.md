@@ -8,7 +8,9 @@ https://github.com/kubernetes/helm/blob/master/docs/index.md
 
 ### How It Works
 
-GitHub Pages points to the `docs` folder.
+We use the master branch to store our charts code, and gh-pages branch as the charts repository.
+
+GitHub Pages points to the `docs` folder and our repository is accessible on https://camptocamp.github.io/charts
 
 ### Add a chart
 
