@@ -2,6 +2,10 @@
 
 This is the camptocamp charts repository.
 
+### Helm Documentation
+
+https://github.com/kubernetes/helm/blob/master/docs/index.md
+
 ### How It Works
 
 GitHub Pages points to the `docs` folder.
