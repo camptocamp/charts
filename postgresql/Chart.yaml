@@ -1,5 +1,5 @@
 name: postgresql
-version: 0.7.1
+version: 0.7.1-pvc.patch
 description: Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
 keywords:
 - postgresql
@@ -9,9 +9,7 @@ keywords:
 home: https://www.postgresql.org/
 icon: https://www.postgresql.org/media/img/about/press/elephant.png
 sources:
-- https://github.com/kubernetes/charts
-- https://github.com/docker-library/postgres
+- https://github.com/camptocamp/charts
 maintainers:
-- name: swordbeta
-- name: databus23
+- name: msutter
 engine: gotpl
