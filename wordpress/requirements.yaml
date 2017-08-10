@@ -1,4 +1,4 @@
 dependencies:
-- name: c2c/mariadb
+- name: mariadb
   version: 1.0.0
-  repository: https://camptocamp.github.io/charts
+  repository: https://camptocamp.github.io/charts/
