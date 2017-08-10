@@ -1,0 +1,4 @@
+dependencies:
+- name: c2c/mariadb
+  version: 1.0.0
+  repository: https://camptocamp.github.io/charts
