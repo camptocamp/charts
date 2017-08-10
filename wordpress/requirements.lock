@@ -1,0 +1,6 @@
+dependencies:
+- name: mariadb
+  repository: https://camptocamp.github.io/charts/
+  version: 1.0.0
+digest: sha256:db53c05742756721c2dabd22991524a80972b1cb433a06ea88dd78c576b258b0
+generated: 2017-08-10T15:23:40.27714219+02:00
