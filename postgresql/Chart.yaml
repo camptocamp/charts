@@ -1,6 +1,8 @@
 name: postgresql
-version: 0.7.1-pvc.patch
-description: Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+version: 0.7.1
+description: |
+  Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
+  Patched version for pvc
 keywords:
 - postgresql
 - postgres
