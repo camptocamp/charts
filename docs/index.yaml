@@ -1,20 +1,43 @@
 apiVersion: v1
 entries:
   hello-world:
-  - created: 2017-08-10T14:36:30.491741124+02:00
+  - created: 2017-08-10T15:14:02.162009627+02:00
     digest: b8789ade3c328b75e4e915d7c8113ae80d01a0c58a3535633317c750aec0b120
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: 2017-08-10T14:36:30.491342797+02:00
+  - created: 2017-08-10T15:14:02.161592733+02:00
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
+  mariadb:
+  - created: 2017-08-10T15:14:02.16311761+02:00
+    description: Fast, reliable, scalable, and easy to use open-source relational
+      database system. MariaDB Server is intended for mission-critical, heavy-load
+      production systems as well as for embedding into mass-deployed software.
+    digest: 777a9267e3b2f173602673ae703705c3090a29e24bffa3e1f3965a753e43a28e
+    engine: gotpl
+    home: https://mariadb.org
+    icon: https://bitnami.com/assets/stacks/mariadb/img/mariadb-stack-220x234.png
+    keywords:
+    - mariadb
+    - mysql
+    - database
+    - sql
+    maintainers:
+    - email: marc.sutter@camptocamp.com
+      name: msutter
+    name: mariadb
+    sources:
+    - https://github.com/camptocamp/charts
+    urls:
+    - https://camptocamp.github.io/charts/mariadb-1.0.0.tgz
+    version: 1.0.0
   postgresql:
-  - created: 2017-08-10T14:36:30.492261154+02:00
+  - created: 2017-08-10T15:14:02.164168101+02:00
     description: |
       Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
       Patched version for pvc
@@ -35,4 +58,4 @@ entries:
     urls:
     - https://camptocamp.github.io/charts/postgresql-0.7.1.tgz
     version: 0.7.1
-generated: 2017-08-10T14:36:30.490741261+02:00
+generated: 2017-08-10T15:14:02.160962641+02:00
