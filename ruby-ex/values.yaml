@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-author: "marc.sutter@camptocamp.com"
+author: "marc.sutterATcamptocamp.com"
 
 api_version: openshift.org/v1
 
@@ -16,6 +16,6 @@ build:
     tag: latest
 
 service:
-  port: 8080
+  port: 8090
   protocol: TCP
   targetPort: 8080
