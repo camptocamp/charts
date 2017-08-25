@@ -1,0 +1,26 @@
+apiVersion: {{ .Values.api_version }}
+kind: Deployment
+metadata:
+  name: {{ template "chart.full_name" . }}
+  labels:
+    {{- include "chart.release_labels" . | indent 4 }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        {{- include "chart.release_labels" . | indent 8 }}
+      {{- include "chart.config_map_checksum" . | indent 6 }}
+    spec:
+      containers:
+        - name: {{ template "chart.full_name" . }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: MAGIC_NUMBER
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "chart.full_name" . }}
+                  key: magic-number

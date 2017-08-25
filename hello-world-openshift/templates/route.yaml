@@ -1,0 +1,10 @@
+apiVersion: {{ .Values.api_version }}
+kind: Route
+metadata:
+  labels:
+    {{- include "chart.release_labels" . | indent 4 }}
+  name: {{ template "chart.full_name" . }}
+spec:
+  to:
+    kind: Service
+    name: {{ template "chart.full_name" . }}

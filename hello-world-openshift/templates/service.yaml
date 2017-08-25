@@ -1,0 +1,14 @@
+apiVersion: {{ .Values.api_version }}
+kind: Service
+metadata:
+  name: {{ template "chart.full_name" . }}
+  labels:
+    {{- include "chart.release_labels" . | indent 4 }}
+spec:
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: {{ template "chart.full_name" . }}

@@ -1,0 +1,7 @@
+api_version: openshift.org/v1
+
+image:
+  repository: gcr.io/google-samples/node-hello
+  tag: '1.0'
+
+

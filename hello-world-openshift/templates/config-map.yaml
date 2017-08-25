@@ -1,0 +1,8 @@
+apiVersion: {{ .Values.api_version }}
+kind: ConfigMap
+metadata:
+  name: {{ template "chart.full_name" . }}
+  labels:
+    {{- include "chart.release_labels" . | indent 4 }}
+data:
+  magic-number: '12'
