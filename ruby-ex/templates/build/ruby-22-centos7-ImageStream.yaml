@@ -1,5 +1,0 @@
-apiVersion: {{ .Values.api_version }}
-kind: ImageStream
-metadata:
-  name: ruby-22-centos7
-spec: {}

@@ -16,8 +16,8 @@ spec:
   strategy:
     sourceStrategy:
       from:
-        kind: ImageStreamTag
-        name: ruby-22-centos7:latest
+        kind: DockerImage
+        name: centos/ruby-22-centos7:latest
     type: Source
   triggers:
   - github:
@@ -27,5 +27,3 @@ spec:
       secret: dQZ2AlWnEGQtryky5IWB
     type: Generic
   - type: ConfigChange
-  - imageChange: {}
-    type: ImageChange
