@@ -8,10 +8,7 @@ spec:
   lookupPolicy:
     local: false
   tags:
-  - annotations: null
     from:
       kind: DockerImage
       name: ruby-ex:latest
-    generation: null
-    importPolicy: {}
     name: latest
