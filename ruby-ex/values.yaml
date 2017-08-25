@@ -16,6 +16,6 @@ build:
     tag: latest
 
 service:
-  port: 8090
+  port: 8080
   protocol: TCP
   targetPort: 8080
