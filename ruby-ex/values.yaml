@@ -7,9 +7,12 @@ source:
   git:
     uri: https://github.com/openshift/ruby-ex.git  
 
-builder:
-  image:
+build:
+  from:
     repository: centos/ruby-22-centos7
-    tag: 'latest'
+    tag: latest
 
-
+service:
+  port: 8080
+  protocol: TCP
+  targetPort: 8080

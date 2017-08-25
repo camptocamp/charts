@@ -1,34 +1,26 @@
 apiVersion: {{ .Values.api_version }}
 kind: DeploymentConfig
 metadata:
+  name: {{ template "ruby-ex.fullname" . }}
   labels:
-    app: ruby-ex
-  name: ruby-ex
+    {{- include "ruby-ex.release_labels" . | indent 4 }}
 spec:
   replicas: 1
   selector:
-    app: ruby-ex
-    deploymentconfig: ruby-ex
+    app: {{ template "ruby-ex.fullname" . }}
+    deploymentconfig: {{ template "ruby-ex.fullname" . }}
   strategy:
-    activeDeadlineSeconds: 21600
     resources: {}
-    rollingParams:
-      intervalSeconds: 1
-      maxSurge: 25%
-      maxUnavailable: 25%
-      timeoutSeconds: 600
-      updatePeriodSeconds: 1
-    type: Rolling
   template:
     metadata:
       labels:
-        app: ruby-ex
-        deploymentconfig: ruby-ex
+        app: {{ template "ruby-ex.fullname" . }}
+        deploymentconfig: {{ template "ruby-ex.fullname" . }}
     spec:
       containers:
-      - image: ruby-ex:latest
+      - image: {{ template "ruby-ex.fullname" . }}:latest
         imagePullPolicy: Always
-        name: ruby-ex
+        name: {{ template "ruby-ex.fullname" . }}
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -37,8 +29,8 @@ spec:
   - imageChangeParams:
       automatic: true
       containerNames:
-      - ruby-ex
+      - {{ template "ruby-ex.fullname" . }}
       from:
         kind: ImageStreamTag
-        name: ruby-ex:latest
+        name: {{ template "ruby-ex.fullname" . }}:latest
     type: ImageChange
