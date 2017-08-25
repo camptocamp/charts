@@ -21,6 +21,9 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 
 {{- define "ruby-ex.release_labels" }}
 app: {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 }}
+chart: {{ .Chart.Name }}
 version: {{ .Chart.Version }}
 release: {{ .Release.Name }}
+author: {{ .Values.author }}
+website: {{ .Values.website }}
 {{- end }}
