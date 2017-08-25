@@ -6,7 +6,7 @@ metadata:
     {{- include "ruby-ex.release_labels" . | indent 4 }}
 spec:
   ports:
-  - name: {{ .Values.service.port }}-{{ .Values.service.protocol }}
+  - name: "{{ .Values.service.port }}-{{ .Values.service.protocol | lower }}"
     port: {{ .Values.service.port }}
     protocol: {{ .Values.service.protocol }}
     targetPort: {{ .Values.service.targetPort }}
