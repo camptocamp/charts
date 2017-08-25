@@ -2,8 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-author: "Marc Sutter - Camptocamp SA"
-website: https://www.camptocamp.com/
+author: "marc.sutter@camptocamp.com"
 
 api_version: openshift.org/v1
 

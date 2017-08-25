@@ -25,5 +25,4 @@ chart: {{ .Chart.Name }}
 version: {{ .Chart.Version }}
 release: {{ .Release.Name }}
 author: {{ .Values.author }}
-website: {{ .Values.website }}
 {{- end }}
