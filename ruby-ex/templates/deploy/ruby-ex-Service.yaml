@@ -1,0 +1,15 @@
+apiVersion: {{ .Values.api_version }}
+kind: Service
+metadata:
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ruby-ex
+    deploymentconfig: ruby-ex

@@ -1,0 +1,465 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: ruby-ex
+    name: ruby-ex
+  spec:
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ruby-ex:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      git:
+        uri: https://github.com/openshift/ruby-ex.git
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: ruby-22-centos7:latest
+      type: Source
+    triggers:
+    - github:
+        secret: 4-qakZeDG_5smOQS3AkK
+      type: GitHub
+    - generic:
+        secret: dQZ2AlWnEGQtryky5IWB
+      type: Generic
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+- apiVersion: v1
+  kind: Build
+  metadata:
+    annotations:
+      openshift.io/build-config.name: ruby-ex
+      openshift.io/build.number: "1"
+      openshift.io/build.pod-name: ruby-ex-1-build
+    creationTimestamp: null
+    labels:
+      app: ruby-ex
+      buildconfig: ruby-ex
+      openshift.io/build-config.name: ruby-ex
+      openshift.io/build.start-policy: Serial
+    name: ruby-ex-1
+  spec:
+    nodeSelector: null
+    output:
+      pushSecret:
+        name: builder-dockercfg-8sfgz
+      to:
+        kind: ImageStreamTag
+        name: ruby-ex:latest
+    postCommit: {}
+    resources: {}
+    revision:
+      git:
+        author:
+          email: bparees@users.noreply.github.com
+          name: Ben Parees
+        commit: 1f3d5b79af5f18c126630af2d4d1b0b1eb25bec7
+        committer:
+          email: noreply@github.com
+          name: GitHub
+        message: 'Merge pull request #12 from coreydaley/adding_toc'
+      type: Git
+    serviceAccount: builder
+    source:
+      git:
+        uri: https://github.com/openshift/ruby-ex.git
+      type: Git
+    strategy:
+      sourceStrategy:
+        from:
+          kind: DockerImage
+          name: centos/ruby-22-centos7@sha256:2cab0129848e2759f5438678fc42b1ce3123e7f48c5bba5f3431bcb333992678
+      type: Source
+    triggeredBy:
+    - imageChangeBuild:
+        fromRef:
+          kind: ImageStreamTag
+          name: ruby-22-centos7:latest
+        imageID: centos/ruby-22-centos7@sha256:2cab0129848e2759f5438678fc42b1ce3123e7f48c5bba5f3431bcb333992678
+      message: Image change
+  status:
+    config:
+      name: ruby-ex
+    output:
+      to:
+        imageDigest: sha256:b16158862a7f1da6f1e1f0b5002dd020f8beffcf61bca716dc0cb504a38c5568
+    phase: New
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/image.dockerRepositoryCheck: 2017-08-25T09:00:44Z
+    creationTimestamp: null
+    generation: 2
+    labels:
+      app: ruby-ex
+    name: ruby-22-centos7
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations:
+        openshift.io/imported-from: centos/ruby-22-centos7
+      from:
+        kind: DockerImage
+        name: 172.30.26.108:5000/testhelm2/ruby-22-centos7:latest
+      generation: 2
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: Source
+  status:
+    dockerImageRepository: ""
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: ruby-ex
+    name: ruby-ex
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: 172.30.26.108:5000/testhelm2/ruby-ex:latest
+      generation: null
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: ""
+  status:
+    dockerImageRepository: ""
+- apiVersion: v1
+  kind: DeploymentConfig
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: ruby-ex
+    name: ruby-ex
+  spec:
+    replicas: 1
+    selector:
+      app: ruby-ex
+      deploymentconfig: ruby-ex
+    strategy:
+      activeDeadlineSeconds: 21600
+      resources: {}
+      rollingParams:
+        intervalSeconds: 1
+        maxSurge: 25%
+        maxUnavailable: 25%
+        timeoutSeconds: 600
+        updatePeriodSeconds: 1
+      type: Rolling
+    template:
+      metadata:
+        annotations:
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: ruby-ex
+          deploymentconfig: ruby-ex
+      spec:
+        containers:
+        - image: 172.30.26.108:5000/testhelm2/ruby-ex@sha256:b16158862a7f1da6f1e1f0b5002dd020f8beffcf61bca716dc0cb504a38c5568
+          imagePullPolicy: Always
+          name: ruby-ex
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+    test: false
+    triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+        - ruby-ex
+        from:
+          kind: ImageStreamTag
+          name: ruby-ex:latest
+          namespace: testhelm2
+      type: ImageChange
+  status:
+    availableReplicas: 0
+    latestVersion: 0
+    observedGeneration: 0
+    replicas: 0
+    unavailableReplicas: 0
+    updatedReplicas: 0
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    annotations:
+      openshift.io/deployer-pod.name: ruby-ex-1-deploy
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: ruby-ex
+      openshift.io/deployment.phase: Complete
+      openshift.io/deployment.replicas: "1"
+      openshift.io/deployment.status-reason: image change
+      openshift.io/encoded-deployment-config: |
+        {"kind":"DeploymentConfig","apiVersion":"v1","metadata":{"name":"ruby-ex","namespace":"testhelm2","selfLink":"/oapi/v1/namespaces/testhelm2/deploymentconfigs/ruby-ex","uid":"e069a6e9-8973-11e7-95f8-fa163ec07f11","resourceVersion":"4748482","generation":2,"creationTimestamp":"2017-08-25T09:00:43Z","labels":{"app":"ruby-ex"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"strategy":{"type":"Rolling","rollingParams":{"updatePeriodSeconds":1,"intervalSeconds":1,"timeoutSeconds":600,"maxUnavailable":"25%","maxSurge":"25%"},"resources":{},"activeDeadlineSeconds":21600},"triggers":[{"type":"ConfigChange"},{"type":"ImageChange","imageChangeParams":{"automatic":true,"containerNames":["ruby-ex"],"from":{"kind":"ImageStreamTag","namespace":"testhelm2","name":"ruby-ex:latest"},"lastTriggeredImage":"172.30.26.108:5000/testhelm2/ruby-ex@sha256:b16158862a7f1da6f1e1f0b5002dd020f8beffcf61bca716dc0cb504a38c5568"}}],"replicas":1,"test":false,"selector":{"app":"ruby-ex","deploymentconfig":"ruby-ex"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"ruby-ex","deploymentconfig":"ruby-ex"},"annotations":{"openshift.io/generated-by":"OpenShiftNewApp"}},"spec":{"containers":[{"name":"ruby-ex","image":"172.30.26.108:5000/testhelm2/ruby-ex@sha256:b16158862a7f1da6f1e1f0b5002dd020f8beffcf61bca716dc0cb504a38c5568","ports":[{"containerPort":8080,"protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","imagePullPolicy":"Always"}],"restartPolicy":"Always","terminationGracePeriodSeconds":30,"dnsPolicy":"ClusterFirst","securityContext":{}}}},"status":{"latestVersion":1,"observedGeneration":1,"replicas":0,"updatedReplicas":0,"availableReplicas":0,"unavailableReplicas":0,"details":{"message":"image change","causes":[{"type":"ImageChange","imageTrigger":{"from":{"kind":"ImageStreamTag","namespace":"testhelm2","name":"ruby-ex:latest"}}}]},"conditions":[{"type":"Available","status":"False","lastUpdateTime":"2017-08-25T09:00:43Z","lastTransitionTime":"2017-08-25T09:00:43Z","message":"Deployment config does not have minimum availability."}]}}
+    creationTimestamp: null
+    generation: 1
+    labels:
+      app: ruby-ex
+      openshift.io/deployment-config.name: ruby-ex
+    name: ruby-ex-1
+  spec:
+    replicas: 1
+    selector:
+      app: ruby-ex
+      deployment: ruby-ex-1
+      deploymentconfig: ruby-ex
+    template:
+      metadata:
+        annotations:
+          openshift.io/deployment-config.latest-version: "1"
+          openshift.io/deployment-config.name: ruby-ex
+          openshift.io/deployment.name: ruby-ex-1
+          openshift.io/generated-by: OpenShiftNewApp
+        creationTimestamp: null
+        labels:
+          app: ruby-ex
+          deployment: ruby-ex-1
+          deploymentconfig: ruby-ex
+      spec:
+        containers:
+        - image: 172.30.26.108:5000/testhelm2/ruby-ex@sha256:b16158862a7f1da6f1e1f0b5002dd020f8beffcf61bca716dc0cb504a38c5568
+          imagePullPolicy: Always
+          name: ruby-ex
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    replicas: 0
+- apiVersion: v1
+  kind: Route
+  metadata:
+    annotations:
+      openshift.io/host.generated: "true"
+    creationTimestamp: null
+    name: ruby-ex
+  spec:
+    host: ruby-ex-testhelm2.cloudapp.openshift-poc.camptocamp.com
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: ruby-ex
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+    - conditions:
+      - lastTransitionTime: 2017-08-25T09:05:23Z
+        status: "True"
+        type: Admitted
+      host: ruby-ex-testhelm2.cloudapp.openshift-poc.camptocamp.com
+      routerName: router
+      wildcardPolicy: None
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewApp
+    creationTimestamp: null
+    labels:
+      app: ruby-ex
+    name: ruby-ex
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: ruby-ex
+      deploymentconfig: ruby-ex
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      openshift.io/build.name: ruby-ex-1
+      openshift.io/scc: privileged
+    creationTimestamp: null
+    labels:
+      openshift.io/build.name: ruby-ex-1
+    name: ruby-ex-1-build
+  spec:
+    containers:
+    - args:
+      - --loglevel=0
+      env:
+      - name: BUILD
+        value: |
+          {"kind":"Build","apiVersion":"v1","metadata":{"name":"ruby-ex-1","namespace":"testhelm2","selfLink":"/oapi/v1/namespaces/testhelm2/builds/ruby-ex-1","uid":"e125c86f-8973-11e7-8eb6-fa163e4d70a9","resourceVersion":"4748408","creationTimestamp":"2017-08-25T09:00:44Z","labels":{"app":"ruby-ex","buildconfig":"ruby-ex","openshift.io/build-config.name":"ruby-ex","openshift.io/build.start-policy":"Serial"},"annotations":{"openshift.io/build-config.name":"ruby-ex","openshift.io/build.number":"1"}},"spec":{"serviceAccount":"builder","source":{"type":"Git","git":{"uri":"https://github.com/openshift/ruby-ex.git"}},"strategy":{"type":"Source","sourceStrategy":{"from":{"kind":"DockerImage","name":"centos/ruby-22-centos7@sha256:2cab0129848e2759f5438678fc42b1ce3123e7f48c5bba5f3431bcb333992678"}}},"output":{"to":{"kind":"DockerImage","name":"172.30.26.108:5000/testhelm2/ruby-ex:latest"},"pushSecret":{"name":"builder-dockercfg-8sfgz"}},"resources":{},"postCommit":{},"nodeSelector":null,"triggeredBy":[{"message":"Image change","imageChangeBuild":{"imageID":"centos/ruby-22-centos7@sha256:2cab0129848e2759f5438678fc42b1ce3123e7f48c5bba5f3431bcb333992678","fromRef":{"kind":"ImageStreamTag","name":"ruby-22-centos7:latest"}}}]},"status":{"phase":"New","outputDockerImageReference":"172.30.26.108:5000/testhelm2/ruby-ex:latest","config":{"kind":"BuildConfig","namespace":"testhelm2","name":"ruby-ex"},"output":{}}}
+      - name: SOURCE_REPOSITORY
+        value: https://github.com/openshift/ruby-ex.git
+      - name: SOURCE_URI
+        value: https://github.com/openshift/ruby-ex.git
+      - name: ORIGIN_VERSION
+        value: v1.5.1
+      - name: ALLOWED_UIDS
+        value: 1-
+      - name: DROP_CAPS
+        value: KILL,MKNOD,SETGID,SETUID,SYS_CHROOT
+      - name: PUSH_DOCKERCFG_PATH
+        value: /var/run/secrets/openshift.io/push
+      image: openshift/origin-sti-builder:v1.5.1
+      imagePullPolicy: IfNotPresent
+      name: sti-build
+      resources: {}
+      securityContext:
+        privileged: true
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/docker.sock
+        name: docker-socket
+      - mountPath: /var/run/secrets/openshift.io/push
+        name: builder-dockercfg-8sfgz-push
+        readOnly: true
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: builder-token-rfkdv
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: builder-dockercfg-8sfgz
+    nodeName: node1.internal
+    nodeSelector:
+      env: app
+    restartPolicy: Never
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: builder
+    serviceAccountName: builder
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - hostPath:
+        path: /var/run/docker.sock
+      name: docker-socket
+    - name: builder-dockercfg-8sfgz-push
+      secret:
+        defaultMode: 420
+        secretName: builder-dockercfg-8sfgz
+    - name: builder-token-rfkdv
+      secret:
+        defaultMode: 420
+        secretName: builder-token-rfkdv
+  status:
+    phase: Pending
+    qosClass: BestEffort
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      kubernetes.io/created-by: |
+        {"kind":"SerializedReference","apiVersion":"v1","reference":{"kind":"ReplicationController","namespace":"testhelm2","name":"ruby-ex-1","uid":"029c385d-8974-11e7-8eb6-fa163e4d70a9","apiVersion":"v1","resourceVersion":"4748503"}}
+      openshift.io/deployment-config.latest-version: "1"
+      openshift.io/deployment-config.name: ruby-ex
+      openshift.io/deployment.name: ruby-ex-1
+      openshift.io/generated-by: OpenShiftNewApp
+      openshift.io/scc: restricted
+    creationTimestamp: null
+    generateName: ruby-ex-1-
+    labels:
+      app: ruby-ex
+      deployment: ruby-ex-1
+      deploymentconfig: ruby-ex
+  spec:
+    containers:
+    - image: 172.30.26.108:5000/testhelm2/ruby-ex@sha256:b16158862a7f1da6f1e1f0b5002dd020f8beffcf61bca716dc0cb504a38c5568
+      imagePullPolicy: Always
+      name: ruby-ex
+      ports:
+      - containerPort: 8080
+        protocol: TCP
+      resources: {}
+      securityContext:
+        capabilities:
+          drop:
+          - KILL
+          - MKNOD
+          - SETGID
+          - SETUID
+          - SYS_CHROOT
+        privileged: false
+        seLinuxOptions:
+          level: s0:c18,c2
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: default-token-zldzf
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    imagePullSecrets:
+    - name: default-dockercfg-j2m6z
+    nodeName: node1.internal
+    nodeSelector:
+      env: app
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext:
+      fsGroup: 1000310000
+      seLinuxOptions:
+        level: s0:c18,c2
+    serviceAccount: default
+    serviceAccountName: default
+    terminationGracePeriodSeconds: 30
+    volumes:
+    - name: default-token-zldzf
+      secret:
+        defaultMode: 420
+        secretName: default-token-zldzf
+  status:
+    phase: Pending
+    qosClass: BestEffort
+kind: List
+metadata: {}

@@ -1,0 +1,17 @@
+apiVersion: {{ .Values.api_version }}
+kind: ImageStream
+metadata:
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - annotations: null
+    from:
+      kind: DockerImage
+      name: ruby-ex:latest
+    generation: null
+    importPolicy: {}
+    name: latest

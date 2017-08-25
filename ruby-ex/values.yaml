@@ -1,0 +1,15 @@
+# Default values for ruby-ex.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+api_version: openshift.org/v1
+
+source:
+  git:
+    uri: https://github.com/openshift/ruby-ex.git  
+
+builder:
+  image:
+    repository: centos/ruby-22-centos7
+    tag: 'latest'
+
+

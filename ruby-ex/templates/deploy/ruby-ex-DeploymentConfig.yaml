@@ -1,0 +1,44 @@
+apiVersion: {{ .Values.api_version }}
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+spec:
+  replicas: 1
+  selector:
+    app: ruby-ex
+    deploymentconfig: ruby-ex
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: ruby-ex
+        deploymentconfig: ruby-ex
+    spec:
+      containers:
+      - image: ruby-ex:latest
+        imagePullPolicy: Always
+        name: ruby-ex
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - ruby-ex
+      from:
+        kind: ImageStreamTag
+        name: ruby-ex:latest
+    type: ImageChange

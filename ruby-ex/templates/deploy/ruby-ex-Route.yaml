@@ -1,0 +1,8 @@
+apiVersion: {{ .Values.api_version }}
+kind: Route
+metadata:
+  name: ruby-ex
+spec:
+  to:
+    kind: Service
+    name: ruby-ex

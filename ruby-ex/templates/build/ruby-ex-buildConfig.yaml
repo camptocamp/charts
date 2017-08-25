@@ -1,0 +1,31 @@
+apiVersion: {{ .Values.api_version }}
+kind: BuildConfig
+metadata:
+  labels:
+    app: ruby-ex
+  name: ruby-ex
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: ruby-ex:latest
+  source:
+    git:
+      uri: https://github.com/openshift/ruby-ex.git
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: ruby-22-centos7:latest
+    type: Source
+  triggers:
+  - github:
+      secret: 4-qakZeDG_5smOQS3AkK
+    type: GitHub
+  - generic:
+      secret: dQZ2AlWnEGQtryky5IWB
+    type: Generic
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange
