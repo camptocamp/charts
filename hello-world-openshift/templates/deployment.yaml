@@ -1,4 +1,4 @@
-apiVersion: {{ .Values.api_version }}
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: {{ template "chart.full_name" . }}

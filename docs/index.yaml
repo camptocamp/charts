@@ -1,27 +1,27 @@
 apiVersion: v1
 entries:
   hello-world:
-  - created: 2017-08-25T10:41:23.480353217+02:00
+  - created: 2017-08-25T10:47:59.082537664+02:00
     digest: b8789ade3c328b75e4e915d7c8113ae80d01a0c58a3535633317c750aec0b120
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: 2017-08-25T10:41:23.479895761+02:00
+  - created: 2017-08-25T10:47:59.082064447+02:00
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
   hello-world-openshift:
-  - created: 2017-08-25T10:41:23.48052433+02:00
-    digest: 00d37f7f81379fd604859cecd8ef27adb871dd468970b74c6f3094a9130dcc09
+  - created: 2017-08-25T10:47:59.08321179+02:00
+    digest: 7eac4132849902afb983e1c9e9d612962b95ebd34a7e1aaecb4bd67df85ce4e6
     name: hello-world-openshift
     urls:
     - https://camptocamp.github.io/charts/hello-world-openshift-1.0.1.tgz
     version: 1.0.1
   mariadb:
-  - created: 2017-08-25T10:41:23.48176393+02:00
+  - created: 2017-08-25T10:47:59.084418479+02:00
     description: Fast, reliable, scalable, and easy to use open-source relational
       database system. MariaDB Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -44,7 +44,7 @@ entries:
     - https://camptocamp.github.io/charts/mariadb-1.0.0.tgz
     version: 1.0.0
   postgresql:
-  - created: 2017-08-25T10:41:23.482783315+02:00
+  - created: 2017-08-25T10:47:59.085472569+02:00
     description: |
       Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
       Patched version for pvc
@@ -67,7 +67,7 @@ entries:
     version: 0.7.1
   wordpress:
   - appVersion: 4.8.1
-    created: 2017-08-25T10:41:23.484305174+02:00
+    created: 2017-08-25T10:47:59.086995405+02:00
     description: Web publishing platform for building blogs and websites.
     digest: b4e970d4b6c76912c65ce03979c635dc46cd01908cadcc7230c53a98a87697a3
     engine: gotpl
@@ -90,4 +90,4 @@ entries:
     urls:
     - https://camptocamp.github.io/charts/wordpress-0.6.10.tgz
     version: 0.6.10
-generated: 2017-08-25T10:41:23.479329041+02:00
+generated: 2017-08-25T10:47:59.081468963+02:00

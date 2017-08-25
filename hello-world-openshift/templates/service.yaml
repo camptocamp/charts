@@ -1,4 +1,4 @@
-apiVersion: {{ .Values.api_version }}
+apiVersion: v1
 kind: Service
 metadata:
   name: {{ template "chart.full_name" . }}
