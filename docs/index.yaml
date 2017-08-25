@@ -1,27 +1,27 @@
 apiVersion: v1
 entries:
   hello-world:
-  - created: 2017-08-25T12:14:06.179268135+02:00
+  - created: 2017-08-25T12:20:35.709037996+02:00
     digest: b8789ade3c328b75e4e915d7c8113ae80d01a0c58a3535633317c750aec0b120
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: 2017-08-25T12:14:06.178748329+02:00
+  - created: 2017-08-25T12:20:35.708187156+02:00
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
   hello-world-openshift:
-  - created: 2017-08-25T12:14:06.179772016+02:00
+  - created: 2017-08-25T12:20:35.709863398+02:00
     digest: 7eac4132849902afb983e1c9e9d612962b95ebd34a7e1aaecb4bd67df85ce4e6
     name: hello-world-openshift
     urls:
     - https://camptocamp.github.io/charts/hello-world-openshift-1.0.1.tgz
     version: 1.0.1
   mariadb:
-  - created: 2017-08-25T12:14:06.181008601+02:00
+  - created: 2017-08-25T12:20:35.711707723+02:00
     description: Fast, reliable, scalable, and easy to use open-source relational
       database system. MariaDB Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -44,7 +44,7 @@ entries:
     - https://camptocamp.github.io/charts/mariadb-1.0.0.tgz
     version: 1.0.0
   postgresql:
-  - created: 2017-08-25T12:14:06.182295411+02:00
+  - created: 2017-08-25T12:20:35.713067135+02:00
     description: |
       Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
       Patched version for pvc
@@ -67,7 +67,15 @@ entries:
     version: 0.7.1
   ruby-ex:
   - apiVersion: v1
-    created: 2017-08-25T12:14:06.183885731+02:00
+    created: 2017-08-25T12:20:35.715135676+02:00
+    description: A Helm chart for ruby-ex on Openshift
+    digest: 03a01d6436839b19518688f69dd66853463c5bf21bd832b84cc9ee4948ab49da
+    name: ruby-ex
+    urls:
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v1
+    created: 2017-08-25T12:20:35.714844667+02:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 9898891aa16aec9d46ee20950b1e21afad87a241827451332300c8b23276c0cf
     name: ruby-ex
@@ -75,7 +83,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v1
-    created: 2017-08-25T12:14:06.183601781+02:00
+    created: 2017-08-25T12:20:35.714299462+02:00
     description: A Helm chart for ruby-ex on Openshift
     digest: b96879594f16c47cd0afa58b8f2135cfd01b6815e8fe6a95424a43d174b1e774
     name: ruby-ex
@@ -83,7 +91,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v1
-    created: 2017-08-25T12:14:06.18302151+02:00
+    created: 2017-08-25T12:20:35.713698352+02:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 19b67a445f4bccc71d6602a5293c3e3e213e92519cb3266af41fd1754528636f
     name: ruby-ex
@@ -92,7 +100,7 @@ entries:
     version: 0.0.1
   wordpress:
   - appVersion: 4.8.1
-    created: 2017-08-25T12:14:06.185604519+02:00
+    created: 2017-08-25T12:20:35.717711951+02:00
     description: Web publishing platform for building blogs and websites.
     digest: b4e970d4b6c76912c65ce03979c635dc46cd01908cadcc7230c53a98a87697a3
     engine: gotpl
@@ -115,4 +123,4 @@ entries:
     urls:
     - https://camptocamp.github.io/charts/wordpress-0.6.10.tgz
     version: 0.6.10
-generated: 2017-08-25T12:14:06.178097413+02:00
+generated: 2017-08-25T12:20:35.706084464+02:00
