@@ -2,7 +2,6 @@
 {{- printf "%s-%s" .Release.Name .Chart.Name | trunc 63 -}}
 {{- end -}}
 
-
 {{- define "chart.release_labels" }}
 app: {{ printf "%s-%s" .Release.Name .Chart.Name | trunc 63 }}
 version: {{ .Chart.Version }}
