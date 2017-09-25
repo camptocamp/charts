@@ -1,4 +1,4 @@
-apiVersion: {{ .Values.api_version }}
+apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: {{ template "ruby-ex.fullname" . }}

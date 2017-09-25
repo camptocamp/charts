@@ -1,4 +1,4 @@
-apiVersion: {{ .Values.api_version }}
+apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: {{ template "ruby-ex.fullname" . }}
