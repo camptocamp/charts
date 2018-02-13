@@ -1,0 +1,32 @@
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app: {{ template "name" . }}
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ template "fullname" . }}:no-mco
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/camptocamp/docker-r10k-webhook.git
+      ref: no-mco
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: {{ template "fullname" . }}-debian:jessie
+      forcePull: true
+    type: Docker
+  triggers:
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange

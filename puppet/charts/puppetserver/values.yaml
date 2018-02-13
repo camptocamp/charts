@@ -1,0 +1,17 @@
+---
+dnsAltNames: puppet
+javaArgs: ""
+
+persistence:
+  puppetca:
+    accessMode: ReadWriteMany
+    size: 100Mi
+    storageClass: "-"
+  puppetcode:
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: "-"
+  r10kcache:
+    accessMode: ReadWriteMany
+    size: 500Mi
+    storageClass: "-"
