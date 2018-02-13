@@ -1,0 +1,10 @@
+image: camptocamp/pghoard
+imageTag: "10"
+
+persistence:
+  accessMode: ReadWriteOnce
+  size: 100Mi
+
+objectStorage:
+  storageType: local
+  directory: /var/lib/pghoard/backups

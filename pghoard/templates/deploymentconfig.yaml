@@ -1,0 +1,60 @@
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app: {{ template "name" . }}
+spec:
+  replicas: 1
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - image: ' '
+          command: ["pghoard"]
+          args: ["--config", "/etc/pghoard/pghoard.json"]
+          name: pghoard
+          env:
+            - name: PGHOST
+              value: {{ .Values.postgresql.host }}
+            - name: PGPORT
+              value: "{{ .Values.postgresql.port }}"
+            - name: PGUSER
+              value: {{ .Values.postgresql.user }}
+            - name: PGPASSWORD
+              value: {{ .Values.postgresql.password | quote }}
+            - name: PGPASSFILE
+              value: /home/postgres/.pgpass
+          resources: {}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/pghoard
+            - name: pghoard
+              mountPath: /var/lib/pghoard
+      restartPolicy: Always
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "fullname" . }}
+        - name: pghoard
+          persistentVolumeClaim:
+            claimName: {{ template "fullname" . }}
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - pghoard
+        from:
+          kind: ImageStreamTag
+          name: {{ template "fullname" . }}:{{ .Values.imageTag }}
+      type: ImageChange
