@@ -1,0 +1,29 @@
+# Default values for openshift-projects.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+projects:
+  dt-ftth-cicd:
+    description: |-
+      Deutsche Telekom - Fiber to the Home
+      Continuous integration and deployement project
+    tiller: true
+  dt-ftth-dev:
+    description: |-
+      Deutsche Telekom Fiber to the Home
+      Developement project
+    tiller: true
+  dt-ftth-int:
+    description: |-
+      Deutsche Telekom Fiber to the Home
+      Integration project
+    tiller: true
+  dt-ftth-prd:
+    description: |-
+      Deutsche Telekom Fiber to the Home
+      Production project
+    tiller: true
+
+tiller:
+  image: gcr.io/kubernetes-helm/tiller
+  tag: v2.8.1

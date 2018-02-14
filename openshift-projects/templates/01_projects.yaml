@@ -1,0 +1,21 @@
+{{ $root := . }}
+apiVersion: v1
+items:
+{{- range $key, $value := .Values.projects }}
+- apiVersion: project.openshift.io/v1
+  kind: Project
+  metadata:
+    annotations:
+      openshift.io/description: |
+{{ $value.description | indent 8 }}
+      openshift.io/display-name: {{ $key }}
+    labels:
+{{ include "common.labels.standard" $root | indent 6 }}
+    creationTimestamp: null
+    name: {{ $key }}
+  spec:
+    finalizers:
+    - openshift.io/origin
+    - kubernetes
+{{- end }}
+kind: List

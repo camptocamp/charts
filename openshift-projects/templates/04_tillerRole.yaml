@@ -1,0 +1,24 @@
+{{ $root := . }}
+apiVersion: v1
+items:
+{{- range $key, $value := .Values.projects }}
+  {{- if $value.tiller }}
+- kind: Role
+  apiVersion: authorization.openshift.io/v1
+  metadata:
+    labels:
+{{ include "common.labels.standard" $root | indent 6 }}
+    name: tiller
+    namespace: {{ $key }}
+  rules:
+  - apiGroups: ["*"]
+    resources: ["*"]
+    verbs: ["*"]
+  spec:
+    finalizers:
+    - openshift.io/origin
+    - kubernetes
+  {{- end }}
+{{- end }}
+kind: List
+
