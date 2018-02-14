@@ -2,18 +2,26 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-projects:
-  myproject1:
-    description: |-
-      My Project One
-      This is my first Project
-    tiller: true
-  myproject2:
-    description: |-
-      My Project One
-      This is my first Project
-    tiller: true
 
+projects: {}
+# To define your own projects, remove the line 'projects: {}' and add your own definitions
+# you can set tiller to false to avoid a tiller deploy in the projects.
+#
+# example:
+#
+# projects:
+#   myproject1:
+#     description: |-
+#       My Project One
+#       This is my first Project
+#     tiller: true
+#   myproject2:
+#     description: |-
+#       My Project One
+#       This is my first Project
+#     tiller: true
+
+# Set the image and version tag of the tiller image to use
 tiller:
   image: gcr.io/kubernetes-helm/tiller
   tag: v2.8.1
