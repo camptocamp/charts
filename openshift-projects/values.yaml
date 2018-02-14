@@ -3,25 +3,15 @@
 # Declare variables to be passed into your templates.
 
 projects:
-  dt-ftth-cicd:
+  myproject1:
     description: |-
-      Deutsche Telekom - Fiber to the Home
-      Continuous integration and deployement project
+      My Project One
+      This is my first Project
     tiller: true
-  dt-ftth-dev:
+  myproject2:
     description: |-
-      Deutsche Telekom Fiber to the Home
-      Developement project
-    tiller: true
-  dt-ftth-int:
-    description: |-
-      Deutsche Telekom Fiber to the Home
-      Integration project
-    tiller: true
-  dt-ftth-prd:
-    description: |-
-      Deutsche Telekom Fiber to the Home
-      Production project
+      My Project One
+      This is my first Project
     tiller: true
 
 tiller:
