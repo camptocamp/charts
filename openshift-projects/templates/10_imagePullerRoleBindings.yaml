@@ -12,7 +12,6 @@ items:
     namespace: {{ $key }}
   roleRef:
     name: system:image-puller
-    namespace: {{ $key }}
   subjects:
   {{- range $key, $value := $root.Values.projects }}
     {{- if $value.tillerUserAccess }}
