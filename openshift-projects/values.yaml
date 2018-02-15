@@ -4,24 +4,58 @@
 
 
 projects: {}
-# To define your own projects, remove the line 'projects: {}' and add your own definitions
-# you can set tiller to false to avoid a tiller deploy in the projects.
+# To define your own projects, remove the line 'projects: {}' and add your own
+# definitions.
+# 
+# you can set tiller to false in the projects definitions to avoid
+#  a tiller deploy in the projects.
 #
+# You can also enable the creation of a service account who has access to all
+# deployed tillers. When running a helm client in a pod, in order for the helm
+# client to talk to a tiller instance, it will need certain privileges to be
+# granted. Specifically, the helm client will need to be able to:
+#   - forward ports
+#   - list pods in the namespace where tiller is running (so it can find tiller).
+#
+# Use this if you need a tiller-user who needs to deploy to other projects
+# This will create a serviceAccount with the needed rights to access all tiller
+# in each projects. The Service Account name is defined in the tiller definition.
+# 
+# In short:
+#  - enable a tiller deployment with 'tiller: true'
+#    in the 'projects' definitions
+#  - define the project to host the service account with 'tillerUserBase: true'
+#    in the 'projects' definitions
+#  - enable Access on other projects with 'tillerUserAccess: true'.
+#    in the 'projects' definitions
+#  - set the tiller service account name with 'tillerUserServiceAccountName'
+#    in the 'tiller' definitions
+# 
 # example:
 #
 # projects:
+#   my_cicd_project:
+#     description: |-
+#       CICD Project
+#       This is my cicd Project
+#     tiller: true
+#     tillerUserBase: true
 #   myproject1:
 #     description: |-
 #       My Project One
 #       This is my first Project
 #     tiller: true
+#     tillerUserAccess: true
 #   myproject2:
 #     description: |-
 #       My Project One
 #       This is my first Project
 #     tiller: true
+#     tillerUserAccess: true
 
-# Set the image and version tag of the tiller image to use
+
+# Set the image, version tag and tiller user service account name for tiller
 tiller:
   image: gcr.io/kubernetes-helm/tiller
   tag: v2.8.1
+  # tillerUserServiceAccountName: jenkins
