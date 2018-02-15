@@ -1,0 +1,29 @@
+{{ $root := . }}
+apiVersion: v1
+items:
+{{- range $key, $value := .Values.projects }}
+  {{- if eq $key $root.Values.tiller.tillerUserServiceAccountNamespace }}
+- kind: RoleBinding
+  apiVersion: authorization.openshift.io/v1
+  metadata:
+    labels:
+{{ include "common.labels.standard" $root | indent 6 }}
+    name: image-puller-binding
+    namespace: {{ $key }}
+  roleRef:
+    name: system:image-puller
+    namespace: {{ $key }}
+  subjects:
+  {{- range $key, $value := $root.Values.projects }}
+    {{- if $value.tillerUserAccess }}
+  - kind: SystemGroup
+    name: system:serviceaccounts:{{ $key }}
+    {{- end}}
+  {{- end}}
+  spec:
+    finalizers:
+    - openshift.io/origin
+    - kubernetes
+  {{- end }}
+{{- end }}
+kind: List

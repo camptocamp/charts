@@ -21,14 +21,19 @@ projects: {}
 # This will create a serviceAccount with the needed rights to access all tiller
 # in each projects. The Service Account name is defined in the tiller definition.
 # 
+# Also the system:image-puller role should be granted to all projects who needs
+# to pull an image from the base project, the one how is building images.
+# If you define a tiller user service account, the image-puller access will also 
+# be configured.
+#
 # In short:
 #  - enable a tiller deployment with 'tiller: true'
-#    in the 'projects' definitions
-#  - define the project to host the service account with 'tillerUserBase: true'
 #    in the 'projects' definitions
 #  - enable Access on other projects with 'tillerUserAccess: true'.
 #    in the 'projects' definitions
 #  - set the tiller service account name with 'tillerUserServiceAccountName'
+#    in the 'tiller' definitions
+#  - define the project to host the service account with 'tillerUserServiceAccountNamespace'
 #    in the 'tiller' definitions
 # 
 # example:
@@ -39,7 +44,6 @@ projects: {}
 #       CICD Project
 #       This is my cicd Project
 #     tiller: true
-#     tillerUserBase: true
 #   myproject1:
 #     description: |-
 #       My Project One
@@ -58,4 +62,5 @@ projects: {}
 tiller:
   image: gcr.io/kubernetes-helm/tiller
   tag: v2.8.1
-  # tillerUserServiceAccountName: jenkins
+  # tillerUserServiceAccountName: cicd-deployer
+  # tillerUserServiceAccountNamespace: dt-ftth-cicd
