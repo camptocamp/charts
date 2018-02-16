@@ -1,6 +1,6 @@
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
@@ -43,7 +43,7 @@ spec:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
                   key: id_rsa
-          image: ' '
+          image: camptocamp/r10k-webhook:no-mco
           name: r10k-webhook
           readinessProbe:
             failureThreshold: 3
@@ -66,14 +66,3 @@ spec:
         - name: r10kcache
           persistentVolumeClaim:
             claimName: puppet-puppetserver-r10kcache
-  test: false
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - r10k-webhook
-        from:
-          kind: ImageStreamTag
-          name: {{ template "fullname" . }}:no-mco
-      type: ImageChange

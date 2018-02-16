@@ -1,6 +1,6 @@
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
@@ -50,7 +50,7 @@ spec:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
                   key: database-user
-          image: ' '
+          image: camptocamp/puppetdb:5.1.4-0.3
           name: puppetdb
           resources: {}
           volumeMounts:
@@ -61,14 +61,3 @@ spec:
         - name: postgresqlca
           secret:
             secretName: {{ template "fullname" . }}
-  test: false
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - puppetdb
-        from:
-          kind: ImageStreamTag
-          name: {{ template "fullname" . }}:5.1.4-0.3
-      type: ImageChange

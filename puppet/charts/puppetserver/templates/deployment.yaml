@@ -1,6 +1,6 @@
 ---
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: extensions/v1beta1
+kind: Deployment
 metadata:
   name: {{ template "fullname" . }}
   labels:
@@ -57,7 +57,7 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: java_args
-          image: ' '
+          image: camptocamp/puppetserver:5.1.5-0.2
           name: puppet
           resources: {}
           volumeMounts:
@@ -78,14 +78,3 @@ spec:
         - name: r10kcache
           persistentVolumeClaim:
             claimName: {{ template "fullname" . }}-r10kcache
-  test: false
-  triggers:
-    - type: ConfigChange
-    - imageChangeParams:
-        automatic: true
-        containerNames:
-          - puppet
-        from:
-          kind: ImageStreamTag
-          name: {{ template "fullname" . }}:5.1.5-0.2
-      type: ImageChange

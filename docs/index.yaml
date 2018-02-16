@@ -170,6 +170,15 @@ entries:
     urls:
     - https://camptocamp.github.io/charts/puppet-1.0.0.tgz
     version: 1.0.0
+  puppet-openshift:
+  - apiVersion: v1
+    created: 2018-02-16T17:17:26.499825072+01:00
+    description: A Helm chart for Puppet on OpenShift
+    digest: a3aa46acdcf8087ab4ddc4889a76af539dcb7c6595e20753a196282bd269997d
+    name: puppet-openshift
+    urls:
+    - https://camptocamp.github.io/charts/puppet-openshift-1.0.0.tgz
+    version: 1.0.0
   ruby-ex:
   - apiVersion: v1
     created: 2018-02-16T17:37:20.896047+01:00

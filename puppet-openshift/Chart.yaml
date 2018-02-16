@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for Puppet on OpenShift
+name: puppet-openshift
+version: 1.0.0
