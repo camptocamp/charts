@@ -1,0 +1,32 @@
+# Default values for openshift-jenkins.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# Default values for openshift-jenkins.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# The name of the OpenShift Service exposed for the Jenkins container.
+jenkins_service_name: jenkins
+
+# The name of the service used for master/slave communication.
+jnlp_service_name: jenkins-jnlp
+
+# Whether to enable OAuth OpenShift integration. If false, the static
+# account 'admin' will be initialized with the password 'password'.
+enable_oauth: "true"
+
+# Maximum amount of memory the container can use.
+memory_limit: 1Gi
+
+# Volume space available for data, e.g. 512Mi, 2Gi.
+volume_capacity: 1Gi
+
+# The OpenShift Namespace where the Jenkins ImageStream resides.
+namespace: openshift
+
+# Name of the ImageStreamTag to be used for the Jenkins image.
+jenkins_image_stream_tag: "jenkins:2"
+
+# Comma-separated list of additional plugins to install on startup. The format of each plugin spec is plugin-id:version (as in plugins.txt)
+install_plugins: |
+  pipeline-utility-steps:2.0

@@ -1,0 +1,81 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    template.alpha.openshift.io/wait-for-ready: "true"
+  name: {{ .Values.jenkins_service_name | quote }}
+  label:
+{{ include "common.labels.standard" . | indent 4 }}
+spec:
+  replicas: 1
+  selector:
+    name: {{ .Values.jenkins_service_name | quote }}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: {{ .Values.jenkins_service_name | quote }}
+    spec:
+      containers:
+      - capabilities: {}
+        env:
+        - name: OPENSHIFT_ENABLE_OAUTH
+          value: {{ .Values.enable_oauth | quote }}
+        - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
+          value: "true"
+        - name: KUBERNETES_MASTER
+          value: https://kubernetes.default:443
+        - name: KUBERNETES_TRUST_CERTIFICATES
+          value: "true"
+        - name: JENKINS_SERVICE_NAME
+          value: {{ .Values.jenkins_service_name | quote }}
+        - name: JNLP_SERVICE_NAME
+          value: {{ .Values.jnlp_service_name | quote }}
+        - name: INSTALL_PLUGINS
+          value: {{ .Values.install_plugins | quote }}
+        image: ' '
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 30
+          httpGet:
+            path: /login
+            port: 8080
+          initialDelaySeconds: 420
+          timeoutSeconds: 3
+        name: jenkins
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 8080
+          initialDelaySeconds: 3
+          timeoutSeconds: 3
+        resources:
+          limits:
+            memory: {{ .Values.memory_limit | quote }}
+        securityContext:
+          capabilities: {}
+          privileged: false
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+        - mountPath: /var/lib/jenkins
+          name: {{ print .Values.jenkins_service_name "-data" | quote }}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      serviceAccountName: {{ .Values.jenkins_service_name | quote }}
+      volumes:
+      - name: {{ print .Values.jenkins_service_name "-data" | quote }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.jenkins_service_name | quote }}
+  triggers:
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - jenkins
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.jenkins_image_stream_tag | quote }}
+        namespace: {{ .Values.namespace | quote }}
+      lastTriggeredImage: ""
+    type: ImageChange
+  - type: ConfigChange

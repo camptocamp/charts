@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  annotations:
+    template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
+  name: {{ .Values.jenkins_service_name | quote }}
+  label:
+{{ include "common.labels.standard" . | indent 4 }}
+spec:
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ .Values.jenkins_service_name | quote }}

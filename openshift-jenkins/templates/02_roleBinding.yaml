@@ -1,0 +1,12 @@
+apiVersion: authorization.openshift.io/v1
+groupNames: null
+kind: RoleBinding
+metadata:
+  name: {{ print .Values.jenkins_service_name "_edit" | quote }}
+  label:
+{{ include "common.labels.standard" . | indent 4 }}
+roleRef:
+  name: edit
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.jenkins_service_name | quote }}
