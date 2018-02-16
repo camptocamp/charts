@@ -14,7 +14,7 @@ items:
     name: system:image-puller
   subjects:
   {{- range $key, $value := $root.Values.projects }}
-    {{- if $value.tillerUserAccess }}
+    {{- if $value.editAccess }}
   - kind: SystemGroup
     name: system:serviceaccounts:{{ $key }}
     {{- end}}

@@ -12,7 +12,6 @@ items:
     namespace: {{ $key }}
   roleRef:
     name: edit
-    namespace: {{ $key }}
   subjects:
   - kind: ServiceAccount
     name: {{ $root.Values.tiller.tillerUserServiceAccountName }}
