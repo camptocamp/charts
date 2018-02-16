@@ -1,5 +1,4 @@
 {{ $root := . }}
-
 apiVersion: v1
 items:
 {{- range $key, $value := .Values.projects }}
@@ -9,7 +8,7 @@ items:
   metadata:
     labels:
 {{ include "common.labels.standard" $root | indent 6 }}
-    name: tiller-user-binding
+    name: tiller-{{ $root.Values.tiller.tillerUserServiceAccountName }}-binding
     namespace: {{ $key }}
   roleRef:
     name: tiller-user

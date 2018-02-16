@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   demo-geomapfish:
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.936286+01:00
+    created: 2018-02-16T17:36:06.342895+01:00
     description: A Helm chart for Geomapfish DEMO
     digest: 69819185f209b1b6cdffaa668cc936c7f865b44e5a1580a1bcf6315e403d8c9d
     name: demo-geomapfish
@@ -10,7 +10,7 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.16.tgz
     version: 2.0.16
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.935617+01:00
+    created: 2018-02-16T17:36:06.342218+01:00
     description: A Helm chart for Geomapfish DEMO
     digest: 27f2c6025c268ab1e7e2bbdf515d70443db4726194681086a35a3ef2c6e4a557
     name: demo-geomapfish
@@ -18,7 +18,7 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.15.tgz
     version: 2.0.15
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.937096+01:00
+    created: 2018-02-16T17:36:06.343799+01:00
     description: A Helm chart for Kubernetes
     digest: adaeab8887d4c815d79a93f14ec5d30205f5deda739703fd5d5ce5ed86d5b67d
     name: demo-geomapfish
@@ -26,7 +26,7 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.4.tgz
     version: 2.0.4
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.934798+01:00
+    created: 2018-02-16T17:36:06.34136+01:00
     description: A Helm chart for Kubernetes
     digest: f574b6adcdef5b25f6392e01724c4a477e95ab02574ebcd00e7ff65cd702ec78
     name: demo-geomapfish
@@ -34,27 +34,27 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.0.tgz
     version: 2.0.0
   hello-world:
-  - created: 2018-02-16T12:23:33.938277+01:00
+  - created: 2018-02-16T17:36:06.345222+01:00
     digest: b8789ade3c328b75e4e915d7c8113ae80d01a0c58a3535633317c750aec0b120
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: 2018-02-16T12:23:33.937501+01:00
+  - created: 2018-02-16T17:36:06.34434+01:00
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
   hello-world-openshift:
-  - created: 2018-02-16T12:23:33.938988+01:00
+  - created: 2018-02-16T17:36:06.346161+01:00
     digest: 7eac4132849902afb983e1c9e9d612962b95ebd34a7e1aaecb4bd67df85ce4e6
     name: hello-world-openshift
     urls:
     - https://camptocamp.github.io/charts/hello-world-openshift-1.0.1.tgz
     version: 1.0.1
   mariadb:
-  - created: 2018-02-16T12:23:33.940481+01:00
+  - created: 2018-02-16T17:36:06.347782+01:00
     description: Fast, reliable, scalable, and easy to use open-source relational
       database system. MariaDB Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -77,7 +77,7 @@ entries:
     - https://camptocamp.github.io/charts/mariadb-1.0.0.tgz
     version: 1.0.0
   nodejs-ex:
-  - created: 2018-02-16T12:23:33.941335+01:00
+  - created: 2018-02-16T17:36:06.348865+01:00
     description: An example Node.js application with no database. For more information
       about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.
     digest: c88b5143ff0a5779d80d0116981aa3dadf080ace428cdac5b38af29bc896ebdd
@@ -94,7 +94,7 @@ entries:
   openshift-jenkins:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-02-16T12:23:33.942342+01:00
+    created: 2018-02-16T17:36:06.35092+01:00
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 2969c18dc614166008c66ba3fd16e1ff3885897a334d71f5eb374aa38672b60e
@@ -105,16 +105,16 @@ entries:
   openshift-projects:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-02-16T12:23:33.945767+01:00
+    created: 2018-02-16T17:36:06.354638+01:00
     description: Openshift Projects creation with own tiller instances
-    digest: cace57c44e2f703d1430bfce6104b348d04e2d5b1f53e94b028c3ae541adea3f
+    digest: d90885eecdfb65fd15c224db7169ebaa825bb2a266d08454ebb2a646e0acdf74
     name: openshift-projects
     urls:
     - https://camptocamp.github.io/charts/openshift-projects-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2018-02-16T12:23:33.944186+01:00
+    created: 2018-02-16T17:36:06.353001+01:00
     description: Openshift Projects creation with own tiller instances
     digest: 29b6ed44d991576c79780d3eb36bf3b35a25b651497b8c443c097ba63b9242a0
     name: openshift-projects
@@ -123,7 +123,7 @@ entries:
     version: 0.1.0
   pghoard:
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.946684+01:00
+    created: 2018-02-16T17:36:06.355593+01:00
     description: A Helm chart for PGHoard
     digest: fe4f656b4c6209a4c19a48aafb5c187129c3aa16bdf4d1d9917f4b207c8da568
     name: pghoard
@@ -131,7 +131,7 @@ entries:
     - https://camptocamp.github.io/charts/pghoard-1.0.0.tgz
     version: 1.0.0
   postgresql:
-  - created: 2018-02-16T12:23:33.948633+01:00
+  - created: 2018-02-16T17:36:06.356935+01:00
     description: |
       Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
       Patched version for pvc
@@ -154,7 +154,7 @@ entries:
     version: 0.7.1
   puppet:
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.95008+01:00
+    created: 2018-02-16T17:36:06.357754+01:00
     description: A Helm chart for Puppet
     digest: 1b9edbe5a7f9eb0fd74f0abc48ee7e41a7787bb8031c3ba6958c37965684eb16
     name: puppet
@@ -163,7 +163,7 @@ entries:
     version: 1.0.0
   ruby-ex:
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.955848+01:00
+    created: 2018-02-16T17:36:06.363528+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 5be2d09793872078fd28c7b6374551c78ce6d560ce80cfd36194e24fa9825fea
     name: ruby-ex
@@ -171,7 +171,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.16.tgz
     version: 0.0.16
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.955122+01:00
+    created: 2018-02-16T17:36:06.362836+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: c04552bd93073b06413518ce28d20827d7c58e465927e09017d35821023e73bf
     name: ruby-ex
@@ -179,7 +179,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.15.tgz
     version: 0.0.15
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.954605+01:00
+    created: 2018-02-16T17:36:06.362302+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 921b2ea1a28e4b29724953c80069aa441e7551a3e588a8a5066f36857fe4f5cc
     name: ruby-ex
@@ -187,7 +187,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.14.tgz
     version: 0.0.14
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.9539+01:00
+    created: 2018-02-16T17:36:06.361633+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: b9ebdd80c84bf765c7a813fb5a77690ac41318ecd880654cffc4f2d456f96fd0
     name: ruby-ex
@@ -195,7 +195,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.13.tgz
     version: 0.0.13
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.953137+01:00
+    created: 2018-02-16T17:36:06.360898+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: c51173e5922ed173048afde28f2060e409c80cad1d4c9a929019c1dc0b5389b3
     name: ruby-ex
@@ -203,7 +203,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.12.tgz
     version: 0.0.12
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.952442+01:00
+    created: 2018-02-16T17:36:06.360185+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: d9fec495b92c708cc35de12ae2ecbb3f212f85c14d5074ddcd6c3798ba4a0559
     name: ruby-ex
@@ -211,7 +211,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.11.tgz
     version: 0.0.11
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.951676+01:00
+    created: 2018-02-16T17:36:06.359223+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 07e13dfe2e0b0eafb41db0158417cf6eeb8247c312c48b066a1d690b959bee56
     name: ruby-ex
@@ -219,7 +219,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.10.tgz
     version: 0.0.10
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.961413+01:00
+    created: 2018-02-16T17:36:06.369498+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: f7686d88b920429d431294d08f4a798bc51a6bae070a1069e4626917bcd20b3a
     name: ruby-ex
@@ -227,7 +227,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.9.tgz
     version: 0.0.9
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.960684+01:00
+    created: 2018-02-16T17:36:06.368759+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 156aba80d226b01ea232e18097afc2ebddf66f9d394c4a11368bc37683e3b34b
     name: ruby-ex
@@ -235,7 +235,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.8.tgz
     version: 0.0.8
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.959922+01:00
+    created: 2018-02-16T17:36:06.368004+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 2f182c5a607895ab0cc8627af394ae695ab46959496bab96837d413320ecbaaf
     name: ruby-ex
@@ -243,7 +243,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.7.tgz
     version: 0.0.7
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.959198+01:00
+    created: 2018-02-16T17:36:06.367259+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 342dbf19002bb019bb4815b5d5b8243c18150cce616e0a4b5f258ef93b50aebd
     name: ruby-ex
@@ -251,7 +251,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.6.tgz
     version: 0.0.6
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.958501+01:00
+    created: 2018-02-16T17:36:06.366512+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: f0f8e99d2dcdc855cffd7cd3308eb267ba4aa57cae00fa48402c22b601354b1d
     name: ruby-ex
@@ -259,7 +259,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.5.tgz
     version: 0.0.5
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.957761+01:00
+    created: 2018-02-16T17:36:06.365722+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 03a01d6436839b19518688f69dd66853463c5bf21bd832b84cc9ee4948ab49da
     name: ruby-ex
@@ -267,7 +267,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.4.tgz
     version: 0.0.4
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.957074+01:00
+    created: 2018-02-16T17:36:06.365013+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 9898891aa16aec9d46ee20950b1e21afad87a241827451332300c8b23276c0cf
     name: ruby-ex
@@ -275,7 +275,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.956341+01:00
+    created: 2018-02-16T17:36:06.364255+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: b96879594f16c47cd0afa58b8f2135cfd01b6815e8fe6a95424a43d174b1e774
     name: ruby-ex
@@ -283,7 +283,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v1
-    created: 2018-02-16T12:23:33.950925+01:00
+    created: 2018-02-16T17:36:06.358515+01:00
     description: A Helm chart for ruby-ex on Openshift
     digest: 19b67a445f4bccc71d6602a5293c3e3e213e92519cb3266af41fd1754528636f
     name: ruby-ex
@@ -292,7 +292,7 @@ entries:
     version: 0.0.1
   wordpress:
   - appVersion: 4.8.1
-    created: 2018-02-16T12:23:33.96328+01:00
+    created: 2018-02-16T17:36:06.371087+01:00
     description: Web publishing platform for building blogs and websites.
     digest: b4e970d4b6c76912c65ce03979c635dc46cd01908cadcc7230c53a98a87697a3
     engine: gotpl
@@ -315,4 +315,4 @@ entries:
     urls:
     - https://camptocamp.github.io/charts/wordpress-0.6.10.tgz
     version: 0.6.10
-generated: 2018-02-16T12:23:33.933996+01:00
+generated: 2018-02-16T17:36:06.340508+01:00

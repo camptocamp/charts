@@ -62,5 +62,5 @@ projects: {}
 tiller:
   image: gcr.io/kubernetes-helm/tiller
   tag: v2.8.1
-  # tillerUserServiceAccountName: cicd-deployer
+  # tillerUserServiceAccountName: jenkins
   # tillerUserServiceAccountNamespace: dt-ftth-cicd
