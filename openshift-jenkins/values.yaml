@@ -29,4 +29,5 @@ jenkins_image_stream_tag: "jenkins:2"
 
 # Comma-separated list of additional plugins to install on startup. The format of each plugin spec is plugin-id:version (as in plugins.txt)
 install_plugins: |
-  pipeline-utility-steps:2.0
+  pipeline-utility-steps:2.0,
+  workflow-scm-step:2.6
