@@ -18,33 +18,10 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
-      serviceAccountName: useroot
       containers:
-        - env:
-{{- if .Values.githubToken }}
-            - name: GITHUB_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: githubToken
-{{- end }}
-            - name: HOOKS_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: hooksSecret
-            - name: REMOTE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: remote
-            - name: RSA_PRIVATE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "fullname" . }}
-                  key: id_rsa
-          image: camptocamp/r10k-webhook:no-mco
-          name: r10k-webhook
+        - name: r10k-webhook
+          image: {{ .Values.image }}:{{ .Values.imageTag }}
+          imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
           readinessProbe:
             failureThreshold: 3
             periodSeconds: 10
@@ -58,6 +35,15 @@ spec:
               name: puppetcode
             - mountPath: /opt/puppetlabs/r10k/cache
               name: r10kcache
+            - mountPath: /etc/puppetlabs/r10k
+              name: config-volume-r10k
+              readOnly: true
+            - mountPath: /etc/webhook
+              name: secret-volume-webhook
+              readOnly: true
+            - mountPath: /.ssh
+              name: secret-volume-ssh
+              readOnly: true
       restartPolicy: Always
       volumes:
         - name: puppetcode
@@ -66,3 +52,13 @@ spec:
         - name: r10kcache
           persistentVolumeClaim:
             claimName: puppet-puppetserver-r10kcache
+        - name: config-volume-r10k
+          configMap:
+            name: {{ template "fullname" . }}-r10k
+        - name: secret-volume-webhook
+          secret:
+            secretName: {{ template "fullname" . }}-webhook
+        - name: secret-volume-ssh
+          secret:
+            secretName: {{ template "fullname" . }}-ssh
+            defaultMode: 0600
