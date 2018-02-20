@@ -1,0 +1,79 @@
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app: {{ template "name" . }}
+spec:
+  replicas: 1
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      labels:
+        app: {{ template "name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: useroot
+      containers:
+        - env:
+{{- if .Values.githubToken }}
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: githubToken
+{{- end }}
+            - name: HOOKS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: hooksSecret
+            - name: REMOTE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: remote
+            - name: RSA_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: id_rsa
+          image: ' '
+          name: r10k-webhook
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 9000
+            timeoutSeconds: 1
+          resources: {}
+          volumeMounts:
+            - mountPath: /etc/puppetlabs/code/environments
+              name: puppetcode
+            - mountPath: /opt/puppetlabs/r10k/cache
+              name: r10kcache
+      restartPolicy: Always
+      volumes:
+        - name: puppetcode
+          persistentVolumeClaim:
+            claimName: puppet-puppetserver-puppetcode
+        - name: r10kcache
+          persistentVolumeClaim:
+            claimName: puppet-puppetserver-r10kcache
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - r10k-webhook
+        from:
+          kind: ImageStreamTag
+          name: {{ template "fullname" . }}:no-mco
+      type: ImageChange
