@@ -18,7 +18,6 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
-      serviceAccountName: useroot
       containers:
         - env:
             - name: AUTOSIGN_PSK
@@ -57,8 +56,9 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: java_args
-          image: camptocamp/puppetserver:5.1.5-0.2
           name: puppet
+          image: {{ .Values.image }}:{{ .Values.imageTag }}
+          imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
           resources: {}
           volumeMounts:
             - name: puppetcode

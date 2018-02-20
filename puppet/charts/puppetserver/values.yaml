@@ -1,4 +1,8 @@
 ---
+image: camptocamp/puppetserver
+imageTag: 5.2.0-0.2
+imagePullPolicy: Always
+
 dnsAltNames: puppet
 javaArgs: ""
 
