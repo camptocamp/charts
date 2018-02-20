@@ -31,27 +31,19 @@ spec:
             timeoutSeconds: 1
           resources: {}
           volumeMounts:
-            - mountPath: /etc/puppetlabs/code/environments
+            - mountPath: /etc/puppetlabs/code
               name: puppetcode
-            - mountPath: /opt/puppetlabs/r10k/cache
-              name: r10kcache
             - mountPath: /etc/puppetlabs/r10k
               name: config-volume-r10k
               readOnly: true
             - mountPath: /etc/webhook
               name: secret-volume-webhook
               readOnly: true
-            - mountPath: /.ssh
-              name: secret-volume-ssh
-              readOnly: true
       restartPolicy: Always
       volumes:
         - name: puppetcode
           persistentVolumeClaim:
             claimName: puppet-puppetserver-puppetcode
-        - name: r10kcache
-          persistentVolumeClaim:
-            claimName: puppet-puppetserver-r10kcache
         - name: config-volume-r10k
           configMap:
             name: {{ template "fullname" . }}-r10k

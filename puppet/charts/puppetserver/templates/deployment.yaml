@@ -62,11 +62,9 @@ spec:
           resources: {}
           volumeMounts:
             - name: puppetcode
-              mountPath: /etc/puppetlabs/code/environments
+              mountPath: /etc/puppetlabs/code
             - name: puppetca
               mountPath: /etc/puppetlabs/puppet/ssl/ca
-            - name: r10kcache
-              mountPath: /opt/puppetlabs/r10k/cache
       restartPolicy: Always
       volumes:
         - name: puppetcode
@@ -75,6 +73,3 @@ spec:
         - name: puppetca
           persistentVolumeClaim:
             claimName: {{ template "fullname" . }}-puppetca
-        - name: r10kcache
-          persistentVolumeClaim:
-            claimName: {{ template "fullname" . }}-r10kcache

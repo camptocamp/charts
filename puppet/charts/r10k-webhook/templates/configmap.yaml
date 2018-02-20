@@ -11,12 +11,10 @@ metadata:
 data:
   r10k.yaml: |
     # The location to use for storing cached Git repos
-    :cachedir: '/opt/puppetlabs/r10k/cache'
+    :cachedir: '/etc/puppetlabs/code/cache'
 
     # A list of git repositories to create
     :sources:
-      # This will clone the git repository and instantiate an environment per
-      # branch in /etc/puppetlabs/code/environments
       :main:
         remote: '{{ .Values.remote }}'
         basedir: '/etc/puppetlabs/code/environments'
