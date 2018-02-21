@@ -50,8 +50,9 @@ spec:
                 secretKeyRef:
                   name: {{ template "fullname" . }}
                   key: database-user
-          image: camptocamp/puppetdb:5.1.4-0.3
           name: puppetdb
+          image: {{ .Values.image }}:{{ .Values.imageTag }}
+          imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
           resources: {}
           volumeMounts:
             - name: postgresqlca
