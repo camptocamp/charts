@@ -1,4 +1,4 @@
 ---
 image: camptocamp/g10k-webhook
-imageTag: 0.4.4-1
+imageTag: 0.4.4-3
 imagePullPolicy: Always
