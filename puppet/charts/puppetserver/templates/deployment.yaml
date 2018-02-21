@@ -18,6 +18,7 @@ spec:
         app: {{ template "name" . }}
         release: {{ .Release.Name }}
     spec:
+      serviceAccountName: useroot
       containers:
         - env:
             - name: AUTOSIGN_PSK
