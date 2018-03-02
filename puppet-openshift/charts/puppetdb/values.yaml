@@ -1,7 +1,4 @@
 ---
-image: camptocamp/puppetdb
-imageTag: 5.2.0-0.2
-imagePullPolicy: Always
 dnsAltNames: puppetdb
 javaArgs: ""
 databasePassword: puppetdb

@@ -1,0 +1,32 @@
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app: {{ template "name" . }}
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ template "fullname" . }}:5.1.4-0.3
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/camptocamp/docker-puppetdb.git
+      ref: 5.1.4-0.3
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: {{ template "fullname" . }}-ubuntu:xenial
+      forcePull: true
+    type: Docker
+  triggers:
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange

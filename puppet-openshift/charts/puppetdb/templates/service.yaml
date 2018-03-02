@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Chart.Name }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app: {{ template "name" . }}
+spec:
+  ports:
+    - name: puppetdb
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    - name: puppetdb-ssl
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    app: {{ template "name" . }}
+    release: {{ .Release.Name }}

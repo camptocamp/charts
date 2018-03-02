@@ -1,6 +1,6 @@
 ---
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
   name: {{ template "fullname" . }}
   labels:
@@ -20,22 +20,31 @@ spec:
     spec:
       serviceAccountName: useroot
       containers:
-        - name: r10k-webhook
-          image: {{ .Values.image }}:{{ .Values.imageTag }}
-          imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
-          env:
+        - env:
 {{- if .Values.githubToken }}
             - name: GITHUB_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}-ssh
+                  name: {{ template "fullname" . }}
                   key: githubToken
 {{- end }}
+            - name: HOOKS_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: hooksSecret
+            - name: REMOTE
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "fullname" . }}
+                  key: remote
             - name: RSA_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "fullname" . }}-ssh
+                  name: {{ template "fullname" . }}
                   key: id_rsa
+          image: ' '
+          name: r10k-webhook
           readinessProbe:
             failureThreshold: 3
             periodSeconds: 10
@@ -45,26 +54,26 @@ spec:
             timeoutSeconds: 1
           resources: {}
           volumeMounts:
-            - mountPath: /etc/puppetlabs/code
+            - mountPath: /etc/puppetlabs/code/environments
               name: puppetcode
-            - mountPath: /etc/puppetlabs/r10k
-              name: config-volume-r10k
-              readOnly: true
-            - mountPath: /etc/webhook
-              name: secret-volume-webhook
-              readOnly: true
+            - mountPath: /opt/puppetlabs/r10k/cache
+              name: r10kcache
       restartPolicy: Always
       volumes:
         - name: puppetcode
           persistentVolumeClaim:
             claimName: puppet-puppetserver-puppetcode
-        - name: config-volume-r10k
-          configMap:
-            name: {{ template "fullname" . }}-r10k
-        - name: secret-volume-webhook
-          secret:
-            secretName: {{ template "fullname" . }}-webhook
-        - name: secret-volume-ssh
-          secret:
-            secretName: {{ template "fullname" . }}-ssh
-            defaultMode: 0600
+        - name: r10kcache
+          persistentVolumeClaim:
+            claimName: puppet-puppetserver-r10kcache
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - r10k-webhook
+        from:
+          kind: ImageStreamTag
+          name: {{ template "fullname" . }}:no-mco
+      type: ImageChange

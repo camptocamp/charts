@@ -1,6 +1,6 @@
 ---
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
   name: {{ template "fullname" . }}
   labels:
@@ -57,15 +57,16 @@ spec:
                 configMapKeyRef:
                   name: {{ template "fullname" . }}
                   key: java_args
+          image: ' '
           name: puppet
-          image: {{ .Values.image }}:{{ .Values.imageTag }}
-          imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
           resources: {}
           volumeMounts:
             - name: puppetcode
-              mountPath: /etc/puppetlabs/code
+              mountPath: /etc/puppetlabs/code/environments
             - name: puppetca
               mountPath: /etc/puppetlabs/puppet/ssl/ca
+            - name: r10kcache
+              mountPath: /opt/puppetlabs/r10k/cache
       restartPolicy: Always
       volumes:
         - name: puppetcode
@@ -74,3 +75,17 @@ spec:
         - name: puppetca
           persistentVolumeClaim:
             claimName: {{ template "fullname" . }}-puppetca
+        - name: r10kcache
+          persistentVolumeClaim:
+            claimName: {{ template "fullname" . }}-r10kcache
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - puppet
+        from:
+          kind: ImageStreamTag
+          name: {{ template "fullname" . }}:5.1.5-0.2
+      type: ImageChange
