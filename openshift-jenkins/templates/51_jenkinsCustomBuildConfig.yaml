@@ -1,0 +1,34 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: jenkins-custom
+{{ include "common.labels.standard" . | indent 4 }}
+  name: jenkins-custom
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: jenkins-custom:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      uri: {{ .Values.JenkinsCustom.gitSource | quote }}
+    contextDir: {{ .Values.JenkinsCustom.contextDir | quote }}
+    sourceSecret:
+      name: {{ .Values.sshSecretName | quote }}
+    type: Git
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: jenkins:latest
+        namespace: openshift
+    type: Source
+  triggers:
+  - type: ConfigChange
+  - imageChange: {}
+    type: ImageChange

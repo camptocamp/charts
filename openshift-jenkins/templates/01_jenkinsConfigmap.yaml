@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jenkins-config
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+data:
+  GITLAB_CONN_NAME: {{ .Values.gitlabConnection.name | quote }}
+  GITLAB_CONN_URL: {{ .Values.gitlabConnection.url | quote }}
+  GITLAB_CONN_TOKEN_ID: {{ .Values.gitlabConnection.apiTokenId | quote  }}
+  GITLAB_CONN_IGNORE_CERT_ERR: {{ .Values.gitlabConnection.ignoreCertificateErrors | quote }}
+  GITLAB_CONN_TIMEOUT: {{ .Values.gitlabConnection.connectionTimeout | quote }}
+  GITLAB_CONN_READ_TIMEOUT: {{ .Values.gitlabConnection.readTimeout | quote }}

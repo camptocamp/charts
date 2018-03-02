@@ -1,0 +1,6 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: jenkins-custom
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}

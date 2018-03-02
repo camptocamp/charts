@@ -19,7 +19,17 @@ spec:
     spec:
       containers:
       - capabilities: {}
+        envFrom:
+        - configMapRef:
+            name: jenkins-config        
         env:
+        - name: GITLAB_CONN_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: jenkins-secrets
+              key: gitlabToken        
+        - name: OVERRIDE_PV_CONFIG_WITH_IMAGE_CONFIG
+          value: {{ .Values.overridePvConfigWithImageConfig | quote }}
         - name: OPENSHIFT_ENABLE_OAUTH
           value: {{ .Values.enable_oauth | quote }}
         - name: OPENSHIFT_ENABLE_REDIRECT_PROMPT
@@ -34,6 +44,8 @@ spec:
           value: {{ .Values.jnlp_service_name | quote }}
         - name: INSTALL_PLUGINS
           value: {{ .Values.install_plugins | quote }}
+        - name: JAVA_GC_OPTS
+          value: {{ .Values.javaGcOpts | quote }}
         image: ' '
         imagePullPolicy: IfNotPresent
         livenessProbe:
