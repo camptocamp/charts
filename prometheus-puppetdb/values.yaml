@@ -1,0 +1,75 @@
+# Default values for prometheus-puppetdb.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: camptocamp/prometheus-puppetdb
+  tag: 0.7.1
+  pullPolicy: Always
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+prometheus:
+  alertmanager:
+    enabled: false
+
+  kubeStateMetrics:
+    enabled: false
+
+  nodeExporter:
+    enabled: false
+
+  pushgateway:
+    enabled: false
+
+  server:
+    extraConfigmapMounts:
+      - name: prometheus-puppetdb
+        configMap: prometheus-puppetdb
+        mountPath: /etc/prometheus-puppetdb
+        readOnly: true
+    serviceAccountName: useroot
+
+  serverFiles:
+    prometheus.yml:
+      scrape_configs:
+        - job_name: prometheus
+          static_configs:
+            - targets:
+              - localhost:9090
+        - job_name: puppetdb
+          file_sd_configs:
+            - files:
+              - /etc/prometheus-puppetdb/targets.yml
+          relabel_configs:
+            - source_labels: [metrics_path]
+              regex: (.+)
+              action: replace
+              target_label: __metrics_path__
+            - source_labels: [scheme]
+              regex: (.+)
+              action: replace
+              target_label: __scheme__
+            - source_labels: [certname]
+              regex: (.+?)\.(.+)
+              action: replace
+              target_label: instance
+              replacement: ${1}
+            - regex: ^metrics_path$|^scheme$
+              action: labeldrop

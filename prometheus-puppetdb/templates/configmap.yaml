@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-puppetdb
+  labels:
+    app: {{ template "prometheus-puppetdb.name" . }}
+    chart: {{ template "prometheus-puppetdb.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
