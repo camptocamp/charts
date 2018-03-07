@@ -39,8 +39,10 @@ affinity: {}
 username: prometheus
 #password:
 
-routerStatsUsername: &routerStatsUsername admin
-routerStatsPassword: &routerStatsPassword
+router:
+  stats:
+    username: &routerStatsUsername admin
+    password: &routerStatsPassword
 
 environment: &environment core
 
