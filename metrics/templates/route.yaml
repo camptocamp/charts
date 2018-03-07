@@ -1,0 +1,23 @@
+{{- if .Values.route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ template "metrics.fullname" . }}
+  labels:
+    app: {{ template "metrics.name" . }}
+    chart: {{ template "metrics.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    {{ toYaml .Values.route.annotations | indent 4 }}
+spec:
+  port:
+    targetPort: http
+  tls:
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge
+  to:
+    kind: Service
+    name: {{ template "metrics.fullname" . }}
+    weight: 100
+{{- end }}

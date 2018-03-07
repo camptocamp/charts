@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "metrics.fullname" . }}
+  labels:
+    app: {{ template "metrics.name" . }}
+    chart: {{ template "metrics.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  haproxy.cfg: |-
+    global
+        daemon
+        maxconn 256
+
+    defaults
+        mode http
+        timeout connect 5000ms
+        timeout client 50000ms
+        timeout server 50000ms
+
+    userlist prometheus
+        group prometheus
+        {{- if .Values.password }}
+        user {{ .Values.username }} insecure-password {{ .Values.password }} groups prometheus
+        {{- else }}
+        user {{ .Values.username }} insecure-password {{ randAlphaNum 10 }} groups prometheus
+        {{- end }}
+
+    frontend 9090
+        bind *:9090
+        default_backend prometheus
+
+    backend prometheus
+        acl valid_user http_auth(prometheus)
+        http-request auth realm Prometheus if !valid_user
+        server prometheus {{ .Release.Name }}-prometheus-server:80
