@@ -405,28 +405,21 @@ prometheus:
             - role: endpoints
 
           relabel_configs:
-            - source_labels:
-              - __meta_kubernetes_service_annotation_camptocamp_com_env
+            - source_labels: [__meta_kubernetes_service_annotation_camptocamp_com_env]
               action: keep
               regex: *environment
-            - source_labels:
-              - __meta_kubernetes_endpoints_name
-              - __meta_kubernetes_service_annotation_prometheus_io_scrape
+            - source_labels: [__meta_kubernetes_endpoints_name, __meta_kubernetes_service_annotation_prometheus_io_scrape]
               action: keep
               regex: router;true
-            - source_labels:
-              - __address__
-              - __meta_kubernetes_service_annotation_prometheus_io_port
+            - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
               action: replace
               target_label: __address__
               regex: (.+):(?:\d+);(\d+)
               replacement: $1:$2
-            - source_labels:
-              - __meta_kubernetes_namespace
+            - source_labels: [__meta_kubernetes_namespace]
               action: replace
               target_label: kubernetes_namespace
-            - source_labels:
-              - __meta_kubernetes_service_name
+            - source_labels: [__meta_kubernetes_service_name]
               action: replace
               target_label: kubernetes_name
 
