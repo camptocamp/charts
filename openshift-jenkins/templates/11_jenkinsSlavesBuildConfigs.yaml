@@ -1,0 +1,44 @@
+{{ $root := . }}
+apiVersion: v1
+items:
+{{- range $key, $value := .Values.jenkins_slaves }}
+- apiVersion: build.openshift.io/v1
+  kind: BuildConfig
+  metadata:
+    labels:
+{{ include "common.labels.standard" $root | indent 6 }}
+      build: "jenkins-slave-{{ $key }}"
+    name: "jenkins-slave-{{ $key }}"
+  spec:
+    failedBuildsHistoryLimit: 5
+    nodeSelector: null
+    output:
+      to:
+        kind: ImageStreamTag
+        name: "jenkins-slave-{{ $key }}:latest"
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      contextDir: {{ $value.repository.context_dir | quote }}
+      git:
+        uri: {{ $value.repository.url | quote }}
+        ref: {{ $value.repository.ref | quote }}
+      sourceSecret:
+        name: ssh-ci-secret
+      type: Git
+    strategy:
+      dockerStrategy:
+        from:
+          kind: DockerImage
+          name: openshift/jenkins-slave-base-centos7:latest
+      type: Docker
+    successfulBuildsHistoryLimit: 5
+    triggers:
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
+  status:
+    lastVersion: 0
+{{- end }}
+kind: List

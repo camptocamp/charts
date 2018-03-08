@@ -1,0 +1,29 @@
+{{ $root := . }}
+apiVersion: v1
+items:
+{{- range $key, $value := .Values.jenkins_slaves }}
+- apiVersion: image.openshift.io/v1
+  kind: ImageStream
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftNewBuild
+    creationTimestamp: null
+    generation: 1
+    labels:
+      build: "jenkins-slave-{{ $key }}"
+    name: "jenkins-slave-{{ $key }}"
+  spec:
+    lookupPolicy:
+      local: false
+    tags:
+    - annotations: null
+      from:
+        kind: DockerImage
+        name: "docker-registry.default.svc:5000/{{ $root.Release.Namespace }}/jenkins-slave-{{ $key }}:latest"
+      generation: null
+      importPolicy: {}
+      name: latest
+      referencePolicy:
+        type: ""
+{{- end }}
+kind: List
