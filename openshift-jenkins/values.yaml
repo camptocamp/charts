@@ -60,14 +60,14 @@ gitlabConnection:
   connectionTimeout: 10
   readTimeout: 10
 
-jenkins_slaves:
-  slave1:
-    repository:
-      url: git@myGitServer:myGitGroup/jenkinsSlavesProject.git
-      ref: master
-      context_dir: slave1
-  slave2:
-    repository:
-      url: git@myGitServer:myGitGroup/jenkinsSlavesProject.git
-      ref: master
-      context_dir: slave2
+# jenkins_slaves:
+#   slave1:
+#     repository:
+#       url: git@myGitServer:myGitGroup/jenkinsSlavesProject.git
+#       ref: master
+#       context_dir: slave1
+#   slave2:
+#     repository:
+#       url: git@myGitServer:myGitGroup/jenkinsSlavesProject.git
+#       ref: master
+#       context_dir: slave2

@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "1.0"
 description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
 name: openshift-jenkins
-version: 0.3.0
+version: 0.3.1
