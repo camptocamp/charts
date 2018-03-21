@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "blackbox-exporter.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: {{ template "blackbox-exporter.fullname" . }}
+data:
+{{- $root := . -}}
+{{- range $key, $value := .Values.configFiles }}
+  {{ $key }}: |
+{{ toYaml $value | default "{}" | indent 4 }}
+{{- end -}}

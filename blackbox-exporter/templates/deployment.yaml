@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "blackbox-exporter.fullname" . }}
+  labels:
+    app: {{ template "blackbox-exporter.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ template "blackbox-exporter.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 9115
+          # livenessProbe:
+          #   httpGet:
+          #     path: /probe
+          #     port: 9115
+          # readinessProbe:
+          #   httpGet:
+          #     path: /probe
+          #     port: 9115
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/blackbox_exporter
+              readOnly: true
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ template "blackbox-exporter.fullname" . }}
