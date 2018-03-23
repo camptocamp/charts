@@ -26,6 +26,9 @@ tolerations: []
 affinity: {}
 
 prometheus:
+  initChownData:
+    enabled: false
+
   alertmanager:
     enabled: false
 
@@ -44,7 +47,6 @@ prometheus:
         configMap: prometheus-puppetdb
         mountPath: /etc/prometheus-puppetdb
         readOnly: true
-    serviceAccountName: useroot
 
   serverFiles:
     prometheus.yml:
