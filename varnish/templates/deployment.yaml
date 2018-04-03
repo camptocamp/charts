@@ -1,0 +1,111 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    {{ if .Values.serviceSelector -}}
+      {{ with .Values.serviceSelector -}}
+    {{ .key | default "selector-label" }}: {{ required "The value hash entry is required for serviceSelector hash" .value -}}
+      {{ end -}}
+    {{ end }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ template "fullname" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/varnish-kafak-config: {{ include (print $.Template.BasePath "/configmap-varnishkafka.yaml") . | sha256sum }}
+      labels:
+        app: {{ template "fullname" . }}
+        {{ if .Values.serviceSelector -}}
+          {{ with .Values.serviceSelector -}}
+        {{ .key | default "selector-label" }}: {{ required "The value hash entry is required for serviceSelector hash" .value -}}
+          {{ end -}}
+        {{ end }}
+    spec:
+      containers:
+      - name: varnish
+        image: "{{ .Values.varnishImage }}"
+        imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
+        ports:
+        - name: http
+          containerPort: 8080
+        volumeMounts:
+        - mountPath: /etc/varnish
+          name: varnish-config
+        - mountPath: /var/lib/varnish
+          name: varnish-runtime
+        command:
+        - varnishd
+        - -a :8080
+        - -F
+        - -f
+        - /etc/varnish/{{ .Values.varnishConfigFile }}
+        - -n
+        - varnishd
+        - -s
+        - malloc,{{ int .Values.varnishMallocLimit }}m
+      - name: varnish-reload
+        image: "{{ .Values.varnishReloadImage }}"
+        imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
+        env:
+        - name: VCLFILE
+          value: {{ .Values.varnishConfigFile }}
+        - name: INSTANCE
+          value: varnishd
+        command:
+        - /usr/local/sbin/vcl-reload-persistent.sh
+        volumeMounts:
+        - mountPath: /etc/varnish
+          name: varnish-config
+        - mountPath: /var/lib/varnish
+          name: varnish-runtime
+      - name: varnish-kafka
+        image: "{{ .Values.kafkaImage }}"
+        imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
+        volumeMounts:
+        - mountPath: /etc/varnishkafka
+          name: varnish-kafka-config
+        - mountPath: /var/lib/varnish
+          name: varnish-runtime
+        {{ if .Values.kafkaTlsAuth }}
+        - mountPath: /etc/varnishkafka/auth
+          name: kafka-auth
+        {{ end }}
+        command:
+          - varnishkafka
+          - -S
+          - /etc/varnishkafka/varnishkafka.conf
+          - -n
+          - varnishd
+      volumes:
+      - emptyDir:
+        name: varnish-runtime
+      - configMap:
+          defaultMode: 420
+          name: {{ if .Values.varnishConfigMapName -}}
+          {{- .Values.varnishConfigMapName -}}
+          {{- else -}}
+            {{- template "fullname" . -}}-varnish
+          {{- end }}
+        name: varnish-config
+      - configMap:
+          defaultMode: 420
+          name: {{ if .Values.varnishKafkaConfigMapName -}}
+          {{- .Values.varnishKafkaConfigMapName -}}
+          {{- else -}}
+            {{- template "fullname" . }}-varnishkafka
+          {{- end }}
+        name: varnish-kafka-config
+      {{ if .Values.kafkaTlsAuth }}
+      - secret:
+          defaultMode: 420
+          secretName: {{ template "fullname" . }}-kafka-auth
+        name: kafka-auth
+      {{ end }}

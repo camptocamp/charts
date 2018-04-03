@@ -1,0 +1,19 @@
+---
+name: varnish
+version: 0.0.1
+appVersion: 5.1.3
+kubeVersion: '>=1.5'
+description: Varnish Cache is a web application accelerator also known as a caching HTTP reverse proxy.
+icon: https://varnish-cache.org/_static/varnish-bunny.png
+keywords:
+- varnish
+- cache
+- http
+- web
+home: https://varnish-cache.org/index.html
+sources:
+- https://github.com/camptocamp/charts
+maintainers:
+- name: Camptocamp
+  email: support-infrastructure@camptocamp.com
+engine: gotpl

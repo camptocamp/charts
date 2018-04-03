@@ -1,0 +1,137 @@
+---
+## Camptocamp Varnish image
+## ref: https://hub.docker.com/r/camptocamp/varnish/tags/
+varnishImage: camptocamp/varnish:20170802-1
+
+## Specify image to use for varnish VCL reloading logic
+## ref: https://hub.docker.com/r/camptocamp/varnish/tags/
+varnishReloadImage: dabelenda/varnish-reload:latest
+
+## Camptocamp varnishkafka image
+## ref: https://hub.docker.com/r/camptocamp/varnish-reload/tags/
+kafkaImage: camptocamp/varnish:20170802-1
+
+## Specify a imagePullPolicy
+## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+imagePullPolicy: IfNotPresent
+
+## Specify if a Service should be created for each pod to have an access point
+## to purge/ban the content of Varnish cache.
+## Warning: it is not supported to have *replicas* set to a value other than 1
+## the serviceSelector will not apply to this service, it will point directly
+## to the pod label *app: {{ template "fullname" . }}* label.
+#varnishPurgeServiceCreate: false
+
+# Select service type
+serviceType: LoadBalancer
+
+## Number of Varnish instances to be deployed by chart
+replicas: 1
+
+## Select if varnish is published using an Ingress
+ingressEnabled: false
+
+## A hash of annotations to add to the ingress
+#ingressAnnotations:
+
+## The hostname for the ingress rule. (required if ingress is enabled)
+#ingressHostname:
+
+## Yaml definition for ingress TLS configuration.
+#ingressTls:
+
+## Select if varnish is published using an OpenShift Route
+routeEnabled: false
+
+## Select the fqdn used to reach service through the route required in case route is enabled.
+#routeFqdn:
+
+## Specify the type of OpenShift route balancing.
+## Defaults to roundrobin
+#routeBalancingMode: roundrobin
+
+## Set the varnish VCL file.
+## This allows to set a custom configuration by adding new entries to the
+## ConfigMap. These entries will not be modified by helm since only
+## default.vcl is managed.
+varnishConfigFile: default.vcl
+
+## OpenShift route configuration for TLS
+## defaults to no TLS if no routeTls hash is defined.
+#routeTls:
+#  policy: Redirect
+#  termination: edge
+
+## OpenShift route wildardPolicy setting
+#routeWildcardPolicy: "None"
+
+## Size in MB for the maximum malloc Storage engine of Varnish
+varnishMallocLimit: 256
+
+## Specify if the chart should use an already existing varnish configmap
+## If not defined (the default) a new configmap will be created
+#varnishConfigMapName: my-custom-configmap
+
+## Specify which formatter to use to format log lines defaults to *string* for
+## plaintext can be set to *json* for structured output.
+varnishKafkaFormatter: string
+
+## Specify which format the log should have
+## ref: https://varnish-cache.org/docs/trunk/reference/varnishncsa.html
+varnishKafkaFormat: '%l %n %t %{Varnish:time_firstbyte}x %h %{Varnish:handling}x/%s %b %m http://%{Host}i%U%q - %{Content-Type}o %{Referer}i %{X-Forwarded-For}i %{User-agent!escape}i %{Accept-Language}i %{X-Analytics}o'
+
+## Specify which output should be used, can be *kafka* or *stdout*.
+varnishKafkaOutput: stdout
+
+## Specify the sequence number of the first message produced by varnishkafka
+varnishKafkaSequenceNumber: time
+
+## Specify the log level of varnishkafka
+varnishKafkaLogLevel: 6
+
+## Specify list of brokers as a yaml list
+## required if output is kafka
+#varnishKafkaBrokers:
+#- broker1
+#- broker2
+#- broker3
+
+## Specify the maximum number of messages buffered for sending, if sending to
+## kafka is slow, or in case of peak in log rate, the messages overflowing this
+## buffer will not be read from varnish shared buffer, thus the ring buffer
+## might overflow.
+varnishKafkaBufferedMessages: 1000000
+
+## Number of retries before dropping messages
+varnishKafkaSendMaxRetries: 3
+
+## Message timeout for sending to kafka milliseconds
+varnishKafkaTimeout: 60000
+
+## The name of the kafka topic to send logs to, required if output is kafka.
+varnishKafkaTopic: varnish
+
+## Select the partition to send kafka messages to.
+varnishKafkaPartition: -1
+
+## Specify if the chart should use an already existing varnishkafka configmap
+## If not defined (the default) a new configmap will be created
+#varnishKafkaConfigMapName: my-custom-configmap
+
+## Specify a selector that will be used for the Service to point to the pod
+## the label will be added to the pod, and if service creation is enabled it
+## will be the selector.
+## the *key* entry will default to "selector-label" if not specified.
+## the *value* entry is mandatory
+#serviceSelector:
+#  key: mykey
+#  value: myvalue
+
+## Kafka TLS Authentication material for varnishkafka connection to broker.
+## The keyPassword is optional.
+## The whole hash can be undefined, but if defined, the key, cert and ca are mandatory fields.
+#kafkaTlsAuth:
+#  key:
+#  cert:
+#  ca:
+#  keyPassword:

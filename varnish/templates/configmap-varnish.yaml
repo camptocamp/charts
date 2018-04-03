@@ -1,0 +1,14 @@
+{{ if not .Values.varnishConfigMapName -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: {{ template "fullname" . }}-varnish
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+{{ (.Files.Glob "config/default.vcl" ).AsConfig | indent 2 }}
+{{ end -}}
