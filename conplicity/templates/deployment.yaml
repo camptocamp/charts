@@ -21,6 +21,12 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CONPLICITY_ENGINE
+              value: restic
+            - name: CONPLICITY_ORCHESTRATOR
+              value: kubernetes
+{{ toYaml .Values.envVars | indent 12 }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
