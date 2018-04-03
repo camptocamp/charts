@@ -10,10 +10,6 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      app: {{ template "conplicity.name" . }}
-      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
