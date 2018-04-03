@@ -1,5 +1,6 @@
-apiVersion: apps/v1beta1
-kind: Deployment
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
   name: {{ template "conplicity.fullname" . }}
   labels:
@@ -38,3 +39,5 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+  triggers:
+    - type: ConfigChange
