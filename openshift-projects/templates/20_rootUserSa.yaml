@@ -1,0 +1,19 @@
+{{ $root := . }}
+apiVersion: v1
+items:
+{{- range $key, $value := .Values.projects }}
+  {{- if $value.rootUser }}
+- apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    labels:
+{{ include "common.labels.standard" $root | indent 6 }}
+    name: {{ $root.Values.rootUser.name }}
+    namespace: {{ $key }}
+  spec:
+    finalizers:
+    - openshift.io/origin
+    - kubernetes
+  {{- end }}
+{{- end }}
+kind: List

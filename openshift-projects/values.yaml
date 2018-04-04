@@ -44,18 +44,21 @@ projects: {}
 #       CICD Project
 #       This is my cicd Project
 #     tiller: true
+#     rootUser: true
 #   myproject1:
 #     description: |-
 #       My Project One
 #       This is my first Project
 #     tiller: true
 #     tillerUserAccess: true
+#     rootUser: true
 #   myproject2:
 #     description: |-
 #       My Project One
 #       This is my first Project
 #     tiller: true
 #     tillerUserAccess: true
+#     rootUser: true
 
 
 # Set the image, version tag and tiller user service account name for tiller
@@ -64,3 +67,7 @@ tiller:
   tag: v2.8.1
   # tillerUserServiceAccountName: jenkins
   # tillerUserServiceAccountNamespace: my_cicd_project
+
+rootUser:
+  enable: false # this will not yet work if enabled, you have to create the scc or scc binding yourself
+  name: useroot
