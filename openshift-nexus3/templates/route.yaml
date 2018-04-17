@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+  name: nexus3
+spec:
+  port:
+    targetPort: 8081-tcp
+  to:
+    kind: Service
+    name: nexus3
+    weight: 100
