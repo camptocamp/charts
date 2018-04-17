@@ -63,12 +63,3 @@ spec:
   test: false
   triggers:
   - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - nexus3
-      from:
-        kind: ImageStreamTag
-        name: nexus3:latest
-        namespace: dt-ftth-cicd
-    type: ImageChange
