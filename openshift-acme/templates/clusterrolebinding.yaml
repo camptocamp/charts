@@ -1,0 +1,15 @@
+{{- if eq .Values.deploy "cluster-wide" -}}
+apiVersion: authorization.openshift.io/v1
+groupNames: null
+kind: ClusterRoleBinding
+metadata:
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+  name: openshift-acme
+roleRef:
+  name: openshift-acme
+subjects:
+- kind: ServiceAccount
+  name: openshift-acme
+  namespace: {{ .Release.Namespace }}
+{{- end -}}

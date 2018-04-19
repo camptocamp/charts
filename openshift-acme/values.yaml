@@ -1,0 +1,41 @@
+# Default values for openshift-acme.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# deploy:
+# option to deploy the controller to watch the whole cluster or only single namespace
+# depending on what privileges you have.
+# possible values: [ cluster-wide | single-namespace ]
+deploy: cluster-wide
+
+# api: 
+# Let's encrypt provides two APIs: live and staging.
+#
+# staging is meant for testing the controller or making sure you can try it
+# out without the fear or exhausing your rate limits while trying it out
+# and it will provide you with certificates signed by Let's Encrypt testing CA
+# making the certs not trusted!
+# 
+# live will provide you with trusted certificates but has lower rate limits.
+# This is what you want when you're done testing/evaluating the controller
+#
+# possible values: [ staging | live ]
+api: staging
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

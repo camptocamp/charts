@@ -1,0 +1,54 @@
+{{- if eq .Values.deploy "single-namespace" -}}
+apiVersion: authorization.openshift.io/v1
+kind: Role
+metadata:
+  name: openshift-acme
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+rules:
+- apiGroups:
+  - "route.openshift.io"
+  resources:
+  - routes
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+
+- apiGroups:
+  - "route.openshift.io"
+  resources:
+  - routes/custom-host
+  verbs:
+  - create
+
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+{{- end -}}

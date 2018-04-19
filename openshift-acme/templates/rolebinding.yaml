@@ -1,0 +1,16 @@
+{{- if eq .Values.deploy "single-namespace" -}}
+apiVersion: authorization.openshift.io/v1
+groupNames: null
+kind: RoleBinding
+metadata:
+  name: openshift-acme
+  label:
+{{ include "common.labels.standard" . | indent 4 }}
+roleRef:
+  name: openshift-acme
+  namespace: {{ .Release.Namespace }}
+subjects:
+- kind: ServiceAccount
+  name: openshift-acme
+  namespace: {{ .Release.Namespace }}
+{{- end -}}

@@ -1,0 +1,70 @@
+{{- if eq .Values.deploy "cluster-wide" -}}
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRole
+metadata:
+  name: openshift-acme
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+rules:
+- apiGroups:
+  - "route.openshift.io"
+  resources:
+  - routes
+  - routes/finalizers
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+
+- apiGroups:
+  - "route.openshift.io"
+  resources:
+  - routes/custom-host
+  verbs:
+  - create
+  - update
+  - delete
+  - patch
+
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - update
+  - patch
+
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  - endpoints/restricted
+  - services
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - secrets/finalizers
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+{{- end -}}
