@@ -32,8 +32,6 @@ spec:
           value: {{ include "openshift-acme.acmeurl" . | quote }}
         - name: OPENSHIFT_ACME_LOGLEVEL
           value: "4"
-        - name: OPENSHIFT_ACME_SELFSERVICENAME
-          value: openshift-acme
 {{- if eq .Values.deploy "single-namespace" -}}
         - name: OPENSHIFT_ACME_NAMESPACE
           valueFrom:
