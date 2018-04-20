@@ -1,0 +1,32 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: {{ template "conplicity.fullname" . }}
+  labels:
+    app: {{ template "conplicity.name" . }}
+    chart: {{ template "conplicity.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  schedule: {{ .Values.schedule | quote }}
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ template "conplicity.name" . }}
+            release: {{ .Release.Name }}
+        spec:
+          serviceAccountName: {{ template "conplicity.fullname" . }}
+          containers:
+            - name: {{ .Chart.Name }}
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: CONPLICITY_ORCHESTRATOR
+                  value: kubernetes
+{{ toYaml .Values.envVars | indent 16 }}
+          restartPolicy: OnFailure

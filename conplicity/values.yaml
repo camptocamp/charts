@@ -4,6 +4,8 @@
 
 replicaCount: 1
 
+schedule: "0 * * * *"
+
 image:
   repository: camptocamp/conplicity
   tag: stable
