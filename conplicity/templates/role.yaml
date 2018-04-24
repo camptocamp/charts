@@ -16,4 +16,4 @@ rules:
   verbs: ["get", "list"]
 - apiGroups: [""]
   resources: ["pods/log", "pods/exec"]
-  verbs: ["get", "post"]
+  verbs: ["get", "post", "create"]
