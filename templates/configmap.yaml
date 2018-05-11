@@ -36,6 +36,9 @@ data:
       {{- if .Values.runners.serviceAccountName }}
       --kubernetes-service-account {{ .Values.runners.serviceAccountName }} \
       {{- end }}
+      {{- if .Values.runners.cloneUrl }}
+      --clone-url {{ .Values.runners.cloneUrl }} \
+      {{- end }}
 
     # Start the runner
     /entrypoint run --user=gitlab-runner \
