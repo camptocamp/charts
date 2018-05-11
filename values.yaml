@@ -135,6 +135,10 @@ runners:
     # cpuRequests: 100m
     # memoryRequests: 128Mi
 
+  ## Service Account to be used for runners
+  ##
+  # serviceAccountName:
+
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
