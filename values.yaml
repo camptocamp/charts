@@ -3,28 +3,17 @@
 ##
 image: gitlab/gitlab-runner:alpine-v10.3.0
 
+enabled: true
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
 ##
-# imagePullPolicy:
+imagePullPolicy: IfNotPresent
 
 ## The GitLab Server URL (with protocol) that want to register the runner against
 ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
 ##
 # gitlabUrl: http://gitlab.your-domain.com/
-
-## The Registration Token for adding new Runners to the GitLab Server. This must
-## be retreived from your GitLab Instance.
-## ref: https://docs.gitlab.com/ce/ci/runners/README.html#creating-and-registering-a-runner
-##
-# runnerRegistrationToken: ""
-
-## The Runner Token for adding new Runners to the GitLab Server. This must
-## be retreived from your GitLab Instance. It is token of already registered runner.
-## ref: (we don't yet have docs for that, but we want to use existing token)
-##
-# runnerToken: ""
 
 ## Unregister all runners before termination
 ##
@@ -99,15 +88,14 @@ runners:
   ##   --from-literal=secretKey="YourSecretKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
-  cache: {}
-    # cacheType: s3
-    # s3ServerAddress: s3.amazonaws.com
-    # s3BucketName:
-    # s3BucketLocation:
-    # s3CacheInsecure: false
-    # s3CachePath: "gitlab_runner"
-    # cacheShared: true
-
+  cache:
+    cacheType: s3
+    s3BucketName: runner-cache
+    cacheShared: true
+    s3BucketLocation: us-east-1
+    secretName: gitlab-minio
+    s3CachePath: gitlab_runner
+    s3CacheInsecure: false
   ## Build Container specific configuration
   ##
   builds: {}
