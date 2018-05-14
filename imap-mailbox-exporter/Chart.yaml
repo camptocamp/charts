@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart to deploy imap-mailbox-exporter on Kubernetes
+name: imap-mailbox-exporter
+version: 0.1.0

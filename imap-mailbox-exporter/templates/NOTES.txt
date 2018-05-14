@@ -1,0 +1,7 @@
+IMAP mailbox exporter can be accessed via port {{ .Values.service.externalPort }} on the following DNS name within the cluster:
+
+{{ template "imap-mailbox-exporter.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+
+The mailbox password must be stored in a secret which can be created with the command:
+
+kubectl|oc create secret generic <secret-name> --from-literal='password=<secret>'
