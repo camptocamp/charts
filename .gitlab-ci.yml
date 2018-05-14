@@ -3,6 +3,6 @@ image: registry.gitlab.com/charts/alpine-helm
 lint:
   stage: test
   script:
-    - helm lint charts/*
+    - helm lint .
   except:
     - master
