@@ -25,6 +25,15 @@ tolerations: []
 
 affinity: {}
 
+prometheusPuppetdb:
+  args:
+    output: configmap
+    namespace: app-metrics
+
+  extraConfigmapMounts: []
+  extraSecretMounts: []
+
+
 prometheus:
   initChownData:
     enabled: false
