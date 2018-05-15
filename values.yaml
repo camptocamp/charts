@@ -88,13 +88,14 @@ runners:
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
   cache:
-    cacheType: s3
-    s3BucketName: runner-cache
-    cacheShared: true
-    s3BucketLocation: us-east-1
-    secretName: gitlab-minio
-    s3CachePath: gitlab_runner
-    s3CacheInsecure: false
+  # cacheType: s3
+    # s3ServerAddress: s3.amazonaws.com
+    # s3BucketName:
+    # s3BucketLocation:
+    # s3CacheInsecure: false
+    # s3CachePath: "gitlab_runner"
+    # cacheShared: true
+    # secretName: s3-secret
   ## Build Container specific configuration
   ##
   builds: {}
