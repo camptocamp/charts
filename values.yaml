@@ -3,7 +3,6 @@
 ##
 image: gitlab/gitlab-runner:alpine-v10.3.0
 
-enabled: true
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
