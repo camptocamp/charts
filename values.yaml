@@ -95,7 +95,7 @@ runners:
     # s3CacheInsecure: false
     # s3CachePath: "gitlab_runner"
     # cacheShared: true
-    # secretName: s3-secret
+    # secretName: s3access
   ## Build Container specific configuration
   ##
   builds: {}

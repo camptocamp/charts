@@ -90,7 +90,7 @@ spec:
           sources:
             {{- if .Values.runners.cache }}
             - secret:
-                name: {{ .Values.runners.cache.secretName }}
+                name: {{ default "s3access" .Values.runners.cache.secretName | quote }}
                 items:
                   - key: accesskey
                     path: s3-access-key
