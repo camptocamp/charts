@@ -98,7 +98,7 @@ spec:
                     path: s3-secret-key
             {{- end }}
             - secret:
-                name: {{ template "fullname" . }}
+                name: {{ default (include "fullname" .) .Values.runners.secret | quote }}
                 items:
                   - key: runner-registration-token
                     path: runner-registration-token

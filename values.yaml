@@ -72,6 +72,9 @@ runners:
   ##
   privileged: false
 
+  ## The name of the secret containing runnerToken and runnerRegistrationToken
+  # secret: gitlab-runner
+
   ## Namespace to run Kubernetes jobs in (defaults to the same namespace of this release)
   ##
   # namespace:
