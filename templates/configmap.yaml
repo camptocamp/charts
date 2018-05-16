@@ -18,8 +18,13 @@ data:
       export S3_ACCESS_KEY=$(cat /secrets/s3-access-key)
       export S3_SECRET_KEY=$(cat /secrets/s3-secret-key)
     fi
-    export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)
-    export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
+    if [[ -f /secrets/runner-registration-token ]]
+      export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)
+    fi
+
+    if [[ -f /secrets/runner-token ]]
+      export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
+    fi
 
     /entrypoint register --non-interactive \
       --executor kubernetes \
