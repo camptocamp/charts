@@ -7,7 +7,7 @@ image: gitlab/gitlab-runner:alpine-v10.3.0
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
 ##
-# imagePullPolicy:
+imagePullPolicy: IfNotPresent
 
 ## The GitLab Server URL (with protocol) that want to register the runner against
 ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
@@ -25,7 +25,7 @@ image: gitlab/gitlab-runner:alpine-v10.3.0
 ## ref: (we don't yet have docs for that, but we want to use existing token)
 ##
 # runnerToken: ""
-
+#
 ## Unregister all runners before termination
 ##
 ## Updating the runner's chart version or configuration will cause the runner container
@@ -84,6 +84,9 @@ runners:
   ##
   privileged: false
 
+  ## The name of the secret containing runnerToken and runnerRegistrationToken
+  # secret: gitlab-runner
+
   ## Namespace to run Kubernetes jobs in (defaults to the same namespace of this release)
   ##
   # namespace:
@@ -99,15 +102,15 @@ runners:
   ##   --from-literal=secretKey="YourSecretKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
-  cache: {}
-    # cacheType: s3
+  cache:
+  # cacheType: s3
     # s3ServerAddress: s3.amazonaws.com
     # s3BucketName:
     # s3BucketLocation:
     # s3CacheInsecure: false
     # s3CachePath: "gitlab_runner"
     # cacheShared: true
-
+    # secretName: s3access
   ## Build Container specific configuration
   ##
   builds: {}
