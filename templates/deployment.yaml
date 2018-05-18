@@ -102,6 +102,8 @@ spec:
                 items:
                   - key: runner-registration-token
                     path: runner-registration-token
+                  - key: runner-token
+                    path: runner-token
       {{- if .Values.certsSecretName }}
       - name: custom-certs
         secret:
