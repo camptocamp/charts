@@ -25,6 +25,11 @@ tolerations: []
 
 affinity: {}
 
+prometheusPuppetdb:
+  Extraconfigmapmounts: []
+  extraSecretMounts: []
+
+
 prometheus:
   initChownData:
     enabled: false
