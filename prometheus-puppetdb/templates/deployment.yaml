@@ -24,7 +24,34 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          args: ["--output", "configmap", "--namespace", "puppet"]
+          args:
+        {{- if .Values.prometheusPuppetdb.args }}
+          {{- if not .Values.prometheusPuppetdb.args.output }}
+            - --output=configmap
+          {{- end }}
+          {{- range $key, $value := .Values.prometheusPuppetdb.args }}
+            - --{{ $key }}={{ $value }}
+          {{- end }}
+        {{- else }}
+            - --output=configmap
+        {{- end }}
+        {{- if .Values.prometheusPuppetdb.env }}
+          env:
+{{ toYaml .Values.prometheusPuppetdb.env | indent 10 }}
+        {{- end }}
+        {{- if or .Values.prometheusPuppetdb.extraConfigmapMounts .Values.prometheusPuppetdb.extraSecretMounts }}
+          volumeMounts:
+          {{- range .Values.prometheusPuppetdb.extraConfigmapMounts }}
+          - name: {{ .name }}
+            mountPath: {{ .mountPath }}
+            readOnly: {{ .readOnly }}
+          {{- end }}
+          {{- range .Values.prometheusPuppetdb.extraSecretMounts }}
+          - name: {{ .name }}
+            mountPath: {{ .mountPath }}
+            readOnly: {{ .readOnly }}
+          {{- end }}
+        {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
@@ -38,4 +65,17 @@ spec:
     {{- with .Values.tolerations }}
       tolerations:
 {{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- if or .Values.prometheusPuppetdb.extraConfigmapMounts .Values.prometheusPuppetdb.extraSecretMounts }}
+      volumes:
+      {{- range .Values.prometheusPuppetdb.extraConfigmapMounts }}
+      - name: {{ .name }}
+        configMap:
+          name: {{ .configMap }}
+      {{- end }}
+      {{- range .Values.prometheusPuppetdb.extraSecretMounts }}
+      - name: {{ .name }}
+        secret:
+          secretName: {{ .secretName }}
+      {{- end }}
     {{- end }}
