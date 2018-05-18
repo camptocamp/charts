@@ -1,0 +1,7 @@
+nfs:
+  path: /my-nfs-path
+  server: my-nfs-server
+  capacity: 10Gi
+  reclaimPolicy: Retain
+  reclaimNamespace: myNamespace
+  reclaimName: myPvcName
