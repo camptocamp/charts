@@ -18,11 +18,12 @@ data:
       export S3_ACCESS_KEY=$(cat /secrets/s3-access-key)
       export S3_SECRET_KEY=$(cat /secrets/s3-secret-key)
     fi
-    if [[ -f /secrets/runner-registration-token ]]
+
+    if [[ -f /secrets/runner-registration-token ]]; then
       export REGISTRATION_TOKEN=$(cat /secrets/runner-registration-token)
     fi
 
-    if [[ -f /secrets/runner-token ]]
+    if [[ -f /secrets/runner-token ]]; then
       export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
     fi
 
