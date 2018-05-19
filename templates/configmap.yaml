@@ -11,7 +11,8 @@ data:
   entrypoint: |
     #!/bin/bash
     set -e
-    cp /scripts/config.toml /etc/gitlab-runner/
+    mkdir /home/gitlab-runner/.gitlab-runner/
+    cp /scripts/config.toml /home/gitlab-runner/.gitlab-runner/
 
     # Register the runner
     if [[ -f /secrets/s3-access-key && -f /secrets/s3-secret-key ]]; then
