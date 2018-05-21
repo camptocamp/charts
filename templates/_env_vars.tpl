@@ -33,6 +33,8 @@
   value: {{ default "" .Values.runners.helpers.cpuRequests | quote }}
 - name: KUBERNETES_HELPERS_MEMORY_REQUEST
   value: {{ default "" .Values.runners.helpers.memoryRequests | quote }}
+- name: KUBERNETES_PULL_POLICY
+  value: {{ default "" .Values.runners.imagePullPolicy | quote }}
 {{- if .Values.runners.cache -}}
 {{ include "cache_s3" . }}
 {{- end }}
