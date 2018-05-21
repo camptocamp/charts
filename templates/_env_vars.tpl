@@ -25,13 +25,13 @@
   value: {{ default "" .Values.runners.services.cpuRequests | quote }}
 - name: KUBERNETES_SERVICE_MEMORY_REQUEST
   value: {{ default "" .Values.runners.services.memoryRequests | quote }}
-- name: KUBERNETES_HELPERS_CPU_LIMIT
+- name: KUBERNETES_HELPER_CPU_LIMIT
   value: {{ default "" .Values.runners.helpers.cpuLimit | quote }}
-- name: KUBERNETES_HELPERS_MEMORY_LIMIT
+- name: KUBERNETES_HELPER_MEMORY_LIMIT
   value: {{ default "" .Values.runners.helpers.memoryLimit | quote }}
-- name: KUBERNETES_HELPERS_CPU_REQUEST
+- name: KUBERNETES_HELPER_CPU_REQUEST
   value: {{ default "" .Values.runners.helpers.cpuRequests | quote }}
-- name: KUBERNETES_HELPERS_MEMORY_REQUEST
+- name: KUBERNETES_HELPER_MEMORY_REQUEST
   value: {{ default "" .Values.runners.helpers.memoryRequests | quote }}
 {{- if .Values.runners.cache -}}
 {{ include "cache_s3" . }}
