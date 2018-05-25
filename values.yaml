@@ -135,6 +135,14 @@ runners:
     # cpuRequests: 100m
     # memoryRequests: 128Mi
 
+  ## Service Account to be used for runners
+  ##
+  # serviceAccountName:
+
+  ## If Gitlab is not reachable through $CI_SERVER_URL
+  ##
+  # cloneUrl:
+
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
