@@ -45,6 +45,7 @@ projects: {}
 #       This is my cicd Project
 #     tiller: true
 #     rootUser: true
+#     nodeSelector: app=yourlabels
 #   myproject1:
 #     description: |-
 #       My Project One
