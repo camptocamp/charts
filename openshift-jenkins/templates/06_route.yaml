@@ -7,6 +7,9 @@ metadata:
   label:
 {{ include "common.labels.standard" . | indent 4 }}
 spec:
+{{- if .Values.JenkinsCustom.routeHost }}
+  host: {{ .Values.JenkinsCustom.routeHost }}
+{{- end }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
