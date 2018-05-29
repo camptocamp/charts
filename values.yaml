@@ -77,6 +77,10 @@ runners:
   ##
   # imagePullSecrets: []
 
+  ## Specify the image pull policy: never, if-not-present, always. The cluster default will be used if not set.
+  ##
+  # imagePullPolicy: ""
+
   ## Run all containers with the privileged flag enabled
   ## This will allow the docker:dind image to run if you need to run Docker
   ## commands. Please read the docs before turning this on:
