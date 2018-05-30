@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ template "gitlab-runner.fullname" . }}
   labels:
-    app: {{ template "fullname" . }}
+    app: {{ template "gitlab-runner.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "fullname" . }}
+        app: {{ template "gitlab-runner.fullname" . }}
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
@@ -34,9 +34,9 @@ spec:
           - name: init-runner-secrets
             mountPath: /init-secrets
             readOnly: true
-      serviceAccountName: {{ if .Values.rbac.create }}{{ template "fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
+      serviceAccountName: {{ if .Values.rbac.create }}{{ template "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
       containers:
-      - name: {{ template "fullname" . }}
+      - name: {{ template "gitlab-runner.fullname" . }}
         image: {{ .Values.image }}
         {{- if and .Values.unregisterRunners .Values.runnerRegistrationToken }}
         lifecycle:
@@ -47,7 +47,7 @@ spec:
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
         command: ["/bin/bash", "/scripts/entrypoint"]
         env:
-        {{ include "runner-env-vars" . | indent 8 }}
+        {{ include "gitlab-runner.runner-env-vars" . | indent 8 }}
         livenessProbe:
           exec:
             command: ["/usr/bin/pgrep","gitlab.*runner"]
@@ -98,7 +98,7 @@ spec:
                     path: s3-secret-key
             {{- end }}
             - secret:
-                name: {{ default (include "fullname" .) .Values.runners.secret | quote }}
+                name: {{ default (include "gitlab-runner.fullname" .) .Values.runners.secret | quote }}
                 items:
                   - key: runner-registration-token
                     path: runner-registration-token
@@ -111,4 +111,4 @@ spec:
       {{- end }}
       - name: scripts
         configMap:
-          name: {{ template "fullname" . }}
+          name: {{ template "gitlab-runner.fullname" . }}

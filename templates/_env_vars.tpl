@@ -1,6 +1,6 @@
-{{- define "runner-env-vars" }}
+{{- define "gitlab-runner.runner-env-vars" }}
 - name: CI_SERVER_URL
-  value: {{ template "gitlabUrl" . }}
+  value: {{ template "gitlab-runner.gitlabUrl" . }}
 - name: CLONE_URL
   value: {{ default "" .Values.runners.cloneUrl | quote }}
 - name: KUBERNETES_IMAGE
@@ -40,6 +40,6 @@
 - name: KUBERNETES_PULL_POLICY
   value: {{ default "" .Values.runners.imagePullPolicy | quote }}
 {{- if .Values.runners.cache -}}
-{{ include "cache_s3" . }}
+{{ include "gitlab-runner.cache_s3" . }}
 {{- end }}
 {{- end }}
