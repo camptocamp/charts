@@ -1,4 +1,4 @@
-{{- define "cache_s3" }}
+{{- define "gitlab-runner.cache_s3" }}
 - name: CACHE_TYPE
   value: {{ default "" .Values.runners.cache.cacheType | quote }}
 - name: S3_SERVER_ADDRESS
