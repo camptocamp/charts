@@ -98,12 +98,12 @@ runners:
   ## Distributed runners caching
   ## ref: https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/configuration/autoscale.md#distributed-runners-caching
   ##
-  ## Create a secret 's3access' containing 'accessKey' & 'secretKey'
+  ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
   ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
   ##
   ## $ kubectl create secret generic s3access --\
-  ##   --from-literal=accessKey="YourAccessKey" \
-  ##   --from-literal=secretKey="YourSecretKey"
+  ##   --from-literal=accesskey="YourAccessKey" \
+  ##   --from-literal=secretkey="YourSecretKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
   cache:
