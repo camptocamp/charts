@@ -40,6 +40,9 @@ data:
   config.toml: |
     concurrent = {{ .Values.concurrent }}
     check_interval = {{ .Values.checkInterval }}
+    {{- if .Values.metrics.enabled }}
+    metrics_server = '[::]:9252'
+    {{- end }}
   configure: |
     set -e
     cp /init-secrets/* /secrets

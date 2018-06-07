@@ -64,6 +64,11 @@ rbac:
   ##
   # serviceAccountName: default
 
+## Configure integrated Prometheus metrics exporter
+## ref: https://docs.gitlab.com/runner/monitoring/#configuration-of-the-metrics-http-server
+metrics:
+  enabled: true
+
 ## Configuration for the Pods that that the runner launches for each new job
 ##
 runners:
