@@ -16,6 +16,10 @@ spec:
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
+        {{- if .Values.metrics.enabled }}
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '9252'
+        {{- end }}
     spec:
       securityContext:
         runAsUser: 100
