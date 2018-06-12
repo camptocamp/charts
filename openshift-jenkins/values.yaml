@@ -50,7 +50,7 @@ JenkinsCustom:
   enable: true
   gitSource: git@myGitServer:myGitGroup/myGitProject.git
   contextDir: openshift/build/jenkins-custom
-  routeHost: your_jenkins_url.example.com
+  # routeHost: your_jenkins_url.example.com
 
 gitlabConnection:
   name: 'Gitlab'
