@@ -3,6 +3,8 @@
   value: {{ template "gitlab-runner.gitlabUrl" . }}
 - name: CLONE_URL
   value: {{ default "" .Values.runners.cloneUrl | quote }}
+- name: REGISTER_LOCKED
+  value: {{ default "true" .Values.runners.registerLocked | quote }}
 - name: KUBERNETES_IMAGE
   value: {{ .Values.runners.image | quote }}
 {{ if .Values.runners.privileged }}
