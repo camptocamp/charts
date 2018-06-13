@@ -33,9 +33,6 @@ data:
       {{- range .Values.runners.imagePullSecrets }}
       --kubernetes-image-pull-secrets {{ . | quote }} \
       {{- end }}
-      {{- if .Values.runners.tags }}
-      --tag-list {{ range .Values.runners.tags }}{{ . }},{{ end }} \
-      {{- end }}
 
     # Start the runner
     /entrypoint run --user=gitlab-runner \

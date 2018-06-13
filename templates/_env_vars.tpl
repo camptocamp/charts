@@ -5,6 +5,8 @@
   value: {{ default "" .Values.runners.cloneUrl | quote }}
 - name: REGISTER_LOCKED
   value: {{ .Values.runners.locked | quote | default "\"true\"" }}
+- name: RUNNER_TAG_LIST
+  value: {{ default "" .Values.runners.tags | quote }}
 - name: KUBERNETES_IMAGE
   value: {{ .Values.runners.image | quote }}
 {{ if .Values.runners.privileged }}
