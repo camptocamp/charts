@@ -94,7 +94,7 @@ spec:
           sources:
             {{- if .Values.runners.cache }}
             - secret:
-                name: {{ default "s3access" .Values.runners.cache.secretName | quote }}
+                name: {{ template "gitlab-runner.cache.secret" . }}
                 items:
                   - key: accesskey
                     path: s3-access-key
@@ -102,7 +102,7 @@ spec:
                     path: s3-secret-key
             {{- end }}
             - secret:
-                name: {{ default (include "gitlab-runner.fullname" .) .Values.runners.secret | quote }}
+                name: {{ template "gitlab-runner.secret" . }}
                 items:
                   - key: runner-registration-token
                     path: runner-registration-token

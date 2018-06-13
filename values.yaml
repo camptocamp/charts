@@ -111,7 +111,7 @@ runners:
   ##   --from-literal=secretkey="YourSecretKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
-  cache:
+  cache: {}
   # cacheType: s3
     # s3ServerAddress: s3.amazonaws.com
     # s3BucketName:
