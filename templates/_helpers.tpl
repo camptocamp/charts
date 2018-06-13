@@ -16,6 +16,20 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
+Define the name of the secret containing the tokens
+*/}}
+{{- define "gitlab-runner.secret" -}}
+{{- default (include "gitlab-runner.fullname" .) .Values.runners.secret | quote -}}
+{{- end -}}
+
+{{/*
+Define the name of the s3 cache secret
+*/}}
+{{- define "gitlab-runner.cache.secret " -}}
+{{- default "s3access" .Values.runners.cache.secretName | quote -}}
+{{- end -}}
+
+{{/*
 Template for outputing the gitlabUrl
 */}}
 {{- define "gitlab-runner.gitlabUrl" -}}
