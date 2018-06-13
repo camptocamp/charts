@@ -4,7 +4,7 @@
 - name: CLONE_URL
   value: {{ default "" .Values.runners.cloneUrl | quote }}
 - name: REGISTER_LOCKED
-  value: {{ default "true" .Values.runners.locked | quote }}
+  value: {{ .Values.runners.locked | quote | default "true" }}
 - name: KUBERNETES_IMAGE
   value: {{ .Values.runners.image | quote }}
 {{ if .Values.runners.privileged }}
