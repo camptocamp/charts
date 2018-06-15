@@ -9,6 +9,11 @@ image: gitlab/gitlab-runner:alpine-v10.3.0
 ##
 imagePullPolicy: IfNotPresent
 
+## Default container image to use for initcontainer
+init:
+  image: busybox
+  tag: latest
+
 ## The GitLab Server URL (with protocol) that want to register the runner against
 ## ref: https://docs.gitlab.com/runner/commands/README.html#gitlab-runner-register
 ##
