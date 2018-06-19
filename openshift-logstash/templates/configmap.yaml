@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "openshift-logstash.fullname" . }}
+  labels:
+    app: {{ template "openshift-logstash.name" . }}
+    chart: {{ template "openshift-logstash.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  inputs.conf: |
+{{- .Values.inputs | indent 4 }}
+  filters.conf: |
+{{- .Values.filters | indent 4 }}
+  outputs.conf: |
+{{- .Values.outputs | indent 4 }}
