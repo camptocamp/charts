@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: {{ template "external-service.fullname" . }}
+  labels:
+    app: {{ template "external-service.name" . }}
+    chart: {{ template "external-service.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+subsets:
+{{ toYaml .Values.endpoints.subsets | indent 4 }}
