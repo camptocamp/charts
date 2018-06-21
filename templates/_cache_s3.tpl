@@ -7,10 +7,14 @@
   value: {{ default "" .Values.runners.cache.s3BucketName | quote }}
 - name: S3_BUCKET_LOCATION
   value: {{ default "" .Values.runners.cache.s3BucketLocation | quote }}
+{{-   if .Values.runners.cache.s3CacheInsecure }}
 - name: S3_CACHE_INSECURE
-  value: {{ default "" .Values.runners.cache.s3CacheInsecure | quote }}
+  value: "true"
+{{-   end }}
 - name: S3_CACHE_PATH
   value: {{ default "" .Values.runners.cache.s3CachePath | quote }}
+{{-   if .Values.runners.cache.cacheShared }}
 - name: CACHE_SHARED
-  value: {{ default "" .Values.runners.cache.cacheShared | quote }}
+  value: "true"
+{{-   end }}
 {{- end -}}
