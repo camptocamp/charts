@@ -35,3 +35,10 @@ Template for outputing the gitlabUrl
 {{- define "gitlab-runner.gitlabUrl" -}}
 {{- .Values.gitlabUrl | quote -}}
 {{- end -}}
+
+{{/*
+Template runners.cache.s3ServerAddress in order to allow overrides from external charts.
+*/}}
+{{- define "gitlab-runner.cache.s3ServerAddress" }}
+{{- default "" .Values.runners.cache.s3ServerAddress | quote -}}
+{{- end -}}

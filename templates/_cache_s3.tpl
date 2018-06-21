@@ -2,7 +2,7 @@
 - name: CACHE_TYPE
   value: {{ default "" .Values.runners.cache.cacheType | quote }}
 - name: S3_SERVER_ADDRESS
-  value: {{ default "" .Values.runners.cache.s3ServerAddress | quote }}
+  value: {{ template "gitlab-runner.cache.s3ServerAddress" . }}
 - name: S3_BUCKET_NAME
   value: {{ default "" .Values.runners.cache.s3BucketName | quote }}
 - name: S3_BUCKET_LOCATION
