@@ -11,7 +11,7 @@ data:
   entrypoint: |
     #!/bin/bash
     set -e
-    mkdir /home/gitlab-runner/.gitlab-runner/
+    mkdir -p /home/gitlab-runner/.gitlab-runner/
     cp /scripts/config.toml /home/gitlab-runner/.gitlab-runner/
 
     # Register the runner

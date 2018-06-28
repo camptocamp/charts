@@ -72,7 +72,7 @@ spec:
         - name: runner-secrets
           mountPath: /secrets
         - name: etc-gitlab-runner
-          mountPath: /etc/gitlab-runner
+          mountPath: /home/gitlab-runner/.gitlab-runner
         - name: scripts
           mountPath: /scripts
         {{- if .Values.certsSecretName }}
