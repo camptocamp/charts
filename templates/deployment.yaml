@@ -78,7 +78,7 @@ spec:
         {{- if .Values.certsSecretName }}
         - name: custom-certs
           readOnly: true
-          mountPath: /etc/gitlab-runner/certs/
+          mountPath: /home/gitlab-runner/.gitlab-runner/certs/
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
