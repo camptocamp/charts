@@ -72,13 +72,13 @@ spec:
         - name: runner-secrets
           mountPath: /secrets
         - name: etc-gitlab-runner
-          mountPath: /etc/gitlab-runner
+          mountPath: /home/gitlab-runner/.gitlab-runner
         - name: scripts
           mountPath: /scripts
         {{- if .Values.certsSecretName }}
         - name: custom-certs
           readOnly: true
-          mountPath: /etc/gitlab-runner/certs/
+          mountPath: /home/gitlab-runner/.gitlab-runner/certs/
         {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 10 }}
