@@ -57,6 +57,11 @@ concurrent: 10
 ##
 checkInterval: 30
 
+## Configure GitLab Runner's logging level. Available values are: debug, info, warn, error, fatal, panic
+## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section
+##
+# logLevel:
+
 ## For RBAC support:
 rbac:
   create: false
