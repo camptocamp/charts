@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "openshift-logstash.fullname" . }}
@@ -19,22 +19,17 @@ spec:
         app: {{ template "openshift-logstash.name" . }}
         release: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: {{ template "openshift-logstash.fullname" . }}-logstashconf
+          image: {{ .Values.openshiftRegistry }}/{{ .Release.Namespace }}/{{ template "openshift-logstash.fullname" . }}-logstashconf:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: logstash-config
+              mountPath: /etc/logstash
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          # ports:
-          #   - name: http
-          #     containerPort: 80
-          #     protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
           volumeMounts:
             - name: logstash-config
               mountPath: /etc/logstash
@@ -49,11 +44,10 @@ spec:
 {{ toYaml .Values.resources | indent 12 }}
       volumes:
         - name: logstash-config
-          configMap:
-            name: {{ template "openshift-logstash.fullname" . }}
+          emptyDir: {}
     {{- with .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml . | indent 8 }}
+        {{ toYaml . | indent 8 }}
     {{- end }}
     {{- with .Values.affinity }}
       affinity:

@@ -1,0 +1,14 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ template "openshift-logstash.fullname" . }}-logstashconf
+  labels:
+    app: {{ template "openshift-logstash.name" . }}
+    chart: {{ template "openshift-logstash.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  lookupPolicy:
+    local: false
+status:
+  dockerImageRepository: ""

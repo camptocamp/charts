@@ -1,13 +1,30 @@
 # Default values for openshift-logstash.
+# To use this chart, a repository containing the logstash configuration must
+# exist. It must contains a dockerfile that generate a docker image with an
+# entrypoint that copies logstash configuration to /etc/logstash/
+# ENTRYPOINT ["/bin/sh", "-c", "cp /*.conf /etc/logstash/"]
+
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+#fullnameOverride: logstash.c2c
+
 replicaCount: 1
 
+# openshift internal registry with port
+openshiftRegistry: 172.30.1.1:5000
+
+# Logstash image
 image:
   repository: docker.elastic.co/logstash/logstash-oss
   tag: 6.2.4
   pullPolicy: IfNotPresent
+
+# Configuration image
+configurationImage:
+  repository: ssh://git@github.com:username/logstashconf.git
+  ref: # mandatory: mybranch
+  sshkey: # mandatory: private ssh key to access the git repository
 
 service:
   type: ClusterIP
@@ -43,18 +60,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-# logstash inputs configuration
-inputs: |
-  # inputs (leading comment mendatory)
-  inputs {
-    kafka {
-      bootstrap_servers => ""
-      group_id => ""
-      topics => ["topic1"]
-    }
-  }
-
-filters:
-
-outputs:

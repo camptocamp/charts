@@ -1,0 +1,32 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: {{ template "openshift-logstash.fullname" . }}
+  labels:
+    app: {{ template "openshift-logstash.name" . }}
+    chart: {{ template "openshift-logstash.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  source:
+    type: Git
+    git:
+      uri: {{ .Values.configurationImage.repository }}
+      ref: {{ .Values.configurationImage.ref }}
+    sourceSecret:
+      - {{ template "openshift-logstash.fullname" . }}-gitsecret
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStream
+        name: {{ template "openshift-logstash.fullname" . }}-alpin
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ template "openshift-logstash.fullname" . }}-logstashconf:latest
+  successfulBuildsHistoryLimit: 5
+  triggers:
+    - type: GitHub
+      github:
+        secret: {{ template "openshift-logstash.fullname" . }}-gitsecret
+    - type: ConfigChange
