@@ -28,5 +28,5 @@ spec:
   triggers:
     - type: GitHub
       github:
-        secret: {{ template "openshift-logstash.fullname" . }}-gitsecret
+        secret: {{ .Values.configurationImage.githubHookSecret }}
     - type: ConfigChange
