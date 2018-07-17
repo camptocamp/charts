@@ -40,7 +40,7 @@ spec:
           args:
             - '--path.data=/tmp'
             - '-f'
-            - '/etc/logstash/*.conf'
+            - '/etc/logstash/conf/*.conf'
           resources:
 {{ toYaml .Values.resources | indent 12 }}
       volumes:
