@@ -26,7 +26,7 @@ spec:
           volumeMounts:
             - name: logstash-config
               mountPath: /etc/logstash
-          args: ["/bin/sh", "-c", "cp *.conf /etc/logstash/"]
+          args: ["/bin/sh", "-c", "cp -r /logstash/* /etc/logstash/"]
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
