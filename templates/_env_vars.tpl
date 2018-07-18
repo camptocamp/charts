@@ -41,6 +41,8 @@
   value: {{ default "" .Values.runners.helpers.cpuRequests | quote }}
 - name: KUBERNETES_HELPER_MEMORY_REQUEST
   value: {{ default "" .Values.runners.helpers.memoryRequests | quote }}
+- name: KUBERNETES_HELPER_IMAGE
+  value: {{ default "" .Values.runners.helpers.image | quote }}
 - name: KUBERNETES_PULL_POLICY
   value: {{ default "" .Values.runners.imagePullPolicy | quote }}
 {{- if .Values.runners.cache -}}
