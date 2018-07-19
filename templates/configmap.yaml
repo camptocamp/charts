@@ -42,6 +42,8 @@ data:
       exit 1
     fi
 
+    cat /scripts/kubernetes.volumes | sed '1,$s/^/      /' >> /home/gitlab-runner/.gitlab-runner/config.toml
+
     # Start the runner
     /entrypoint run --user=gitlab-runner \
       --working-directory=/home/gitlab-runner
@@ -52,6 +54,17 @@ data:
     log_level = {{ default "info" .Values.logLevel | quote }}
     {{- if .Values.metrics.enabled }}
     listen_address = '[::]:9252'
+    {{- end }}
+  kubernetes.volumes: |
+    {{- if .Values.runners.kubernetes -}}
+    {{- range .Values.runners.kubernetes.volumes }}
+    [[runners.kubernetes.volumes.{{ .type }}]]
+{{ toToml .volume | indent 6 }}
+      {{- if .items -}}
+      [runners.kubernetes.volumes.{{ .type }}.items]
+{{ toToml .items | indent 8 }}
+      {{- end }}
+    {{- end }}
     {{- end }}
   configure: |
     set -e
