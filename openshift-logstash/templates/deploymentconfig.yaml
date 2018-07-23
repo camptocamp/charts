@@ -1,5 +1,5 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
 metadata:
   name: {{ template "openshift-logstash.fullname" . }}
   labels:
@@ -10,9 +10,8 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
-    matchLabels:
-      app: {{ template "openshift-logstash.name" . }}
-      release: {{ .Release.Name }}
+    app: {{ template "openshift-logstash.name" . }}
+    release: {{ .Release.Name }}
   template:
     metadata:
       labels:
@@ -58,3 +57,13 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+  triggers:
+    - type: ConfigChange
+    - type: ImageChange
+      imageChangeParams:
+        automatic: true
+        from:
+          kind: ImageStreamTag
+          name: {{ template "openshift-logstash.fullname" . }}-logstashconf:latest
+        containerNames:
+          - {{ template "openshift-logstash.fullname" . }}-logstashconf
