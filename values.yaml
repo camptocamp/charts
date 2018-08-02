@@ -163,7 +163,7 @@ runners:
     # memoryLimit: 256Mi
     # cpuRequests: 100m
     # memoryRequests: 128Mi
-    # image: gitlab/gitlab-runner-helper:latest
+    # image: gitlab/gitlab-runner-helper:x86_64-latest
 
   ## Service Account to be used for runners
   ##
