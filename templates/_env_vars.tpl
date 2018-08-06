@@ -4,7 +4,7 @@
 - name: CLONE_URL
   value: {{ default "" .Values.runners.cloneUrl | quote }}
 - name: RUNNER_EXECUTOR
-  value: {{ "kubernetes" }}
+  value: "kubernetes"
 - name: REGISTER_LOCKED
   value: {{ .Values.runners.locked | quote | default "\"true\"" }}
 - name: RUNNER_TAG_LIST
@@ -50,8 +50,8 @@
 {{- if .Values.runners.cache -}}
 {{ include "gitlab-runner.cache_s3" . }}
 {{- end }}
-{{- if .Values.env_vars -}}
-{{ range .Values.env_vars }}
+{{- if .Values.envVars -}}
+{{ range .Values.envVars }}
 - name: {{ .name }}
   value: {{ .value | quote }}
 {{- end }}

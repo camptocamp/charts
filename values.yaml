@@ -189,6 +189,6 @@ resources: {}
 ## ref: `gitlab-runner register --help`
 ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html
 ##
-# env_vars:
+# envVars:
 #   - name: RUNNER_EXECUTOR
 #     value: kubernetes
