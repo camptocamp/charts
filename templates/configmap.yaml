@@ -29,7 +29,6 @@ data:
     fi
 
     /entrypoint register --non-interactive \
-      --executor kubernetes \
       {{- range .Values.runners.imagePullSecrets }}
       --kubernetes-image-pull-secrets {{ . | quote }} \
       {{- end }}

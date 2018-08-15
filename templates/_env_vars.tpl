@@ -3,6 +3,8 @@
   value: {{ template "gitlab-runner.gitlabUrl" . }}
 - name: CLONE_URL
   value: {{ default "" .Values.runners.cloneUrl | quote }}
+- name: RUNNER_EXECUTOR
+  value: "kubernetes"
 - name: REGISTER_LOCKED
   value: {{ .Values.runners.locked | quote | default "\"true\"" }}
 - name: RUNNER_TAG_LIST
@@ -47,5 +49,11 @@
   value: {{ default "" .Values.runners.imagePullPolicy | quote }}
 {{- if .Values.runners.cache -}}
 {{ include "gitlab-runner.cache_s3" . }}
+{{- end }}
+{{- if .Values.envVars -}}
+{{ range .Values.envVars }}
+- name: {{ .name }}
+  value: {{ .value | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
