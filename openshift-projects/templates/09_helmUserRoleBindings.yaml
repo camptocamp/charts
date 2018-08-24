@@ -2,24 +2,21 @@
 apiVersion: v1
 items:
 {{- range $key, $value := .Values.projects }}
-  {{- if $value.editAccess }}
+  {{- range $helmAccess := $value.helmAccess }}
 - kind: RoleBinding
   apiVersion: authorization.openshift.io/v1
   metadata:
     labels:
 {{ include "common.labels.standard" $root | indent 6 }}
-    name: edit-{{ $root.Values.tiller.tillerUserServiceAccountName }}-binding
+    name: helm-user-binding
     namespace: {{ $key }}
   roleRef:
-    name: edit
+    name: helm-user
+    namespace: {{ $key }}
   subjects:
   - kind: ServiceAccount
-    name: {{ $root.Values.tiller.tillerUserServiceAccountName }}
-    namespace: {{ $root.Values.tiller.tillerUserServiceAccountNamespace }}
-  spec:
-    finalizers:
-    - openshift.io/origin
-    - kubernetes
+    name: {{ $helmAccess.ServiceAccountName }}
+    namespace: {{ $helmAccess.ServiceAccountNameSpace }}
   {{- end }}
 {{- end }}
 kind: List

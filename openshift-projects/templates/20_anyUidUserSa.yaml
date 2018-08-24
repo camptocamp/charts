@@ -2,18 +2,14 @@
 apiVersion: v1
 items:
 {{- range $key, $value := .Values.projects }}
-  {{- if $value.rootUser }}
+  {{- if $value.deployAnyUidServiceAccount }}
 - apiVersion: v1
   kind: ServiceAccount
   metadata:
     labels:
 {{ include "common.labels.standard" $root | indent 6 }}
-    name: {{ $root.Values.rootUser.name }}
+    name: {{ $root.Values.anyUid.ServiceAccountName }}
     namespace: {{ $key }}
-  spec:
-    finalizers:
-    - openshift.io/origin
-    - kubernetes
   {{- end }}
 {{- end }}
 kind: List

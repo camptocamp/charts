@@ -1,11 +1,11 @@
 {{ $root := . }}
-{{- if .Values.rootUser.enable }}
+{{- if .Values.anyUid.deployScc }}
 apiVersion: security.openshift.io/v1
 kind: SecurityContextConstraints
 metadata:
   labels:
 {{ include "common.labels.standard" . | indent 6 }}
-  name: rootuid
+  name: anyUid
 priority: 10
 allowHostDirVolumePlugin: false
 allowHostIPC: false
@@ -30,7 +30,7 @@ supplementalGroups:
   type: RunAsAny
 users:
 {{- range $key, $value := .Values.projects }}
-- system:serviceaccount:{{ $key }}:{{ $root.Values.rootUser.name }}
+- system:serviceaccount:{{ $key }}:{{ $root.Values.anyUid.ServiceAccountName }}
 {{- end }}
 volumes:
 - configMap

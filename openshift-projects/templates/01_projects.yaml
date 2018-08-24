@@ -13,9 +13,5 @@ items:
 {{ include "common.labels.standard" $root | indent 6 }}
     creationTimestamp: null
     name: {{ $key }}
-  spec:
-    finalizers:
-    - openshift.io/origin
-    - kubernetes
 {{- end }}
 kind: List
