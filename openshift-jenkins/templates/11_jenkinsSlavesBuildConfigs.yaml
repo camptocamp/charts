@@ -10,12 +10,11 @@ items:
       build: "jenkins-slave-{{ $key }}"
     name: "jenkins-slave-{{ $key }}"
   spec:
-    failedBuildsHistoryLimit: 5
     nodeSelector: null
     output:
       to:
-        kind: ImageStreamTag
-        name: "jenkins-slave-{{ $key }}:latest"
+        kind: DockerImage
+        name: "{{ $root.Values.image.registry }}/jenkins-slave-{{ $key }}:latest"
     postCommit: {}
     resources: {}
     runPolicy: Serial
@@ -25,7 +24,7 @@ items:
         uri: {{ $value.repository.url | quote }}
         ref: {{ $value.repository.ref | quote }}
       sourceSecret:
-        name: ssh-ci-secret
+        name: {{ $root.Values.sshSecretName | quote }}
       type: Git
     strategy:
       dockerStrategy:

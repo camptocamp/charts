@@ -5,25 +5,18 @@ items:
 - apiVersion: image.openshift.io/v1
   kind: ImageStream
   metadata:
-    annotations:
-      openshift.io/generated-by: OpenShiftNewBuild
-    creationTimestamp: null
-    generation: 1
     labels:
-      build: "jenkins-slave-{{ $key }}"
+{{ include "common.labels.standard" $root | indent 6 }}
     name: "jenkins-slave-{{ $key }}"
   spec:
     lookupPolicy:
       local: false
     tags:
-    - annotations: null
-      from:
+    - from:
         kind: DockerImage
-        name: "docker-registry.default.svc:5000/{{ $root.Release.Namespace }}/jenkins-slave-{{ $key }}:latest"
-      generation: null
-      importPolicy: {}
+        name: "{{ $root.Values.image.registry }}/{{ $root.Values.image.org }}/jenkins-slave-{{ $key }}:latest"
       name: latest
-      referencePolicy:
-        type: ""
-{{- end }}
+      importPolicy:
+        scheduled: true{{- end }}
 kind: List
+

@@ -23,6 +23,14 @@ spec:
         - configMapRef:
             name: jenkins-config        
         env:
+        - name: HTTP_PROXY_HOST
+          value: {{ .Values.proxy.host | quote }}
+        - name: HTTP_PROXY_PORT
+          value: {{ .Values.proxy.port | quote }}
+        - name: NO_PROXY
+          value: {{ .Values.proxy.noproxy | quote }}
+        - name: OPENSHIFT_ENABLE_OAUTH
+          value: {{ .Values.enable_oauth | quote }}
         - name: GITLAB_CONN_TOKEN
           valueFrom:
             secretKeyRef:
@@ -88,6 +96,6 @@ spec:
         kind: ImageStreamTag
         name: {{ .Values.jenkins_image_stream_tag | quote }}
         namespace: {{ .Values.namespace | quote }}
-      lastTriggeredImage: ""
+      name: {{ .Values.image.tag }}
     type: ImageChange
   - type: ConfigChange

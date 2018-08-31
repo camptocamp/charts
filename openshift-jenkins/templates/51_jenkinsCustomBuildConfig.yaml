@@ -9,8 +9,8 @@ spec:
   nodeSelector: null
   output:
     to:
-      kind: ImageStreamTag
-      name: jenkins-custom:latest
+      kind: DockerImage
+      name: "{{ .Values.image.registry }}/{{ .Values.image.org }}/jenkins-custom:{{ .Values.image.tag }}"
   postCommit: {}
   resources: {}
   runPolicy: Serial

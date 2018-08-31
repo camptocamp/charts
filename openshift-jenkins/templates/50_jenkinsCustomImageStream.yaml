@@ -4,3 +4,13 @@ metadata:
   name: jenkins-custom
   labels:
 {{ include "common.labels.standard" . | indent 4 }}
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - from:
+      kind: DockerImage
+      name: "{{ .Values.image.registry }}/{{ .Values.image.org }}/jenkins-custom:{{ .Values.image.tag }}"
+    name: "{{ .Values.image.tag }}"
+    importPolicy:
+      scheduled: true

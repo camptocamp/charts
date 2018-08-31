@@ -45,6 +45,8 @@ javaGcOpts: "-XX:+UseParallelGC -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 
 sshSecretName: my-ssh-private-key-secret
 sshPrivateKey: <ssh_private_key>
 
+dockerSecretName: mydockerSecretName
+
 # Custom image
 JenkinsCustom:
   enable: true
@@ -71,3 +73,8 @@ gitlabConnection:
 #       url: git@myGitServer:myGitGroup/jenkinsSlavesProject.git
 #       ref: master
 #       context_dir: slave2
+
+proxy:
+  host: proxyhost
+  port: porxyport
+  noproxy: noproxy
