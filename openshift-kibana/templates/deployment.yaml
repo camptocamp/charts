@@ -1,0 +1,101 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ template "kibana.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: {{ template "kibana.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+    {{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+    {{- end }}
+      labels:
+        app: {{ template "kibana.name" . }}
+        release: "{{ .Release.Name }}"
+    spec:
+      {{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- if .Values.commandline.args }}
+        args:
+          - "/bin/bash"
+          - "/usr/local/bin/kibana-docker"
+{{ toYaml .Values.commandline.args | indent 10 }}
+        {{- end }}
+        env:
+        {{- range $key, $value := .Values.env }}
+        - name: "{{ $key }}"
+          value: "{{ $value }}"
+        {{- end }}
+        {{- if .Values.elasticsearch.cacertif }}
+        - name: ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES
+          value: /etc/ca-es/cacertif.pem
+        {{- end }}
+        {{- if .Values.ssl.enabled }}
+        - name:  SERVER_SSL_ENABLED
+          value: "true"
+        - name: SERVER_SSL_CERTIFICATE
+          value: /etc/kibana-ssl/certificate.pem
+        - name: SERVER_SSL_KEY
+          value: /etc/kibana-ssl/privkey.pem
+        {{- end }}
+        volumeMounts:
+        {{- if .Values.elasticsearch.cacertif }}
+          - name: es-cacertif
+            mountPath: /etc/ca-es
+            readOnly: true
+        {{- end }}
+        {{- if .Values.ssl.enabled }}
+          - name: kibana-ssl
+            mountPath: /etc/kibana-ssl
+            readOnly: true
+        {{- end }}
+        ports:
+        - containerPort: {{ .Values.service.internalPort }}
+          name: {{ template "kibana.name" . }}
+          protocol: TCP
+        # livenessProbe:
+        #   httpGet:
+        #     path: /ping
+        #     port: {{ .Values.service.internalPort }}
+        # readinessProbe:
+        #   httpGet:
+        #     path: /ping
+        #     port: {{ .Values.service.internalPort }}
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+      volumes:
+      {{- if .Values.elasticsearch.cacertif }}
+        - name: es-cacertif
+          configMap:
+            name: {{ template "kibana.fullname" . }}-esca
+      {{- end }}
+      {{- if .Values.ssl.enabled }}
+        - name: kibana-ssl
+          secret:
+            secretName: {{ template "kibana.fullname" . }}-ssl
+      {{- end }}
+    {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+{{ toYaml .Values.image.pullSecrets | indent 8 }}
+    {{- end }}
+    {{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+    {{- end }}
+    {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 8 }}
+    {{- end }}
+      tolerations:
+{{ toYaml .Values.tolerations | indent 8 }}

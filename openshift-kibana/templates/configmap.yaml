@@ -1,0 +1,14 @@
+{{- if .Values.elasticsearch.cacertif }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: {{ template "kibana.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  name: {{ template "kibana.fullname" . }}-esca
+data:
+  cacertif.pem:
+{{ toYaml .Values.elasticsearch.cacertif | indent 4 }}
+{{- end }}
