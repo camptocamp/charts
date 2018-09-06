@@ -17,7 +17,7 @@ openshiftRegistry: 172.30.1.1:5000
 # Logstash image
 image:
   repository: docker.elastic.co/logstash/logstash-oss
-  tag: 6.2.4
+  tag: 6.4.0
   pullPolicy: IfNotPresent
 
 # Configuration image
