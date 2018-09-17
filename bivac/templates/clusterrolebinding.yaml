@@ -1,4 +1,4 @@
-kind: RoleBinding
+kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: {{ template "bivac.fullname" . }}
@@ -10,7 +10,8 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: {{ template "bivac.fullname" . }}
+  namespace: cluster-backup
 roleRef:
-  kind: Role
+  kind: ClusterRole
   name: {{ template "bivac.fullname" . }}
   apiGroup: rbac.authorization.k8s.io

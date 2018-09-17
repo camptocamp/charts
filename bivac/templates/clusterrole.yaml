@@ -1,4 +1,4 @@
-kind: Role
+kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1beta1
 metadata:
   name: {{ template "bivac.fullname" . }}
@@ -9,11 +9,14 @@ metadata:
     heritage: {{ .Release.Service }}
 rules:
 - apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["get", "create", "list", "delete"]
+  resources: ["namespaces"]
+  verbs: ["list"]
 - apiGroups: [""]
   resources: ["persistentvolumeclaims"]
   verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "create", "list", "delete"]
 - apiGroups: [""]
   resources: ["pods/log", "pods/exec"]
   verbs: ["get", "post", "create"]
