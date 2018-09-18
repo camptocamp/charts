@@ -24,14 +24,6 @@ spec:
           args: ["--config", "/etc/pghoard/pghoard.json"]
           name: pghoard
           env:
-            - name: PGHOST
-              value: {{ .Values.postgresql.host }}
-            - name: PGPORT
-              value: "{{ .Values.postgresql.port }}"
-            - name: PGUSER
-              value: {{ .Values.postgresql.user }}
-            - name: PGPASSWORD
-              value: {{ .Values.postgresql.password | quote }}
             - name: PGPASSFILE
               value: /home/postgres/.pgpass
           resources: {}
