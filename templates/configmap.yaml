@@ -41,7 +41,7 @@ data:
     check_interval = {{ .Values.checkInterval }}
     log_level = {{ default "info" .Values.logLevel | quote }}
     {{- if .Values.metrics.enabled }}
-    metrics_server = '[::]:9252'
+    listen_address = '[::]:9252'
     {{- end }}
   configure: |
     set -e
