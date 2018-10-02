@@ -4,7 +4,7 @@ metadata:
   annotations:
     template.alpha.openshift.io/wait-for-ready: "true"
   name: {{ .Values.jenkins_service_name | quote }}
-  label:
+  labels:
 {{ include "common.labels.standard" . | indent 4 }}
 spec:
   replicas: 1

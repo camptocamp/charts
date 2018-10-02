@@ -4,7 +4,7 @@ metadata:
   annotations:
     template.openshift.io/expose-uri: http://{.spec.host}{.spec.path}
   name: {{ .Values.jenkins_service_name | quote }}
-  label:
+  labels:
 {{ include "common.labels.standard" . | indent 4 }}
 spec:
   tls:

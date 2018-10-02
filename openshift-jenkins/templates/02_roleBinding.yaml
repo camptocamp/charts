@@ -3,7 +3,7 @@ groupNames: null
 kind: RoleBinding
 metadata:
   name: {{ print .Values.jenkins_service_name "_edit" | quote }}
-  label:
+  labels:
 {{ include "common.labels.standard" . | indent 4 }}
 roleRef:
   name: edit

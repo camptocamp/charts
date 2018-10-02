@@ -4,7 +4,7 @@ items:
   kind: Service
   metadata:
     name: {{ .Values.jnlp_service_name | quote }}
-  label:
+  labels:
 {{ include "common.labels.standard" . | indent 4 }}
   spec:
     ports:
@@ -25,7 +25,7 @@ items:
         "namespace": "", "kind": "Service"}]'
       service.openshift.io/infrastructure: "true"
     name: {{ .Values.jenkins_service_name | quote }}
-  label:
+  labels:
 {{ include "common.labels.standard" . | indent 4 }}
   spec:
     ports:
