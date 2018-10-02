@@ -14,7 +14,7 @@ items:
     output:
       to:
         kind: DockerImage
-        name: "{{ $root.Values.image.registry }}/jenkins-slave-{{ $key }}:latest"
+        name: "{{ $root.Values.image.registry }}/{{ $root.Values.image.org }}/jenkins-slave-{{ $key }}:latest"
     postCommit: {}
     resources: {}
     runPolicy: Serial
