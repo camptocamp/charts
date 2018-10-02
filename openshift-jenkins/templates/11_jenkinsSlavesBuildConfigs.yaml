@@ -27,10 +27,6 @@ items:
         name: {{ $root.Values.sshSecretName | quote }}
       type: Git
     strategy:
-      dockerStrategy:
-        from:
-          kind: DockerImage
-          name: openshift/jenkins-slave-base-centos7:latest
       type: Docker
     successfulBuildsHistoryLimit: 5
     triggers:

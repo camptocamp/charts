@@ -17,7 +17,9 @@ spec:
       labels:
         name: {{ .Values.jenkins_service_name | quote }}
     spec:
-      containers:
+      securityContext:
+        supplementalGroups: [65534]
+      containers:      
       - capabilities: {}
         envFrom:
         - configMapRef:
