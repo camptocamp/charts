@@ -3,18 +3,27 @@
 # Declare variables to be passed into your templates.
 
 service:
-  type: ClusterIP
+  protocol: TCP
   port: 80
+  targetPort: 80
+  name:
+
 
 # Define below the list of endpoint subsets:
 endpoints:
   subsets:
 #   - addresses:
-#        - ip: 192.168.1.1                  # for ips
-#      ports:
-#        - name: service-name
-#          port: 8765
-  
+#     - ip: 192.168.1.1                  # for ips
+#     ports:
+#       - name: service-name
+#         port: 8765
+
+
+# route: define the route if the service must be accessible from outside os
+route:
+  enabled: false
+# tls:
+#   termination: passthrough
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

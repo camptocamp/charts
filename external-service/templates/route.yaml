@@ -1,0 +1,25 @@
+{{- if .Values.route.enabled -}}
+{{- $serviceName := include "external-service.fullname" . -}}
+{{- $servicePort := .Values.service.port -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: {{ template "external-service.name" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+  name: {{ template "external-service.fullname" . }}
+  annotations:
+    {{- range $key, $value := .Values.route.annotations }}
+      {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  to:
+    kind: Service
+    name: {{ $serviceName }}
+  {{- if .Values.route.tls }}
+  tls:
+{{ toYaml .Values.route.tls | indent 4 }}
+  {{- end -}}
+{{- end -}}
