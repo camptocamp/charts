@@ -123,6 +123,7 @@ runners:
   ## Distributed runners caching
   ## ref: https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/configuration/autoscale.md#distributed-runners-caching
   ##
+  ## If you want to use s3 based distributing caching:  
   ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
   ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
   ##
@@ -131,11 +132,21 @@ runners:
   ##   --from-literal=secretkey="YourSecretKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
+  ## If you want to use gcs based distributing caching:  
+  ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
+  ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
+  ##
+  ## $ kubectl create secret generic gcsaccess --\
+  ##   --from-literal=accessid="YourAccessID" \
+  ##   --from-literal=privatekey="YourPrivateKey"
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   cache: {}
-    ## S3 setting section
+    ## General settings
     # cacheType: s3
     # cachePath: "gitlab_runner"
     # cacheShared: true
+
+    ## S3 setting section
     # s3ServerAddress: s3.amazonaws.com
     # s3BucketName:
     # s3BucketLocation:
@@ -143,12 +154,8 @@ runners:
     # secretName: s3access
 
     ## GCS setting section
-    # cacheType: gcs
-    # cachePath: "gitlab_runner"
-    # cacheShared: true
-    # gcsAccessID:
-    # gcsPrivateKey:
-    # gcsBucketName:
+    # gcsBucketName: 
+    # secretName: gcsaccess
 
   ## Build Container specific configuration
   ##

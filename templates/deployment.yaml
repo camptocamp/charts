@@ -95,7 +95,7 @@ spec:
       - name: init-runner-secrets
         projected:
           sources:
-            {{- if and .Values.runners.cache }}
+            {{- if .Values.runners.cache }}
             {{-   if eq .Values.runners.cache.cacheType "s3"}}
             - secret:
                 name: {{ template "gitlab-runner.cache.secret" . }}
@@ -104,6 +104,15 @@ spec:
                     path: s3-access-key
                   - key: secretkey
                     path: s3-secret-key
+            {{-   end }}
+            {{-   if eq .Values.runners.cache.cacheType "gcs"}}
+            - secret:
+                name: {{ template "gitlab-runner.cache.secret" . }}
+                items:
+                  - key: accessid
+                    path: gcs-access-id
+                  - key: privatekey
+                    path: gcs-private-key
             {{-   end }}
             {{- end }}
             - secret:

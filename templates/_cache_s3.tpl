@@ -22,10 +22,6 @@
 {{-   end }}
 
 {{-   if eq .Values.runners.cache.cacheType "gcs" }}
-- name: CACHE_GCS_ACCESS_ID
-  value: {{ default "" .Values.runners.cache.gcsAccessID | quote }}
-- name: CACHE_GCS_PRIVATE_KEY
-  value: {{ default "" .Values.runners.cache.gcsPrivateKey | quote }}
 - name: CACHE_GCS_BUCKET_NAME
   value: {{ default "" .Values.runners.cache.gcsBucketName | quote }}
 {{-   end }}
