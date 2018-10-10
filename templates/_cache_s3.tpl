@@ -7,7 +7,6 @@
 - name: CACHE_SHARED
   value: "true"
 {{-   end }}
-
 {{-   if eq .Values.runners.cache.cacheType "s3" }}
 - name: S3_SERVER_ADDRESS
   value: {{ template "gitlab-runner.cache.s3ServerAddress" . }}
@@ -20,10 +19,8 @@
   value: "true"
 {{-     end }}
 {{-   end }}
-
 {{-   if eq .Values.runners.cache.cacheType "gcs" }}
 - name: CACHE_GCS_BUCKET_NAME
   value: {{ default "" .Values.runners.cache.gcsBucketName | quote }}
 {{-   end }}
-
 {{- end -}}
