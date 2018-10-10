@@ -108,11 +108,6 @@ spec:
             {{-   if eq .Values.runners.cache.cacheType "gcs"}}
             - secret:
                 name: {{ template "gitlab-runner.cache.secret" . }}
-                items:
-                  - key: accessid
-                    path: gcs-access-id
-                  - key: privatekey
-                    path: gcs-private-key
             {{-   end }}
             {{- end }}
             - secret:

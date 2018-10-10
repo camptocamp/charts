@@ -123,22 +123,33 @@ runners:
   ## Distributed runners caching
   ## ref: https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/configuration/autoscale.md#distributed-runners-caching
   ##
-  ## If you want to use s3 based distributing caching:  
+  ## If you want to use s3 based distributing caching:
+  ## First of all you need to uncomment General settings and S3 settings sections.
+  ##  
   ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
   ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
   ##
-  ## $ kubectl create secret generic s3access --\
+  ## $ kubectl create secret generic s3access \
   ##   --from-literal=accesskey="YourAccessKey" \
   ##   --from-literal=secretkey="YourSecretKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
-  ## If you want to use gcs based distributing caching:  
-  ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
-  ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
+  ## If you want to use gcs based distributing caching:
+  ## First of all you need to uncomment General settings and GCS settings sections.
   ##
-  ## $ kubectl create secret generic gcsaccess --\
-  ##   --from-literal=accessid="YourAccessID" \
-  ##   --from-literal=privatekey="YourPrivateKey"
+  ## Acess using credentials file:
+  ## Create a secret 'gcsaccess' containing your application credentials file
+  ## You could configure
+  ## $ kubectl create secret generic gcsaccess \
+  ##   --from-file=gcs-applicaton-credentials-file=./path-to-your-application-credentials-file.json
+  ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
+  ##
+  ## Acess using access-id and private-key
+  ## Create a secret 'gcsaccess' containing 'gcs-access-id' & 'gcs-private-key':
+  ## You could configure
+  ## $ kubectl create secret generic gcsaccess \
+  ##   --from-literal=gcs-access-id="YourAccessID" \
+  ##   --from-literal=gcs-private-key="YourPrivateKey"
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   cache: {}
     ## General settings
@@ -146,14 +157,14 @@ runners:
     # cachePath: "gitlab_runner"
     # cacheShared: true
 
-    ## S3 setting section
+    ## S3 settings
     # s3ServerAddress: s3.amazonaws.com
     # s3BucketName:
     # s3BucketLocation:
     # s3CacheInsecure: false
     # secretName: s3access
 
-    ## GCS setting section
+    ## GCS settings
     # gcsBucketName: 
     # secretName: gcsaccess
 
