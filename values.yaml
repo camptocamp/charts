@@ -137,14 +137,14 @@ runners:
   ## If you want to use gcs based distributing caching:
   ## First of all you need to uncomment General settings and GCS settings sections.
   ##
-  ## Acess using credentials file:
+  ## Access using credentials file:
   ## Create a secret 'gcsaccess' containing your application credentials file
   ## You could configure
   ## $ kubectl create secret generic gcsaccess \
   ##   --from-file=gcs-applicaton-credentials-file=./path-to-your-application-credentials-file.json
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
-  ## Acess using access-id and private-key
+  ## Access using access-id and private-key
   ## Create a secret 'gcsaccess' containing 'gcs-access-id' & 'gcs-private-key':
   ## You could configure
   ## $ kubectl create secret generic gcsaccess \
