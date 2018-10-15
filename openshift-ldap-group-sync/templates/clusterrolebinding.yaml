@@ -1,0 +1,17 @@
+kind: ClusterRoleBinding
+apiVersion: v1
+groupNames: null
+metadata:
+  name: system:{{ include "openshift-ldap-group-sync.fullname" . }}
+  labels:
+    app: {{ include "openshift-ldap-group-sync.name" . }}
+    chart: {{ include "openshift-ldap-group-sync.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+roleRef:
+  name: {{ include "openshift-ldap-group-sync.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "openshift-ldap-group-sync.fullname" . }}
+userNames:
+- system:serviceaccount:{{ .Values.namespace }}:{{ include "openshift-ldap-group-sync.fullname" .  }}

@@ -1,0 +1,14 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "openshift-ldap-group-sync.fullname" . }}
+  labels:
+    app: {{ include "openshift-ldap-group-sync.name" . }}
+    chart: {{ include "openshift-ldap-group-sync.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  ldap_ca.crt: |
+{{- .Values.ldap.CACert | indent 4 }}
+  ldap-sync.yml: |
+{{- .Values.LDAPSyncConfig | indent 4 }}

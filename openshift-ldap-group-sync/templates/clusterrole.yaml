@@ -1,0 +1,20 @@
+kind: ClusterRole
+apiVersion: v1
+metadata:
+  name: {{ include "openshift-ldap-group-sync.fullname" . }}
+  labels:
+    app: {{ include "openshift-ldap-group-sync.name" . }}
+    chart: {{ include "openshift-ldap-group-sync.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+rules:
+  - apiGroups:
+      - ""
+      - user.openshift.io
+    resources:
+      - groups
+    verbs:
+      - get
+      - list
+      - create
+      - update
