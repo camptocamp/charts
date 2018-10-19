@@ -8,14 +8,14 @@
   value: "true"
 {{-   end }}
 {{-   if eq .Values.runners.cache.cacheType "s3" }}
-- name: S3_SERVER_ADDRESS
+- name: CACHE_S3_SERVER_ADDRESS
   value: {{ template "gitlab-runner.cache.s3ServerAddress" . }}
-- name: S3_BUCKET_NAME
+- name: CACHE_S3_BUCKET_NAME
   value: {{ default "" .Values.runners.cache.s3BucketName | quote }}
-- name: S3_BUCKET_LOCATION
+- name: CACHE_S3_BUCKET_LOCATION
   value: {{ default "" .Values.runners.cache.s3BucketLocation | quote }}
 {{-     if .Values.runners.cache.s3CacheInsecure }}
-- name: S3_CACHE_INSECURE
+- name: CACHE_S3_CACHE_INSECURE
   value: "true"
 {{-     end }}
 {{-   end }}
