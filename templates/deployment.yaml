@@ -99,11 +99,6 @@ spec:
             {{-   if eq .Values.runners.cache.cacheType "s3"}}
             - secret:
                 name: {{ template "gitlab-runner.cache.secret" . }}
-                items:
-                  - key: accesskey
-                    path: s3-access-key
-                  - key: secretkey
-                    path: s3-secret-key
             {{-   end }}
             {{-   if eq .Values.runners.cache.cacheType "gcs"}}
             - secret:
