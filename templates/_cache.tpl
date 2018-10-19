@@ -2,7 +2,7 @@
 - name: CACHE_TYPE
   value: {{ default "" .Values.runners.cache.cacheType | quote }}
 - name: CACHE_PATH
-  value: {{ default "" .Values.runners.cache.cachePath | quote }}
+  value: {{ default "" coalesce .Values.runners.cache.cachePath .Values.runners.cache.s3CachePath  | quote }}
 {{-   if .Values.runners.cache.cacheShared }}
 - name: CACHE_SHARED
   value: "true"
