@@ -1,4 +1,4 @@
-{{- define "gitlab-runner.cache_s3" }}
+{{- define "gitlab-runner.cache" }}
 - name: CACHE_TYPE
   value: {{ default "" .Values.runners.cache.cacheType | quote }}
 - name: CACHE_PATH
