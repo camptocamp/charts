@@ -138,11 +138,11 @@ runners:
   ## First of all you need to uncomment General settings and GCS settings sections.
   ##
   ## Access using credentials file:
-  ## Create a secret 'gcsaccess' containing your application credentials file.
+  ## Create a secret 'google-application-credentials' containing your application credentials file.
   ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-runners-cache-gcs-section
   ## You could configure
-  ## $ kubectl create secret generic gcsaccess \
-  ##   --from-file=gcs-applicaton-credentials-file=./path-to-your-application-credentials-file.json
+  ## $ kubectl create secret generic google-application-credentials \
+  ##   --from-file=gcs-applicaton-credentials-file=./path-to-your-google-application-credentials-file.json
   ## ref: https://kubernetes.io/docs/concepts/configuration/secret/
   ##
   ## Access using access-id and private-key:
@@ -168,7 +168,10 @@ runners:
 
     ## GCS settings
     # gcsBucketName: 
+    ## Use this line for access using access-id and private-key
     # secretName: gcsaccess
+    ## Use this line for access using google-application-credentials file
+    # secretName: google-application-credential
 
   ## Build Container specific configuration
   ##
