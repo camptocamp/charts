@@ -26,6 +26,10 @@ spec:
           env:
             - name: PGPASSFILE
               value: /home/postgres/.pgpass
+          ports:
+            - name: http
+              containerPort: 16000
+              protocol: TCP
           resources: {}
           volumeMounts:
             - name: config-volume
