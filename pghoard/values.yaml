@@ -1,6 +1,10 @@
 image: camptocamp/pghoard
 imageTag: "10"
 
+service:
+  type: ClusterIP
+  port: 16000
+
 persistence:
   accessMode: ReadWriteOnce
   size: 100Mi
