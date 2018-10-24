@@ -10,9 +10,9 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   tags:
-    - name: "{{ .Values.imageTag }}"
+    - name: "{{ .Values.image.tag }}"
       from:
         kind: DockerImage
-        name: {{ .Values.image }}:{{ .Values.imageTag }}
+        name: {{ .Values.image.repository }}:{{ .Values.image.tag }}
       referencePolicy:
         type: Source

@@ -60,5 +60,5 @@ spec:
           - pghoard
         from:
           kind: ImageStreamTag
-          name: {{ include "pghoard.fullname" . }}:{{ .Values.imageTag }}
+          name: {{ include "pghoard.fullname" . }}:{{ .Values.image.tag }}
       type: ImageChange

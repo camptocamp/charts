@@ -1,5 +1,7 @@
-image: camptocamp/pghoard
-imageTag: "10"
+image:
+  repository: camptocamp/pghoard
+  tag: "10"
+  pullPolicy: Always
 
 service:
   type: ClusterIP
