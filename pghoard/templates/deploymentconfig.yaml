@@ -2,12 +2,12 @@
 apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ include "pghoard.fullname" . }}
   labels:
-    heritage: {{ .Release.Service }}
+    app: {{ include "pghoard.name" . }}
+    chart: {{ include "pghoard.chart" . }}
     release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    app: {{ template "name" . }}
+    heritage: {{ .Release.Service }}
 spec:
   replicas: 1
   strategy:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "name" . }}
+        app: {{ include "pghoard.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -36,10 +36,10 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            name: {{ template "fullname" . }}
+            name: {{ include "pghoard.fullname" . }}
         - name: pghoard
           persistentVolumeClaim:
-            claimName: {{ template "fullname" . }}
+            claimName: {{ include "pghoard.fullname" . }}
   triggers:
     - type: ConfigChange
     - imageChangeParams:
@@ -48,5 +48,5 @@ spec:
           - pghoard
         from:
           kind: ImageStreamTag
-          name: {{ template "fullname" . }}:{{ .Values.imageTag }}
+          name: {{ include "pghoard.fullname" . }}:{{ .Values.imageTag }}
       type: ImageChange
