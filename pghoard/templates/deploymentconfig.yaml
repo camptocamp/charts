@@ -34,6 +34,10 @@ spec:
             httpGet:
               path: /
               port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
           resources: {}
           volumeMounts:
             - name: config-volume
