@@ -30,6 +30,10 @@ spec:
             - name: http
               containerPort: 16000
               protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
           resources: {}
           volumeMounts:
             - name: config-volume
