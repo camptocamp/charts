@@ -10,10 +10,20 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
+    {{ if eq .Values.service.type "NodePort" }}
+       {{- range .Values.UDPports }}
+      - nodePort:  {{ .listenport }}
+        port: {{ .portnum }}
+        targetPort: {{ .portnum }}
+        protocol: UDP
+        name: {{ .name | quote }}
+      {{- end }}
+    {{ else }}
     - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
       name: http
+     {{ end  }}
   selector:
     app: {{ template "openshift-logstash.name" . }}
     release: {{ .Release.Name }}
