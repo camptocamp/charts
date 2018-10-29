@@ -27,7 +27,7 @@ spec:
       initContainers:
         - name: configure
           command: ['sh', '/config/configure']
-          image: {{ .Values.init.image }}:{{ .Values.init.tag }}
+          image: {{ .Values.image }}
           volumeMounts:
           - name: runner-secrets
             mountPath: /secrets
