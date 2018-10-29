@@ -38,10 +38,24 @@ data:
       export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
     fi
 
-    /entrypoint register --non-interactive \
-      {{- range .Values.runners.imagePullSecrets }}
-      --kubernetes-image-pull-secrets {{ . | quote }} \
-      {{- end }}
+    # Allow errors here to catch return values
+    set +e
+
+    MAX_REGISTER_ATTEMPTS=30
+    for i in $(seq 1 "${MAX_REGISTER_ATTEMPTS}"); do
+      echo "Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}"
+      /entrypoint register --non-interactive {{- range .Values.runners.imagePullSecrets }} --kubernetes-image-pull-secrets {{ . | quote }} \ {{- end }}
+      retval=$?
+
+      if [ "${retval}" = 0 ]; then
+        break
+      elif [ "${i}" -eq 30 ]; then
+        exit 1
+      fi
+
+      sleep 10
+    done
+    set -e
 
     # Start the runner
     /entrypoint run --user=gitlab-runner \

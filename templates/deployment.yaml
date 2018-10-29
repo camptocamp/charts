@@ -25,19 +25,19 @@ spec:
         runAsUser: 100
         fsGroup: 65533
       initContainers:
-      - name: configure
-        command: ['sh', '/config/configure']
-        image: {{ .Values.init.image }}:{{ .Values.init.tag }}
-        volumeMounts:
-        - name: runner-secrets
-          mountPath: /secrets
-          readOnly: false
-        - name: scripts
-          mountPath: /config
-          readOnly: true
-        - name: init-runner-secrets
-          mountPath: /init-secrets
-          readOnly: true
+        - name: configure
+          command: ['sh', '/config/configure']
+          image: {{ .Values.image }}
+          volumeMounts:
+          - name: runner-secrets
+            mountPath: /secrets
+            readOnly: false
+          - name: scripts
+            mountPath: /config
+            readOnly: true
+          - name: init-runner-secrets
+            mountPath: /init-secrets
+            readOnly: true
         resources:
 {{ toYaml .Values.resources | indent 10 }}
       serviceAccountName: {{ if .Values.rbac.create }}{{ template "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
