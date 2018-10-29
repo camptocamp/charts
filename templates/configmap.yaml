@@ -46,3 +46,11 @@ data:
   configure: |
     set -e
     cp /init-secrets/* /secrets
+    for i in $(seq 1 10)
+    do
+      if wget -S --spider --tries=3 --timeout=10 {{ template "gitlab-runner.gitlabUrl" . }} --no-check-certificate; then
+        exit 0
+      fi
+      sleep 10s
+    done
+    exit 1
