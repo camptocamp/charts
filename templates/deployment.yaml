@@ -28,6 +28,8 @@ spec:
         - name: configure
           command: ['sh', '/config/configure']
           image: {{ .Values.image }}
+          env:
+          {{ include "gitlab-runner.runner-env-vars" . | indent 10 }}
           volumeMounts:
           - name: runner-secrets
             mountPath: /secrets
