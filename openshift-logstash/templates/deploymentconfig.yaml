@@ -34,6 +34,11 @@ spec:
             - name: logstash-config
               mountPath: /etc/logstash
               readOnly: true
+          env:
+            {{- range $key, $value := .Values.env }}
+            - name: "{{ $key }}"
+              value: "{{ $value }}"
+            {{- end }}
           command:
             - logstash
           args:

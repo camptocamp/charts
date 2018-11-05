@@ -20,6 +20,10 @@ image:
   tag: 6.4.0
   pullPolicy: IfNotPresent
 
+# logstash env variable
+env:
+#  LS_JAVA_OPTS: '-Xms512m -Xmx512m'  # check resources too!
+
 # Configuration image
 configurationImage:
   repository: ssh://git@github.com:username/logstashconf.git
