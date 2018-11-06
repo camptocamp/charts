@@ -1,0 +1,24 @@
+{{- if .Values.input -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "openshift-logstash.fullname" . }}-input
+  labels:
+    app: {{ template "openshift-logstash.name" . }}
+    chart: {{ template "openshift-logstash.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: NodePort
+  ports:
+    {{- range .Values.input.UDPports }}
+  - nodePort:  {{ .listenport }}
+    port: {{ .portnum }}
+    targetPort: {{ .portnum }}
+    protocol: UDP
+    name: {{ .name | quote }}
+    {{- end }}
+  selector:
+    app: {{ template "openshift-logstash.name" . }}
+    release: {{ .Release.Name }}
+{{- end }}
