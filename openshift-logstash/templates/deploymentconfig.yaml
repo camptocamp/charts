@@ -42,12 +42,8 @@ spec:
           command:
             - logstash
           args:
-            - '--path.data=/tmp'
-              {{ if .Values.logstashDefaultConfigOverload }}
-            - '--path.settings=/etc/logstash/conf'
-              {{ else }}
-            - '-f'
-            - '/etc/logstash/conf/*.conf'
+              {{- range $value := .Values.args }}
+              - "{{ $value }}"
               {{ end  }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}

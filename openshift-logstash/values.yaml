@@ -23,6 +23,10 @@ image:
 # logstash env variable
 env:
 #  LS_JAVA_OPTS: '-Xms512m -Xmx512m'  # check resources too!
+args:
+  - '--path.data=/tmp'
+  - '-f'
+  - '/etc/logstash/conf/*.conf'
 
 # Configuration image
 configurationImage:
