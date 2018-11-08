@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "ldap-search-exporter.fullname" . }}
+  labels:
+    app: {{ template "ldap-search-exporter.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "ldap-search-exporter.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: {{ .Values.service.internalPort }}
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: {{ .Values.service.internalPort }}
+          env:
+            - name: LDAP_ADDR
+              value: {{ .Values.ldap.address }}
+            - name: LDAP_BASEDN
+              value: {{ .Values.ldap.basedn }}
+            - name: LDAP_QUERIES
+              value: {{ .Values.ldap.queries }}
+            - name: LDAP_QUERY_INTERVAL
+              value: {{ .Values.ldap.queryInterval | quote }}
+            - name: LISTEN_ADDRESS
+              value: {{ print ":" .Values.service.internalPort | quote }}
