@@ -7,10 +7,8 @@ service:
   type: ClusterIP
   port: 16000
 
-persistence:
-  accessMode: ReadWriteOnce
+persistentVolume:
+  enabled: false
+  accessModes:
+    - ReadWriteOnce
   size: 100Mi
-
-objectStorage:
-  storageType: local
-  directory: /var/lib/pghoard/backups

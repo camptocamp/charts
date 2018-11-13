@@ -50,8 +50,12 @@ spec:
           configMap:
             name: {{ include "pghoard.fullname" . }}
         - name: pghoard
+        {{- if .Values.persistentVolume.enabled }}
           persistentVolumeClaim:
             claimName: {{ include "pghoard.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
   triggers:
     - type: ConfigChange
     - imageChangeParams:
