@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "puppetdb.name" . }}
+  labels:
+    {{- include "puppetdb.release_labels" . | indent 4 }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        {{- include "puppetdb.release_labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: puppetdb
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DNS_ALT_NAMES
+              value: {{ .Values.dns_alt_names }}
+            - name: JAVA_ARGS
+              value: {{ .Values.java_args }}
+            - name: POSTGRES_SUBNAME
+              value: {{ .Values.postgres_subname }}
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres_user }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.postgres_password }}
+            - name: POSTGRES_RO_SUBNAME
+              value: {{ .Values.postgres_ro_subname }}
+            - name: POSTGRES_RO_USER
+              value: {{ .Values.postgres_ro_user }}
+            - name: POSTGRES_RO_PASSWORD
+              value: {{ .Values.postgres_ro_password }}
