@@ -38,10 +38,28 @@ data:
       export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
     fi
 
-    # Allow errors here to catch return values
-    set +e
+    if ! sh /scripts/register-the-runner; then
+      exit 1
+    fi
 
+    # Start the runner
+    /entrypoint run --user=gitlab-runner \
+      --working-directory=/home/gitlab-runner
+
+  config.toml: |
+    concurrent = {{ .Values.concurrent }}
+    check_interval = {{ .Values.checkInterval }}
+    log_level = {{ default "info" .Values.logLevel | quote }}
+    {{- if .Values.metrics.enabled }}
+    listen_address = '[::]:9252'
+    {{- end }}
+  configure: |
+    set -e
+    cp /init-secrets/* /secrets
+  register-the-runner: |
+    #!/bin/bash
     MAX_REGISTER_ATTEMPTS=30
+
     for i in $(seq 1 "${MAX_REGISTER_ATTEMPTS}"); do
       echo "Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}"
       /entrypoint register \
@@ -54,26 +72,21 @@ data:
 
       if [ "${retval}" = 0 ]; then
         break
-      elif [ "${i}" -eq "${MAX_REGISTER_ATTEMPTS}" ]; then
+      elif [ "${i}" = ${MAX_REGISTER_ATTEMPTS} ]; then
         exit 1
       fi
 
-      sleep 10
+      sleep 5 
     done
 
-    # Turn fail-on-error back on
-    set -e
+    exit 0
 
-    # Start the runner
-    /entrypoint run --user=gitlab-runner \
-      --working-directory=/home/gitlab-runner
-  config.toml: |
-    concurrent = {{ .Values.concurrent }}
-    check_interval = {{ .Values.checkInterval }}
-    log_level = {{ default "info" .Values.logLevel | quote }}
-    {{- if .Values.metrics.enabled }}
-    listen_address = '[::]:9252'
-    {{- end }}
-  configure: |
-    set -e
-    cp /init-secrets/* /secrets
+  check-ready: |
+    #!/bin/bash
+    if /usr/bin/pgrep register-the-runner; then
+      exit 0
+    elif /usr/bin/pgrep gitlab.*runner; then
+      exit 0
+    else
+      exit 1
+    end
