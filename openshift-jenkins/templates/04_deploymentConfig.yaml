@@ -29,7 +29,7 @@ spec:
           value: {{ .Values.proxy.host | quote }}
         - name: HTTP_PROXY_PORT
           value: {{ .Values.proxy.port | quote }}
-        - name: NO_PROXY
+        - name: HTTP_NO_PROXY
           value: {{ .Values.proxy.noproxy | quote }}
         - name: OPENSHIFT_ENABLE_OAUTH
           value: {{ .Values.enable_oauth | quote }}

@@ -24,9 +24,8 @@ spec:
   strategy:
     sourceStrategy:
       from:
-        kind: ImageStreamTag
-        name: jenkins:latest
-        namespace: openshift
+        kind: DockerImage
+        name: openshift/jenkins-2-centos7:latest
     type: Source
   triggers:
   - type: ConfigChange
