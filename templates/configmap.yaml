@@ -70,9 +70,9 @@ data:
 
       retval=$?
 
-      if [ "${retval}" = 0 ]; then
+      if [ ${retval} = 0 ]; then
         break
-      elif [ "${i}" = ${MAX_REGISTER_ATTEMPTS} ]; then
+      elif [ ${i} = ${MAX_REGISTER_ATTEMPTS} ]; then
         exit 1
       fi
 
