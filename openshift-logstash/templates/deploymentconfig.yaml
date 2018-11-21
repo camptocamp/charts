@@ -42,9 +42,9 @@ spec:
           command:
             - logstash
           args:
-            - '--path.data=/tmp'
-            - '-f'
-            - '/etc/logstash/conf/*.conf'
+              {{- range $value := .Values.args }}
+              - "{{ $value }}"
+              {{ end  }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
       volumes:
