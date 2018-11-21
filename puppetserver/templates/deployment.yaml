@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "puppetserver.name" . }}
+  labels:
+    {{- include "puppetserver.release_labels" . | indent 4 }}
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        {{- include "puppetserver.release_labels" . | indent 8 }}
+    spec:
+      containers:
+        - name: puppetserver
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: AUTH_CONF_ALLOW_CATALOG
+              value: catalog_diff
+            - name: DNS_ALT_NAMES
+              value: {{ .Values.dns_alt_names }}
+            - name: GPG_KEY
+              value: {{ .Values.gpg_key }}
+            - name: JAVA_ARGS
+              value: {{ .Values.java_args }}

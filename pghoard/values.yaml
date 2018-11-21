@@ -1,10 +1,14 @@
-image: camptocamp/pghoard
-imageTag: "10"
+image:
+  repository: camptocamp/pghoard
+  tag: "10"
+  pullPolicy: Always
 
-persistence:
-  accessMode: ReadWriteOnce
+service:
+  type: ClusterIP
+  port: 16000
+
+persistentVolume:
+  enabled: false
+  accessModes:
+    - ReadWriteOnce
   size: 100Mi
-
-objectStorage:
-  storageType: local
-  directory: /var/lib/pghoard/backups

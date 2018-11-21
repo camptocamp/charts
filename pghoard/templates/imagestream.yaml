@@ -2,17 +2,17 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: {{ template "fullname" . }}
+  name: {{ include "pghoard.fullname" . }}
   labels:
-    heritage: {{ .Release.Service }}
+    app: {{ include "pghoard.name" . }}
+    chart: {{ include "pghoard.chart" . }}
     release: {{ .Release.Name }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    app: {{ template "name" . }}
+    heritage: {{ .Release.Service }}
 spec:
   tags:
-    - name: "{{ .Values.imageTag }}"
+    - name: "{{ .Values.image.tag }}"
       from:
         kind: DockerImage
-        name: {{ .Values.image }}:{{ .Values.imageTag }}
+        name: {{ .Values.image.repository }}:{{ .Values.image.tag }}
       referencePolicy:
         type: Source

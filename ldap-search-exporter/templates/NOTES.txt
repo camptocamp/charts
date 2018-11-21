@@ -1,0 +1,3 @@
+LDAP search exporter can be accessed via port {{ .Values.service.externalPort }} on the following DNS name within the cluster:
+
+{{ template "ldap-search-exporter.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
