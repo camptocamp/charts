@@ -58,7 +58,7 @@ spec:
         {{ include "gitlab-runner.runner-env-vars" . | indent 8 }}
         livenessProbe:
           exec:
-            command: ["/bin/bash", "/scripts/check-ready"]
+            command: ["/bin/bash", "/scripts/check-live"]
           initialDelaySeconds: 60
           timeoutSeconds: 1
           periodSeconds: 10

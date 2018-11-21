@@ -81,7 +81,7 @@ data:
 
     exit 0
 
-  check-ready: |
+  check-live: |
     #!/bin/bash
     if /usr/bin/pgrep register-the-runner; then
       exit 0
@@ -89,4 +89,4 @@ data:
       exit 0
     else
       exit 1
-    end
+    fi
