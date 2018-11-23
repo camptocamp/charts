@@ -17,20 +17,19 @@ spec:
           ports:
             - containerPort: 8080
               protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/puppetlabs/puppetdb/conf.d/database.ini
+              name: conf-d
+              subPath: database.ini
+            - mountPath: /etc/puppetlabs/puppetdb/conf.d/jetty.ini
+              name: conf-d
+              subPath: jetty.ini
           env:
             - name: DNS_ALT_NAMES
               value: {{ .Values.dns_alt_names }}
             - name: JAVA_ARGS
               value: {{ .Values.java_args }}
-            - name: POSTGRES_SUBNAME
-              value: {{ .Values.postgres_subname }}
-            - name: POSTGRES_USER
-              value: {{ .Values.postgres_user }}
-            - name: POSTGRES_PASSWORD
-              value: {{ .Values.postgres_password }}
-            - name: POSTGRES_RO_SUBNAME
-              value: {{ .Values.postgres_ro_subname }}
-            - name: POSTGRES_RO_USER
-              value: {{ .Values.postgres_ro_user }}
-            - name: POSTGRES_RO_PASSWORD
-              value: {{ .Values.postgres_ro_password }}
+      volumes:
+        - name: conf-d
+          configMap:
+            name: conf-d
