@@ -1,8 +1,7 @@
-{{ if .Values.varnishPurgeServiceCreate }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "fullname" . }}-purge
+  name: {{ template "fullname" . }}
   labels:
     app: {{ template "fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -16,4 +15,3 @@ spec:
     targetPort: http
   selector:
     app: {{ template "fullname" . }}
-{{ end }}

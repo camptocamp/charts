@@ -15,15 +15,8 @@ kafkaImage: camptocamp/varnish:20170802-1
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
 imagePullPolicy: IfNotPresent
 
-## Specify if a Service should be created for each pod to have an access point
-## to purge/ban the content of Varnish cache.
-## Warning: it is not supported to have *replicas* set to a value other than 1
-## the serviceSelector will not apply to this service, it will point directly
-## to the pod label *app: {{ template "fullname" . }}* label.
-#varnishPurgeServiceCreate: false
-
 # Select service type
-serviceType: LoadBalancer
+serviceType: ClusterIP
 
 ## Number of Varnish instances to be deployed by chart
 replicas: 1
@@ -117,15 +110,6 @@ varnishKafkaPartition: -1
 ## Specify if the chart should use an already existing varnishkafka configmap
 ## If not defined (the default) a new configmap will be created
 #varnishKafkaConfigMapName: my-custom-configmap
-
-## Specify a selector that will be used for the Service to point to the pod
-## the label will be added to the pod, and if service creation is enabled it
-## will be the selector.
-## the *key* entry will default to "selector-label" if not specified.
-## the *value* entry is mandatory
-#serviceSelector:
-#  key: mykey
-#  value: myvalue
 
 ## Kafka TLS Authentication material for varnishkafka connection to broker.
 ## The keyPassword is optional.

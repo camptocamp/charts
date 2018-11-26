@@ -4,7 +4,7 @@ This will provide a varnish installation with, by default, a toy configuration n
 
 ## Installing
 
-`helm install varnish-old-kube-0.0.0.tgz --namespace test`
+`helm install . --namespace test`
 
 ## Varnish Configuration
 
