@@ -11,6 +11,10 @@ varnishReloadImage: dabelenda/varnish-reload:latest
 ## ref: https://hub.docker.com/r/camptocamp/varnish-reload/tags/
 kafkaImage: camptocamp/varnish:20170802-1
 
+## Camptocamp collectd image
+## ref: https://hub.docker.com/r/camptocamp/collectd/tags/
+varnishMetricsImage: camptocamp/collectd:v5.8.0-20180504
+
 ## Specify a imagePullPolicy
 ## ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
 imagePullPolicy: IfNotPresent
@@ -94,6 +98,26 @@ varnishKafkaLogLevel: 6
 ## buffer will not be read from varnish shared buffer, thus the ring buffer
 ## might overflow.
 varnishKafkaBufferedMessages: 1000000
+
+# Configuration of the collectd Varnish plugin.
+collectdVarnish:
+  CollectBackend: true
+  CollectBan: false
+  CollectCache: true
+  CollectConnections: true
+  CollectESI: false
+  CollectFetch: true
+  CollectHCB: false
+  CollectObjects: true
+  CollectSession: true
+  CollectSHM: true
+  CollectSMS: false
+  CollectStruct: true
+  CollectTotals: true
+  CollectUptime: true
+  CollectVCL: false
+  CollectVSM: true
+  CollectWorkers: true
 
 ## Number of retries before dropping messages
 varnishKafkaSendMaxRetries: 3

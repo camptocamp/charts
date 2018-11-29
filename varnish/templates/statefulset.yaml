@@ -39,9 +39,14 @@ spec:
         - varnishd
         - -s
         - malloc,{{ int .Values.varnishMallocLimit }}m
-#      - name: collectd
-#        image: "{{ .Values.varnishMetricsImage }}"
-#        imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
+      - name: collectd
+        image: "{{ .Values.varnishMetricsImage }}"
+        imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
+        volumeMounts:
+          - mountPath: /var/lib/varnish
+            name: varnish-runtime
+          - mountPath: /etc/collectd
+            name: collectd-config
       - name: varnish-reload
         image: "{{ .Values.varnishReloadImage }}"
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
@@ -78,6 +83,10 @@ spec:
       volumes:
       - emptyDir:
         name: varnish-runtime
+      - configMap:
+          defaultMode: 420
+          name: {{ template "fullname" . }}-collectd
+        name: collectd-config
       - configMap:
           defaultMode: 420
           name: {{ if .Values.varnishConfigMapName -}}
