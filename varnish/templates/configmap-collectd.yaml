@@ -10,6 +10,23 @@ metadata:
     heritage: "{{ .Release.Service }}"
 data:
   collectd.conf: |
+    FQDNLookup false
+    CollectInternalStats true
+    WriteQueueLimitLow  5000
+    WriteQueueLimitHigh 5000
+    LoadPlugin log_logstash
+    <Plugin log_logstash>
+    	LogLevel info
+    	File stdout
+    </Plugin>
+    LoadPlugin unixsock
+    <Plugin unixsock>
+    	DeleteSocket true
+    	SocketGroup "nogroup"
+    </Plugin>
+    LoadPlugin write_prometheus
+    Hostname "varnish"
+    Interval 10
     LoadPlugin "varnish"
     <Plugin "varnish">
         <Instance "varnishd">
