@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-    name: {{ template "fullname" . }}
-    app: {{ template "fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
-    release: "{{ .Release.Name }}"
-    heritage: "{{ .Release.Service }}"
+  name: {{ template "fullname" . }}
+  app: {{ template "fullname" . }}
+  chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  release: "{{ .Release.Name }}"
+  heritage: "{{ .Release.Service }}"
 spec:
   replicas: {{ .Values.replicas }}
   serviceName: {{ template "fullname" . }}
@@ -47,6 +47,11 @@ spec:
           name: varnish-runtime
         - mountPath: /etc/collectd
           name: collectd-config
+        command:
+        - collectd
+        - -f
+        - -C
+        - /etc/collectd/collectd.conf
       - name: varnish-reload
         image: "{{ .Values.varnishReloadImage }}"
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
