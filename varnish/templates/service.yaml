@@ -13,5 +13,8 @@ spec:
   - name: http
     port: 8080
     targetPort: http
+  - name: collectd
+    port: 9103
+    targetPort: collectd
   selector:
     app: {{ template "fullname" . }}

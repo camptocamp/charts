@@ -47,6 +47,9 @@ spec:
           name: varnish-runtime
         - mountPath: /etc/collectd
           name: collectd-config
+        ports:
+        - name: collectd
+          containerPort: 9103
         command:
         - collectd
         - -f
