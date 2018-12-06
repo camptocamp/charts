@@ -1,7 +1,7 @@
 ## GitLab Runner Image
 ## ref: https://hub.docker.com/r/gitlab/gitlab-runner/tags/
 ##
-image: gitlab/gitlab-runner:alpine-v11.5.0
+image: gitlab/gitlab-runner:alpine-v11.5.1
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
