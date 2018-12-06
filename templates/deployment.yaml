@@ -38,6 +38,8 @@ spec:
           - name: init-runner-secrets
             mountPath: /init-secrets
             readOnly: true
+          resources:
+{{ toYaml .Values.resources | indent 10 }}
       serviceAccountName: {{ if .Values.rbac.create }}{{ template "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
       containers:
       - name: {{ template "gitlab-runner.fullname" . }}
