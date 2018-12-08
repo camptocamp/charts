@@ -15,9 +15,9 @@ data:
     cp /scripts/config.toml /home/gitlab-runner/.gitlab-runner/
 
     # Register the runner
-    if [[ -f /secrets/accesskey && -f /secrets/secretkey ]]; then
-      export CACHE_S3_ACCESS_KEY=$(cat /secrets/accesskey)
-      export CACHE_S3_SECRET_KEY=$(cat /secrets/secretkey)
+    if [[ -f /secrets/s3-access-key && -f /secrets/s3-secret-key ]]; then
+      export S3_ACCESS_KEY=$(cat /secrets/s3-access-key)
+      export S3_SECRET_KEY=$(cat /secrets/s3-secret-key)
     fi
 
     if [[ -f /secrets/gcs-applicaton-credentials-file ]]; then
