@@ -20,7 +20,7 @@
   value: "true"
 {{-       end }}
 {{-     end }}
-{{-   if eq .Values.runners.cache.cacheType "gcs" }}
+{{-     if eq .Values.runners.cache.cacheType "gcs" }}
 - name: CACHE_GCS_BUCKET_NAME
   value: {{ default "" .Values.runners.cache.gcsBucketName | quote }}
 {{-     end }}
