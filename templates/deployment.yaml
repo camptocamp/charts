@@ -95,7 +95,8 @@ spec:
       - name: init-runner-secrets
         projected:
           sources:
-            {{- if .Values.runners.cache }}
+            {{- if and .Values.runners.cache .Values.runners.cache.cacheType }}
+            {{-   if eq .Values.runners.cache.cacheType "s3"}}
             - secret:
                 name: {{ template "gitlab-runner.cache.secret" . }}
                 items:
@@ -103,6 +104,11 @@ spec:
                     path: s3-access-key
                   - key: secretkey
                     path: s3-secret-key
+            {{-   end }}
+            {{-   if eq .Values.runners.cache.cacheType "gcs"}}
+            - secret:
+                name: {{ template "gitlab-runner.cache.secret" . }}
+            {{-   end }}
             {{- end }}
             - secret:
                 name: {{ template "gitlab-runner.secret" . }}

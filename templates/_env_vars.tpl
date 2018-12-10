@@ -48,7 +48,7 @@
 - name: KUBERNETES_PULL_POLICY
   value: {{ default "" .Values.runners.imagePullPolicy | quote }}
 {{- if .Values.runners.cache -}}
-{{ include "gitlab-runner.cache_s3" . }}
+{{ include "gitlab-runner.cache" . }}
 {{- end }}
 {{- if .Values.envVars -}}
 {{ range .Values.envVars }}
