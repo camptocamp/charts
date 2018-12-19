@@ -1,6 +1,6 @@
 image:
   repository: camptocamp/puppetdb
-  tag: '5.2.0-0.2'
+  tag: 'arbitrary_user'
 
 dns_alt_names: 'puppetdb'
 java_args: ''
@@ -10,3 +10,7 @@ postgres_password: 'puppetdb'
 postgres_ro_subname: ''
 postgres_ro_user: 'puppetdb'
 postgres_ro_password: 'puppetdb'
+
+private_pem: ''
+public_pem: ''
+ca_pem: ''

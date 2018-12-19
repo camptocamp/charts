@@ -1,6 +1,12 @@
 image:
   repository: camptocamp/puppetserver
-  tag: '5.3.1-1'
+  tag: 'latest'
+
 dns_alt_names: ''
-gpg_key: ''
 java_args: ''
+ca_key_pem: ''
+ca_crt_pem: ''
+ca_crl_pem: ''
+gpg_asc: ''
+autosign_psk: ''
+g10k_id_rsa: ''

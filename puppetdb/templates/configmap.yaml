@@ -20,6 +20,6 @@ data:
     host = 0.0.0.0
     ssl-port=8081
     ssl-host=0.0.0.0
-    ssl-key=/etc/puppetlabs/puppetdb/ssl/private.pem
-    ssl-cert=/etc/puppetlabs/puppetdb/ssl/public.pem
-    ssl-ca-cert=/etc/puppetlabs/puppetdb/ssl/ca.pem
+    ssl-key=/run/secrets/private.pem
+    ssl-cert=/run/secrets/public.pem
+    ssl-ca-cert=/run/secrets/ca.pem

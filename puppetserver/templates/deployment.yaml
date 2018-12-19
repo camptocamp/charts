@@ -12,17 +12,49 @@ spec:
         {{- include "puppetserver.release_labels" . | indent 8 }}
     spec:
       containers:
-        - name: puppetserver
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-          env:
-            - name: AUTH_CONF_ALLOW_CATALOG
-              value: catalog_diff
-            - name: DNS_ALT_NAMES
-              value: {{ .Values.dns_alt_names }}
-            - name: GPG_KEY
-              value: {{ .Values.gpg_key }}
-            - name: JAVA_ARGS
-              value: {{ .Values.java_args }}
+      - name: puppetserver
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /run/secrets/ca_key.pem
+          name: secrets
+          subPath: ca_key.pem
+          readOnly: true
+        - mountPath: /run/secrets/ca_crt.pem
+          name: secrets
+          subPath: ca_crt.pem
+          readOnly: true
+        - mountPath: /run/secrets/ca_crl.pem
+          name: secrets
+          subPath: ca_crl.pem
+          readOnly: true
+        - mountPath: /run/secrets/gpg.asc
+          name: secrets
+          subPath: gpg.asc
+          readOnly: true
+        - mountPath: /run/secrets/autosign_psk
+          name: secrets
+          subPath: autosign_psk
+          readOnly: true
+
+      - name: g10k-webhook
+        image: camptocamp/g10k-webhook:latest
+        env:
+        - name: HOOK_SECRET
+          value: "SeCr3t"
+        volumeMounts:
+        - mountPath: /run/secrets/id_rsa
+          name: secrets
+          subPath: id_rsa
+          readOnly: true
+        - mountPath: /etc/puppetlabs/code
+          name: puppetcode
+
+      volumes:
+      - name: secrets
+        secret:
+          secretName: secrets
+      - name: puppetcode
+        emptyDir: {}

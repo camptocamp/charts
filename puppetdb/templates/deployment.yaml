@@ -12,24 +12,41 @@ spec:
         {{- include "puppetdb.release_labels" . | indent 8 }}
     spec:
       containers:
-        - name: puppetdb
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          ports:
-            - containerPort: 8080
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /etc/puppetlabs/puppetdb/conf.d/database.ini
-              name: conf-d
-              subPath: database.ini
-            - mountPath: /etc/puppetlabs/puppetdb/conf.d/jetty.ini
-              name: conf-d
-              subPath: jetty.ini
-          env:
-            - name: DNS_ALT_NAMES
-              value: {{ .Values.dns_alt_names }}
-            - name: JAVA_ARGS
-              value: {{ .Values.java_args }}
+      - name: puppetdb
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /etc/puppetlabs/puppetdb/conf.d/database.ini
+          name: conf-d
+          subPath: database.ini
+          readOnly: true
+        - mountPath: /etc/puppetlabs/puppetdb/conf.d/jetty.ini
+          name: conf-d
+          subPath: jetty.ini
+          readOnly: true
+        - mountPath: /run/secrets/private.pem
+          name: ssl
+          subPath: private.pem
+          readOnly: true
+        - mountPath: /run/secrets/public.pem
+          name: ssl
+          subPath: public.pem
+          readOnly: true
+        - mountPath: /run/secrets/ca.pem
+          name: ssl
+          subPath: ca.pem
+          readOnly: true
+        env:
+        - name: DNS_ALT_NAMES
+          value: {{ .Values.dns_alt_names }}
+        - name: JAVA_ARGS
+          value: {{ .Values.java_args }}
       volumes:
-        - name: conf-d
-          configMap:
-            name: conf-d
+      - name: ssl
+        secret:
+          secretName: ssl-files
+      - name: conf-d
+        configMap:
+          name: conf-d
