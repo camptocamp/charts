@@ -1,6 +1,7 @@
 image:
   repository: camptocamp/puppetdb
   tag: 'arbitrary_user'
+  pullPolicy: IfNotPresent
 
 dns_alt_names: 'puppetdb'
 java_args: ''

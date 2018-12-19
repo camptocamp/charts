@@ -1,6 +1,7 @@
 image:
   repository: camptocamp/puppetserver
   tag: 'latest'
+  pullPolicy: IfNotPresent
 
 dns_alt_names: ''
 java_args: ''
