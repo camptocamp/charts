@@ -27,7 +27,9 @@ spec:
       initContainers:
       - name: configure
         command: ['sh', '/config/configure']
-        image: {{ .Values.init.image }}:{{ .Values.init.tag }}
+        image: {{ .Values.image }}
+        env:
+        {{ include "gitlab-runner.runner-env-vars" . | indent 8 }}
         volumeMounts:
         - name: runner-secrets
           mountPath: /secrets
@@ -56,7 +58,7 @@ spec:
         {{ include "gitlab-runner.runner-env-vars" . | indent 8 }}
         livenessProbe:
           exec:
-            command: ["/usr/bin/pgrep","gitlab.*runner"]
+            command: ["/bin/bash", "/scripts/check-live"]
           initialDelaySeconds: 60
           timeoutSeconds: 1
           periodSeconds: 10

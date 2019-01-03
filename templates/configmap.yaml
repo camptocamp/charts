@@ -38,14 +38,14 @@ data:
       export CI_SERVER_TOKEN=$(cat /secrets/runner-token)
     fi
 
-    /entrypoint register --non-interactive \
-      {{- range .Values.runners.imagePullSecrets }}
-      --kubernetes-image-pull-secrets {{ . | quote }} \
-      {{- end }}
+    if ! sh /scripts/register-the-runner; then
+      exit 1
+    fi
 
     # Start the runner
     /entrypoint run --user=gitlab-runner \
       --working-directory=/home/gitlab-runner
+
   config.toml: |
     concurrent = {{ .Values.concurrent }}
     check_interval = {{ .Values.checkInterval }}
@@ -56,3 +56,37 @@ data:
   configure: |
     set -e
     cp /init-secrets/* /secrets
+  register-the-runner: |
+    #!/bin/bash
+    MAX_REGISTER_ATTEMPTS=30
+
+    for i in $(seq 1 "${MAX_REGISTER_ATTEMPTS}"); do
+      echo "Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}"
+      /entrypoint register \
+        {{- range .Values.runners.imagePullSecrets }}
+        --kubernetes-image-pull-secrets {{ . | quote }} \
+        {{- end }}
+        --non-interactive
+
+      retval=$?
+
+      if [ ${retval} = 0 ]; then
+        break
+      elif [ ${i} = ${MAX_REGISTER_ATTEMPTS} ]; then
+        exit 1
+      fi
+
+      sleep 5 
+    done
+
+    exit 0
+
+  check-live: |
+    #!/bin/bash
+    if /usr/bin/pgrep -f .*register-the-runner; then
+      exit 0
+    elif /usr/bin/pgrep gitlab.*runner; then
+      exit 0
+    else
+      exit 1
+    fi
