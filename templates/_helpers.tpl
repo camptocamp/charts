@@ -53,3 +53,11 @@ Template runners.cache.s3ServerAddress in order to allow overrides from external
 {{- define "gitlab-runner.cache.s3ServerAddress" }}
 {{- default "" .Values.runners.cache.s3ServerAddress | quote -}}
 {{- end -}}
+
+{{/*
+Define the image, using .Chart.AppVersion and GitLab Runner image as a default value
+*/}}
+{{- define "gitlab-runner.image" }}
+{{- $image := printf "gitlab/gitlab-runner:alpine-v%s" .Chart.AppVersion -}}
+{{- default $image .Values.image}}
+{{- end -}}

@@ -1,7 +1,11 @@
 ## GitLab Runner Image
+##
+## By default it's using gitlab/gitlab-runner:alpine-v{VERSION}
+## where {VERSION} is taken from Chart.yaml from appVersion field
+##
 ## ref: https://hub.docker.com/r/gitlab/gitlab-runner/tags/
 ##
-image: gitlab/gitlab-runner:alpine-v11.6.0
+# image: gitlab/gitlab-runner:alpine-v11.6.0
 
 ## Specify a imagePullPolicy
 ## 'Always' if imageTag is 'latest', else set to 'IfNotPresent'
