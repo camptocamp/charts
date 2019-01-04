@@ -15,13 +15,13 @@ imagePullPolicy: IfNotPresent
 # gitlabUrl: http://gitlab.your-domain.com/
 
 ## The Registration Token for adding new Runners to the GitLab Server. This must
-## be retreived from your GitLab Instance.
+## be retrieved from your GitLab Instance.
 ## ref: https://docs.gitlab.com/ce/ci/runners/README.html#creating-and-registering-a-runner
 ##
 # runnerRegistrationToken: ""
 
 ## The Runner Token for adding new Runners to the GitLab Server. This must
-## be retreived from your GitLab Instance. It is token of already registered runner.
+## be retrieved from your GitLab Instance. It is token of already registered runner.
 ## ref: (we don't yet have docs for that, but we want to use existing token)
 ##
 # runnerToken: ""
