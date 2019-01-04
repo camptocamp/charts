@@ -2,10 +2,10 @@
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: {{ if .Values.rbac.clusterWideAccess }}"ClusterRole"{{ else }}"Role"{{ end }}
 metadata:
-  name: {{ template "gitlab-runner.fullname" . }}
+  name: {{ include "gitlab-runner.fullname" . }}
   labels:
-    app: {{ template "gitlab-runner.fullname" . }}
-    chart: {{ template "gitlab-runner.chart" . }}
+    app: {{ include "gitlab-runner.fullname" . }}
+    chart: {{ include "gitlab-runner.chart" . }}
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 rules:

@@ -1,5 +1,5 @@
 {{- if include "gitlab-runner.gitlabUrl" . }}
-Your GitLab Runner should now be registered against the GitLab instance reachable at: {{ template "gitlab-runner.gitlabUrl" . }}
+Your GitLab Runner should now be registered against the GitLab instance reachable at: {{ include "gitlab-runner.gitlabUrl" . }}
 {{- else -}}
 ##############################################################################
 ## WARNING: You did not specify an gitlabUrl in your 'helm install' call. ##

@@ -10,7 +10,7 @@
 {{-     end }}
 {{-     if eq .Values.runners.cache.cacheType "s3" }}
 - name: CACHE_S3_SERVER_ADDRESS
-  value: {{ template "gitlab-runner.cache.s3ServerAddress" . }}
+  value: {{ include "gitlab-runner.cache.s3ServerAddress" . }}
 - name: CACHE_S3_BUCKET_NAME
   value: {{ default "" .Values.runners.cache.s3BucketName | quote }}
 - name: CACHE_S3_BUCKET_LOCATION
