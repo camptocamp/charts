@@ -1,10 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "gitlab-runner.fullname" . }}
+  name: {{ include "gitlab-runner.fullname" . }}
   labels:
-    app: {{ template "gitlab-runner.fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    app: {{ include "gitlab-runner.fullname" . }}
+    chart: {{ include "gitlab-runner.chart" . }}
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
 spec:
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "gitlab-runner.fullname" . }}
+        app: {{ include "gitlab-runner.fullname" . }}
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
@@ -42,9 +42,9 @@ spec:
           readOnly: true
         resources:
 {{ toYaml .Values.resources | indent 10 }}
-      serviceAccountName: {{ if .Values.rbac.create }}{{ template "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
+      serviceAccountName: {{ if .Values.rbac.create }}{{ include "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
       containers:
-      - name: {{ template "gitlab-runner.fullname" . }}
+      - name: {{ include "gitlab-runner.fullname" . }}
         image: {{ .Values.image }}
         {{- if and .Values.unregisterRunners .Values.runnerRegistrationToken }}
         lifecycle:
@@ -102,7 +102,7 @@ spec:
             {{- if and .Values.runners.cache .Values.runners.cache.cacheType }}
             {{-   if eq .Values.runners.cache.cacheType "s3"}}
             - secret:
-                name: {{ template "gitlab-runner.cache.secret" . }}
+                name: {{ include "gitlab-runner.cache.secret" . }}
                 items:
                   - key: accesskey
                     path: s3-access-key
@@ -111,11 +111,11 @@ spec:
             {{-   end }}
             {{-   if eq .Values.runners.cache.cacheType "gcs"}}
             - secret:
-                name: {{ template "gitlab-runner.cache.secret" . }}
+                name: {{ include "gitlab-runner.cache.secret" . }}
             {{-   end }}
             {{- end }}
             - secret:
-                name: {{ template "gitlab-runner.secret" . }}
+                name: {{ include "gitlab-runner.secret" . }}
                 items:
                   - key: runner-registration-token
                     path: runner-registration-token
@@ -128,4 +128,4 @@ spec:
       {{- end }}
       - name: scripts
         configMap:
-          name: {{ template "gitlab-runner.fullname" . }}
+          name: {{ include "gitlab-runner.fullname" . }}

@@ -1,6 +1,6 @@
 {{- define "gitlab-runner.runner-env-vars" }}
 - name: CI_SERVER_URL
-  value: {{ template "gitlab-runner.gitlabUrl" . }}
+  value: {{ include "gitlab-runner.gitlabUrl" . }}
 - name: CLONE_URL
   value: {{ default "" .Values.runners.cloneUrl | quote }}
 - name: RUNNER_EXECUTOR
