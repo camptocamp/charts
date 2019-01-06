@@ -66,6 +66,9 @@ data:
         {{- range .Values.runners.imagePullSecrets }}
         --kubernetes-image-pull-secrets {{ . | quote }} \
         {{- end }}
+        {{- range $key, $val := .Values.runners.nodeSelector }}
+        --kubernetes-node-selector {{ $key | quote }}:{{ $val | quote }} \
+        {{- end }}
         --non-interactive
 
       retval=$?

@@ -201,6 +201,11 @@ runners:
   ##
   # cloneUrl:
 
+  ## Specify node labels for CI job pods assignment
+  ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
+  ##
+  # nodeSelector: {}
+
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
 ##
