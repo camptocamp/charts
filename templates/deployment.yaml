@@ -27,7 +27,7 @@ spec:
       initContainers:
       - name: configure
         command: ['sh', '/config/configure']
-        image: {{ .Values.image }}
+        image: {{ include "gitlab-runner.image" . }}
         env:
         {{ include "gitlab-runner.runner-env-vars" . | indent 8 }}
         volumeMounts:
@@ -45,7 +45,7 @@ spec:
       serviceAccountName: {{ if .Values.rbac.create }}{{ include "gitlab-runner.fullname" . }}{{ else }}"{{ .Values.rbac.serviceAccountName }}"{{ end }}
       containers:
       - name: {{ include "gitlab-runner.fullname" . }}
-        image: {{ .Values.image }}
+        image: {{ include "gitlab-runner.image" . }}
         {{- if and .Values.unregisterRunners .Values.runnerRegistrationToken }}
         lifecycle:
           preStop:

@@ -1,5 +1,6 @@
 name: gitlab-runner
 version: 0.1.45-beta
+appVersion: 11.6.0
 description: GitLab Runner
 keywords:
 - git
