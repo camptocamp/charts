@@ -6,6 +6,9 @@ items:
   kind: Project
   metadata:
     annotations:
+{{-   if $value.nodeSelector }}
+      openshift.io/node-selector: {{ $value.nodeSelector | quote }}
+{{-   end }}
       openshift.io/description: |
 {{ $value.description | indent 8 }}
       openshift.io/display-name: {{ $key }}

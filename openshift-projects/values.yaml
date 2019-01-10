@@ -57,6 +57,13 @@ projects: {}
 #     helmAccess:
 #       - ServiceAccountNamespace: my_cicd_project
 #         ServiceAccountName: jenkins
+#     quotas:
+#       limits.cpu: 2
+#       limits.memory: 2Gi
+#       requests.cpu: 1
+#       requests.memory: 2Gi
+#     disableBestEffort: true
+#     nodeSelector: <node selector>
 #     editAccess:
 #       - kind: Group
 #         name: mygroup
