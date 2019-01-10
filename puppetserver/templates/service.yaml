@@ -1,14 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "puppetserver.name" . }}
+  name: {{ include "puppetserver.fullname" . }}
   labels:
-    {{- include "puppetserver.release_labels" . | indent 4 }}
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    helm.sh/chart: {{ include "puppetserver.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: NodePort
+  type: {{ .Values.service.type }}
   ports:
-  - port: 8080
-    targetPort: 8080
-    protocol: TCP
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
   selector:
-    app: {{ template "puppetserver.name" . }}
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,61 +1,78 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "puppetserver.name" . }}
+  name: {{ include "puppetserver.fullname" . }}
   labels:
-    {{- include "puppetserver.release_labels" . | indent 4 }}
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    helm.sh/chart: {{ include "puppetserver.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        {{- include "puppetserver.release_labels" . | indent 8 }}
+        app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-      - name: puppetserver
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+        - name: CA_KEY
+          value: /docker/secrets/ca_key.pem
+        - name: CA_CRT
+          value: /docker/secrets/ca_crt.pem
+        - name: CA_CRL
+          value: /docker/secrets/ca_crl.pem
+        - name: GPG_KEYFILE
+          value: /docker/secrets/gpg.asc
         ports:
-        - containerPort: 8080
+        - name: http
+          containerPort: 8140
           protocol: TCP
         volumeMounts:
-        - mountPath: /run/secrets/ca_key.pem
-          name: secrets
-          subPath: ca_key.pem
+        # Configmaps
+        - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
+          name: configs
+          subPath: auth.conf
           readOnly: true
-        - mountPath: /run/secrets/ca_crt.pem
-          name: secrets
-          subPath: ca_crt.pem
+        - mountPath: /etc/puppetlabs/puppetserver/conf.d/ca.conf
+          name: configs
+          subPath: ca.conf
           readOnly: true
-        - mountPath: /run/secrets/ca_crl.pem
-          name: secrets
-          subPath: ca_crl.pem
+        - mountPath: /etc/puppetlabs/puppet/autosign
+          name: configs
+          subPath: autosign
           readOnly: true
-        - mountPath: /run/secrets/gpg.asc
-          name: secrets
-          subPath: gpg.asc
+        - mountPath: /etc/puppetlabs/puppet/puppet.conf
+          name: configs
+          subPath: puppet.conf
           readOnly: true
-        - mountPath: /run/secrets/autosign_psk
-          name: secrets
-          subPath: autosign_psk
+        - mountPath: /etc/puppetlabs/puppet/puppetdb.conf
+          name: configs
+          subPath: puppetdb.conf
           readOnly: true
-
-      - name: g10k-webhook
-        image: camptocamp/g10k-webhook:latest
-        env:
-        - name: HOOK_SECRET
-          value: "SeCr3t"
-        volumeMounts:
-        - mountPath: /run/secrets/id_rsa
-          name: secrets
-          subPath: id_rsa
+        - mountPath: /etc/puppetlabs/puppet/routes.yaml
+          name: configs
+          subPath: routes.yaml
           readOnly: true
-        - mountPath: /etc/puppetlabs/code
-          name: puppetcode
+        # CA secrets
+        - mountPath: /docker/secrets
+          name: secrets
+          readOnly: false
 
       volumes:
       - name: secrets
         secret:
-          secretName: secrets
+          secretName: {{ include "puppetserver.fullname" . }}
+      - name: configs
+        configMap:
+          name: {{ include "puppetserver.fullname" . }}
       - name: puppetcode
         emptyDir: {}

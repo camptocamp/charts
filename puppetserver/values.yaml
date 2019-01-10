@@ -1,13 +1,26 @@
 image:
   repository: camptocamp/puppetserver
   tag: 'latest'
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
+service:
+  type: 'ClusterIP'
+  port: '8140'
 
-dns_alt_names: ''
-java_args: ''
-ca_key_pem: ''
-ca_crt_pem: ''
-ca_crl_pem: ''
-gpg_asc: ''
-autosign_psk: ''
-g10k_id_rsa: ''
+# General
+auth_conf: ''
+ca_conf: ''
+puppet_conf: ''
+puppetdb_conf: ''
+routes_yaml: ''
+
+# CA
+ca:
+  key: ''
+  crt: ''
+  crl: ''
+  autosign:
+    script: ''
+    psk: ''
+
+# Hiera
+gpg: ''
