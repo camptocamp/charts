@@ -44,6 +44,9 @@ projects: {}
 #       This is my cicd Project
 #     deployTiller: true
 #     deployAnyUidServiceAccount: true
+#     tillerLimits:
+#       cpu: 0.1
+#       memory: 128MB
 #     imageAccess:
 #       - Namespace: myproject1
 #       - Namespace: myproject2
