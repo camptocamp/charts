@@ -1,0 +1,24 @@
+{{- if .Values.routeEnabled -}}
+apiVersion: v1
+kind: Route
+metadata:
+  annotations:
+    haproxy.router.openshift.io/balance: {{ .Values.routeBalancingMode | default "roundrobin" }}
+  labels:
+    app: {{ template "fullname" . }}
+  name: {{ template "fullname" . }}
+spec:
+  host: {{ required "must specify routeFqdn to have a name to reach the varnish through the route." .Values.routeFqdn }}
+  port:
+    targetPort: 8080
+    {{- if .Values.routeTls }}
+  tls:
+    insecureEdgeTerminationPolicy: {{ .Values.routeTls.policy | default "Redirect" }}
+    termination:  {{ .Values.routeTls.termination | default "edge" }}
+    {{- end }}
+  to:
+    kind: Service
+    name: {{ template "fullname" . }}
+    weight: 100
+  wildcardPolicy: {{ .Values.routeWildcardPolicy | default "None" | quote }}
+{{- end -}}

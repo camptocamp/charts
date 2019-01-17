@@ -1,0 +1,183 @@
+{{ if not .Values.varnishKafkaConfigMapName -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: {{ template "fullname" . }}-varnishkafka
+  labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  varnishkafka.conf: |-
+    # Standard string formatter
+    format.type = {{ .Values.varnishKafkaFormatter }}
+    format = {{ .Values.varnishKafkaFormat }}
+
+    # Where to output varnish log lines:
+    #  kafka  - (default) send to kafka broker
+    #  stdout - just print to stdout (behave like varnishncsa)
+    #  null   - (test) collect all tags specified by format but dont output anything
+    output = {{ .Values.varnishKafkaOutput }}
+
+    # The maximum accepted log tag size.
+    # Larger tags will be truncated to this size.
+    # Defaults to 2048
+    #tag.size.max = 2048
+
+    # TUNING
+    # Logline cache hash tuning
+    # 'logline.hash.size * logline.hash.max' dictates the maximum number of
+    # cached logline entries in memory.
+
+    # Number of hash buckets (keyed by log id).
+    # Higher number yields more performance at the expense of memory.
+    # Set this to avg_requests_per_second / 5.
+    # Defaults to 5000
+    #logline.hash.size = 5000
+
+    # Maximum number of loglines per hash bucket
+    # Higher number yields less memory consumption at the expense of performance.
+    # Set this to avg_requests_per_second / logline.hash.size.
+    # Defaults to 5
+    #logline.hash.max = 5
+
+    # Size of per logline scratch buffer.
+    # The scratch buffer is used as a temporary storage space while
+    # collecting tags for the log line.
+    # If the scratch size is too small the daemon will error-exit
+    # Defaults to 4MB
+    #logline.scratch.size = 4194304
+
+    # Start for sequence number (%n)
+    # Either a number, or the string "time" which will set it to the current
+    # unix time in seconds multiplied by 1,000,000.
+    # Defaults to 0.
+    sequence.number = {{ .Values.varnishKafkaSequenceNumber }}
+
+    #
+    # varnishkafka log messages configuration
+    # Debugging, error reporting, etc, not to be confused with varnish logs.
+    #
+
+    # varnishkafka log level (1 = emergencies .. 7 = debug)
+    log.level = {{ .Values.varnishKafkaLogLevel }}
+
+    # specify log output (multiples allowed)
+    log.stderr = true
+
+    # Maximum number of error logs produced per log.rate.period seconds
+    # This setting is applied per error type.
+    # log.rate.max defaults to 100
+    # log.rate.period defaults to 60
+    #log.rate.max = 100
+    #log.rate.period = 60
+
+    # Kafka: log message delivery failures (requires required.acks > 0)
+    log.kafka.msg.error = true
+
+    #
+    # JSON Statistics
+    #
+    # Statistics is collected from varnishkafka itself as well as librdkafka
+    # Each JSON object has a top level key of either 'varnishkafka' or
+    # 'kafka' to indicate which type of statistics the object contains.
+    # Each line is a valid JSON object.
+    #
+
+    # Statistics output interval
+    # Defaults to 60 seconds, use 0 to disable.
+    #log.statistics.interval = 60
+
+    # Statistics output file
+    # Defaults to /tmp/varnishkafka.stats.json
+    log.statistics.file = /dev/stdout
+
+    # daemonize varnishkafka (boolean)
+    daemonize = false
+
+    # Varnish-related configuration options:
+
+    # -q VSLQ query (https://www.varnish-cache.org/docs/4.1/reference/vsl-query.html)
+    # varnish.arg.q = not ReqHeader:Content-type
+
+    # -n: varnishd instance to get logs from.
+    # varnish.arg.n = frontend
+
+    # -N: VSM filename to read logs from.
+    # varnish.arg.N = /this/is/a/path
+
+    # -T: Max seconds that the VSL API waits between a Begin tag and a End one.
+    # Varnish workers write log tags to a buffer that gets flushed
+    # to the shmlog once full. It might happen that a Begin
+    # tag gets flushed to shmlog as part of a batch without
+    # its correspondent End tag (for example, due to long requests).
+    # The VSL default is 120.
+    # varnish.arg.T = 120
+
+    # -L: Upper limit of incomplete VSL transactions kept before
+    # the oldest one is force completed.
+    # The VSL default is 1000.
+    # varnish.arg.L = 1000
+
+    #######################################################################
+    #                                                                     #
+    # Kafka configuration                                                 #
+    #                                                                     #
+    # Kafka configuration properties are prefixed with "kafka."           #
+    # and topic properties are prefixed with "kafka.topic.".              #
+    #                                                                     #
+    # For the full range of Kafka handle and topic configuration          #
+    # properties, see:                                                    #
+    #  http://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md #
+    #                                                                     #
+    # And the Apache Kafka configuration reference:                       #
+    #  http://kafka.apache.org/08/configuration.html                      #
+    #                                                                     #
+    #######################################################################
+
+    # Initial list of kafka brokers
+    kafka.metadata.broker.list = {{ range $index, $element := .Values.varnishKafkaBrokers -}}
+      {{ if $index }},{{ end -}}
+      {{ $element -}}
+    {{ end }}
+
+    # Maximum number of messages allowed on the local producer queue
+    # Defaults to 1000000
+    kafka.queue.buffering.max.messages = {{ .Values.varnishKafkaBufferedMessages }}
+
+    # Maximum number of retries per messageset.
+    kafka.message.send.max.retries = {{ .Values.varnishKafkaSendMaxRetries }}
+
+    {{ if .Values.kafkaTlsAuth -}}
+    # TLS/SSL Config
+    kafka.security.protocol=SSL
+    kafka.ssl.ca.location=/etc/varnishkafka/auth/ca.pem
+    {{ if .Values.kafkaTlsAuth.keyPassword -}}
+    kafka.ssl.key.password={{ .Values.kafkaTlsAuth.keyPassword }}
+    {{ end -}}
+    kafka.ssl.key.location=/etc/varnishkafka/auth/key.pem
+    kafka.ssl.certificate.location=/etc/varnishkafka/auth/cert.pem
+    {{ end -}}
+
+    #
+    # Topic configuration
+    #
+
+    # Topic to produce messages to
+    kafka.topic = {{ .Values.varnishKafkaTopic }}
+
+    # Partition (-1: random, else one of the available partitions)
+    kafka.partition = {{ .Values.varnishKafkaPartition }}
+
+    # Required number of acks
+    kafka.topic.request.required.acks = 1
+
+    # Local message timeout (milliseconds)
+    kafka.topic.message.timeout.ms = {{ .Values.varnishKafkaTimeout }}
+
+    # SO_SNDBUFF Socket send buffer size. System default is used if 0.
+    # Default is 0.
+    #kafka.socket.send.buffer.bytes = 0
+{{ end }} 

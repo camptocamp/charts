@@ -1,0 +1,28 @@
+{{- if .Values.ingressEnabled -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+ name: {{ template "fullname" . }}
+ labels:
+    app: {{ template "fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+ annotations:
+   {{- range $key, $value := .Values.ingressAnnotations }}
+     {{ $key }}: {{ $value | quote }}
+   {{- end }}
+spec:
+  rules:
+    - host: {{ required "must specify ingressHostname for trafic routing." .Values.ingressHostname }}
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ template "fullname" . }}
+              servicePort: 8080
+{{- if .Values.ingressTls }}
+  tls:
+{{ toYaml .Values.ingressTls | indent 4 }}
+{{- end -}}
+{{- end -}}
