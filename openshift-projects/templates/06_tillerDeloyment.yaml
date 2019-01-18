@@ -39,10 +39,10 @@ items:
             httpGet:
               path: /liveness
               port: 44135
-{{-     if $values.tillerLimits }}
+{{-     if $value.tillerLimits }}
           resources:
             limits:
-{{        toYaml $values.tillerLimits | indent 14 }}
+{{        toYaml $value.tillerLimits | indent 14 }}
 {{-     end }}
         serviceAccountName: tiller-deploy
   {{- end }}
