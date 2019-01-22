@@ -1,6 +1,6 @@
 name: gitlab-runner
 version: 0.1.46-beta
-appVersion: 11.7.0-rc1
+appVersion: 11.7.0
 description: GitLab Runner
 keywords:
 - git
