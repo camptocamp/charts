@@ -21,3 +21,4 @@
 *.tmproj
 
 gitlab-runner*.tgz
+scripts/
