@@ -1,5 +1,5 @@
 {{ $root := . }}
-{{- if and .Values.anyUid .Values.anyUid.deployScc}}
+{{- if and .Values.anyUid .Values.anyUid.deployScc }}
 apiVersion: security.openshift.io/v1
 kind: SecurityContextConstraints
 metadata:
