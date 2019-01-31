@@ -1,23 +1,20 @@
 {{ $root := . }}
-apiVersion: v1
-items:
 {{- range $key, $value := .Values.projects }}
-  {{- if $value.deployTiller }}
-- kind: RoleBinding
-  apiVersion: authorization.openshift.io/v1
-  metadata:
-    labels:
-{{ include "common.labels.standard" $root | indent 6 }}
-    name: tiller-deploy
-    namespace: {{ $key }}
-  roleRef:
-    name: tiller-deploy
-    namespace: {{ $key }}
-  subjects:
-  - kind: ServiceAccount
-    name: tiller-deploy
-    namespace: {{ $key }}
-  {{- end }}
+{{-   if $value.deployTiller }}
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: tiller-deploy
+  namespace: {{ $key }}
+roleRef:
+  name: tiller-deploy
+  namespace: {{ $key }}
+subjects:
+- kind: ServiceAccount
+  name: tiller-deploy
+  namespace: {{ $key }}
+{{-   end }}
 {{- end }}
-kind: List
-

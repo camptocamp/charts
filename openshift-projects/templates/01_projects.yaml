@@ -1,20 +1,18 @@
 {{ $root := . }}
-apiVersion: v1
-items:
 {{- range $key, $value := .Values.projects }}
-- apiVersion: project.openshift.io/v1
-  kind: Project
-  metadata:
-    annotations:
+---
+apiVersion: project.openshift.io/v1
+kind: Project
+metadata:
+  annotations:
 {{-   if $value.nodeSelector }}
-      openshift.io/node-selector: {{ $value.nodeSelector | quote }}
+    openshift.io/node-selector: {{ $value.nodeSelector | quote }}
 {{-   end }}
-      openshift.io/description: |
-{{ $value.description | indent 8 }}
-      openshift.io/display-name: {{ $key }}
-    labels:
-{{ include "common.labels.standard" $root | indent 6 }}
-    creationTimestamp: null
-    name: {{ $key }}
+    openshift.io/description: |
+{{ $value.description | indent 6 }}
+    openshift.io/display-name: {{ $key }}
+  labels:
+{{    include "common.labels.standard" $root | indent 4 }}
+  creationTimestamp: null
+  name: {{ $key }}
 {{- end }}
-kind: List

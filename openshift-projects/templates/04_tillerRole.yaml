@@ -1,20 +1,18 @@
 {{ $root := . }}
-apiVersion: v1
-items:
 {{- range $key, $value := .Values.projects }}
-  {{- if $value.deployTiller }}
-- kind: Role
-  apiVersion: authorization.openshift.io/v1
-  metadata:
-    labels:
-{{ include "common.labels.standard" $root | indent 6 }}
-    name: tiller-deploy
-    namespace: {{ $key }}
-  rules:
-  - apiGroups: ["*"]
-    resources: ["*"]
-    verbs: ["*"]
-  {{- end }}
+{{-   if $value.deployTiller }}
+---
+kind: Role
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: tiller-deploy
+  namespace: {{ $key }}
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["*"]
+{{-   end }}
 {{- end }}
-kind: List
 
