@@ -4,7 +4,7 @@ apiVersion: security.openshift.io/v1
 kind: SecurityContextConstraints
 metadata:
   labels:
-{{ include "common.labels.standard" . | indent 6 }}
+{{    include "common.labels.standard" . | indent 6 }}
   name: project-anyuid
 priority: 10
 allowHostDirVolumePlugin: false
@@ -29,9 +29,9 @@ seLinuxContext:
 supplementalGroups:
   type: RunAsAny
 users:
-{{- range $key, $value := .Values.projects }}
+{{-   range $key, $value := .Values.projects }}
 - system:serviceaccount:{{ $key }}:{{ $root.Values.anyUid.ServiceAccountName }}
-{{- end }}
+{{-   end }}
 volumes:
 - configMap
 - downwardAPI

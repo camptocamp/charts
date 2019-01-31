@@ -1,32 +1,31 @@
 {{ $root := . }}
-apiVersion: v1
-items:
 {{- range $key, $value := .Values.projects }}
 {{-   if $value.quotas }}
-- kind: ResourceQuota
-  apiVersion: v1
-  metadata:
-    labels:
-{{      include "common.labels.standard" $root | indent 6 }}
-    name: project-quotas
-    namespace: {{ $key }}
-  spec:
-    hard:
-{{      toYaml $value.quotas | indent 6 }}
+---
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: project-quotas
+  namespace: {{ $key }}
+spec:
+  hard:
+{{      toYaml $value.quotas | indent 4 }}
 {{-   end }}
 {{-   if $value.disableBestEffort }}
-- kind: ResourceQuota
-  apiVersion: v1
-  metadata:
-    labels:
-{{      include "common.labels.standard" $root | indent 6 }}
-    name: disable-best-effort
-    namespace: {{ $key }}
-  spec:
-    hard:
-      pods: {{ if $value.deployTiller }}"1"{{ else }}"0"{{ end }}
-    scopes:
-    - BestEffort
+---
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: disable-best-effort
+  namespace: {{ $key }}
+spec:
+  hard:
+    pods: {{ if $value.deployTiller }}"1"{{ else }}"0"{{ end }}
+  scopes:
+  - BestEffort
 {{-   end }}
 {{- end }}
-kind: List
