@@ -1,32 +1,28 @@
 {{ $root := . }}
-apiVersion: v1
-items:
 {{- range $key, $value := .Values.projects }}
-  {{- if $value.deployTiller }}
-
-- kind: Service
-  apiVersion: v1 
-  metadata:
-    labels:
-{{ include "common.labels.standard" $root | indent 6 }}
-      app: helm
-      name: tiller
-    name: tiller-deploy
-    namespace: {{ $key }}
-  spec:
-    ports:
-    - name: tiller
-      port: 44134
-      protocol: TCP
-      targetPort: tiller
-    selector:
-      app: helm
-      name: tiller
-    sessionAffinity: None
-    type: ClusterIP
-  status:
-    loadBalancer: {}
-  {{- end }}
+{{-   if $value.deployTiller }}
+---
+kind: Service
+apiVersion: v1 
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+    app: helm
+    name: tiller
+  name: tiller-deploy
+  namespace: {{ $key }}
+spec:
+  ports:
+  - name: tiller
+    port: 44134
+    protocol: TCP
+    targetPort: tiller
+  selector:
+    app: helm
+    name: tiller
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
+{{-   end }}
 {{- end }}
-kind: List
-

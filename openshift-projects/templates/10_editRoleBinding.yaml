@@ -1,26 +1,23 @@
 {{ $root := . }}
-apiVersion: v1
-items:
 {{- range $key, $value := .Values.projects }}
-  {{- if $value.editAccess }}
-- kind: RoleBinding
-  apiVersion: authorization.openshift.io/v1
-  metadata:
-    labels:
-{{ include "common.labels.standard" $root | indent 6 }}
-    name: {{ $key }}-edit-binding
-    namespace: {{ $key }}
-  roleRef:
-    name: edit
-  subjects:
-    {{- range $editAccess := $value.editAccess }}
-  - kind: {{ $editAccess.kind }}
-    name: {{ $editAccess.name }}
-      {{- if $editAccess.namespace }}
-    namespace: {{ $editAccess.namespace }}
-      {{- end }}
-    {{- end }}
-  {{- end }}
+{{-   if $value.editAccess }}
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: {{ $key }}-edit-binding
+  namespace: {{ $key }}
+roleRef:
+  name: edit
+subjects:
+{{-     range $editAccess := $value.editAccess }}
+- kind: {{ $editAccess.kind }}
+  name: {{ $editAccess.name }}
+{{-       if $editAccess.namespace }}
+  namespace: {{ $editAccess.namespace }}
+{{-       end }}
+{{-     end }}
+{{-   end }}
 {{- end }}
-kind: List
-

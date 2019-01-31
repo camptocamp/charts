@@ -94,7 +94,7 @@ projects: {}
 # Set the image, version tag and tiller user service account name for tiller
 tiller:
   image: gcr.io/kubernetes-helm/tiller
-  tag: v2.10.0
+  tag: v2.11.0
 
 # Set the SA used for the anyUid scc
 anyUid:
