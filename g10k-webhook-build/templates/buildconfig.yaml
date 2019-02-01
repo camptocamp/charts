@@ -12,7 +12,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: {{ include "g10k-webhook-build.fullname" . }}:latest
+      name: g10k-webhook:latest
   runPolicy: Serial
   source:
     git:
