@@ -23,7 +23,7 @@ spec:
     dockerStrategy:
       from:
         kind: ImageStreamTag
-        name: {{ include "g10k-webhook-build.fullname" . }}-debian:stretch
+        name: debian:stretch
       forcePull: true
     type: Docker
   triggers:
