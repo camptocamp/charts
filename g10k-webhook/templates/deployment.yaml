@@ -32,6 +32,12 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: HOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "g10k-webhook.fullname" . }}
+                  key: hookSecret
           ports:
             - name: http
               containerPort: 9000
