@@ -1,0 +1,17 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ .Values.image.repository }}
+  labels:
+    app.kubernetes.io/name: {{ include "imagestream.name" . }}
+    helm.sh/chart: {{ include "imagestream.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  tags:
+    - name: {{ .Values.image.tag }}
+      from:
+        kind: DockerImage
+        name: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      importPolicy:
+        scheduled: true
