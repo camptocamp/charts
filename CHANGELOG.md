@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.1.45 (2018-01-22)
+## v0.1.45 (2019-01-22)
 
 - Trigger release only for tagged versions !72
 - Fixes typos in values.yaml comments !60
