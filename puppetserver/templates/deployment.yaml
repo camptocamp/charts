@@ -20,59 +20,73 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-        - name: CA_KEY
-          value: /docker/secrets/ca_key.pem
-        - name: CA_CRT
-          value: /docker/secrets/ca_crt.pem
-        - name: CA_CRL
-          value: /docker/secrets/ca_crl.pem
-        - name: GPG_KEYFILE
-          value: /docker/secrets/gpg.asc
-        ports:
-        - name: http
-          containerPort: 8140
-          protocol: TCP
-        volumeMounts:
-        # Configmaps
-        - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
-          name: configs
-          subPath: auth.conf
-          readOnly: true
-        - mountPath: /etc/puppetlabs/puppetserver/conf.d/ca.conf
-          name: configs
-          subPath: ca.conf
-          readOnly: true
-        - mountPath: /etc/puppetlabs/puppet/autosign
-          name: configs
-          subPath: autosign
-          readOnly: true
-        - mountPath: /etc/puppetlabs/puppet/puppet.conf
-          name: configs
-          subPath: puppet.conf
-          readOnly: true
-        - mountPath: /etc/puppetlabs/puppet/puppetdb.conf
-          name: configs
-          subPath: puppetdb.conf
-          readOnly: true
-        - mountPath: /etc/puppetlabs/puppet/routes.yaml
-          name: configs
-          subPath: routes.yaml
-          readOnly: true
-        # CA secrets
-        - mountPath: /docker/secrets
-          name: secrets
-          readOnly: false
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: CA_KEY
+              value: /docker/secrets/ca_key.pem
+            - name: CA_CRT
+              value: /docker/secrets/ca_crt.pem
+            - name: CA_CRL
+              value: /docker/secrets/ca_crl.pem
+            - name: GPG_KEYFILE
+              value: /docker/secrets/gpg.asc
+          ports:
+            - name: http
+              containerPort: 8140
+              protocol: TCP
+          volumeMounts:
+            # Configmaps
+            - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
+              name: configs
+              subPath: auth.conf
+              readOnly: true
+            - mountPath: /etc/puppetlabs/puppetserver/conf.d/ca.conf
+              name: configs
+              subPath: ca.conf
+              readOnly: true
+            - mountPath: /etc/puppetlabs/puppet/autosign
+              name: configs
+              subPath: autosign
+              readOnly: true
+            - mountPath: /etc/puppetlabs/puppet/puppet.conf
+              name: configs
+              subPath: puppet.conf
+              readOnly: true
+            - mountPath: /etc/puppetlabs/puppet/puppetdb.conf
+              name: configs
+              subPath: puppetdb.conf
+              readOnly: true
+            - mountPath: /etc/puppetlabs/puppet/routes.yaml
+              name: configs
+              subPath: routes.yaml
+              readOnly: true
+            # CA secrets
+            - mountPath: /docker/secrets
+              name: secrets
+              readOnly: false
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
 
       volumes:
-      - name: secrets
-        secret:
-          secretName: {{ include "puppetserver.fullname" . }}
-      - name: configs
-        configMap:
-          name: {{ include "puppetserver.fullname" . }}
-      - name: puppetcode
-        emptyDir: {}
+        - name: secrets
+          secret:
+            secretName: {{ include "puppetserver.fullname" . }}
+        - name: configs
+          configMap:
+            name: {{ include "puppetserver.fullname" . }}
+        - name: puppetcode
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
