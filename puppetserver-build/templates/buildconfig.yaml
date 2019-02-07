@@ -1,0 +1,32 @@
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: {{ include "puppetserver-build.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "puppetserver-build.name" . }}
+    helm.sh/chart: {{ include "puppetserver-build.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: puppetserver:latest
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/camptocamp/docker-puppetserver.git
+      ref: master
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: ubuntu:bionic
+      forcePull: true
+    type: Docker
+  triggers:
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange
