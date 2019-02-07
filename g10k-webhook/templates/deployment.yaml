@@ -27,6 +27,15 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "g10k-webhook.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        image.openshift.io/triggers: |
+          [{
+          "from" :{
+            "kind": "ImageStreamTag",
+            "name": "g10k-webhook:latest"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name='g10k-webhook')].image"
+          }]
     spec:
       containers:
         - name: {{ .Chart.Name }}
