@@ -48,3 +48,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+persistence:
+  claimName: ''

@@ -42,6 +42,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
+            - mountPath: /etc/puppetlabs/code
+              name: puppetcode
             - name: secrets
               mountPath: /var/run/secrets
               readOnly: true
@@ -75,6 +77,9 @@ spec:
           secret:
             secretName: {{ include "g10k-webhook.fullname" . }}
             defaultMode: 256
+        - name: puppetcode
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.claimName }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
