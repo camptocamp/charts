@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "puppetserver.fullname" . }}-puppetca
+  labels:
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    helm.sh/chart: {{ include "puppetserver.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.puppetca.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.puppetca.size }}
+{{- if .Values.persistence.puppetca.storageClass }}
+{{- if (eq "-" .Values.persistence.puppetca.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.puppetca.storageClass }}"
+{{- end }}
+{{- end }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "puppetserver.fullname" . }}-puppetcode
+  labels:
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    helm.sh/chart: {{ include "puppetserver.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  accessModes:
+    - {{ .Values.persistence.puppetcode.accessMode | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistence.puppetcode.size }}
+{{- if .Values.persistence.puppetcode.storageClass }}
+{{- if (eq "-" .Values.persistence.puppetcode.storageClass) }}
+  storageClassName: ""
+{{- else }}
+  storageClassName: "{{ .Values.persistence.puppetcode.storageClass }}"
+{{- end }}
+{{- end }}
