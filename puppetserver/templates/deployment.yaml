@@ -37,6 +37,10 @@ spec:
               containerPort: 8140
               protocol: TCP
           volumeMounts:
+            - mountPath: /etc/puppetlabs/code
+              name: puppetcode
+            - mountPath: /etc/puppetlabs/puppet/ssl/ca
+              name: puppetca
             # Configmaps
             - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
               name: configs
@@ -77,7 +81,11 @@ spec:
           configMap:
             name: {{ include "puppetserver.fullname" . }}
         - name: puppetcode
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: {{ include "puppetserver.fullname" . }}-puppetcode
+        - name: puppetca
+          persistentVolumeClaim:
+            claimName: {{ include "puppetserver.fullname" . }}-puppetca
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

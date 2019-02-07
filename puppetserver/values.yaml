@@ -16,6 +16,16 @@ service:
   type: ClusterIP
   port: 8140
 
+persistence:
+  puppetca:
+    accessMode: ReadWriteMany
+    size: 100Mi
+    storageClass: "-"
+  puppetcode:
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: "-"
+
 # General
 auth_conf: ''
 ca_conf: ''
