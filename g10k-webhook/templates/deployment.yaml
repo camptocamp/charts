@@ -36,12 +36,25 @@ spec:
             - name: secrets
               mountPath: /var/run/secrets
               readOnly: true
+            - name: secrets
+              mountPath: /.ssh
+              readOnly: true
           env:
             - name: HOOK_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ include "g10k-webhook.fullname" . }}
                   key: hookSecret
+            - name: RSA_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "g10k-webhook.fullname" . }}
+                  key: id_rsa
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "g10k-webhook.fullname" . }}
+                  key: githubToken
           ports:
             - name: http
               containerPort: 9000
@@ -52,6 +65,7 @@ spec:
         - name: secrets
           secret:
             secretName: {{ include "g10k-webhook.fullname" . }}
+            defaultMode: 256
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
