@@ -1,25 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: conf-d
+  name: {{ include "puppetdb.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  database.ini: |-
-    [database]
-    subname = {{ .Values.postgres_subname  }}
-    username = {{ .Values.postgres_user }}
-    password = {{ .Values.postgres_password }}
-{{- if .Values.postgres_ro_subname }}
-    [read-database]
-    subname = {{ .Values.postgres_ro_subname }}
-    username = {{ .Values.postgres_ro_user }}
-    password = {{ .Values.postgres_ro_password }}
-{{- end }}
-  jetty.ini: |-
-    [jetty]
-    port = 8080
-    host = 0.0.0.0
-    ssl-port=8081
-    ssl-host=0.0.0.0
-    ssl-key=/run/secrets/private.pem
-    ssl-cert=/run/secrets/public.pem
-    ssl-ca-cert=/run/secrets/ca.pem
+  puppetdb.ini: |-
+{{ .Values.puppetdb_ini | indent 4 }}
