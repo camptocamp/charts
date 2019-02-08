@@ -23,11 +23,18 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "java" ]
+          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms256m", "-Xmx256m",
+            "-cp", "/puppetdb.jar", "clojure.main",
+            "-m", "puppetlabs.puppetdb.core", "services", "-c",
+            "/etc/puppetlabs/puppetdb/conf.d/" ]
           ports:
             - name: http
               containerPort: 8081
               protocol: TCP
           volumeMounts:
+          - mountPath: /opt/puppetlabs/server/data/puppetdb
+            name: data
           - mountPath: /etc/puppetlabs/puppetdb/conf.d/
             name: conf-d
             readOnly: true
@@ -54,6 +61,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+        - name: data
+          emptyDir: {}
         - name: ssl
           secret:
             secretName: {{ include "puppetdb.fullname" . }}

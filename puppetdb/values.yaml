@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: camptocamp/puppetdb
-  tag: arbitrary_user
+  repository: docker.io/puppet/puppetdb
+  tag: 5.2.7
   pullPolicy: Always
 
 nameOverride: ""
@@ -52,3 +52,28 @@ private_pem: ''
 public_pem: ''
 
 ca_pem: ''
+
+puppetdb_ini: |
+  [global]
+  vardir = /opt/puppetlabs/server/data/puppetdb
+
+  [command-processing]
+
+  [database]
+  subname = //postgresql:5432/puppetdb
+  username = puppetdb
+  password = puppetdb
+
+  [jetty]
+  host = 127.0.0.1
+  port = 8080
+  ssl-host = 0.0.0.0
+  ssl-port = 8081
+  ssl-key = /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pem
+  ssl-cert = /etc/puppetlabs/puppet/ssl/certs/puppetdb.pem
+  ssl-ca-cert = /etc/puppetlabs/puppet/ssl/certs/ca.pem
+
+  [nrepl]
+  enabled = false
+  port = 8082
+  host = 127.0.0.1
