@@ -27,7 +27,15 @@ persistence:
     storageClass: "-"
 
 # General
-ca_conf: ''
+ca_conf: |
+  certificate-authority: {
+      # allow CA to sign certificate requests that have subject alternative names.
+      # allow-subject-alt-names: false
+
+      # allow CA to sign certificate requests that have authorization extensions.
+      # allow-authorization-extensions: false
+  }
+
 puppet_conf: ''
 puppetdb_conf: ''
 routes_yaml: ''

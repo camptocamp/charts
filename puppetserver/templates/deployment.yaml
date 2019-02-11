@@ -89,6 +89,9 @@ spec:
             - mountPath: /etc/puppetlabs/puppet/routes.yaml
               name: puppet
               subPath: routes.yaml
+            - mountPath: /etc/puppetlabs/puppetserver/conf.d/ca.conf
+              name: puppetserver
+              subPath: ca.conf
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
               readOnly: true
@@ -148,6 +151,9 @@ spec:
               - key: routes.yaml
                 path: routes.yaml
                 mode: 0644
+        - name: puppetserver
+          configMap:
+            name: {{ include "puppetserver.fullname" . }}-puppetserver
         - name: puppetcode
           persistentVolumeClaim:
             claimName: {{ include "puppetserver.fullname" . }}-puppetcode
