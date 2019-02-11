@@ -83,6 +83,12 @@ spec:
             - mountPath: /etc/puppetlabs/puppet/autosign.sh
               name: puppet
               subPath: autosign
+            - mountPath: /etc/puppetlabs/puppet/puppetdb.conf
+              name: puppet
+              subPath: puppetdb.conf
+            - mountPath: /etc/puppetlabs/puppet/routes.yaml
+              name: puppet
+              subPath: routes.yaml
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
               readOnly: true
@@ -135,6 +141,12 @@ spec:
                 mode: 0644
               - key: hiera.yaml
                 path: hiera.yaml
+                mode: 0644
+              - key: puppetdb.conf
+                path: puppetdb.conf
+                mode: 0644
+              - key: routes.yaml
+                path: routes.yaml
                 mode: 0644
         - name: puppetcode
           persistentVolumeClaim:

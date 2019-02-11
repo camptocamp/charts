@@ -44,3 +44,7 @@ data:
     version: 5
   autosign: |
 {{ .Values.autosign.script | indent 4 }}
+  puppetdb.conf: |
+{{ .Values.puppetdb_conf | indent 4 }}
+  routes.yaml: |
+{{ .Values.routes_yaml | indent 4 }}
