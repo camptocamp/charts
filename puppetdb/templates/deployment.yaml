@@ -24,7 +24,7 @@ spec:
           image: "docker.io/puppet/puppet-agent:latest"
           command: ["sh", "-c"]
           args:
-            - "psk=$(cat /run/secrets/autosign_psk); hostname=$(puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetdb/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetdb'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; puppet agent -t --noop --environment production --server puppetserver --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/puppetdb.pem && cp certs/$hostname.pem certs/puppetdb.pem ; find /etc/puppetlabs/puppet -ls"
+            - "psk=$(cat /run/secrets/autosign_psk); hostname=$(puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetdb/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetdb'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; puppet agent -t --noop --environment production --server puppetserver --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/puppetdb.pem && cp certs/$hostname.pem certs/puppetdb.pem ; mv /etc/puppetlabs/puppet/ssl/* /srv/puppetssl/; find /etc/puppetlabs/puppet /srv/puppetssl -ls"
           env:
             - name: HOME
               value: /tmp
@@ -34,6 +34,8 @@ spec:
               subPath: autosign_psk
             - mountPath: /etc/puppetlabs/puppet
               name: confdir
+            - mountPath: /srv/puppetssl
+              name: ssldir
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -52,8 +54,8 @@ spec:
               name: data
             - mountPath: /etc/puppetlabs/puppetdb/conf.d/
               name: conf-d
-            - mountPath: /etc/puppetlabs/puppet
-              name: confdir
+            - mountPath: /etc/puppetlabs/puppet/ssl
+              name: ssldir
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       securityContext:
@@ -62,6 +64,8 @@ spec:
         - name: data
           emptyDir: {}
         - name: confdir
+          emptyDir: {}
+        - name: ssldir
           emptyDir: {}
         - name: secrets
           secret:
