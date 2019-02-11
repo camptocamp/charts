@@ -19,6 +19,22 @@ spec:
         app.kubernetes.io/name: {{ include "puppetserver.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: {{ .Chart.Name }}-gpg-import
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: [
+            "gpg",
+            "--import",
+            "--homedir",
+            "/opt/puppetlabs/server/data/puppetserver/.gnupg",
+            "/run/secrets/gpg.asc",
+          ]
+          volumeMounts:
+            - mountPath: /run/secrets/gpg.asc
+              name: secrets
+              subPath: gpg.asc
+            - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
+              name: gnupgdir
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -56,6 +72,8 @@ spec:
               name: logs
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.puppetlabs/etc/puppet
               name: user-confdir
+            - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
+              name: gnupgdir
             - mountPath: /etc/puppetlabs/puppet/puppet.conf
               name: puppet
               subPath: puppet.conf
@@ -94,6 +112,8 @@ spec:
           emptyDir: {}
         - name: confdir
           emptyDir: {}
+        - name: gnupgdir
+          emptyDir: {}
         - name: user-confdir
           configMap:
             name: {{ include "puppetserver.fullname" . }}-user-confdir
@@ -106,6 +126,9 @@ spec:
         - name: puppetca
           persistentVolumeClaim:
             claimName: {{ include "puppetserver.fullname" . }}-puppetca
+        - name: secrets
+          secret:
+            secretName: {{ include "puppetserver.fullname" . }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
