@@ -19,6 +19,27 @@ spec:
         app.kubernetes.io/name: {{ include "puppetdb.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: {{ .Chart.Name }}-autosign
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ["sh", "-c"]
+          args: ["echo \"custom_attributes:\n  1.2.840.113549.1.9.7: '$(cat /run/secrets/autosign_psk|openssl dgst -binary -sha256 | openssl base64)'\" > /etc/puppetlabs/puppet/csr_attributes.yaml"]
+          volumeMounts:
+            - mountPath: /run/secrets/autosign_psk
+              name: secrets
+              subPath: autosign_psk
+            - mountPath: /etc/puppetlabs/puppet
+              name: confdir
+        - name: {{ .Chart.Name }}-get-cert
+          image: "docker.io/puppet/puppet-agent:5.5.1"
+          command: ["sh", "-c"]
+          args: ["cat /tmp/.puppetlabs/etc/puppet/csr_attributes.yaml && ls -l /tmp/.puppetlabs ; puppet agent -t --noop --environment production --server puppetserver --waitforcert 60 ; find /tmp/.puppetlabs ; true"]
+          env:
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - mountPath: /tmp/.puppetlabs/etc/puppet
+              name: confdir
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -33,37 +54,18 @@ spec:
               containerPort: 8081
               protocol: TCP
           volumeMounts:
-          - mountPath: /opt/puppetlabs/server/data/puppetdb
-            name: data
-          - mountPath: /etc/puppetlabs/puppetdb/conf.d/
-            name: conf-d
-            readOnly: true
-          - mountPath: /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pem
-            name: ssl
-            subPath: private.pem
-            readOnly: true
-          - mountPath: /etc/puppetlabs/puppet/ssl/certs/puppetdb.pem
-            name: ssl
-            subPath: public.pem
-            readOnly: true
-          - mountPath: /etc/puppetlabs/puppet/ssl/certs/ca.pem
-            name: ssl
-            subPath: ca.pem
-            readOnly: true
-#          livenessProbe:
-#            httpGet:
-#              path: /
-#              port: http
-#          readinessProbe:
-#            httpGet:
-#              path: /
-#              port: http
+            - mountPath: /etc/puppetlabs/puppetdb/conf.d/
+              name: conf-d
+            - mountPath: /etc/puppetlabs/puppet
+              name: confdir
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      securityContext:
+        supplementalGroups: [999]
       volumes:
-        - name: data
+        - name: confdir
           emptyDir: {}
-        - name: ssl
+        - name: secrets
           secret:
             secretName: {{ include "puppetdb.fullname" . }}
         - name: conf-d

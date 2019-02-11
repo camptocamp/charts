@@ -47,12 +47,6 @@ tolerations: []
 
 affinity: {}
 
-private_pem: ''
-
-public_pem: ''
-
-ca_pem: ''
-
 puppetdb_ini: |
   [global]
   vardir = /opt/puppetlabs/server/data/puppetdb
@@ -77,3 +71,6 @@ puppetdb_ini: |
   enabled = false
   port = 8082
   host = 127.0.0.1
+
+autosign:
+  psk: ''
