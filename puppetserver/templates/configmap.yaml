@@ -1,22 +1,44 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "puppetserver.fullname" . }}
+  name: {{ include "puppetserver.fullname" . }}-user-confdir
   labels:
     app.kubernetes.io/name: {{ include "puppetserver.name" . }}
     helm.sh/chart: {{ include "puppetserver.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  auth.conf: |
-{{ .Values.auth_conf | indent 4 }}
+  puppet.conf: |
+    [main]
+    ssldir = /etc/puppetlabs/puppet/ssl
+    server = {{ include "puppetserver.fullname" . }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "puppetserver.fullname" . }}-puppetserver
+  labels:
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    helm.sh/chart: {{ include "puppetserver.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
   ca.conf: |
 {{ .Values.ca_conf | indent 4 }}
-  autosign: |
-{{ .Values.autosign | indent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "puppetserver.fullname" . }}-puppet
+  labels:
+    app.kubernetes.io/name: {{ include "puppetserver.name" . }}
+    helm.sh/chart: {{ include "puppetserver.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
   puppet.conf: |
 {{ .Values.puppet_conf | indent 4 }}
-  puppetdb.conf: |
-{{ .Values.puppetdb_conf | indent 4 }}
-  routes.yaml: |
-{{ .Values.routes_yaml | indent 4 }}
+  hiera.yaml: |
+    ---
+    version: 5

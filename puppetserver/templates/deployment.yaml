@@ -23,63 +23,83 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "java" ]
+          args: [
+            "-Xms2g",
+            "-Xmx2g",
+            "-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger",
+            "-Dlogappender=STDOUT",
+            "-Djava.security.egd=/dev/urandom",
+            "-cp",
+            "/opt/puppetlabs/server/apps/puppetserver/puppet-server-release.jar:/opt/puppetlabs/server/apps/puppetserver/jruby-1_7.jar:/opt/puppetlabs/server/data/puppetserver/jars/*",
+            "clojure.main",
+            "-m",
+            "puppetlabs.trapperkeeper.main",
+            "--config",
+            "/etc/puppetlabs/puppetserver/conf.d",
+            "--bootstrap-config",
+            "/etc/puppetlabs/puppetserver/services.d/,/opt/puppetlabs/server/apps/puppetserver/config/services.d/",
+            "--restart-file",
+            "/opt/puppetlabs/server/data/puppetserver/restartcounter",
+          ]
           env:
-            - name: CA_KEY
-              value: /docker/secrets/ca_key.pem
-            - name: CA_CRT
-              value: /docker/secrets/ca_crt.pem
-            - name: CA_CRL
-              value: /docker/secrets/ca_crl.pem
-            - name: GPG_KEYFILE
-              value: /docker/secrets/gpg.asc
+            - name: HOME
+              value: /opt/puppetlabs/server/data/puppetserver
           ports:
             - name: http
               containerPort: 8140
               protocol: TCP
           volumeMounts:
+            - mountPath: /etc/puppetlabs/puppet
+              name: confdir
+            - mountPath: /var/log/puppetlabs
+              name: logs
+            - mountPath: /opt/puppetlabs/server/data/puppetserver/.puppetlabs/etc/puppet
+              name: user-confdir
+            - mountPath: /etc/puppetlabs/puppet/puppet.conf
+              name: puppet
+              subPath: puppet.conf
+            - mountPath: /etc/puppetlabs/puppet/hiera.yaml
+              name: puppet
+              subPath: hiera.yaml
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
-            - mountPath: /etc/puppetlabs/puppet/ssl/ca
+              readOnly: true
+            - mountPath: /srv/puppetca
               name: puppetca
-            # Configmaps
-            - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
-              name: configs
-              subPath: auth.conf
-              readOnly: true
-            - mountPath: /etc/puppetlabs/puppetserver/conf.d/ca.conf
-              name: configs
-              subPath: ca.conf
-              readOnly: true
-            - mountPath: /etc/puppetlabs/puppet/autosign
-              name: configs
-              subPath: autosign
-              readOnly: true
-            - mountPath: /etc/puppetlabs/puppet/puppet.conf
-              name: configs
-              subPath: puppet.conf
-              readOnly: true
-            - mountPath: /etc/puppetlabs/puppet/puppetdb.conf
-              name: configs
-              subPath: puppetdb.conf
-              readOnly: true
-            - mountPath: /etc/puppetlabs/puppet/routes.yaml
-              name: configs
-              subPath: routes.yaml
-              readOnly: true
-            # CA secrets
-            - mountPath: /docker/secrets
-              name: secrets
-              readOnly: false
+          livenessProbe:
+            httpGet:
+              path: /production/status/test
+              port: http
+              scheme: HTTPS
+              httpHeaders:
+                - name: Accept
+                  value: pson
+            initialDelaySeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /production/status/test
+              port: http
+              scheme: HTTPS
+              httpHeaders:
+                - name: Accept
+                  value: pson
+            initialDelaySeconds: 30
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-
+      securityContext:
+        supplementalGroups: [999]
       volumes:
-        - name: secrets
-          secret:
-            secretName: {{ include "puppetserver.fullname" . }}
-        - name: configs
+        - name: logs
+          emptyDir: {}
+        - name: confdir
+          emptyDir: {}
+        - name: user-confdir
           configMap:
-            name: {{ include "puppetserver.fullname" . }}
+            name: {{ include "puppetserver.fullname" . }}-user-confdir
+        - name: puppet
+          configMap:
+            name: {{ include "puppetserver.fullname" . }}-puppet
         - name: puppetcode
           persistentVolumeClaim:
             claimName: {{ include "puppetserver.fullname" . }}-puppetcode
