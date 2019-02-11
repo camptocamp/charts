@@ -80,11 +80,17 @@ spec:
             - mountPath: /etc/puppetlabs/puppet/hiera.yaml
               name: puppet
               subPath: hiera.yaml
+            - mountPath: /etc/puppetlabs/puppet/autosign.sh
+              name: puppet
+              subPath: autosign.sh
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
               readOnly: true
             - mountPath: /srv/puppetca
               name: puppetca
+            - mountPath: /run/secrets/autosign_psk
+              name: secrets
+              subPath: autosign_psk
 #          livenessProbe:
 #            httpGet:
 #              path: /production/status/test

@@ -33,13 +33,9 @@ puppetdb_conf: ''
 routes_yaml: ''
 
 # CA
-ca:
-  key: ''
-  crt: ''
-  crl: ''
-  autosign:
-    script: ''
-    psk: ''
+autosign:
+  psk: ''
+  script: ''
 
 # Hiera
 gpg: ''
