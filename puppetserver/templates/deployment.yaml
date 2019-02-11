@@ -67,15 +67,15 @@ spec:
               readOnly: true
             - mountPath: /srv/puppetca
               name: puppetca
-          livenessProbe:
-            httpGet:
-              path: /production/status/test
-              port: http
-              scheme: HTTPS
-              httpHeaders:
-                - name: Accept
-                  value: pson
-            initialDelaySeconds: 30
+#          livenessProbe:
+#            httpGet:
+#              path: /production/status/test
+#              port: http
+#              scheme: HTTPS
+#              httpHeaders:
+#                - name: Accept
+#                  value: pson
+#            initialDelaySeconds: 30
           readinessProbe:
             httpGet:
               path: /production/status/test
