@@ -54,6 +54,8 @@ spec:
               containerPort: 8081
               protocol: TCP
           volumeMounts:
+            - mountPath: /opt/puppetlabs/server/data/puppetdb
+              name: data
             - mountPath: /etc/puppetlabs/puppetdb/conf.d/
               name: conf-d
             - mountPath: /etc/puppetlabs/puppet
@@ -63,6 +65,8 @@ spec:
       securityContext:
         supplementalGroups: [999]
       volumes:
+        - name: data
+          emptyDir: {}
         - name: confdir
           emptyDir: {}
         - name: secrets
