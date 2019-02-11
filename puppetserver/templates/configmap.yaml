@@ -42,5 +42,5 @@ data:
   hiera.yaml: |
     ---
     version: 5
-  autosign.sh: |
+  autosign: |
 {{ .Values.autosign.script | indent 4 }}
