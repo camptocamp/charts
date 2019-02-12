@@ -74,3 +74,5 @@ puppetdb_ini: |
 
 autosign:
   psk: ''
+
+public_name: ''
