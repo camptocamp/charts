@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "r10k-webhook.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "r10k-webhook.name" . }}
+    helm.sh/chart: {{ include "r10k-webhook.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    image.openshift.io/triggers: |
+      [{
+      "from" :{
+        "kind": "ImageStreamTag",
+        "name": "r10k-webhook:latest"
+      },
+      "fieldPath": "spec.template.spec.containers[?(@.name='r10k-webhook')].image"
+      }]
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "r10k-webhook.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "r10k-webhook.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+      annotations:
+        image.openshift.io/triggers: |
+          [{
+          "from" :{
+            "kind": "ImageStreamTag",
+            "name": "r10k-webhook:latest"
+          },
+          "fieldPath": "spec.template.spec.containers[?(@.name='r10k-webhook')].image"
+          }]
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /etc/puppetlabs/code
+              name: puppetcode
+            - name: secrets
+              mountPath: /var/run/secrets
+              readOnly: true
+            - name: secrets
+              mountPath: /.ssh
+              readOnly: true
+          env:
+            - name: HOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "r10k-webhook.fullname" . }}
+                  key: hookSecret
+            - name: RSA_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "r10k-webhook.fullname" . }}
+                  key: id_rsa
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "r10k-webhook.fullname" . }}
+                  key: githubToken
+          ports:
+            - name: http
+              containerPort: 9000
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: secrets
+          secret:
+            secretName: {{ include "r10k-webhook.fullname" . }}
+            defaultMode: 256
+        - name: puppetcode
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.claimName }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
