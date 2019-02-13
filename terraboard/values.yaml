@@ -9,6 +9,22 @@ image:
   tag: 0.14.3
   pullPolicy: IfNotPresent
 
+aws:
+  accessKeyId: ''
+  secretAccessKey: ''
+  bucket: ''
+  dynamoDbTable: ''
+  fileExtension: ''
+  region: ''
+
+baseUrl: ''
+
+db:
+  host: ''
+  name: ''
+  password: ''
+  user: ''
+
 nameOverride: ""
 fullnameOverride: ""
 
