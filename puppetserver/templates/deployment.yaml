@@ -41,8 +41,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: [ "java" ]
           args: [
-            "-Xms2g",
-            "-Xmx2g",
+            "-Xms{{ .Values.java_mem_limit }}",
+            "-Xmx{{ .Values.java_mem_limit }}",
             "-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger",
             "-Dlogappender=STDOUT",
             "-Djava.security.egd=/dev/urandom",
