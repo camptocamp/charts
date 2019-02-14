@@ -36,6 +36,8 @@ ca_conf: |
       # allow-authorization-extensions: false
   }
 
+java_mem_limit: '2g'
+
 puppet_conf: ''
 puppetdb_conf: ''
 routes_yaml: ''
