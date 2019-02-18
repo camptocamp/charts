@@ -1,0 +1,13 @@
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: g10k-webhook
+  labels:
+    app.kubernetes.io/name: {{ include "g10k-webhook-build.name" . }}
+    helm.sh/chart: {{ include "g10k-webhook-build.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  lookupPolicy:
+    local: false

@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "terraboard.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "terraboard.name" . }}
+    helm.sh/chart: {{ include "terraboard.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "terraboard.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "terraboard.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ include "terraboard.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}-oauth-proxy
+          image: openshift/oauth-proxy:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: public
+              containerPort: 8443
+              protocol: TCP
+          args:
+            - --https-address=:8443
+            - --provider=openshift
+            - --openshift-service-account={{ include "terraboard.fullname" . }}
+            - --upstream=http://localhost:8080
+            - --tls-cert=/etc/tls/private/tls.crt
+            - --tls-key=/etc/tls/private/tls.key
+            - --cookie-secret=SECRET
+          volumeMounts:
+            - mountPath: /etc/tls/private
+              name: proxy-tls
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "terraboard.fullname" . }}
+                  key: aws_access_key_id
+            - name: AWS_BUCKET
+              value: {{ .Values.aws.bucket }}
+            - name: AWS_DYNAMODB_TABLE
+              value: {{ .Values.aws.dynamoDbTable }}
+            - name: AWS_FILE_EXTENSION
+              value: {{ .Values.aws.fileExtension }}
+            - name: AWS_REGION
+              value: {{ .Values.aws.region }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "terraboard.fullname" . }}
+                  key: aws_secret_access_key
+            - name: BASE_URL
+              value: {{ .Values.baseUrl }}
+            - name: DB_HOST
+              value: {{ .Values.db.host }}
+            - name: DB_NAME
+              value: {{ .Values.db.name }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "terraboard.fullname" . }}
+                  key: db_password
+            - name: DB_USER
+              value: {{ .Values.db.user }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: proxy-tls
+          secret:
+            secretName: {{ include "terraboard.name" . }}-proxy-tls
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

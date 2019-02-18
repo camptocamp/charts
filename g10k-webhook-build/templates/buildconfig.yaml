@@ -1,0 +1,32 @@
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: {{ include "g10k-webhook-build.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "g10k-webhook-build.name" . }}
+    helm.sh/chart: {{ include "g10k-webhook-build.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  output:
+    to:
+      kind: ImageStreamTag
+      name: g10k-webhook:latest
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/camptocamp/docker-g10k-webhook.git
+      ref: master
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: debian:stretch
+      forcePull: true
+    type: Docker
+  triggers:
+    - type: ConfigChange
+    - imageChange: {}
+      type: ImageChange

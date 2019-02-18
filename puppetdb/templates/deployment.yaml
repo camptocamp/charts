@@ -1,53 +1,87 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "puppetdb.name" . }}
+  name: {{ include "puppetdb.fullname" . }}
   labels:
-    {{- include "puppetdb.release_labels" . | indent 4 }}
+    app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        {{- include "puppetdb.release_labels" . | indent 8 }}
+        app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      initContainers:
+        - name: {{ .Chart.Name }}-autosign
+          image: "docker.io/puppet/puppet-agent:5.5.1"
+          command: ["sh", "-c"]
+          args:
+            - "psk=$(cat /run/secrets/autosign_psk); hostname=$(puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetdb/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetdb'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; puppet agent -t --noop --environment production --server puppetserver --dns_alt_names='{{ include "puppetdb.fullname" . }},{{ .Values.public_name }}' --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/puppetdb.pem && cp certs/$hostname.pem certs/puppetdb.pem ; mv /etc/puppetlabs/puppet/ssl/* /srv/puppetssl/"
+          env:
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - mountPath: /run/secrets/autosign_psk
+              name: secrets
+              subPath: autosign_psk
+            - mountPath: /etc/puppetlabs/puppet
+              name: confdir
+            - mountPath: /srv/puppetssl
+              name: ssldir
       containers:
-      - name: puppetdb
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        volumeMounts:
-        - mountPath: /etc/puppetlabs/puppetdb/conf.d/database.ini
-          name: conf-d
-          subPath: database.ini
-          readOnly: true
-        - mountPath: /etc/puppetlabs/puppetdb/conf.d/jetty.ini
-          name: conf-d
-          subPath: jetty.ini
-          readOnly: true
-        - mountPath: /run/secrets/private.pem
-          name: ssl
-          subPath: private.pem
-          readOnly: true
-        - mountPath: /run/secrets/public.pem
-          name: ssl
-          subPath: public.pem
-          readOnly: true
-        - mountPath: /run/secrets/ca.pem
-          name: ssl
-          subPath: ca.pem
-          readOnly: true
-        env:
-        - name: DNS_ALT_NAMES
-          value: {{ .Values.dns_alt_names }}
-        - name: JAVA_ARGS
-          value: {{ .Values.java_args }}
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "java" ]
+          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms256m", "-Xmx256m",
+            "-cp", "/puppetdb.jar", "clojure.main",
+            "-m", "puppetlabs.puppetdb.core", "services", "-c",
+            "/etc/puppetlabs/puppetdb/conf.d/" ]
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /opt/puppetlabs/server/data/puppetdb
+              name: data
+            - mountPath: /etc/puppetlabs/puppetdb/conf.d/
+              name: conf-d
+            - mountPath: /etc/puppetlabs/puppet/ssl
+              name: ssldir
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      securityContext:
+        supplementalGroups: [999]
       volumes:
-      - name: ssl
-        secret:
-          secretName: ssl-files
-      - name: conf-d
-        configMap:
-          name: conf-d
+        - name: data
+          emptyDir: {}
+        - name: confdir
+          emptyDir: {}
+        - name: ssldir
+          emptyDir: {}
+        - name: secrets
+          secret:
+            secretName: {{ include "puppetdb.fullname" . }}
+        - name: conf-d
+          configMap:
+            name: {{ include "puppetdb.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

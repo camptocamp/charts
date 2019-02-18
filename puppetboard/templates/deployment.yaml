@@ -1,0 +1,116 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "puppetboard.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "puppetboard.name" . }}
+    helm.sh/chart: {{ include "puppetboard.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "puppetboard.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "puppetboard.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ include "puppetboard.fullname" . }}
+      initContainers:
+        - name: {{ .Chart.Name }}-autosign
+          image: "docker.io/puppet/puppet-agent:5.5.1"
+          command: ["sh", "-c"]
+          args:
+            - "psk=$(cat /run/secrets/autosign_psk); hostname=$(puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetboard/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetboard'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; puppet agent -t --noop --environment production --server puppetserver --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/puppetboard.pem && cp certs/$hostname.pem certs/puppetboard.pem ; mv /etc/puppetlabs/puppet/ssl/* /srv/puppetssl/"
+          env:
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - mountPath: /run/secrets/autosign_psk
+              name: secrets
+              subPath: autosign_psk
+            - mountPath: /etc/puppetlabs/puppet
+              name: confdir
+            - mountPath: /srv/puppetssl
+              name: ssldir
+      containers:
+        - name: {{ .Chart.Name }}-oauth-proxy
+          image: openshift/oauth-proxy:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: public
+              containerPort: 8443
+              protocol: TCP
+          args:
+            - --https-address=:8443
+            - --provider=openshift
+            - --openshift-service-account={{ include "puppetboard.fullname" . }}
+            - --upstream=http://localhost:8080
+            - --tls-cert=/etc/tls/private/tls.crt
+            - --tls-key=/etc/tls/private/tls.key
+            - --cookie-secret=SECRET
+          volumeMounts:
+            - mountPath: /etc/tls/private
+              name: proxy-tls
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: PUPPETBOARD_PORT
+              value: '8080'
+            - name: PUPPETDB_HOST
+              value: {{ .Values.puppetdb.host }}
+            - name: PUPPETDB_PORT
+              value: {{ .Values.puppetdb.port | quote }}
+            - name: PUPPETDB_KEY
+              value: /etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem
+            - name: PUPPETDB_CERT
+              value: /etc/puppetlabs/puppet/ssl/certs/puppetboard.pem
+            - name: PUPPETDB_SSL_VERIFY
+              value: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+            - name: DEFAULT_ENVIRONMENT
+              value: '*'
+          volumeMounts:
+            - mountPath: /etc/puppetlabs/puppet/ssl
+              name: ssldir
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: confdir
+          emptyDir: {}
+        - name: ssldir
+          emptyDir: {}
+        - name: secrets
+          secret:
+            secretName: {{ include "puppetboard.fullname" . }}
+        - name: proxy-tls
+          secret:
+            secretName: proxy-tls
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

@@ -1,26 +1,69 @@
+# Default values for puppetserver.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
 image:
-  repository: camptocamp/puppetserver
-  tag: 'latest'
+  repository: docker.io/puppet/puppetserver
+  tag: 5.3.7
   pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
 service:
-  type: 'ClusterIP'
-  port: '8140'
+  type: ClusterIP
+  port: 8140
+
+persistence:
+  puppetca:
+    accessMode: ReadWriteMany
+    size: 100Mi
+    storageClass: "-"
+  puppetcode:
+    accessMode: ReadWriteMany
+    size: 10Gi
+    storageClass: "-"
 
 # General
-auth_conf: ''
-ca_conf: ''
+ca_conf: |
+  certificate-authority: {
+      # allow CA to sign certificate requests that have subject alternative names.
+      # allow-subject-alt-names: false
+
+      # allow CA to sign certificate requests that have authorization extensions.
+      # allow-authorization-extensions: false
+  }
+
+java_mem_limit: '2g'
+
 puppet_conf: ''
 puppetdb_conf: ''
 routes_yaml: ''
 
 # CA
-ca:
-  key: ''
-  crt: ''
-  crl: ''
-  autosign:
-    script: ''
-    psk: ''
+autosign:
+  psk: ''
+  script: ''
 
 # Hiera
 gpg: ''
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
