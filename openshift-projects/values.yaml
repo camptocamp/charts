@@ -48,8 +48,8 @@ projects: {}
 #       cpu: 0.1
 #       memory: 128MB
 #     imageAccess:
-#       - Namespace: myproject1
-#       - Namespace: myproject2
+#       - NameSpace: myproject1
+#       - NameSpace: myproject2
 #    
 #   myproject1:
 #     description: |-
