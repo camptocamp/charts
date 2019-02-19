@@ -16,5 +16,9 @@ subjects:
 - kind: SystemGroup
   name: system:serviceaccounts:{{ $imageAccess.NameSpace }}
 {{-     end}}
+groupNames:
+{{-     range $imageAccess := $value.imageAccess }}
+- system:serviceaccounts:{{ $imageAccess.NameSpace }}
+{{-     end}}
 {{-   end }}
 {{- end }}

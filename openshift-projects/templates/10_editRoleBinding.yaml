@@ -19,5 +19,20 @@ subjects:
   namespace: {{ $editAccess.namespace }}
 {{-       end }}
 {{-     end }}
+userNames:
+{{-     range $editAccess := $value.editAccess }}
+{{-       if eq $editAccess.kind "User" }}
+- {{        $editAccess.name }}
+{{-       end }}
+{{-       if eq $editAccess.kind "ServiceAccount" }}
+- system:serviceaccount:{{ if $editAccess.namespace }}{{ $editAccess.namespace }}{{ else }}{{ $key }}{{ end }}:{{ $editAccess.name }}
+{{-       end }}
+{{-     end }}
+groupNames:
+{{-     range $editAccess := $value.editAccess }}
+{{-       if eq $editAccess.kind "Group" }}
+- {{        $editAccess.name }}
+{{-       end }}
+{{-     end }}
 {{-   end }}
 {{- end }}

@@ -16,5 +16,7 @@ subjects:
 - kind: ServiceAccount
   name: tiller-deploy
   namespace: {{ $key }}
+userNames:
+- system:serviceaccount:{{ $key }}:tiller-deploy
 {{-   end }}
 {{- end }}

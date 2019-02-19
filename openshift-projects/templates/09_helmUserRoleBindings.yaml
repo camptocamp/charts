@@ -16,5 +16,7 @@ subjects:
 - kind: ServiceAccount
   name: {{ $helmAccess.ServiceAccountName }}
   namespace: {{ $helmAccess.ServiceAccountNameSpace }}
+userNames:
+- system:serviceaccount:{{ $helmAccess.ServiceAccountNameSpace }}:{{ $helmAccess.ServiceAccountName }}
 {{-   end }}
 {{- end }}
