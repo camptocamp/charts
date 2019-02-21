@@ -15,7 +15,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
-      name: proxy
+      name: http
   selector:
     app.kubernetes.io/name: {{ include "infra-doc.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
