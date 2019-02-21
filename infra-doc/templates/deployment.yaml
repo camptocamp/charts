@@ -1,5 +1,5 @@
 apiVersion: v1
-kind: BuildConfig
+kind: DeploymentConfig
 metadata:
   name: {{ include "infra-doc.fullname" . }}
   labels:
@@ -8,27 +8,28 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  output:
-    to:
-      kind: "ImageStreamTag"
-      name: "{{ .Chart.Name }}-artifact:latest"
-  source:
-    type: "Git"
-    git:
-      uri: "{{ .Values.git.repository }}"
-    contextDir: "{{ .Values.git.directory }}"
-    sourceSecret:
-      name: {{ include "infra-doc.fullname" . }}
-  strategy:
-    type: "Docker"
-    dockerStrategy:
-      from:
-        kind: "ImageStreamTag"
-        name: "{{ .Chart.Name }}-python-builder:latest"
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: "{{ .Chart.Name }}"
+        image: ' '
+        ports:
+        - containerPort: 8081
+          procotol: TCP
   triggers:
-    - type: "imageChange"
-      imageChange: {}
-    - type: "{{ .Values.webhook.type }}"
-      github:
-        secretReference:
-          name: {{ include "infra-doc.fullname" . }}
+    - type: "ImageChange"
+      imageChangeParams:
+        automatic: true
+        from:
+          kind: "ImageStream"
+          name: "{{ .Chart.Name }}-nginx:latest"
+        containerNames: [ "{{ .Chart.Name }}" ]
