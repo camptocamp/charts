@@ -31,7 +31,7 @@ spec:
     - type: "{{ .Values.webhook.type }}"
       github:
         secretReference:
-          name: "{{ .Values.webhook.secret }}"
+          name: {{ include "infra-doc.fullname" . }}
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
