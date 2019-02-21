@@ -7,7 +7,7 @@ replicaCount: 1
 git:
   repository: ''
   directory: '.'
-  secret: ''
+  sshkey: ''
 
 webhook:
   type: 'GitHub'
