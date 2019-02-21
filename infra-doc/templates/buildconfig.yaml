@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: {{ include "infra-doc.fullname" . }}-artifact
@@ -33,7 +33,7 @@ spec:
         secretReference:
           name: "{{ .Values.webhook.secret }}"
 ---
-apiVersion: v1
+apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   name: {{ include "infra-doc.fullname" . }}-nginx
