@@ -1,7 +1,7 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: {{ include "infra-doc.fullname" . }}-python-builder
+  name: {{ include "infra-doc.fullname" . }}-debian
   labels:
     app.kubernetes.io/name: {{ include "infra-doc.name" . }}
     helm.sh/chart: {{ include "infra-doc.chart" . }}
@@ -11,10 +11,20 @@ spec:
   tags:
   - from:
       kind: "DockerImage"
-      name: "docker.io/camptocamp/openshift-python-builder:latest"
-    name: "latest"
+      name: "docker.io/debian:stretch"
+    name: "stretch"
     referencePolicy:
       type: "Source"
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-python-builder
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 ---
 apiVersion: image.openshift.io/v1
 kind: ImageStream
