@@ -15,7 +15,7 @@ webhook:
 
 service:
   type: ClusterIP
-  port: 443
+  port: 8081
 
 ingress:
   enabled: false
