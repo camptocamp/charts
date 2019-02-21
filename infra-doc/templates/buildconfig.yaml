@@ -18,7 +18,7 @@ spec:
       uri: "{{ .Values.git.repository }}"
     contextDir: "{{ .Values.git.directory }}"
     sourceSecret:
-      name: "{{ .Values.git.secret }}"
+      name: {{ include "infra-doc.fullname" . }}
   strategy:
     type: "Docker"
     dockerStrategy:
