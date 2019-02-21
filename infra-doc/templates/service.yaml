@@ -13,7 +13,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: public
+      targetPort: http
       protocol: TCP
       name: proxy
   selector:

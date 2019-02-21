@@ -1,5 +1,5 @@
-apiVersion: apps.openshift.io/v1
-kind: DeploymentConfig
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: {{ include "infra-doc.fullname" . }}
   labels:
@@ -7,6 +7,15 @@ metadata:
     helm.sh/chart: {{ include "infra-doc.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    image.openshift.io/triggers: |
+      [{
+      "from" :{
+        "kind": "ImageStreamTag",
+        "name": "{{ .Chart.Name }}-nginx:latest"
+      },
+      "fieldPath": "spec.template.spec.containers[?(@.name==\"{{ .Chart.Name }}\")].image"
+      }]
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -22,14 +31,8 @@ spec:
       containers:
       - name: "{{ .Chart.Name }}"
         image: ' '
+        imagePullPolicy: "Always"
         ports:
-        - containerPort: 8081
+        - name: http
+          containerPort: 8081
           procotol: TCP
-  triggers:
-    - type: "ImageChange"
-      imageChangeParams:
-        automatic: true
-        from:
-          kind: "ImageStream"
-          name: "{{ .Chart.Name }}-nginx:latest"
-        containerNames: [ "{{ .Chart.Name }}" ]
