@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-artifact
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "{{ .Chart.Name }}-artifact:latest"
+  source:
+    type: "Git"
+    git:
+      uri: "{{ .Values.git.repository }}"
+    contextDir: "{{ .Values.git.directory }}"
+    sourceSecret:
+      name: "{{ .Values.git.secret }}"
+  strategy:
+    type: "Docker"
+    dockerStrategy:
+      from:
+        kind: "ImageStreamTag"
+        name: "{{ .Chart.Name }}-python-builder:latest"
+  triggers:
+    - type: "imageChange"
+      imageChange: {}
+    - type: "{{ .Values.webhook.type }}"
+      github:
+        secretReference:
+          name: "{{ .Values.webhook.secret }}"
+---
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-nginx
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "{{ .Chart.Name }}-nginx:latest"
+  source:
+    dockerfile: |-
+      FROM {{ .Chart.Name }}-openshift-nginx:latest
+      COPY build /usr/share/nginx/html
+    images:
+    - from:
+        kind: "ImageStreamTag"
+        name: "{{ .Chart.Name }}-artifact:latest"
+      paths:
+      - sourcePath: "/build"
+        destinationDir: "."
+  strategy:
+    type: "Docker"
+    dockerStrategy:
+      from:
+        kind: "ImageStreamTag"
+        name: "{{ .Chart.Name }}-openshift-nginx:latest"
+  triggers:
+    - type: "imageChange"
+      imageChange:
+        from:
+          kind: "ImageStreamTag"
+          name: "{{ .Chart.Name }}-artifact:latest"

@@ -1,0 +1,55 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-python-builder
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  tags:
+  - from:
+      kind: "DockerImage"
+      name: "docker.io/camptocamp/openshift-python-builder:latest"
+    name: "latest"
+    referencePolicy:
+      type: "Source"
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-openshift-nginx
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  tags:
+  - from:
+      kind: "DockerImage"
+      name: "docker.io/twalter/openshift-nginx:stable"
+    name: "latest"
+    referencePolicy:
+      type: "Source"
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-artifact
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+---
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: {{ include "infra-doc.fullname" . }}-nginx
+  labels:
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
