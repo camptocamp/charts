@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v0.2.0-rc1 (2019-02-11)
+## v0.2.0 (2019-02-22)
 
 - Fix the error caused by unset 'locked' value !79
 - Create LICENSE file !76
