@@ -28,7 +28,27 @@ spec:
         app.kubernetes.io/name: {{ include "infra-doc.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      serviceAccountName: {{ include "infra-doc.fullname" . }}
       containers:
+      - name: {{ .Chart.Name }}-oauth-proxy
+        image: openshift/oauth-proxy:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+          - name: public
+            containerPort: 4180
+            protocol: TCP
+        args:
+          - --https-address=
+          - --http-address=:4180
+          - --provider=openshift
+          - --openshift-service-account={{ include "infra-doc.fullname" . }}
+          - --upstream=http://localhost:8081
+          - --tls-cert=/etc/tls/private/tls.crt
+          - --tls-key=/etc/tls/private/tls.key
+          - --cookie-secret=SECRET
+        volumeMounts:
+          - mountPath: /etc/tls/private
+            name: proxy-tls
       - name: "{{ .Chart.Name }}"
         image: ' '
         imagePullPolicy: "Always"
@@ -36,3 +56,19 @@ spec:
         - name: http
           containerPort: 8081
           procotol: TCP
+      volumes:
+        - name: proxy-tls
+          secret:
+            secretName: {{ include "infra-doc.name" . }}-proxy-tls
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
