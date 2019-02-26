@@ -13,9 +13,9 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: public
       protocol: TCP
-      name: http
+      name: public
   selector:
     app.kubernetes.io/name: {{ include "infra-doc.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
