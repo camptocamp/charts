@@ -60,6 +60,9 @@ spec:
       github:
         secretReference:
           name: {{ include "infra-doc.fullname" . }}
+      gitlab:
+        secretReference:
+          name: {{ include "infra-doc.fullname" . }}
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
