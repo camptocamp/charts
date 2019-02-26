@@ -61,3 +61,18 @@ Define the image, using .Chart.AppVersion and GitLab Runner image as a default v
 {{- $image := printf "gitlab/gitlab-runner:alpine-v%s" .Chart.AppVersion -}}
 {{- default $image .Values.image}}
 {{- end -}}
+{{/*
+Template for generating runners.kubernetes.volumes section in config.toml
+*/}}
+{{- define "gitlab-runner.runners.kubernetes.volumes" }}
+{{- if .Values.runners.kubernetes -}}
+  {{- range .Values.runners.kubernetes.volumes }}
+    [[runners.kubernetes.volumes.{{ .type }}]]
+{{ toToml .volume | indent 6 }}
+    {{- if .items -}}
+    [runners.kubernetes.volumes.{{ .type }}.items]
+{{ toToml .items | indent 8 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

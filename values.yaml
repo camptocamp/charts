@@ -119,6 +119,20 @@ runners:
   ##
   # namespace:
 
+  ## Kubernetes Volumes
+  ## Define volumes to be mounted to service containers
+  ## ref: https://docs.gitlab.com/runner/executors/kubernetes.html#using-volumes
+  ##
+  #kubernetes:
+    #volumes:
+    #- type: secret
+      #volume:
+        #name: kubernetes-volume-name
+        #mount_path: "/path/to/mount/directory/on/service/container"
+        #read_only: true
+      #items:
+        #key: relative/filepath
+
   ## Distributed runners caching
   ## ref: https://gitlab.com/gitlab-org/gitlab-runner/blob/master/docs/configuration/autoscale.md#distributed-runners-caching
   ##

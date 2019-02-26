@@ -42,6 +42,8 @@ data:
       exit 1
     fi
 
+    cat /scripts/kubernetes.volumes | sed '1,$s/^/      /' >> /home/gitlab-runner/.gitlab-runner/config.toml
+
     # Start the runner
     /entrypoint run --user=gitlab-runner \
       --working-directory=/home/gitlab-runner
@@ -53,6 +55,8 @@ data:
     {{- if .Values.metrics.enabled }}
     listen_address = '[::]:9252'
     {{- end }}
+  kubernetes.volumes: |
+    {{ template "gitlab-runner.runners.kubernetes.volumes" . }}
   configure: |
     set -e
     cp /init-secrets/* /secrets
