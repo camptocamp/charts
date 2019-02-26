@@ -76,3 +76,13 @@ autosign:
   psk: ''
 
 public_name: ''
+
+prometheusPuppetDBExporter:
+  enabled: true
+  image:
+    repository: docker.io/camptocamp/prometheus-puppetdb-exporter
+    tag: latest
+    pullPolicy: Always
+  url: "http://localhost:8080/pdb/query"
+  service:
+    port: 9121

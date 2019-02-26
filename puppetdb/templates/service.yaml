@@ -7,6 +7,11 @@ metadata:
     helm.sh/chart: {{ include "puppetdb.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ if .Values.prometheusPuppetDBExporter.enabled }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.prometheusPuppetDBExporter.service.port }}"
+{{ end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -14,6 +19,13 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+{{ if .Values.prometheusPuppetDBExporter.enabled }}
+    - port: {{ .Values.prometheusPuppetDBExporter.service.port }}
+      targetPort: puppetdb-exp
+      protocol: TCP
+      name: puppetdb-exp
+{{ end }}
+
   selector:
     app.kubernetes.io/name: {{ include "puppetdb.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

@@ -58,6 +58,17 @@ spec:
               name: ssldir
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+{{ if .Values.prometheusPuppetDBExporter.enabled }}
+        - name: prometheus-puppetdb-exporter
+          image: "{{ .Values.prometheusPuppetDBExporter.image.repository }}:{{ .Values.prometheusPuppetDBExporter.image.tag }}"
+          ports:
+            - name: puppetdb-exp
+              containerPort: 9121
+              protocol: TCP
+          env:
+            - name: "PUPPETDB_URL"
+              value: "{{ .Values.prometheusPuppetDBExporter.url }}"
+{{ end }}
       securityContext:
         supplementalGroups: [999]
       volumes:
