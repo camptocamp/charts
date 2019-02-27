@@ -94,6 +94,9 @@ spec:
             - mountPath: /etc/puppetlabs/puppetserver/conf.d/ca.conf
               name: puppetserver
               subPath: ca.conf
+            - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
+              name: puppetserver
+              subPath: auth.conf
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
               readOnly: true
