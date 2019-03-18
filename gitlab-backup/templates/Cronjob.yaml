@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: gitlab-backup-cron
+spec:
+  # run every day
+  schedule: "0 0 0 ? * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: gitlab-backup-cron-oc-client
+            image: ebits/openshift-client@sha256:31c5e7dba9ea7987c55b1ff7b7e6ad6f35d4eb6124dfbb86b66024104f7b60ff
+            args:
+            - /bin/sh
+            - -c
+            - oc exec $(oc get pod  -o jsonpath='{.items.*.metadata.name}' | sed 's/ /\n/g' | grep 'gitlab-task-runner-') -it backup-utility
+          restartPolicy: Never
