@@ -4,7 +4,7 @@ metadata:
   name: gitlab-backup-cron
 spec:
   # run every day
-  schedule: "0 0 0 ? * * *"
+  schedule: "0 0 0 ? *" 
   jobTemplate:
     spec:
       template:
