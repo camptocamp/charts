@@ -16,5 +16,5 @@ spec:
             args:
             - /bin/sh
             - -c
-            - oc exec $(oc get pod  -o jsonpath='{.items.*.metadata.name}' | sed 's/ /\n/g' | grep 'gitlab-task-runner-') -it backup-utility
+            - oc exec $(oc get pod  -o jsonpath='{.items.*.metadata.name}' | sed 's/ /\n/g' | grep 'gitlab-task-runner-') -it backup-utility || exit 0
           restartPolicy: Never
