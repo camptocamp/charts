@@ -16,5 +16,20 @@ spec:
             args:
             - /bin/sh
             - -c
-            - oc exec $(oc get pod  -o jsonpath='{.items.*.metadata.name}' | sed 's/ /\n/g' | grep 'gitlab-task-runner-') -it backup-utility || exit 0
+            - oc exec $(oc get pod  -o jsonpath='{.items.*.metadata.name}' | sed 's/ /\n/g' | grep 'gitlab-task-runner-') -it '
+              output=$(backup-utility);
+              RESULT=$?;
+              METRICS= $(echo "$output" | awk -v "h=$HOSTNAME" -v "ostype=$OSTYPE"  \'/ .*\[.*\]/{
+              gsub("Dumping","");
+              print "#TYPE " $1 " gauge";
+              gsub("\[DONE\]",0);
+              gsub("\[SKIPPED\]",1);
+              gsub("\[WARNING\]",2);
+              gsub("\[ERROR\]",3);
+              gsub("\[.*\]",4);
+              gsub(" \* ","");
+              printf $1 "{certname=\"%s\",os=\"%s\",project=\"chtopo/gitlab-backup\",line=\"production\",sre_team=\"sret1\"} %d\n",h,ostype, $NF;
+              }\'; echo -e "#TYPE gitlab-backup-success gauge\ngitlab-backup-success{certname=\"$HOSTNAME\",os=\"$OSTYPE\",\"chtopo/gitlab-backup\",line=\"production\",sre_team=\"sret1\} $RESULT\n");
+              echo -e "$METRICS" | curl --data-binary @- http://infra-metrics-prometheus-pushgateway.infra-metrics.svc:9091
+              ' || exit 0
           restartPolicy: Never
