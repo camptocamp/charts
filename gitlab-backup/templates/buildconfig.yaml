@@ -17,14 +17,8 @@ spec:
     git:
       uri: "https://github.com/camptocamp/docker-gitlab-openshift-backup"
   strategy:
-    sourceStrategy:
-      from:
-        kind: "ImageStreamTag"
-        name: "builder-image:latest"
-      forcePull: true
+    dockerStrategy: {}
   triggers:
-    - type: "imageChange"
-      imageChange: {}
     - type: "Github"
       github:
         secretReference:
