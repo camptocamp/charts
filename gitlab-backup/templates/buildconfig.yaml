@@ -11,7 +11,7 @@ spec:
   output:
     to:
       kind: "ImageStreamTag"
-      name: "docker-gitlab-openshift-backup:latest"
+      name: "{{ include "gitlab-backup.fullname" . }}"
   source:
     type: "Git"
     git:
