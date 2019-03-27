@@ -11,7 +11,7 @@ spec:
   output:
     to:
       kind: "ImageStreamTag"
-      name: "{{ include "gitlab-backup.fullname" . }}"
+      name: "{{ include "gitlab-backup.fullname" . }}:latest"
   source:
     type: "Git"
     git:
