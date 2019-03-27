@@ -1,7 +1,7 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: {{ include "gitlab-backup.fullname" . }}-python-builder
+  name: {{ include "gitlab-backup.fullname" . }}
   labels:
     app.kubernetes.io/name: {{ include "gitlab-backup.name" . }}
     helm.sh/chart: {{ include "gitlab-backup.chart" . }}
@@ -21,7 +21,7 @@ spec:
     dockerStrategy:
       from:
         kind: "ImageStreamTag"
-        name: "docker-gitlab-openshift-backup"
+        name: "docker-gitlab-openshift-backup:latest"
   triggers:
     - type: "imageChange"
       imageChange: {}
