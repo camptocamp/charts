@@ -12,7 +12,7 @@ spec:
           serviceAccountName: gitlab-backup-cron
           containers:
           - name: gitlab-backup-cron-oc-client
-            image: docker-gitlab-openshift-backup:latest
+            image: gitlab-backup:latest
             args:
             - /usr/sbin/gitlab-backup.sh -s={{.Values.sre_team}} {{ if .Values.prometheus_pushgateway_url }} -p={{.Values.prometheus_pushgateway_url }} {{end}}
           restartPolicy: Never
