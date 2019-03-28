@@ -19,7 +19,8 @@ spec:
   strategy:
     dockerStrategy: {}
   triggers:
-    - type: "Github"
-      github:
+    - github:
         secretReference:
           name: {{ include "gitlab-backup.fullname" . }}
+      type: "Github"
+    - type: "ConfigChange"
