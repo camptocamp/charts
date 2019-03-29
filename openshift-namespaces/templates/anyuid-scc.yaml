@@ -1,0 +1,42 @@
+{{ $root := . }}
+{{- if and .Values.anyUid .Values.anyUid.deployScc }}
+apiVersion: security.openshift.io/v1
+kind: SecurityContextConstraints
+metadata:
+  labels:
+{{    include "common.labels.standard" . | indent 6 }}
+  name: project-anyuid
+priority: 10
+allowHostDirVolumePlugin: false
+allowHostIPC: false
+allowHostNetwork: false
+allowHostPID: false
+allowHostPorts: false
+allowPrivilegedContainer: false
+allowedCapabilities: []
+allowedFlexVolumes: []
+apiVersion: v1
+defaultAddCapabilities: []
+fsGroup:
+  type: RunAsAny
+readOnlyRootFilesystem: false
+requiredDropCapabilities:
+- MKNOD
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: MustRunAs
+supplementalGroups:
+  type: RunAsAny
+users:
+{{-   range $key, $value := .Values.projects }}
+- system:serviceaccount:{{ $key }}:{{ $root.Values.anyUid.ServiceAccountName }}
+{{-   end }}
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- persistentVolumeClaim
+- projected
+- secret
+{{- end }}

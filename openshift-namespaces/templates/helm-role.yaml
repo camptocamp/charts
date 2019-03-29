@@ -1,0 +1,26 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.helmAccess }}
+---
+kind: Role
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: helm-user
+  namespace: {{ $key }}
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods/portforward
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - list
+{{-   end }}
+{{- end }}

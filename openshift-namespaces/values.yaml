@@ -1,0 +1,102 @@
+# Default values for openshift-namespaces.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+projects: {}
+# To define your own projects, remove the line 'projects: {}' and add your own
+# definitions.
+# 
+# you can set tiller to false in the projects definitions to avoid
+#  a tiller deploy in the projects.
+#
+# You can also enable the creation of a service account who has access to all
+# deployed tillers. When running a helm client in a pod, in order for the helm
+# client to talk to a tiller instance, it will need certain privileges to be
+# granted. Specifically, the helm client will need to be able to:
+#   - forward ports
+#   - list pods in the namespace where tiller is running (so it can find tiller).
+#
+# Use this if you need a helm-user who needs to deploy to other projects
+# This will create a serviceAccount with the needed rights to access all tiller
+# in each projects. The Service Account name is defined in the tiller definition.
+# 
+# Also the system:image-puller role should be granted to all projects who needs
+# to pull an image from the base project, the one how is building images.
+# If you define a tiller user service account, the image-puller access will also 
+# be configured.
+#
+# In short:
+#  - enable a tiller deployment with 'tiller: true'
+#    in the 'projects' definitions
+#  - enable Access on other projects with 'helmUserAccess: true'.
+#    in the 'projects' definitions
+#  - set the tiller service account name with 'helmUserServiceAccountName'
+#    in the 'tiller' definitions
+#  - define the project to host the service account with 'helmUserServiceAccountNamespace'
+#    in the 'tiller' definitions
+# 
+# example:
+#
+# projects:
+#   my_cicd_project:
+#     description: |-
+#       CICD Project
+#       This is my cicd Project
+#     deployTiller: true
+#     deployAnyUidServiceAccount: true
+#     tillerLimits:
+#       cpu: 0.1
+#       memory: 128MB
+#     imageAccess:
+#       - NameSpace: myproject1
+#       - NameSpace: myproject2
+#    
+#   myproject1:
+#     description: |-
+#       My Project One
+#       This is my first Project
+#     deployTiller: true
+#     deployAnyUidServiceAccount: true
+#     helmAccess:
+#       - ServiceAccountNamespace: my_cicd_project
+#         ServiceAccountName: jenkins
+#     quotas:
+#       limits.cpu: 2
+#       limits.memory: 2Gi
+#       requests.cpu: 1
+#       requests.memory: 2Gi
+#     disableBestEffort: true
+#     nodeSelector: <node selector>
+#     editAccess:
+#       - kind: Group
+#         name: mygroup
+#       - kind: ServiceAccount
+#         name: mysa
+#         namespace: myproject2
+#
+#   myproject2:
+#     description: |-
+#       My Project One
+#       This is my first Project
+#     deployTiller: true
+#     deployAnyUidServiceAccount: true
+#     helmAccess:
+#       - ServiceAccountNamespace: my_cicd_project
+#         ServiceAccountName: jenkins
+#     editAccess:
+#       - kind: Group
+#         name: mygroup
+#       - kind: ServiceAccount
+#         name: mysa
+#         namespace: myproject2
+
+
+# Set the image, version tag and tiller user service account name for tiller
+tiller:
+  image: gcr.io/kubernetes-helm/tiller
+  tag: v2.11.0
+
+# Set the SA used for the anyUid scc
+anyUid:
+  deployScc: true # this will not yet work if enabled, you have to create the scc or scc binding yourself
+  ServiceAccountName: anyuid

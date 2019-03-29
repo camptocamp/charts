@@ -1,0 +1,13 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.deployTiller }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: "tiller-deploy"
+  namespace: {{ $key }}
+{{-   end }}
+{{- end }}
