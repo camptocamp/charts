@@ -1,0 +1,22 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   range $helmAccess := $value.helmAccess }}
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: helm-user-binding
+  namespace: {{ $key }}
+roleRef:
+  name: helm-user
+  namespace: {{ $key }}
+subjects:
+- kind: ServiceAccount
+  name: {{ $helmAccess.ServiceAccountName }}
+  namespace: {{ $helmAccess.ServiceAccountNameSpace }}
+userNames:
+- system:serviceaccount:{{ $helmAccess.ServiceAccountNameSpace }}:{{ $helmAccess.ServiceAccountName }}
+{{-   end }}
+{{- end }}

@@ -1,0 +1,48 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.deployTiller }}
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: tiller-deploy
+  namespace: {{ $key }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helm
+      name: tiller
+  template:
+    metadata:
+      labels:
+        app: helm
+        name: tiller
+    spec:
+      containers:
+      - name: tiller-deploy
+        image: "{{ $root.Values.tiller.image }}:{{ $root.Values.tiller.tag }}"
+        env:
+        - name: TILLER_NAMESPACE
+          value: {{ $key }}
+        ports:
+        - name: tiller-deploy
+          containerPort: 44134
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 44135
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 44135
+{{-     if $value.tillerLimits }}
+        resources:
+          limits:
+{{        toYaml $value.tillerLimits | indent 12 }}
+{{-     end }}
+      serviceAccountName: tiller-deploy
+{{-   end }}
+{{- end }}

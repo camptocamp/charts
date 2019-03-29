@@ -1,0 +1,13 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.deployAnyUidServiceAccount }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: {{ $root.Values.anyUid.ServiceAccountName }}
+  namespace: {{ $key }}
+{{-   end }}
+{{- end }}

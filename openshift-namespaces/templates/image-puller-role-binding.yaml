@@ -1,0 +1,24 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.imageAccess }}
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: image-puller-binding
+  namespace: {{ $key }}
+roleRef:
+  name: system:image-puller
+subjects:
+{{-     range $imageAccess := $value.imageAccess }}
+- kind: SystemGroup
+  name: system:serviceaccounts:{{ $imageAccess.NameSpace }}
+{{-     end}}
+groupNames:
+{{-     range $imageAccess := $value.imageAccess }}
+- system:serviceaccounts:{{ $imageAccess.NameSpace }}
+{{-     end}}
+{{-   end }}
+{{- end }}
