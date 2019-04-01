@@ -75,10 +75,10 @@ Grab the protobuf definitions used by helm and their dependencies & install `pro
 
 Get your releases
 
-´´´
+```
 namespace=tiller
 helm tiller run ${namespace} -- helm list
-´´´
+```
 
 Set the release name
 
