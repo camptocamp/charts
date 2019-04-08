@@ -6,7 +6,7 @@ schedule: "0 0 * * *"
 
 sre_team: 'sret1'
 
-prometheus_pushgateway_url: ''
+prometheus_pushgateway_url:  null
 
 webhook:
   secret: ''
