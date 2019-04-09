@@ -1,0 +1,15 @@
+image:
+  repository: sunbird/prometheus-jsonpath-exporter
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  externalPort: 9158
+  internalPort: 9158
+
+config:
+  log_level: info
+  json_data_url: REQUIRED
+  metric_name_prefix: REQUIRED
+  metrics: REQUIRED
