@@ -1,0 +1,22 @@
+{{ $root := . }}
+{{- range $clusterRoleBinding := .Values.clusterRoleBindings }}
+---
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ $clusterRoleBinding.name }}
+  labels:
+{{ include "common.labels.standard" $root | indent 4 }}
+{{-   with $clusterRoleBinding.roleRef }}
+roleRef:
+{{   toYaml . | indent 2 }}
+{{-   end }}
+{{-   with $clusterRoleBinding.groupNames }}
+groupNames:
+{{   toYaml . | indent 2 }}
+{{-   end }}
+{{-   with $clusterRoleBinding.subjects }}
+subjects:
+{{   toYaml . | indent 2 }}
+{{-   end }}
+{{- end }}

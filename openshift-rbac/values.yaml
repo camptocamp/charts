@@ -1,0 +1,9 @@
+clusterRoleBindings: {}
+# - name: system:build-strategy-custom-binding
+#   roleRef:
+#     name: system:build-strategy-custom
+#   groupNames:
+#   - system:authenticated
+#   subjects:
+#   - kind: SystemGroup
+#     name: system:authenticated
