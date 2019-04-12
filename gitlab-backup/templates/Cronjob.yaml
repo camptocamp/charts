@@ -4,19 +4,27 @@ metadata:
   name: gitlab-backup-cron
 spec:
   # run every day
-  schedule: {{ .Values.schedule | quote}} 
+  schedule: {{ .Values.schedule | quote}}
   jobTemplate:
     spec:
       template:
         spec:
+          restartPolicy: Never
           serviceAccountName: gitlab-backup-cron
           containers:
           - name: gitlab-backup-cron-oc-client
-            image: docker-registry.default.svc:5000/gitlab/gitlab-backup:latest
+            image: docker-registry.default.svc:5000/{{ .Release.Namespace }}/{{ include "gitlab-backup.fullname" . }}:latest
             args:
             - /usr/sbin/gitlab-backup.sh
-            - -s={{.Values.sre_team}} 
-            {{ if .Values.prometheus_pushgateway_url }} 
-            - -p={{.Values.prometheus_pushgateway_url }} 
-            {{end}}
-          restartPolicy: Never
+            - -s={{ .Values.sre_team }}
+            {{ if .Values.prometheus_pushgateway_url -}}
+            - -p={{ .Values.prometheus_pushgateway_url }}
+            {{- end -}}
+            {{- if .Values.skip }}
+            - --skip={{ .Values.skip }}
+            {{ end -}}
+            {{ if .Values.cronjob.resources -}}
+            resources:
+{{ toYaml .Values.cronjob.resources | indent 14 }}
+          {{- end -}}
+

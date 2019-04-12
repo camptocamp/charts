@@ -24,3 +24,7 @@ spec:
         secretReference:
           name: {{ include "gitlab-backup.fullname" . }}
     - type: "ConfigChange"
+{{- if .Values.buildconfig.resources }}
+  resources:
+{{ toYaml .Values.buildconfig.resources | indent 4 }}
+{{ end }}

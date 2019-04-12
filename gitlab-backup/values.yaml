@@ -17,3 +17,9 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+buildconfig: {}
+
+cronjob: {}
+
+skip: ""
