@@ -8,6 +8,10 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            app: gitlab-backup-cron
+            parent: gitlab-backup-cronjob
         spec:
           restartPolicy: Never
           serviceAccountName: gitlab-backup-cron
@@ -27,4 +31,3 @@ spec:
             resources:
 {{ toYaml .Values.cronjob.resources | indent 14 }}
           {{- end -}}
-
