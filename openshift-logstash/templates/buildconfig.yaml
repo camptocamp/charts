@@ -14,7 +14,7 @@ spec:
       uri: {{ .Values.configurationImage.repository }}
       ref: {{ .Values.configurationImage.ref }}
     sourceSecret:
-      - {{ template "openshift-logstash.fullname" . }}-gitsecret
+      name: {{ template "openshift-logstash.fullname" . }}-gitsecret
   strategy:
     dockerStrategy:
       from:
