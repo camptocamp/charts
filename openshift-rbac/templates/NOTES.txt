@@ -1,6 +1,0 @@
-oc get secret -o json | jq -r '.items[] |
-  select(
-    (.metadata.annotations."kubernetes.io/service-account.name"=="gitlab") and
-    (.metadata.annotations."kubernetes.io/created-by"!="openshift.io/create-dockercfg-secrets")
-  ) |
-  .data.token '
