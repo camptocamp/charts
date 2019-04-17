@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-projects: {}
+# projects:
 # To define your own projects, remove the line 'projects: {}' and add your own
 # definitions.
 # 
@@ -98,5 +98,5 @@ tiller:
 
 # Set the SA used for the anyUid scc
 anyUid:
-  deployScc: true # this will not yet work if enabled, you have to create the scc or scc binding yourself
+  deployScc: false # this will not yet work if enabled, you have to create the scc or scc binding yourself
   ServiceAccountName: anyuid
