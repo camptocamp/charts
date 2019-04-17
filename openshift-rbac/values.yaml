@@ -1,9 +1,19 @@
-clusterRoleBindings: {}
+# serviceAccounts:
+# - name: gitlab
+
+# roleBindings: 
+# - name: gitlab
+#   roleRef:
+#     name: admin
+#   subjects:
+#   - kind: ServiceAccount
+#     name: gitlab
+
+# clusterRoleBindings: 
 # - name: system:build-strategy-custom-binding
 #   roleRef:
 #     name: system:build-strategy-custom
-#   groupNames:
-#   - system:authenticated
 #   subjects:
 #   - kind: SystemGroup
 #     name: system:authenticated
+
