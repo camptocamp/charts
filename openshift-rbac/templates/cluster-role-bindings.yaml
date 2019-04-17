@@ -11,7 +11,7 @@ metadata:
 roleRef:
 {{   toYaml . | indent 2 }}
 {{-   end }}
-{{-   with $clusterRoleBinding.groupNames }}
+{{-   with $clusterRoleBinding.subjects }}
 subjects:
 {{   toYaml . | indent 2 }}
 {{-   end }}
