@@ -14,7 +14,4 @@ metadata:
   labels:
 {{    include "common.labels.standard" $root | indent 4 }}
   name: {{ $key }}
-  finalizers:
-  - openshift.io/origin
-  - kubernetes
 {{- end }}
