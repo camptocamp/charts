@@ -1,0 +1,58 @@
+# Default values for metrics.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaClount: 2
+
+image:
+  repository: dabelenda/389ds
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  ldapPort: 389
+  ldapsPort: 636
+  annotations: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+rootDN: cn=Directory Manager
+#rootPassword:
+
+freeipa:
+  #ca:
+  servers: freeipa1.example.com freeipa2.example.com freeipa3.example.com
+  suffix: dc=example,dc=com
+  scheme: ldap
+  bindDN: uid=user,cn=users,cn=accounts,dc=example,dc=com
+  bindPassword: changeme
+
+ldap:
+  run:
+    username: default
+    groupname: default
+  #ldaps:
+    #existingSecret:
+    #  name:
+    #  keyEntry: key
+    #  certEntry: cert
+    #key:
+    #cert:
+

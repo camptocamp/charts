@@ -1,0 +1,117 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "freeipa-proxy-ha.fullname" . }}
+  labels:
+    app: {{ template "freeipa-proxy-ha.name" . }}
+    chart: {{ template "freeipa-proxy-ha.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "freeipa-proxy-ha.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "freeipa-proxy-ha.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: ldap
+              containerPort: "3389"
+              protocol: TCP
+{{- if ( and ( .Values.ldap ) ( .Values.ldap.ldaps )) }}
+{{-   if (or ( .Values.ldap.ldaps.existingSecret ) ( and ( .Values.ldap.ldaps.cert ) ( .Values.ldap.ldaps.key ) ) ) }}
+            - name: ldaps
+              containerPort: "6636"
+              protocol: TCP
+{{-   end }}
+{{- end }}
+          volumeMounts:
+{{- if ( and ( .Values.ldap ) ( .Values.ldap.ldaps ) ) }}
+{{-   if ( or ( .Values.ldap.ldaps.existingSecret ) ( and ( .Values.ldap.ldaps.cert ) ( .Values.ldap.ldaps.key ) ) ) }}
+            - name: ldaps-certs-volume
+              mountPath: /tmp/certs/
+{{-   end }}
+{{-   if ( and ( .Values.freeipa ) ( .Values.freeipa.ca ) ) }}
+            - name: freeipa-ca-volume
+              mountPath: /tmp/cacerts/
+{{-   end }}
+            - name: freeipa-backend-setup-volume
+              mountPath: /entrypoint.d/20-freeipa-ha-proxy
+{{- end }}
+          env:
+          - name: LDAP_ROOT_PASSWORD
+            value: {{ .Values.rootPassword }}
+          - name: LDAP_ROOT_DN
+            value: {{ .Values.rootDN }}
+          - name: LDAP_RUN_USER
+            value: random
+          - name: LDAP_RUN_GROUP
+            value: random
+          - name: LDAP_PORT
+            value: "3389"
+{{- if ( and ( .Values.ldap ) ( .Values.ldap.ldaps ) ) }}
+{{-   if ( or ( .Values.ldap.ldaps.existingSecret ) ( and ( .Values.ldap.ldaps.cert ) ( .Values.ldap.ldaps.key ) ) ) }}
+          - name: LDAPS_PORT
+            value: "6636"
+          - name: LDAP_LOCAL_CERT_FILE
+            value: /tmp/certs/cert.pem
+          - name: LDAP_LOCAL_KEY_FILE
+            value: /tmp/certs/key.pem
+{{-   end }}
+{{-   if ( and ( .Values.freeipa ) ( .Values.freeipa.ca ) ) }}
+          - name: LDAP_CA_CERTIFICATE_DIR
+            value: /tmp/cacerts/
+{{-   end }}
+{{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: freeipa-backend-setup-volume
+          configMap:
+            name: {{ template "freeipa-proxy-ha.fullname" . }}
+{{- if ( and ( .Values.ldap ) ( .Values.ldap.ldaps ) ) }}
+{{-   if ( and ( not .Values.ldap.ldaps.existingSecret ) ( .Values.ldap.ldaps.cert ) ( .Values.ldap.ldaps.key ) ) }}
+        - name: ldaps-certs-volume
+          secret:
+            secretName: {{ template "freeipa-proxy-ha.fullname" . }}
+{{-   end }}
+{{-   if ( .Values.ldap.ldaps.existingSecret ) }}
+        - name: ldaps-certs-volume
+          secret:
+            secretName: {{ .Values.ldap.ldaps.existingSecret.name }}
+            items:
+            - key: {{ default "key" .Values.ldap.ldaps.existingSecret.keyEntry }}
+              path: key.pem
+            - key: {{ default "cert" .Values.ldap.ldaps.existingSecret.certEntry }}
+              path: cert.pem
+{{-   end }}
+{{-   if ( and ( .Values.freeipa ) ( .Values.freeipa.ca ) ) }}
+        - name: freeipa-ca-volume
+          secret:
+            secretName: {{ template "freeipa-proxy-ha.fullname" . }}
+            items:
+            - key: ca.pem
+              path: ca.pem
+{{-   end }}
+{{- end }}
