@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "freeipa-proxy-ha.fullname" . }}
+  labels:
+    app: {{ template "freeipa-proxy-ha.name" . }}
+    chart: {{ template "freeipa-proxy-ha.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+{{ toYaml .Values.service.annotations | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.ldapPort }}
+      targetPort: ldap
+      protocol: TCP
+      name: ldap
+{{- if ( and ( .Values.ldap ) ( .Values.ldap.ldaps )) }}
+{{-   if (or ( .Values.ldap.ldaps.existingSecret ) ( and ( .Values.ldap.ldaps.cert ) ( .Values.ldap.ldaps.key ) ) ) }}
+    - port: {{ .Values.service.ldapsPort }}
+      targetPort: ldaps
+      protocol: TCP
+      name: ldaps
+{{-   end }}
+{{- end }}
+  selector:
+    app: {{ template "freeipa-proxy-ha.name" . }}
+    release: {{ .Release.Name }}

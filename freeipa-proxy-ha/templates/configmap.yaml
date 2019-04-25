@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "freeipa-proxy-ha.fullname" . }}
+  labels:
+    app: {{ template "freeipa-proxy-ha.name" . }}
+    chart: {{ template "freeipa-proxy-ha.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  20-freeipa-backend.ldif: |
+    dn: cn=Pass Through Authentication,cn=plugins,cn=config
+    changetype: modify
+    replace: nsslapd-pluginEnabled
+    nsslapd-pluginEnabled: on
+    -
+    add: nsslapd-pluginarg0
+    nsslapd-pluginarg0: {{ .Values.freeipa.scheme }}://{{ .Values.freeipa.servers }}/{{ .Values.freeipa.suffix }}
+    
+    dn: cn=freeipa,cn=chaining database,cn=plugins,cn=config
+    changetype: add
+    objectclass: nsBackendInstance
+    objectclass: extensibleObject
+    nsslapd-suffix: {{ .Values.freeipa.suffix }}
+    nsfarmserverurl: {{ .Values.freeipa.scheme }}://{{ .Values.freeipa.servers }}/
+    nsMultiplexorBindDN: {{ .Values.freeipa.bindDN }}
+    nsMultiplexorCredentials: {{ .Values.freeipa.bindPassword }}
+    cn: freeipa
+    
+    dn: cn="{{ .Values.freeipa.suffix }}",cn=mapping tree,cn=config
+    changetype: add
+    objectclass: extensibleObject
+    objectclass: nsMappingTree
+    nsslapd-state: backend
+    nsslapd-backend: freeipa
+    cn: {{ .Values.freeipa.suffix }}
