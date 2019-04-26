@@ -1,4 +1,3 @@
-# Default values for metrics.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -33,26 +32,41 @@ tolerations: []
 
 affinity: {}
 
+# The administrative user account for the proxy itself. Since the whole security of the setup depends on that user, make sure the password is safe enough.
 rootDN: cn=Directory Manager
 #rootPassword:
 
+# Information to connect to the freeipa backend.
 freeipa:
+  # The CA certificate of the freeipa backend. If using LDAPS to connect to the backend, this is mandatory or it will not work at all.
   #ca:
+  # List of servers fqdn to use. This must be a space-separated string (not a YAML/JSON list). If the port is not the default one, you can write <host>:<port>.
   servers: freeipa1.example.com freeipa2.example.com freeipa3.example.com
+  # The LDAP suffix in which the freeipa data is.
   suffix: dc=example,dc=com
+  # The scheme used to connect to the freeipa backend, can be either ldap or ldaps.
   scheme: ldap
+  # The DN the proxy used to authenticate to the freeipa backend, must have the proxy ACI on the backend.
   bindDN: uid=user,cn=users,cn=accounts,dc=example,dc=com
+  # The password used by the proxy to authenticate to the freeipa backend.
   bindPassword: changeme
 
 ldap:
   run:
+    # Username with which the proxy LDAP will run. Change this to root if the container runs with the anyuid SCC.
     username: default
+    # Groupname with which the LDAP will run. Change this to root if the container runs with the anyuid SCC.
     groupname: default
+  # LDAPS configuration.
   #ldaps:
+    # If a secret containing the x509 certificate and key already exists, this is the configuration for using that secret.
+    # keyEntry and certEntry are the name of the entries in the secret containing the x509 key and certificate respectively.
+    # name is the secret name to be used.
     #existingSecret:
     #  name:
     #  keyEntry: key
     #  certEntry: cert
+    # If you want to specify a x509 key and certificate, you can also specify them directly here as text. If the existingSecret and these two options are defined, the existingSecret takes precedence.
     #key:
     #cert:
 
