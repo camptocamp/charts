@@ -4,7 +4,7 @@
 replicaClount: 2
 
 image:
-  repository: dabelenda/389ds
+  repository: camptocamp/389ds
   tag: latest
   pullPolicy: Always
 
