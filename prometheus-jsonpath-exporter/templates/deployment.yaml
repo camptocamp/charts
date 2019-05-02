@@ -25,6 +25,13 @@ spec:
         - name: config
           mountPath: /etc/prometheus-jsonpath-exporter/config.yml
           subPath: config.yml
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 100Mi
       volumes:
       - name: config
         configMap:
