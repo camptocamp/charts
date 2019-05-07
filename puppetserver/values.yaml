@@ -21,10 +21,12 @@ persistence:
     accessMode: ReadWriteMany
     size: 100Mi
     storageClass: "-"
+    existingClaim: ""
   puppetcode:
     accessMode: ReadWriteMany
     size: 10Gi
     storageClass: "-"
+    existingClaim: ""
 
 # General
 ca_conf: |

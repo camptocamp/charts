@@ -161,10 +161,10 @@ spec:
             name: {{ include "puppetserver.fullname" . }}-puppetserver
         - name: puppetcode
           persistentVolumeClaim:
-            claimName: {{ include "puppetserver.fullname" . }}-puppetcode
+            claimName: {{ if .Values.persistence.puppetcode.existingClaim }}{{ .Values.persistence.puppetcode.existingClaim }}{{- else }}{{ include "puppetserver.fullname" . }}-puppetcode{{- end }}
         - name: puppetca
           persistentVolumeClaim:
-            claimName: {{ include "puppetserver.fullname" . }}-puppetca
+            claimName: {{ if .Values.persistence.puppetca.existingClaim }}{{ .Values.persistence.puppetca.existingClaim }}{{- else }}{{ include "puppetserver.fullname" . }}-puppetca{{- end }}
         - name: secrets
           secret:
             secretName: {{ include "puppetserver.fullname" . }}
