@@ -1,0 +1,14 @@
+{{ $root := . }}
+{{- range $clusterRole := .Values.clusterRoles }}
+---
+apiVersion: authorization.openshift.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ $clusterRole.name }}
+  labels:
+{{ include "common.labels.standard" $root | indent 4 }}
+{{-   with $clusterRole.rules }}
+rules:
+{{   toYaml . }}
+{{-   end }}
+{{- end }}

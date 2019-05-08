@@ -1,6 +1,43 @@
 # serviceAccounts:
 # - name: gitlab
 
+# roles:
+# - name: my-secret-role
+#   rules:
+#   - apiGroups:
+#     - ""
+#     attributeRestrictions: null
+#     resources:
+#     - secret
+#     verbs:
+#     - create
+#     - get
+#     - list
+#     - patch
+#     - update
+#     - watch
+
+# clusterRoles:
+# - name: system:image-creator
+#   rules:
+#   - apiGroups:
+#     - ""
+#     - image.openshift.io
+#     attributeRestrictions: null
+#     resources:
+#     - imagestreams/layers
+#     verbs:
+#     - get
+#     - update
+#   - apiGroups:
+#     - ""
+#     - image.openshift.io
+#     attributeRestrictions: null
+#     resources:
+#     - imagestreams
+#     verbs:
+#     - create
+
 # roleBindings: 
 # - name: gitlab
 #   roleRef:
