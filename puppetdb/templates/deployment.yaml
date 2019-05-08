@@ -88,7 +88,7 @@ spec:
             name: {{ include "puppetdb.fullname" . }}
         - name: postgresql
           configMap:
-            name: {{ include "puppetdb.fullname" . }-postgresql
+            name: {{ include "puppetdb.fullname" . }}-postgresql
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
