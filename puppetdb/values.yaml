@@ -47,6 +47,8 @@ tolerations: []
 
 affinity: {}
 
+postgresql_cert: ""
+
 puppetdb_ini: |
   [global]
   vardir = /opt/puppetlabs/server/data/puppetdb

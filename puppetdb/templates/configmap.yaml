@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -10,3 +11,16 @@ metadata:
 data:
   puppetdb.ini: |-
 {{ .Values.puppetdb_ini | indent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "puppetdb.fullname" . }}-postgresql
+  labels:
+    app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  postgresql.crt: |-
+{{ .Values.postgresql_cert | indent 4 }}
