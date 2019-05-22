@@ -9,4 +9,4 @@ spec:
   source: {{ .Values.source }}
   name: {{ .Values.name }}
   startingCSV: {{ .Values.startingCSV }}
-  channel: {{ .Values.channel }}
+  channel: {{ .Values.channel }}
