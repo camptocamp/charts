@@ -3,12 +3,7 @@ kind: Service
 metadata:
   name: {{ include "pghoard.fullname" . }}
   labels:
-    app: {{ include "pghoard.name" . }}
-    chart: {{ include "pghoard.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
-  annotations:
-    prometheus.io/scrape: 'true'
+{{ include "pghoard.labels" . | indent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -17,5 +12,5 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: {{ include "pghoard.name" . }}
-    release: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "pghoard.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

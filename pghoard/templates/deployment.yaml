@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pghoard.fullname" . }}
+  labels:
+{{ include "pghoard.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "pghoard.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "pghoard.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["pghoard"]
+          args: ["--config", "/etc/pghoard/pghoard.json"]
+          ports:
+            - name: http
+              containerPort: 16000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /status
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /status
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/pghoard
+            - name: pghoard
+              mountPath: /var/lib/pghoard
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ include "pghoard.fullname" . }}
+        - name: pghoard
+        {{- if .Values.persistentVolume.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "pghoard.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
