@@ -37,11 +37,11 @@ git push origin master
 ### Update a chart
 
 ```bash
-CHART=hello-world
+CHART=gitlab-backup
 helm package $CHART -d docs
 helm repo index docs --url https://camptocamp.github.io/charts
 git add .
-git commit -m "add chart $CHART"
+git commit -m "updated $CHART"
 git push origin master
 ```
 
