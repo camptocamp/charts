@@ -1,0 +1,10 @@
+apiVersion: v1
+
+kind: ConfigMap
+metadata:
+  name: {{ template "s3-exporter.fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+data:
+  config: |-
+{{ .Values.config | indent 4 }}
