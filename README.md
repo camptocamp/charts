@@ -25,7 +25,7 @@ helm repo add c2c https://camptocamp.github.io/charts
 ### Add a chart
 
 ```bash
-CHART=hello-world
+CHART=s3-exporter
 helm create $CHART
 helm package $CHART -d docs
 helm repo index docs --url https://camptocamp.github.io/charts

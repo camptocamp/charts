@@ -1,0 +1,43 @@
+# Default values for s3-exporter.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+
+image:
+  repository: camptocamp/s3-exporter
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  port: 9327
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 20m
+    memory: 256M
+  requests:
+    cpu: 10m
+    memory: 50M
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+config: |-
+    access_key: "S3-ACCESS-KEY"
+    secret_key: "S3-SECRET-KEY"
+    host_base: "s3-host-base"
+    host_bucket: "%(bucket)s.{{host_base}}"
+    use_https: True
+    signature_v2: True
+    bucket: "bucket-world"
+    folders:
+      - "/"
