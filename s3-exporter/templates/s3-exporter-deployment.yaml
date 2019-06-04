@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ include "s3-exporter.fullname" . }}
+  name: {{ include "s3-exporter.name" . }}
   labels:
     app: {{ template "s3-exporter.name" . }}
     app.kubernetes.io/name: {{ include "s3-exporter.name" . }}
@@ -10,7 +10,7 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    name:  s3-exporter
+    name:  {{ include "s3-exporter.name" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
 
