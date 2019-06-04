@@ -15,5 +15,5 @@ spec:
     port: {{ .Values.service.port }}
     targetPort: {{ .Values.service.port}}
   selector:
-    app: {{ template "s3-exporter.name" . }}
-    release: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "s3-exporter.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
