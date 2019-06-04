@@ -37,7 +37,7 @@ git push origin master
 ### Update a chart
 
 ```bash
-CHART=gitlab-backup
+export CHART=gitlab-backup
 helm package $CHART -d docs
 helm repo index docs --url https://camptocamp.github.io/charts
 git add .
