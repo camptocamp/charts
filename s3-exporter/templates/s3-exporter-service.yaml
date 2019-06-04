@@ -11,7 +11,7 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   ports:
-  - name: {{ .Release.Name }}-{{ .Values.service.externalPort }}-tcp
+  - name: {{ .Release.Name }}-{{ .Values.service.port }}-tcp
     port: {{ .Values.service.port }}
     targetPort: {{ .Values.service.port}}
   selector:
