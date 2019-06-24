@@ -1,4 +1,4 @@
-{{- if not .Values.persistence.puppetca.existingClaim -}}
+{{- if (eq "-" .Values.persistence.puppetca.existingClaim) -}}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -22,8 +22,8 @@ spec:
   storageClassName: "{{ .Values.persistence.puppetca.storageClass }}"
 {{- end }}
 {{- end }}
-{{- end -}}
-{{- if not .Values.persistence.puppetcode.existingClaim -}}
+{{- end }}
+{{ if (eq "-" .Values.persistence.puppetcode.existingClaim) -}}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
