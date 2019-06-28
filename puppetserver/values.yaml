@@ -16,6 +16,9 @@ service:
   type: ClusterIP
   port: 8140
 
+securityContext:
+  supplementalGroups: [999]
+
 persistence:
   puppetca:
     accessMode: ReadWriteMany

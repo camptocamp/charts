@@ -126,7 +126,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       securityContext:
-        supplementalGroups: [999]
+        supplementalGroups:
+          {{- toYaml .Values.securityContext.supplementalGroups | nindent 10 }}
       volumes:
         - name: logs
           emptyDir: {}
