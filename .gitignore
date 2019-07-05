@@ -1,5 +1,6 @@
 **/requirements.lock
 **/charts/*.tgz
 *~
-.vscode/launch.json
 .gitignore
+.vscode
+.vscode/launch.json
