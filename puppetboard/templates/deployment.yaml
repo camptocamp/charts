@@ -67,9 +67,9 @@ spec:
             - name: PUPPETBOARD_PORT
               value: '8080'
             - name: PUPPETBOARD_INVENTORY_FACTS
-              value: {{ .Values.puppetboard.inventory_facts }}
+              value: {{ .Values.puppetboard.inventory_facts | quote }}
             - name: PUPPETBOARD_OVERVIEW_FILTER
-              value: {{ .Values.puppetboard.overview_filter }}
+              value: {{ .Values.puppetboard.overview_filter | quote }}
             - name: PUPPETDB_HOST
               value: {{ .Values.puppetdb.host }}
             - name: PUPPETDB_PORT
