@@ -66,6 +66,10 @@ spec:
           env:
             - name: PUPPETBOARD_PORT
               value: '8080'
+            - name: PUPPETBOARD_INVENTORY_FACTS
+              value: {{ .Values.puppetboard.inventory_facts }}
+            - name: PUPPETBOARD_OVERVIEW_FILTER
+              value: {{ .Values.puppetboard.overview_filter }}
             - name: PUPPETDB_HOST
               value: {{ .Values.puppetdb.host }}
             - name: PUPPETDB_PORT
