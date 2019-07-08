@@ -23,6 +23,14 @@ persistentVolume:
     - ReadWriteOnce
   size: 100Mi
 
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+    additionalLabels: {}
+    # interval: 30s
+    # scrapeTimeout: 10s
+
 labels: {}
 
 resources: {}

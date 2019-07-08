@@ -1,0 +1,26 @@
+{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "pghoard.fullname" . }}
+  labels:
+{{ include "pghoard.labels" . | indent 4 }}
+    {{- if .Values.metrics.serviceMonitor.additionalLabels }}
+{{ toYaml .Values.metrics.serviceMonitor.additionalLabels | indent 4 }}
+    {{- end }}
+spec:
+  endpoints:
+    - port: http
+      {{- if .Values.metrics.serviceMonitor.interval }}
+      interval: {{ .Values.metrics.serviceMonitor.interval }}
+      {{- end }}
+      {{- if .Values.metrics.serviceMonitor.scrapeTimeout }}
+      scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
+      {{- end }}
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+{{ include "pghoard.labels" . | indent 6 }}
+{{- end }}
