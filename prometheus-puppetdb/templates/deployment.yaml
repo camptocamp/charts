@@ -27,17 +27,17 @@ spec:
           args:
         {{- if .Values.prometheusPuppetdb.args }}
           {{- if not .Values.prometheusPuppetdb.args.output }}
-            - --output=configmap
+            - --output=external-services
           {{- end }}
           {{- range $key, $value := .Values.prometheusPuppetdb.args }}
             - --{{ $key }}={{ $value }}
           {{- end }}
         {{- else }}
-            - --output=configmap
+            - --output=external-services
         {{- end }}
         {{- if .Values.prometheusPuppetdb.env }}
           env:
-{{ toYaml .Values.prometheusPuppetdb.env | indent 10 }}
+{{ toYaml .Values.prometheusPuppetdb.env | indent 12 }}
         {{- end }}
         {{- if and .Values.CACert .Values.Cert .Values.Key }}
           volumeMounts:

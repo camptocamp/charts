@@ -4,7 +4,7 @@
 
 image:
   repository: camptocamp/prometheus-puppetdb
-  tag: 0.9.0
+  tag: 0.10.0
   pullPolicy: Always
 
 resources: {}
