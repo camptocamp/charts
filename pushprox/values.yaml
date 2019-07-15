@@ -9,13 +9,21 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
+auth:
+  image:
+    repository: registry.redhat.io/openshift3/oauth-proxy
+    tag: v3.11.104
+    pullPolicy: IfNotPresent
+  cookieSecret: SECRET
+  resources: {}
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 8080
+  port: 4180
 
 ingress:
   enabled: false
