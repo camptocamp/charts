@@ -34,7 +34,7 @@ spec:
             - -tls-key=/etc/tls/private/tls.key
             - -cookie-secret={{ .Values.auth.cookieSecret }}
           ports:
-            - name: http
+            - name: oauth
               containerPort: 4180
               protocol: TCP
           resources:
@@ -47,6 +47,10 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
