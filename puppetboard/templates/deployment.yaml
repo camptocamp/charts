@@ -38,24 +38,6 @@ spec:
             - mountPath: /srv/puppetssl
               name: ssldir
       containers:
-        - name: {{ .Chart.Name }}-oauth-proxy
-          image: openshift/oauth-proxy:latest
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: public
-              containerPort: 8443
-              protocol: TCP
-          args:
-            - --https-address=:8443
-            - --provider=openshift
-            - --openshift-service-account={{ include "puppetboard.fullname" . }}
-            - --upstream=http://localhost:8080
-            - --tls-cert=/etc/tls/private/tls.crt
-            - --tls-key=/etc/tls/private/tls.key
-            - --cookie-secret=SECRET
-          volumeMounts:
-            - mountPath: /etc/tls/private
-              name: proxy-tls
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -103,9 +85,6 @@ spec:
         - name: secrets
           secret:
             secretName: {{ include "puppetboard.fullname" . }}
-        - name: proxy-tls
-          secret:
-            secretName: proxy-tls
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
