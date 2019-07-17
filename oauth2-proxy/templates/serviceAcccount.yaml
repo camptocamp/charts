@@ -4,5 +4,5 @@ kind: ServiceAccount
 metadata:
   name: {{ template "oauth2-proxy.fullname" . }}
   annotations:
-    serviceaccounts.openshift.io/oauth-redirectreference.primary: '{"kind":"OAuthRedirectReference","apiVersion":"v1","reference":{"kind":"Route","name":"{{ template "oauth2-proxy.fullname" . }}"}}'
+    serviceaccounts.openshift.io/oauth-redirecturi.primary: "{{- range $host := .Values.ingress.hosts -}}https://{{ $host }},{{- end -}}"
 {{- end }}
