@@ -9,6 +9,40 @@ image:
   tag: "10"
   pullPolicy: IfNotPresent
 
+pghoard_json: |-
+  {
+    "backup_location": "/var/lib/pghoard/incoming",
+    "prometheus": {},
+    "http_address": "0.0.0.0",
+    "backup_sites": {
+      "my-db": {
+        "basebackup_age_days_max": 14,
+        "basebackup_count": 20,
+        "basebackup_hour": 4,
+        "basebackup_mode": "pipe",
+        "object_storage":{
+          "storage_type": "s3",
+          "aws_access_key_id": "xxxxxxxxxxxxxxxxxxxxxx",
+          "aws_secret_access_key": "xxxxxxxxxxxxxxxxxxxxxx",
+          "region": "eu-west-1",
+          "port": 443,
+          "is_secure": "true",
+          "bucket_name": "backups"
+        },
+        "nodes": [
+          {
+            "host": "db-host",
+            "port": "5432",
+            "password": "xxxxxxxxx",
+            "user": "replicator"
+          }
+        ],
+        "prefix": "pghoard/my-db",
+        "pg_data_directory": "/home/postgres/restore"
+      }
+    }
+  }
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

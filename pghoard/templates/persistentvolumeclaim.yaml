@@ -12,13 +12,13 @@ metadata:
 spec:
   accessModes:
 {{ toYaml .Values.persistentVolume.accessModes | indent 4 }}
-{{- if .Values.persistentVolume.storageClass }}
+{{- if .Values.persistentVolume.storageClass -}}
 {{- if (eq "-" .Values.persistentVolume.storageClass) }}
   storageClassName: ""
 {{- else }}
-  storageClassName: "{{ .Values.persistentVolume.storageClass }}"
+  storageClassName: {{ .Values.persistentVolume.storageClass | quote }}
 {{- end -}}
-{{- end -}}
+{{- end }}
   resources:
     requests:
       storage: {{ .Values.persistentVolume.size | quote }}
