@@ -13,5 +13,6 @@ metadata:
     openshift.io/display-name: {{ $key }}
   labels:
 {{    include "common.labels.standard" $root | indent 4 }}
+{{    template "common.labelize" $value.namespaceLabelMap | indent 4 }}
   name: {{ $key }}
 {{- end }}
