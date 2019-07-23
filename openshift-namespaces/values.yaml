@@ -5,7 +5,7 @@
 # projects:
 # To define your own projects, remove the line 'projects: {}' and add your own
 # definitions.
-# 
+#
 # you can set tiller to false in the projects definitions to avoid
 #  a tiller deploy in the projects.
 #
@@ -19,10 +19,10 @@
 # Use this if you need a helm-user who needs to deploy to other projects
 # This will create a serviceAccount with the needed rights to access all tiller
 # in each projects. The Service Account name is defined in the tiller definition.
-# 
+#
 # Also the system:image-puller role should be granted to all projects who needs
 # to pull an image from the base project, the one how is building images.
-# If you define a tiller user service account, the image-puller access will also 
+# If you define a tiller user service account, the image-puller access will also
 # be configured.
 #
 # In short:
@@ -34,7 +34,7 @@
 #    in the 'tiller' definitions
 #  - define the project to host the service account with 'helmUserServiceAccountNamespace'
 #    in the 'tiller' definitions
-# 
+#
 # example:
 #
 # projects:
@@ -50,7 +50,11 @@
 #     imageAccess:
 #       - NameSpace: myproject1
 #       - NameSpace: myproject2
-#    
+#     namespaceLabelMap:
+#       - labelName1: LabelValue1
+#       - labelName2: LabelValue2
+
+#
 #   myproject1:
 #     description: |-
 #       My Project One
@@ -73,6 +77,9 @@
 #       - kind: ServiceAccount
 #         name: mysa
 #         namespace: myproject2
+#     namespaceLabelMap:
+#       - labelName1: LabelValue1
+#       - labelName2: LabelValue2
 #
 #   myproject2:
 #     description: |-
@@ -89,6 +96,11 @@
 #       - kind: ServiceAccount
 #         name: mysa
 #         namespace: myproject2
+#     namespaceLabelMap:
+#       - labelName1: LabelValue1
+#       - labelName2: LabelValue2
+#
+
 
 
 # Set the image, version tag and tiller user service account name for tiller
