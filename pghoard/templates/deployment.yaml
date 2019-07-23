@@ -9,6 +9,10 @@ metadata:
 {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "pghoard.name" . }}
