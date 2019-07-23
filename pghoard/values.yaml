@@ -19,6 +19,7 @@ service:
 
 persistentVolume:
   enabled: false
+  storageClass: "-"
   accessModes:
     - ReadWriteOnce
   size: 100Mi

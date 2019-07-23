@@ -6,6 +6,9 @@ metadata:
   name: {{ include "pghoard.fullname" . }}
   labels:
 {{ include "pghoard.labels" . | indent 4 }}
+{{- if .Values.labels }}
+{{ toYaml .Values.labels | indent 4 }}
+{{- end }}
 spec:
   accessModes:
 {{ toYaml .Values.persistentVolume.accessModes | indent 4 }}
