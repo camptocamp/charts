@@ -31,8 +31,6 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["pghoard"]
-          args: ["--config", "/etc/pghoard/pghoard.json"]
           ports:
             - name: http
               containerPort: 16000
