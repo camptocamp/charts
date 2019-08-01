@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: camptocamp/bucket-cloner:latest
+  repository: camptocamp/bucket-cloner
   tag: latest
   pullPolicy: IfNotPresent
 

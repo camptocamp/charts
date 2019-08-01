@@ -20,6 +20,7 @@ spec:
             app: {{ template "bucket-cloner.name" . }}
             release: {{ .Release.Name }}
         spec:
+          restartPolicy: OnFailure
           containers:
             - name: bucket-cloner
               image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
