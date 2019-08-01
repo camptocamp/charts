@@ -23,7 +23,7 @@ spec:
           containers:
             - name: bucket-cloner
               image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-              imagePullPolicy: {{ .Values.images.pullPolicy }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
               env:
 {{- with .Values.env }}
 {{    toYaml . | indent 16 }}
