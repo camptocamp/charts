@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: camptocamp/bucket-cloner
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
