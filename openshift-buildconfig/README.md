@@ -1,0 +1,1 @@
+generic chart to create an openshift build config from a docker image and a dockerfile to push it into the local image stream. in order to uses it with a deployment

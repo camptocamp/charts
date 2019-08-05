@@ -1,0 +1,15 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  annotations:
+    generated-by: camptocamp.com
+metadata:
+  name: {{ template "openshift-buildconfig.fullname" . }}
+labels:
+    app: {{ template "openshift-buildconfig.fullname" . }}
+status:
+  dockerImageRepository: >-
+    docker-registry.default.svc:5000/{{.Release.Namespace}}/{{ template "openshift-buildconfig.fullname" . }}
+spec:
+  lookupPolicy:
+    local: false

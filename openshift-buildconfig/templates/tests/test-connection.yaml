@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "prometheus-exporter.fullname" . }}-test-connection"
+  name: "{{ include "openshift-buildconfig.fullname" . }}-test-connection"
   labels:
-    app.kubernetes.io/name: {{ include "prometheus-exporter.name" . }}
-    helm.sh/chart: {{ include "prometheus-exporter.chart" . }}
+    app.kubernetes.io/name: {{ include "openshift-buildconfig.name" . }}
+    helm.sh/chart: {{ include "openshift-buildconfig.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
@@ -14,5 +14,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "prometheus-exporter.fullname" . }}:{{ .Values.service.port }}']
+      args:  ['{{ include "openshift-buildconfig.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never

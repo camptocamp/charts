@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "openshift-aws-exporter.fullname" . }}
+  labels:
+    app: {{ include "openshift-aws-exporter.fullname" . }}
+    name: {{ include "openshift-aws-exporter.fullname" . }}
+spec:
+  ports:
+  - port: {{ .Values.service.port}}
+    protocol:  {{ .Values.service.protocol}}
+    targetPort: {{ .Values.service.targetPort}}
+  selector:
+    app: {{ include "openshift-aws-exporter.fullname" . }}
+    name: {{ include "openshift-aws-exporter.fullname" . }}
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

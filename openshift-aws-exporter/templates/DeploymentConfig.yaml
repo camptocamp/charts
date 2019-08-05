@@ -1,0 +1,64 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  namespace: {{ .Release.Namespace }}
+  labels:
+    chart: {{ include "openshift-aws-exporter.chart" . }}
+    release: "{{ .Release.Name }}"
+  name: "{{ .Release.Name }}"
+spec:
+  replicas: 1
+  selector:
+    app: {{ include "openshift-aws-exporter.fullname" . }}
+    deploymentconfig: {{ include "openshift-aws-exporter.fullname" . }}
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        created-by: camptocamp.com
+      labels:
+        app: {{ include "openshift-aws-exporter.fullname" . }}
+        deploymentconfig: {{ include "openshift-aws-exporter.fullname" . }}
+    spec:
+      containers:
+      - image: 'docker-registry.default.svc:5000/{{ .Release.Namespace }}/{{ .Values.image.name }}:{{ .Values.image.tag }}'
+        imagePullPolicy: Always
+        name: {{ include "openshift-aws-exporter.fullname" . }}
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /.aws
+          name: volume-aws-credentials
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: volume-aws-credentials
+        secret:
+          defaultMode: 420
+          secretName: aws-credentials
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - {{.Values.container.name}}
+      from:
+        kind: ImageStreamTag
+        name: '{{.Values.image.name}}:latest'
+        namespace: infra-metrics
+    type: ImageChange
