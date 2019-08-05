@@ -2,13 +2,11 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   annotations:
-    openshift.io/generated-by: OpenShiftNewApp
-  creationTimestamp: 2019-08-05T12:22:26Z
+   created-by: camptocamp.com
   labels:
     app: prometheus-cloudformation-exporter
   name: prometheus-cloudformation-exporter
-  namespace: infra-metrics
-  resourceVersion: "51999736"
+  namespace: {{ .Release.Namespace }}
   selfLink: /apis/build.openshift.io/v1/namespaces/infra-metrics/buildconfigs/prometheus-cloudformation-exporter
   uid: af743eb1-b77b-11e9-b620-02d0b13710d4
 spec:
@@ -41,5 +39,3 @@ spec:
   - github:
       secret: d73DlYqNhKWKSlo_KF0E {{ .Values.buildConfig.triggers.github.secret }}
     type: GitHub
-status:
-  lastVersion: 12
