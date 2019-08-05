@@ -1,0 +1,45 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: 2019-08-05T12:22:26Z
+  labels:
+    app: prometheus-cloudformation-exporter
+  name: prometheus-cloudformation-exporter
+  namespace: infra-metrics
+  resourceVersion: "51999736"
+  selfLink: /apis/build.openshift.io/v1/namespaces/infra-metrics/buildconfigs/prometheus-cloudformation-exporter
+  uid: af743eb1-b77b-11e9-b620-02d0b13710d4
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: prometheus-cloudformation-exporter:latest
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri:  {{ .Values.buildConfig.source.git.uri }}
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: python:3
+    type: Docker
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - imageChange:
+      lastTriggeredImageID: python@sha256:28511d7a6370e2372308934f931a70c3df049c4801b2b68a7a91888ef5e1ea92
+    type: ImageChange
+  - type: ConfigChange
+  - github:
+      secret: d73DlYqNhKWKSlo_KF0E {{ .Values.buildConfig.triggers.github.secret }}
+    type: GitHub
+status:
+  lastVersion: 12

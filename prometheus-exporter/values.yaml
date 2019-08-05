@@ -46,3 +46,12 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+buildConfig:
+  source:
+    git:
+      # https://github.com/example-org/example-repo.git
+      uri: {}
+  triggers:
+    github:
+      secret: {}

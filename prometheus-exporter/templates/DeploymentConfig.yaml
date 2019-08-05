@@ -1,0 +1,102 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftNewApp
+  creationTimestamp: 2019-08-05T12:22:26Z
+  generation: 8
+  labels:
+    app: prometheus-cloudformation-exporter
+  name: prometheus-cloudformation-exporter
+  namespace: infra-metrics
+  resourceVersion: "51999874"
+  selfLink: /apis/apps.openshift.io/v1/namespaces/infra-metrics/deploymentconfigs/prometheus-cloudformation-exporter
+  uid: af82972b-b77b-11e9-b743-06ff637d2e9a
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: prometheus-cloudformation-exporter
+    deploymentconfig: prometheus-cloudformation-exporter
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewApp
+      creationTimestamp: null
+      labels:
+        app: prometheus-cloudformation-exporter
+        deploymentconfig: prometheus-cloudformation-exporter
+    spec:
+      containers:
+      - image: docker-registry.default.svc:5000/infra-metrics/prometheus-cloudformation-exporter@sha256:8b2a386793ca9e0abaee5d96f8879c243bd1b79da46c62c5a2e81538dc2792e5
+        imagePullPolicy: Always
+        name: prometheus-cloudformation-exporter
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /.aws
+          name: volume-6ix4a
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: volume-6ix4a
+        secret:
+          defaultMode: 420
+          secretName: aws-credentials
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - prometheus-cloudformation-exporter
+      from:
+        kind: ImageStreamTag
+        name: prometheus-cloudformation-exporter:latest
+        namespace: infra-metrics
+      lastTriggeredImage: docker-registry.default.svc:5000/infra-metrics/prometheus-cloudformation-exporter@sha256:8b2a386793ca9e0abaee5d96f8879c243bd1b79da46c62c5a2e81538dc2792e5
+    type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: 2019-08-05T14:03:02Z
+    lastUpdateTime: 2019-08-05T14:03:02Z
+    message: Deployment config has minimum availability.
+    status: "True"
+    type: Available
+  - lastTransitionTime: 2019-08-05T14:16:46Z
+    lastUpdateTime: 2019-08-05T14:16:48Z
+    message: replication controller "prometheus-cloudformation-exporter-5" successfully
+      rolled out
+    reason: NewReplicationControllerAvailable
+    status: "True"
+    type: Progressing
+  details:
+    causes:
+    - imageTrigger:
+        from:
+          kind: DockerImage
+          name: docker-registry.default.svc:5000/infra-metrics/prometheus-cloudformation-exporter@sha256:8b2a386793ca9e0abaee5d96f8879c243bd1b79da46c62c5a2e81538dc2792e5
+      type: ImageChange
+    message: image change
+  latestVersion: 5
+  observedGeneration: 8
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1

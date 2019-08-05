@@ -1,19 +1,24 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "prometheus-exporter.fullname" . }}
+  creationTimestamp: 2019-08-05T14:22:45Z
   labels:
-    app.kubernetes.io/name: {{ include "prometheus-exporter.name" . }}
-    helm.sh/chart: {{ include "prometheus-exporter.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: prometheus-cloudformation-exporter
+  name: prometheus-cloudformation-exporter
+  namespace: infra-metrics
+  resourceVersion: "52001151"
+  selfLink: /api/v1/namespaces/infra-metrics/services/prometheus-cloudformation-exporter
+  uid: 7e417fed-b78c-11e9-b743-06ff637d2e9a
 spec:
-  type: {{ .Values.service.type }}
+  clusterIP: 172.30.166.232
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
   selector:
-    app.kubernetes.io/name: {{ include "prometheus-exporter.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: prometheus-cloudformation-exporter
+    deploymentconfig: prometheus-cloudformation-exporter
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
