@@ -4,8 +4,12 @@ metadata:
   annotations:
    created-by: camptocamp.com
   labels:
-    app: prometheus-cloudformation-exporter
-  name: prometheus-cloudformation-exporter
+    app: {{ include "infra-doc.fullname" . }}
+    app.kubernetes.io/name: {{ include "infra-doc.name" . }}
+    helm.sh/chart: {{ include "infra-doc.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: {{ include "infra-doc.fullname" . }}
   namespace: {{ .Release.Namespace }}
   selfLink: /apis/build.openshift.io/v1/namespaces/infra-metrics/buildconfigs/prometheus-cloudformation-exporter
   uid: af743eb1-b77b-11e9-b620-02d0b13710d4
@@ -15,7 +19,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: prometheus-cloudformation-exporter:latest
+      name: {{ include "infra-doc.fullname" . }}:latest
   postCommit: {}
   resources: {}
   runPolicy: Serial
