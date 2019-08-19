@@ -1,13 +1,13 @@
 {{ $root := . }}
-{{- range $Role := .Values.Roles }}
+{{- range $role := .Values.roles }}
 ---
 apiVersion: authorization.openshift.io/v1
 kind: Role
 metadata:
-  name: {{ $Role.name }}
+  name: {{ $role.name }}
   labels:
 {{ include "common.labels.standard" $root | indent 4 }}
-{{-   with $Role.rules }}
+{{-   with $role.rules }}
 rules:
 {{   toYaml . }}
 {{-   end }}
