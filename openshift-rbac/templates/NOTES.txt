@@ -1,0 +1,17 @@
+{{ $root := . }}
+{{- if .Values.serviceAccounts }}
+Get the token of your services accounts with these commands:
+{{-   range $sa := .Values.serviceAccounts }}
+  # token for service account '{{ $sa.name }}'
+  export SERVICE_ACCOUNT={{ $sa.name }}
+  export NAMESPACE={{ $root.Release.Namespace }}
+  json_secrets=$(oc get secrets -n ${NAMESPACE} -o json)
+  echo $json_secrets | jq -r "
+    .items[] |
+    select(.metadata.annotations.\"kubernetes.io/service-account.name\" == \"${SERVICE_ACCOUNT}\") |
+    select(.metadata.annotations.\"kubernetes.io/created-by\" != \"openshift.io/create-dockercfg-secrets\") |
+    select(.metadata.name | contains (\"${SERVICE_ACCOUNT}-token\")) |
+    .data.token
+  "
+{{-   end }}
+{{- end }}

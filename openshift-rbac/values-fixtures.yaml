@@ -1,0 +1,55 @@
+serviceAccounts:
+- name: is-ci-admin
+
+roles:
+- name: my-secret-role
+  rules:
+  - apiGroups:
+    - ""
+    attributeRestrictions: null
+    resources:
+    - secret
+    verbs:
+    - create
+    - get
+    - list
+    - patch
+    - update
+    - watch
+
+clusterRoles:
+- name: system:image-creator
+  rules:
+  - apiGroups:
+    - ""
+    - image.openshift.io
+    attributeRestrictions: null
+    resources:
+    - imagestreams/layers
+    verbs:
+    - get
+    - update
+  - apiGroups:
+    - ""
+    - image.openshift.io
+    attributeRestrictions: null
+    resources:
+    - imagestreams
+    verbs:
+    - create
+
+roleBindings: 
+- name: gitlab
+  roleRef:
+    name: admin
+  subjects:
+  - kind: ServiceAccount
+    name: gitlab
+
+clusterRoleBindings: 
+- name: system:build-strategy-custom-binding
+  roleRef:
+    name: system:build-strategy-custom
+  subjects:
+  - kind: SystemGroup
+    name: system:authenticated
