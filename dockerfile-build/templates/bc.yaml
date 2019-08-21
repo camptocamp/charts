@@ -1,0 +1,46 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: {{ .Release.Name | quote }}
+  annotations:
+    description: Defines how to build the application
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+spec:
+  source:
+    type: Git
+    git:
+      uri: {{ .Values.source.uri | quote }}
+      ref: {{ .Values.source.ref | quote }}
+    sourceSecret:
+      name: {{ .Values.source.secretName | quote }}
+    contextDir: {{ .Values.source.contextDir | default "" | quote }}
+  strategy:
+    type: Docker
+    dockerStrategy:
+{{- with .Values.build.input }}
+      from:
+{{    toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.env }}
+      env:
+{{    toYaml . | indent 6 }}
+{{- end }}
+  output:
+    to:
+      kind: DockerImage
+      name: "{{ .Values.build.output.privateImage.repository }}/{{ .Values.build.output.privateImage.org }}/{{ .Values.build.output.privateImage.name }}:{{ .Values.build.output.privateImage.tag }}"
+  triggers:
+  - type: ConfigChange
+{{- with .Values.postCommit }}
+  postCommit:
+{{    toYaml . | indent 4 }}
+{{- end }}
+{{- with .Values.resources }}
+  resources:
+{{    toYaml . | indent 4 }}
+{{- end }}
+{{- with .Values.nodeSelector }}
+  nodeSelector:
+{{    toYaml . | indent 4 }}
+{{- end }}

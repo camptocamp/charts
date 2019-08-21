@@ -1,0 +1,31 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: "commit-{{ .Release.Name }}"
+  annotations:
+    description: Watch for changes in imageStream and push a spec file in source repo
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+spec:
+  source:
+    secrets:
+      - secret:
+          name: {{ .Values.source.secretName | quote}}
+    type: None
+  strategy:
+    type: Custom
+    customStrategy:
+      from:
+        kind: ImageStreamTag
+        name: parent-image-updater:latest
+        namespace: {{ .Release.Namespace }}
+      env:
+      - name: CI_REPOSITORIES
+        value: {{ .Values.source.uri | quote}}
+  triggers:
+  - type: ImageChange
+    imageChange:
+{{- with .Values.build.input }}
+      from:
+{{    toYaml . | indent 8 }}
+{{- end }}
