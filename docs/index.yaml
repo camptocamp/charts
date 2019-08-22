@@ -3,7 +3,7 @@ entries:
   bivac:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-08-22T13:55:02.038801+02:00"
+    created: "2019-08-22T14:52:43.732347452+02:00"
     description: A Helm chart for Bivac
     digest: 698e061589c132e6cf82e8ba32e6c7989f3f8e34bcbfdeef3a51038bbb321e8c
     name: bivac
@@ -12,7 +12,7 @@ entries:
     version: 1.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.03789+02:00"
+    created: "2019-08-22T14:52:43.731149041+02:00"
     description: A Helm chart for Bivac
     digest: fb1cb6bcac492af885ef1777ef4860c1ea7fee046b3926138ccc465089be91b9
     name: bivac
@@ -21,7 +21,7 @@ entries:
     version: 1.1.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.036599+02:00"
+    created: "2019-08-22T14:52:43.729986151+02:00"
     description: A Helm chart for Bivac
     digest: fbcd9c1b2e3daf6e03993828779aebb1f342a0a09795b0ff77406b402586a7b8
     name: bivac
@@ -30,7 +30,7 @@ entries:
     version: 1.0.0
   bivac2:
   - appVersion: "2.1"
-    created: "2019-08-22T13:55:02.039994+02:00"
+    created: "2019-08-22T14:52:43.735255203+02:00"
     description: backup interface for volumes attached to containers
     digest: debfdbb5d75c55f3016e892237a94c4d8542bd205ed0ee6cf3d8c12d93577ed2
     home: https://github.com/camptocamp/bivac
@@ -52,7 +52,7 @@ entries:
     - https://camptocamp.github.io/charts/bivac2-0.0.2.tgz
     version: 0.0.2
   - appVersion: "2.1"
-    created: "2019-08-22T13:55:02.039398+02:00"
+    created: "2019-08-22T14:52:43.733872737+02:00"
     description: backup interface for volumes attached to containers
     digest: 2e83dbbd3d9c8da93c2ea756d905d47074cca86c04d6e50054f9dbc5e4c632b7
     home: https://github.com/camptocamp/bivac
@@ -75,7 +75,7 @@ entries:
     version: 0.0.1
   blackbox-exporter:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.040472+02:00"
+    created: "2019-08-22T14:52:43.736320817+02:00"
     description: A Helm chart to deploy blackbox-exporter on Kubernetes
     digest: 309862f6b33cec8aa2a91aa269a98fe6e096892e12126095e66ee30f335eae3c
     name: blackbox-exporter
@@ -85,7 +85,7 @@ entries:
   bucket-cloner:
   - apiVersion: v1
     appVersion: "20190801"
-    created: "2019-08-22T13:55:02.040911+02:00"
+    created: "2019-08-22T14:52:43.736948302+02:00"
     description: A Helm chart for Bucket-cloner
     digest: 374246158825fbfb8961cb6126651f55e7872f290f5494a7d992d33418702d7a
     name: bucket-cloner
@@ -94,7 +94,7 @@ entries:
     version: 0.0.1
   demo-geomapfish:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.04234+02:00"
+    created: "2019-08-22T14:52:43.740172052+02:00"
     description: A Helm chart for Geomapfish DEMO
     digest: 69819185f209b1b6cdffaa668cc936c7f865b44e5a1580a1bcf6315e403d8c9d
     name: demo-geomapfish
@@ -102,7 +102,7 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.16.tgz
     version: 2.0.16
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.041841+02:00"
+    created: "2019-08-22T14:52:43.739088294+02:00"
     description: A Helm chart for Geomapfish DEMO
     digest: 27f2c6025c268ab1e7e2bbdf515d70443db4726194681086a35a3ef2c6e4a557
     name: demo-geomapfish
@@ -110,7 +110,7 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.15.tgz
     version: 2.0.15
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.042856+02:00"
+    created: "2019-08-22T14:52:43.741256864+02:00"
     description: A Helm chart for Kubernetes
     digest: adaeab8887d4c815d79a93f14ec5d30205f5deda739703fd5d5ce5ed86d5b67d
     name: demo-geomapfish
@@ -118,7 +118,7 @@ entries:
     - https://camptocamp.github.io/charts/demo-geomapfish-2.0.4.tgz
     version: 2.0.4
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.041337+02:00"
+    created: "2019-08-22T14:52:43.738026996+02:00"
     description: A Helm chart for Kubernetes
     digest: f574b6adcdef5b25f6392e01724c4a477e95ab02574ebcd00e7ff65cd702ec78
     name: demo-geomapfish
@@ -128,7 +128,7 @@ entries:
   dockerfile-build:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.044031+02:00"
+    created: "2019-08-22T14:52:43.748107479+02:00"
     description: A common chart for openshift builds from a dockerfile
     digest: 13c1dd9846334a38412d5687954df0f153d6925b3c8f565c2bd8b230e937eefb
     name: dockerfile-build
@@ -138,7 +138,7 @@ entries:
   freeipa-proxy-ha:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.044648+02:00"
+    created: "2019-08-22T14:52:43.749455807+02:00"
     description: A Helm chart to deploy an LDAP proxy for HA in OpenShift.
     digest: 8a36d80c18d8dd4580f189eb836cc8adea94b3dec455385999616d5f9eef8100
     name: freeipa-proxy-ha
@@ -148,7 +148,7 @@ entries:
   g10k-webhook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.045796+02:00"
+    created: "2019-08-22T14:52:43.752091906+02:00"
     description: A Helm chart for Kubernetes
     digest: 6f51bd803a20ecdd62972d63d003308a90af09772ecf0520a9f1e82a53c4c03f
     name: g10k-webhook
@@ -157,7 +157,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.045175+02:00"
+    created: "2019-08-22T14:52:43.750872041+02:00"
     description: A Helm chart for Kubernetes
     digest: a86414e3feda25db59d53b5c4cf88814190a4d318a98e99b8b585677a0216022
     name: g10k-webhook
@@ -167,7 +167,7 @@ entries:
   g10k-webhook-build:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.047632+02:00"
+    created: "2019-08-22T14:52:43.755950161+02:00"
     description: A Helm chart for Kubernetes
     digest: 55966ed6130460072106cd98f9e20159af61dc85348fcce8b537d0f8c2a7b3ea
     name: g10k-webhook-build
@@ -176,7 +176,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.047167+02:00"
+    created: "2019-08-22T14:52:43.755004853+02:00"
     description: A Helm chart for Kubernetes
     digest: a8cbdedcfd83cdd8c7710eec3da8e108352ead17dc94921b6a404fe46d163c1a
     name: g10k-webhook-build
@@ -185,7 +185,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.046664+02:00"
+    created: "2019-08-22T14:52:43.754026036+02:00"
     description: A Helm chart for Kubernetes
     digest: 7a18fe909f35cdf4deb89d605c932420bed6762c97a06ded35bb5cf73863603f
     name: g10k-webhook-build
@@ -194,7 +194,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.046291+02:00"
+    created: "2019-08-22T14:52:43.752998754+02:00"
     description: A Helm chart for Kubernetes
     digest: e61ac2d53ee8d70fbc5621f22b4e11e76ef0b4a76a7d6a2ac6d5491a9977ea63
     name: g10k-webhook-build
@@ -204,7 +204,7 @@ entries:
   gitlab-backup:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.051514+02:00"
+    created: "2019-08-22T14:52:43.763644002+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: c9608a987937dff99742e1ab9c05dd60e59ca57354e9bc0115a9b8785056429c
     name: gitlab-backup
@@ -213,7 +213,7 @@ entries:
     version: 0.1.14
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.051023+02:00"
+    created: "2019-08-22T14:52:43.76266379+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 84b8938dbd3b5e455e011c563af06249bf9c5eacdf4240cd9fba8bedf44d448a
     name: gitlab-backup
@@ -222,7 +222,7 @@ entries:
     version: 0.1.13
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.050536+02:00"
+    created: "2019-08-22T14:52:43.761574977+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 584828f4abb1c42ba13729ec28a0a0e052d7021205ab13282c519a9b6e768f62
     name: gitlab-backup
@@ -231,7 +231,7 @@ entries:
     version: 0.1.12
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.050105+02:00"
+    created: "2019-08-22T14:52:43.760494603+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: cfff64b47ad5724756412e2f00f64cd4dacf1801c62a0ffa4fee1d9d00c4c272
     name: gitlab-backup
@@ -240,7 +240,7 @@ entries:
     version: 0.1.11
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.049675+02:00"
+    created: "2019-08-22T14:52:43.759378646+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 76a7540d9e6984393f79a5f47791c8ab30fb07aafe8a1ac98ce71afb8c7834b3
     name: gitlab-backup
@@ -249,7 +249,7 @@ entries:
     version: 0.1.10
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.055294+02:00"
+    created: "2019-08-22T14:52:43.76936352+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 52d5237a51d092b4fe88380752b95fb17316f33563122bf01300eb1cf0c041d2
     name: gitlab-backup
@@ -258,7 +258,7 @@ entries:
     version: 0.1.9
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.054823+02:00"
+    created: "2019-08-22T14:52:43.768756074+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: e4fc5a98b6237ff04054e3d124e25664d9f240176c2906e0377173902083ccfa
     name: gitlab-backup
@@ -267,7 +267,7 @@ entries:
     version: 0.1.8
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.054322+02:00"
+    created: "2019-08-22T14:52:43.768057174+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: f3d825294906ad4304982d23cdf75bb185c253042b17c65ccbe1600f886e57bd
     name: gitlab-backup
@@ -276,7 +276,7 @@ entries:
     version: 0.1.7
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.053814+02:00"
+    created: "2019-08-22T14:52:43.767228658+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: cc0ba59a883947610ab03711bba106bd866718f157676303f06311fe7a87b099
     name: gitlab-backup
@@ -285,7 +285,7 @@ entries:
     version: 0.1.6
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.053315+02:00"
+    created: "2019-08-22T14:52:43.766482098+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 3b9e7847c58eefdbfaf6318bf24e56732f3ebf88c5317d8de314ae6a25a8789f
     name: gitlab-backup
@@ -294,7 +294,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.052779+02:00"
+    created: "2019-08-22T14:52:43.765730694+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: f9ba320fa613e1ff2448be0f1485ca27737283bebe0a667b351afedcf7acdcbb
     name: gitlab-backup
@@ -303,7 +303,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.052288+02:00"
+    created: "2019-08-22T14:52:43.76498727+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: b9cc74e7292b154566ae930e2302917c69b28798177ec87c9dc44a8998a0c2e5
     name: gitlab-backup
@@ -312,7 +312,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.0519+02:00"
+    created: "2019-08-22T14:52:43.764249059+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: f1e63aa6bc321182b8966ee256a0607e3ccb2f771f1a28bfc25a528720ca402d
     name: gitlab-backup
@@ -321,7 +321,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.049233+02:00"
+    created: "2019-08-22T14:52:43.758192781+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 50df24b9d8d7947ee1d9bc1a5351963168f28d44a9576303c6d89bb2720bc044
     name: gitlab-backup
@@ -330,7 +330,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.048743+02:00"
+    created: "2019-08-22T14:52:43.756968025+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 74a0162598ebc1f9ebe49ac3afeaba77b7f762d818144a8413ab432a99966ad2
     name: gitlab-backup
@@ -339,7 +339,7 @@ entries:
     version: 0.1.0
   gitlab-runner:
   - appVersion: 11.8.0
-    created: "2019-08-22T13:55:02.056362+02:00"
+    created: "2019-08-22T14:52:43.771782775+02:00"
     description: GitLab Runner
     digest: baa43fbfbbb4f98ec7e939bbb2c833aefee86c8f90adbce09ac705352ef815e4
     icon: https://gitlab.com/uploads/-/system/project/avatar/250833/runner_logo.png
@@ -360,20 +360,20 @@ entries:
     - https://camptocamp.github.io/charts/gitlab-runner-0.2.0+mr39.tgz
     version: 0.2.0+mr39
   hello-world:
-  - created: "2019-08-22T13:55:02.057498+02:00"
+  - created: "2019-08-22T14:52:43.772462409+02:00"
     digest: 9f679f3de94eb259e10e1ac7ab2ffea6344c85c333bfb2634504517cf52f86e2
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: "2019-08-22T13:55:02.057052+02:00"
+  - created: "2019-08-22T14:52:43.772097128+02:00"
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
     - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
   hello-world-openshift:
-  - created: "2019-08-22T13:55:02.05795+02:00"
+  - created: "2019-08-22T14:52:43.772892271+02:00"
     digest: 7eac4132849902afb983e1c9e9d612962b95ebd34a7e1aaecb4bd67df85ce4e6
     name: hello-world-openshift
     urls:
@@ -382,7 +382,7 @@ entries:
   imagestream:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.058446+02:00"
+    created: "2019-08-22T14:52:43.773311089+02:00"
     description: A Helm chart for Kubernetes
     digest: 9da689c92baa2dc931b2c567b1aefdf8c9f280a6df7e564f126552632c353f5a
     name: imagestream
@@ -392,7 +392,7 @@ entries:
   infra-doc:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.059341+02:00"
+    created: "2019-08-22T14:52:43.774052742+02:00"
     description: A Helm chart for Kubernetes
     digest: c9abd52730cc47a886e3532453c5fac70adffea2f9c84f8768ff7b8686659f72
     name: infra-doc
@@ -400,7 +400,7 @@ entries:
     - https://camptocamp.github.io/charts/infra-doc-0.1.0.tgz
     version: 0.1.0
   mariadb:
-  - created: "2019-08-22T13:55:02.061043+02:00"
+  - created: "2019-08-22T14:52:43.774852687+02:00"
     description: Fast, reliable, scalable, and easy to use open-source relational
       database system. MariaDB Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -425,7 +425,7 @@ entries:
   metrics:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.063085+02:00"
+    created: "2019-08-22T14:52:43.776737492+02:00"
     description: A Helm chart to deploy metrics on Kubernetes
     digest: 12f5c53f5a97383a0d6a677bf87edecb85a92ac9ee1f39b65e64503fb199b836
     name: metrics
@@ -435,7 +435,7 @@ entries:
   nginx-ldapauth-proxy:
   - apiVersion: v1
     appVersion: 1.13.5
-    created: "2019-08-22T13:55:02.063746+02:00"
+    created: "2019-08-22T14:52:43.777407523+02:00"
     description: nginx proxy with ldapauth
     digest: d4087ece370b9fe4d74f02e6d29f6587d42f6a157d54987f7007731fcdc7c0e4
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
@@ -452,7 +452,7 @@ entries:
     - https://camptocamp.github.io/charts/nginx-ldapauth-proxy-0.1.3.tgz
     version: 0.1.3
   nodejs-ex:
-  - created: "2019-08-22T13:55:02.064313+02:00"
+  - created: "2019-08-22T14:52:43.777949241+02:00"
     description: An example Node.js application with no database. For more information
       about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.
     digest: c88b5143ff0a5779d80d0116981aa3dadf080ace428cdac5b38af29bc896ebdd
@@ -469,7 +469,7 @@ entries:
   oauth2-proxy:
   - apiVersion: v1
     appVersion: 3.1.0
-    created: "2019-08-22T13:55:02.066242+02:00"
+    created: "2019-08-22T14:52:43.779530625+02:00"
     description: A reverse proxy that provides authentication with Google, Github
       or other providers
     digest: d53f4e15c762f13d0db9446bc4990fee852732517071b792b0bd286dd306af55
@@ -493,7 +493,7 @@ entries:
     version: 0.13.1
   - apiVersion: v1
     appVersion: 3.1.0
-    created: "2019-08-22T13:55:02.065256+02:00"
+    created: "2019-08-22T14:52:43.778739905+02:00"
     description: A reverse proxy that provides authentication with Google, Github
       or other providers
     digest: ae9a8bfc50bdee74a803538401d51e9961c53774151c45606197581bd80a980f
@@ -518,7 +518,7 @@ entries:
   openshift-acme:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.067596+02:00"
+    created: "2019-08-22T14:52:43.780711462+02:00"
     description: A Helm chart for Openshit ACME (let's encrypt)
     digest: 90a7e8e5ab9e89ad812241179d7dbbd8e5b554ba9f97eb8bf4ae0377ec11d384
     name: openshift-acme
@@ -528,7 +528,7 @@ entries:
   openshift-jenkins:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.077604+02:00"
+    created: "2019-08-22T14:52:43.789161159+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 6735f248f35d335619764e8e5611e356e21c7a50b4c5d850518e70e10e00a227
@@ -538,7 +538,7 @@ entries:
     version: 0.5.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.076087+02:00"
+    created: "2019-08-22T14:52:43.787874242+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 7c209d996c874b097c664f972ab3ac01688cc3e1312b338f553b5b3cd2f09193
@@ -548,7 +548,7 @@ entries:
     version: 0.5.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.074665+02:00"
+    created: "2019-08-22T14:52:43.786574427+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: eaa299842d441ad786534d0c6772dea2f5f4cd5c6d1f4d9a008b547fc90dfb48
@@ -558,7 +558,7 @@ entries:
     version: 0.3.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.071424+02:00"
+    created: "2019-08-22T14:52:43.78529507+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: f79a697c5c6ca2810adafb0f3b95e9c427b978694acccd13a09d20e7cd55826d
@@ -568,7 +568,7 @@ entries:
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.070085+02:00"
+    created: "2019-08-22T14:52:43.783965704+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 0f6c16859bcc9691dc4db4417f62a245582a1eaff1a60cbb2baf0f392397a9d0
@@ -578,7 +578,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.068818+02:00"
+    created: "2019-08-22T14:52:43.782451802+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: dbc34536ca71a6a4103ad4d5e24a9c75381d4e1b59686faa880ff38c56cd345a
@@ -589,7 +589,7 @@ entries:
   openshift-namespaces:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.083865+02:00"
+    created: "2019-08-22T14:52:43.795433611+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 617ae1acb2792ed5bd3cd0a00a8ccd0a706a6401cbeb69823368c0e0d7c8368d
     name: openshift-namespaces
@@ -598,7 +598,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.082611+02:00"
+    created: "2019-08-22T14:52:43.794303334+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 6ad0a206b908850c450ccbbfdc0425110dc2429690881c5ad44cce6cc64f6991
     name: openshift-namespaces
@@ -607,7 +607,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.081382+02:00"
+    created: "2019-08-22T14:52:43.793152261+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: d6a8f2a36e2dc96f4aef5c2001ad05a74a1cc6cc9563882d389ea6d1e167f50e
     name: openshift-namespaces
@@ -616,7 +616,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.080102+02:00"
+    created: "2019-08-22T14:52:43.791845122+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 5d93a034f9a3f14cd40efa0cc9c8b12e6c963b702a91a990d0393809e5aa14e5
     name: openshift-namespaces
@@ -625,7 +625,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.078825+02:00"
+    created: "2019-08-22T14:52:43.790506062+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 098421086f04cb502fbc640cde109e49e5769f8239215e1ad094798acc6a0517
     name: openshift-namespaces
@@ -635,7 +635,7 @@ entries:
   openshift-nexus3:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.087302+02:00"
+    created: "2019-08-22T14:52:43.798790343+02:00"
     description: A Helm chart for Nexus3 on Openshift
     digest: 9df961eff12af24aef560281fe4266bab39a43dbc8eddb0266a6c4d5e8c09498
     name: openshift-nexus3
@@ -644,7 +644,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.085058+02:00"
+    created: "2019-08-22T14:52:43.797452393+02:00"
     description: A Helm chart for Nexus3 on Openshift
     digest: 31507c967500893929b863af23b305faa763cdb97e18e96a2c0dfab889ef34c0
     name: openshift-nexus3
@@ -654,7 +654,7 @@ entries:
   openshift-projects:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.098897+02:00"
+    created: "2019-08-22T14:52:43.809438942+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 89c201b9f771637d205fce7d92dff75ca321d1fab28f48749c0f58141905cd3c
     name: openshift-projects
@@ -663,7 +663,7 @@ entries:
     version: 0.5.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.096879+02:00"
+    created: "2019-08-22T14:52:43.808236074+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 829a20db3c56464b34fade8e1ffc576e86747a6c4640820743a3065370c43aeb
     name: openshift-projects
@@ -672,7 +672,7 @@ entries:
     version: 0.5.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.095762+02:00"
+    created: "2019-08-22T14:52:43.806986919+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 22416a77c9fc342a5b9df0421334480302510135f6c6378006b77327aa4c6a9e
     name: openshift-projects
@@ -681,7 +681,7 @@ entries:
     version: 0.5.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.094629+02:00"
+    created: "2019-08-22T14:52:43.805718216+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: b3072c9630a65d8d7e78857b83cff44be6074fe1d3a18af3fcb64ca957007e42
     name: openshift-projects
@@ -690,7 +690,7 @@ entries:
     version: 0.4.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.093455+02:00"
+    created: "2019-08-22T14:52:43.804524605+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 324ab6220bf810aa739b3c8ee8d8ec2fa60651ab7083d5adbc935481dd6e1da9
     name: openshift-projects
@@ -699,7 +699,7 @@ entries:
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.092312+02:00"
+    created: "2019-08-22T14:52:43.803348395+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 1304bd5a219caec7237de0e4ef13ef89f26366fb8b1c4716a64f37281999c0a8
     name: openshift-projects
@@ -708,7 +708,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.091264+02:00"
+    created: "2019-08-22T14:52:43.802190336+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 0219a4a07f3eced9892db6ea5cc2c4c3d72d6fbe26e80da8d8ee227cc78ea33e
     name: openshift-projects
@@ -717,7 +717,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.090037+02:00"
+    created: "2019-08-22T14:52:43.801055961+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: d90885eecdfb65fd15c224db7169ebaa825bb2a266d08454ebb2a646e0acdf74
     name: openshift-projects
@@ -726,7 +726,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.088654+02:00"
+    created: "2019-08-22T14:52:43.799866058+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 29b6ed44d991576c79780d3eb36bf3b35a25b651497b8c443c097ba63b9242a0
     name: openshift-projects
@@ -736,7 +736,7 @@ entries:
   openshift-rbac:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.106142+02:00"
+    created: "2019-08-22T14:52:43.816700516+02:00"
     description: A Helm chart for Kubernetes
     digest: 505bea985d0f4692bf408b4040d79236f3d79ca875b742243c8358f3e5efc1a0
     name: openshift-rbac
@@ -745,7 +745,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.104808+02:00"
+    created: "2019-08-22T14:52:43.815716231+02:00"
     description: A Helm chart for Kubernetes
     digest: 7b8153b85476e9233f4683e9d0e5a3a655d0ef64fb831796f1f92e9b4acf21f4
     name: openshift-rbac
@@ -754,7 +754,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.103614+02:00"
+    created: "2019-08-22T14:52:43.814754444+02:00"
     description: A Helm chart for Kubernetes
     digest: 849e788b9b63009f0d1e7da0c1b54f6a500f08a034de399a9a9ad32e894c2734
     name: openshift-rbac
@@ -763,7 +763,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.102359+02:00"
+    created: "2019-08-22T14:52:43.813656461+02:00"
     description: A Helm chart for Kubernetes
     digest: 962211ef697ad62abc1b65c95ea810ae8667e13e0ffdaca521e34255e4de3f8f
     name: openshift-rbac
@@ -772,7 +772,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.101179+02:00"
+    created: "2019-08-22T14:52:43.812584605+02:00"
     description: A Helm chart for Kubernetes
     digest: c756d19406a58e275d54288a2dd8dd067ba04676c288fd2189022b3a0d8b6411
     name: openshift-rbac
@@ -781,7 +781,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.100043+02:00"
+    created: "2019-08-22T14:52:43.811319044+02:00"
     description: A Helm chart for Kubernetes
     digest: fff29773656c8a7e8d4ee99f7a0f6f3fceaac900e92b2d13c9fff9a82c2feb78
     name: openshift-rbac
@@ -791,7 +791,7 @@ entries:
   pghoard:
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-08-22T13:55:02.111511+02:00"
+    created: "2019-08-22T14:52:43.820187569+02:00"
     description: A Helm chart for PGHoard
     digest: 916cd52bca65385acb7f6e40fc5e58e79f16884d428478ba6622df4460de588b
     name: pghoard
@@ -800,7 +800,7 @@ entries:
     version: 5.4.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-08-22T13:55:02.110308+02:00"
+    created: "2019-08-22T14:52:43.819854423+02:00"
     description: A Helm chart for PGHoard
     digest: 86d90f9bee9fb2884e865ad97236dc7b60332d08a52f7863bd591b4391e54102
     name: pghoard
@@ -809,7 +809,7 @@ entries:
     version: 5.3.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-08-22T13:55:02.109706+02:00"
+    created: "2019-08-22T14:52:43.819513479+02:00"
     description: A Helm chart for PGHoard
     digest: ab9ede7f38fad1c7ebd9be35486b7cf0b9dcc00dc598560d4805af0396c0e06b
     name: pghoard
@@ -818,7 +818,7 @@ entries:
     version: 5.2.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-08-22T13:55:02.109149+02:00"
+    created: "2019-08-22T14:52:43.819087923+02:00"
     description: A Helm chart for PGHoard
     digest: c0506bec80da106091d087e51ac382b74d4fa5e75f25550c33061be6cb5cc4de
     name: pghoard
@@ -827,7 +827,7 @@ entries:
     version: 5.1.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-08-22T13:55:02.108629+02:00"
+    created: "2019-08-22T14:52:43.818713375+02:00"
     description: A Helm chart for PGHoard
     digest: 3f22e6d049eac59648d6e81b565147bd06ed19e23a928f01b999efa83be59d5c
     name: pghoard
@@ -835,7 +835,7 @@ entries:
     - https://camptocamp.github.io/charts/pghoard-5.0.0.tgz
     version: 5.0.0
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.108123+02:00"
+    created: "2019-08-22T14:52:43.818321887+02:00"
     description: A Helm chart for PGHoard
     digest: 945d6290d5bd93bbde031aba0202656d751b6b68a66f72e6e76ef39abde9389a
     name: pghoard
@@ -843,7 +843,7 @@ entries:
     - https://camptocamp.github.io/charts/pghoard-4.0.0.tgz
     version: 4.0.0
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.107645+02:00"
+    created: "2019-08-22T14:52:43.81793184+02:00"
     description: A Helm chart for PGHoard
     digest: 7f913e9621e4da84c1feb2cbb0df9d35ab7f0ade2525ab75f5d945f399ba7744
     name: pghoard
@@ -851,7 +851,7 @@ entries:
     - https://camptocamp.github.io/charts/pghoard-3.0.0.tgz
     version: 3.0.0
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.107161+02:00"
+    created: "2019-08-22T14:52:43.817522614+02:00"
     description: A Helm chart for PGHoard
     digest: 062fec9547f83cbb4b87a605dd895511b20f536d0da3db6fccc3fe426b5616ce
     name: pghoard
@@ -859,7 +859,7 @@ entries:
     - https://camptocamp.github.io/charts/pghoard-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.106667+02:00"
+    created: "2019-08-22T14:52:43.817155514+02:00"
     description: A Helm chart for PGHoard
     digest: fe4f656b4c6209a4c19a48aafb5c187129c3aa16bdf4d1d9917f4b207c8da568
     name: pghoard
@@ -867,7 +867,7 @@ entries:
     - https://camptocamp.github.io/charts/pghoard-1.0.0.tgz
     version: 1.0.0
   postgresql:
-  - created: "2019-08-22T13:55:02.112417+02:00"
+  - created: "2019-08-22T14:52:43.820869802+02:00"
     description: |
       Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
       Patched version for pvc
@@ -891,7 +891,7 @@ entries:
   prometheus-exporter:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.112956+02:00"
+    created: "2019-08-22T14:52:43.821210699+02:00"
     description: A Helm chart for Kubernetes
     digest: 5d61031b3bc5374f9bdec9284694552e62d111d8f62fd2015e12d1df46b4fa77
     name: prometheus-exporter
@@ -900,7 +900,7 @@ entries:
     version: 0.1.0
   prometheus-jsonpath-exporter:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.11344+02:00"
+    created: "2019-08-22T14:52:43.821620926+02:00"
     description: A Helm chart to deploy prometheus-jsonpath-exporter
     digest: c87e04e94db49e8815f97fd3c964978c67828c44481d7dcc1da1a54072e959c4
     home: https://github.com/project-sunbird/prometheus-jsonpath-exporter
@@ -911,7 +911,7 @@ entries:
   prometheus-operator:
   - apiVersion: v1
     appVersion: 0.31.1
-    created: "2019-08-22T13:55:02.131388+02:00"
+    created: "2019-08-22T14:52:43.846156025+02:00"
     description: Provides easy monitoring definitions for Kubernetes services, and
       deployment and management of Prometheus instances.
     digest: 0336031412fb40454a3f71c4a84c2c41b54919fdb66e710ca2f24550ea192bf6
@@ -935,7 +935,7 @@ entries:
     version: 5.15.1
   - apiVersion: v1
     appVersion: 0.31.1
-    created: "2019-08-22T13:55:02.122488+02:00"
+    created: "2019-08-22T14:52:43.833444681+02:00"
     description: Provides easy monitoring definitions for Kubernetes services, and
       deployment and management of Prometheus instances.
     digest: 5a3d95c654dc4d56f786215d7e6f852e93f05fe07387c062ebbb2bf894b6cbe9
@@ -960,7 +960,7 @@ entries:
   prometheus-puppetdb:
   - apiVersion: v1
     appVersion: 0.10.0
-    created: "2019-08-22T13:55:02.135872+02:00"
+    created: "2019-08-22T14:52:43.850758066+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: 4fb78a0c0b3aae7138e7f43181b80a6047bf5b83b031b96fca4a6b1cbadba2f9
     name: prometheus-puppetdb
@@ -969,7 +969,7 @@ entries:
     version: 3.0.0
   - apiVersion: v1
     appVersion: 0.9.0
-    created: "2019-08-22T13:55:02.135397+02:00"
+    created: "2019-08-22T14:52:43.850329557+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: 97feb02c269146271a2da2b8dd4e94e69984334e6d7439aa4eb493dcd28e2224
     name: prometheus-puppetdb
@@ -978,7 +978,7 @@ entries:
     version: 2.0.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.134897+02:00"
+    created: "2019-08-22T14:52:43.849892873+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: e013bffc70f89388237b51786e08cf4e16ca5dd95bcdeeaffc628f44be65da1d
     name: prometheus-puppetdb
@@ -987,16 +987,26 @@ entries:
     version: 1.0.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.133038+02:00"
+    created: "2019-08-22T14:52:43.847998423+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: f4d10a179eb8d988cf21337108671abf24aca0e2646d1626eda1041c8d34dc3a
     name: prometheus-puppetdb
     urls:
     - https://camptocamp.github.io/charts/prometheus-puppetdb-1.0.0.tgz
     version: 1.0.0
+  prometheus-puppetdb-sd:
+  - apiVersion: v1
+    appVersion: 0.11.0
+    created: "2019-08-22T14:52:43.851102176+02:00"
+    description: A Helm chart for Prometheus PuppetDB SD
+    digest: 93a5e94d164e0e3fd4f177cee4939cc7ed86c968f26a02d324ac1ccb0bcb5b75
+    name: prometheus-puppetdb-sd
+    urls:
+    - https://camptocamp.github.io/charts/prometheus-puppetdb-sd-4.0.0.tgz
+    version: 4.0.0
   puppet:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.140162+02:00"
+    created: "2019-08-22T14:52:43.854890639+02:00"
     description: A Helm chart for Puppet
     digest: b92d5f07955d52207b6b9dbd48747141225abb0828a1ee39818357c049136d0e
     name: puppet
@@ -1004,7 +1014,7 @@ entries:
     - https://camptocamp.github.io/charts/puppet-2.1.1.tgz
     version: 2.1.1
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.139421+02:00"
+    created: "2019-08-22T14:52:43.854042513+02:00"
     description: A Helm chart for Puppet
     digest: dc879f6f531381306678899d8b39f030a1662b1ac00c59e5c4b72bf85c507e9e
     name: puppet
@@ -1012,7 +1022,7 @@ entries:
     - https://camptocamp.github.io/charts/puppet-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.138777+02:00"
+    created: "2019-08-22T14:52:43.853298547+02:00"
     description: A Helm chart for Puppet
     digest: 606c91341de9f31d001cd652c368a3f3c832b17342d00ebcfdff5eab4e2dcbe2
     name: puppet
@@ -1020,7 +1030,7 @@ entries:
     - https://camptocamp.github.io/charts/puppet-2.0.1.tgz
     version: 2.0.1
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.138117+02:00"
+    created: "2019-08-22T14:52:43.85260431+02:00"
     description: A Helm chart for Puppet
     digest: 43a974127c17a27572deb7a84660d8e1212e2a286e598a643bfd477653e324e5
     name: puppet
@@ -1028,7 +1038,7 @@ entries:
     - https://camptocamp.github.io/charts/puppet-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.136568+02:00"
+    created: "2019-08-22T14:52:43.851880702+02:00"
     description: A Helm chart for Puppet
     digest: 1b9edbe5a7f9eb0fd74f0abc48ee7e41a7787bb8031c3ba6958c37965684eb16
     name: puppet
@@ -1037,7 +1047,7 @@ entries:
     version: 1.0.0
   puppet-openshift:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.140859+02:00"
+    created: "2019-08-22T14:52:43.85565612+02:00"
     description: A Helm chart for Puppet on OpenShift
     digest: a3aa46acdcf8087ab4ddc4889a76af539dcb7c6595e20753a196282bd269997d
     name: puppet-openshift
@@ -1047,7 +1057,7 @@ entries:
   puppetboard:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.144085+02:00"
+    created: "2019-08-22T14:52:43.858606448+02:00"
     description: A Helm chart for Kubernetes
     digest: 764a23e2405def25590fbaa3f9964f90c3fe3ed5e1ae122490e960eb0fc0db26
     name: puppetboard
@@ -1056,7 +1066,7 @@ entries:
     version: 0.2.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.143572+02:00"
+    created: "2019-08-22T14:52:43.858130647+02:00"
     description: A Helm chart for Kubernetes
     digest: 18d250f3428492b48b70d38ac5cde2941a8cae2bf9a53da8b3e1f9ba216da3a1
     name: puppetboard
@@ -1065,7 +1075,7 @@ entries:
     version: 0.2.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.143052+02:00"
+    created: "2019-08-22T14:52:43.857629275+02:00"
     description: A Helm chart for Kubernetes
     digest: 2adf78d20f8c911b1030a76bf800e62c65e9c48de5f452fe872db79a97f635ec
     name: puppetboard
@@ -1074,7 +1084,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.142499+02:00"
+    created: "2019-08-22T14:52:43.857141136+02:00"
     description: A Helm chart for Kubernetes
     digest: 5fb6671bd9063f0b18b0fc64d37c993148ecdbd2fb515852853904d3aeaf14b0
     name: puppetboard
@@ -1083,7 +1093,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.141909+02:00"
+    created: "2019-08-22T14:52:43.856649895+02:00"
     description: A Helm chart for Kubernetes
     digest: aa18643fdb4e6a11f3e0768ce6e1fc8655466072c4b921db7c14000e25413dd1
     name: puppetboard
@@ -1092,7 +1102,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.141402+02:00"
+    created: "2019-08-22T14:52:43.856143301+02:00"
     description: A Helm chart for Kubernetes
     digest: 386a2561d2f9c0f9e4810d0b4437e0d2447de5fe807a8a2635d95a7b9b91f6f2
     name: puppetboard
@@ -1102,7 +1112,7 @@ entries:
   puppetdb:
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-08-22T13:55:02.148369+02:00"
+    created: "2019-08-22T14:52:43.862090265+02:00"
     description: A Helm chart for PuppetDB
     digest: 9ccfce1e852511d3387f73646a8879dd71d74579246e6e431d09f90fdda80de8
     name: puppetdb
@@ -1111,7 +1121,7 @@ entries:
     version: 0.4.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-08-22T13:55:02.147183+02:00"
+    created: "2019-08-22T14:52:43.861719375+02:00"
     description: A Helm chart for PuppetDB
     digest: d6b96ba9d35d4e4cebf98f3cd11455f5ddf05b9af517adc0227713c7609e0d49
     name: puppetdb
@@ -1120,7 +1130,7 @@ entries:
     version: 0.4.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-08-22T13:55:02.146641+02:00"
+    created: "2019-08-22T14:52:43.86128858+02:00"
     description: A Helm chart for PuppetDB
     digest: a391ea709b9464ebb10ecd046e20cbc89edecdf3fc09169f0378f28a9ab06d4a
     name: puppetdb
@@ -1129,7 +1139,7 @@ entries:
     version: 0.3.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-08-22T13:55:02.146158+02:00"
+    created: "2019-08-22T14:52:43.860587989+02:00"
     description: A Helm chart for PuppetDB
     digest: 4285728d068fe9d6244b1a1b9145ea6de514fb5152e6e97089e223c24572ffa7
     name: puppetdb
@@ -1138,7 +1148,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-08-22T13:55:02.145657+02:00"
+    created: "2019-08-22T14:52:43.859730291+02:00"
     description: A Helm chart for PuppetDB
     digest: 928f46412d88a41e39457c003dbc60c45a27ba791d96ddd4a406fda30a3f5449
     name: puppetdb
@@ -1147,7 +1157,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-08-22T13:55:02.145179+02:00"
+    created: "2019-08-22T14:52:43.859354185+02:00"
     description: A Helm chart for PuppetDB
     digest: 2a4f6fa36ab4e93175647efa2a921195d6d921b5345388f30f9168bbc132870d
     name: puppetdb
@@ -1156,7 +1166,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.144616+02:00"
+    created: "2019-08-22T14:52:43.858974176+02:00"
     description: A Helm chart for Kubernetes
     digest: 57c1319fb735cd15e10c22cb8aad04f64f2db49b7d00eee4343382e6083eafae
     name: puppetdb
@@ -1166,7 +1176,7 @@ entries:
   puppetserver:
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.15485+02:00"
+    created: "2019-08-22T14:52:43.866241134+02:00"
     description: A Helm chart for Kubernetes
     digest: 25844a16483210aa10b52dc05b28213c63364c0a07cbec0b146bd3e914a4ab18
     name: puppetserver
@@ -1175,7 +1185,7 @@ entries:
     version: 0.3.0
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.153842+02:00"
+    created: "2019-08-22T14:52:43.865765728+02:00"
     description: A Helm chart for Kubernetes
     digest: 3184672d8c02f482bdad5fa9ec034ea69184faa3ab082d0fa77d28c1f422e7c2
     name: puppetserver
@@ -1184,7 +1194,7 @@ entries:
     version: 0.2.2
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.152939+02:00"
+    created: "2019-08-22T14:52:43.865289628+02:00"
     description: A Helm chart for Kubernetes
     digest: fa5851e7b5ef864d73eecf61203303070153062540047d9f6538cbb5ed65a5f4
     name: puppetserver
@@ -1193,7 +1203,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.152079+02:00"
+    created: "2019-08-22T14:52:43.864825761+02:00"
     description: A Helm chart for Kubernetes
     digest: a6f5043d0bbc15ca05de3478c1965c032eb74ac97be851b8d4758fa7e542aac6
     name: puppetserver
@@ -1202,7 +1212,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.151515+02:00"
+    created: "2019-08-22T14:52:43.864412164+02:00"
     description: A Helm chart for Kubernetes
     digest: 6d2b6aeb2f7094034f9fc9bc8428440c25e9af5b7bb05a23321b9e48612e5e87
     name: puppetserver
@@ -1211,7 +1221,7 @@ entries:
     version: 0.1.6
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.151022+02:00"
+    created: "2019-08-22T14:52:43.86400205+02:00"
     description: A Helm chart for Kubernetes
     digest: 333de4e31a67b7bf8eb31f35b8e3bf438937c0afe89212ae8731ab01863c4f49
     name: puppetserver
@@ -1220,7 +1230,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.150428+02:00"
+    created: "2019-08-22T14:52:43.863635996+02:00"
     description: A Helm chart for Kubernetes
     digest: ad689bdc9c32cd9d3ea565da83449e9f2fdf073a5cab32b1223c96ad48edf244
     name: puppetserver
@@ -1229,7 +1239,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.149888+02:00"
+    created: "2019-08-22T14:52:43.863244667+02:00"
     description: A Helm chart for Kubernetes
     digest: fa67c43834c6ffe3d1462f62805b7adda229e894be53b093104e9d0100b9494d
     name: puppetserver
@@ -1238,7 +1248,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-08-22T13:55:02.149354+02:00"
+    created: "2019-08-22T14:52:43.862856829+02:00"
     description: A Helm chart for Kubernetes
     digest: 67058a4fc45aff81081f7fd3e8ed612d8167419a3ee5b5526927ecce17ce4960
     name: puppetserver
@@ -1247,7 +1257,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.148869+02:00"
+    created: "2019-08-22T14:52:43.862454808+02:00"
     description: A Helm chart for Kubernetes
     digest: a5b1e47da5d2d8ab3323caa93cafd2ac62a8539fc739c3da01acf40df41f2843
     name: puppetserver
@@ -1257,7 +1267,7 @@ entries:
   puppetserver-build:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.155361+02:00"
+    created: "2019-08-22T14:52:43.866547801+02:00"
     description: A Helm chart for Kubernetes
     digest: ee7db4920a3b9360dc21afcec1fef7c4cebefca00f447a4d8c8d5776b3ac7033
     name: puppetserver-build
@@ -1267,7 +1277,7 @@ entries:
   pushprox:
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-08-22T13:55:02.158558+02:00"
+    created: "2019-08-22T14:52:43.868440108+02:00"
     description: A Helm chart for Pushprox
     digest: e919752966ed39e340ed3a255df5d75f9508c3cc0eace350960239d47354febe
     name: pushprox
@@ -1276,7 +1286,7 @@ entries:
     version: 0.2.1
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-08-22T13:55:02.158016+02:00"
+    created: "2019-08-22T14:52:43.868039399+02:00"
     description: A Helm chart for Pushprox
     digest: 808f351874175cb74fe4a10defc6988ec192fbede29ad383e4976a7047bd6272
     name: pushprox
@@ -1285,7 +1295,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-08-22T13:55:02.157385+02:00"
+    created: "2019-08-22T14:52:43.867652056+02:00"
     description: A Helm chart for Pushprox
     digest: 3267a2569f50d99986429920b7760116d15623de18757670a135f634c794be97
     name: pushprox
@@ -1294,7 +1304,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-08-22T13:55:02.156748+02:00"
+    created: "2019-08-22T14:52:43.867291563+02:00"
     description: A Helm chart for Pushprox
     digest: 39f07651a74158293fb144db3fa476f03ee24c31b2d219c810be282b6ad30ba3
     name: pushprox
@@ -1303,7 +1313,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-08-22T13:55:02.156168+02:00"
+    created: "2019-08-22T14:52:43.86691853+02:00"
     description: A Helm chart for Pushprox
     digest: fcb740be24b796bb9b13df0120a1af31f94934f7e733f738f326066ca3e7e1dd
     name: pushprox
@@ -1313,7 +1323,7 @@ entries:
   r10k-webhook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.159192+02:00"
+    created: "2019-08-22T14:52:43.868829418+02:00"
     description: A Helm chart for Kubernetes
     digest: 7cad73aa2dd1f2abf79528f58941446313df9e31f39b382eec0ce54288031037
     name: r10k-webhook
@@ -1322,7 +1332,7 @@ entries:
     version: 0.1.2
   redisoperator:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.159827+02:00"
+    created: "2019-08-22T14:52:43.869157424+02:00"
     description: A Helm chart for the Spotahome Redis Operator
     digest: 2b52e4dd97a84074480628a2b0332b72600a97ac88789213fb76f9cc48028924
     name: redisoperator
@@ -1331,7 +1341,7 @@ entries:
     version: 3.0.1
   ruby-ex:
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.165172+02:00"
+    created: "2019-08-22T14:52:43.872679734+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 5be2d09793872078fd28c7b6374551c78ce6d560ce80cfd36194e24fa9825fea
     name: ruby-ex
@@ -1339,7 +1349,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.16.tgz
     version: 0.0.16
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.164724+02:00"
+    created: "2019-08-22T14:52:43.872325758+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: c04552bd93073b06413518ce28d20827d7c58e465927e09017d35821023e73bf
     name: ruby-ex
@@ -1347,7 +1357,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.15.tgz
     version: 0.0.15
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.164164+02:00"
+    created: "2019-08-22T14:52:43.871892032+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 921b2ea1a28e4b29724953c80069aa441e7551a3e588a8a5066f36857fe4f5cc
     name: ruby-ex
@@ -1355,7 +1365,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.14.tgz
     version: 0.0.14
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.163645+02:00"
+    created: "2019-08-22T14:52:43.871545121+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: b9ebdd80c84bf765c7a813fb5a77690ac41318ecd880654cffc4f2d456f96fd0
     name: ruby-ex
@@ -1363,7 +1373,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.13.tgz
     version: 0.0.13
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.163044+02:00"
+    created: "2019-08-22T14:52:43.87114174+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: c51173e5922ed173048afde28f2060e409c80cad1d4c9a929019c1dc0b5389b3
     name: ruby-ex
@@ -1371,7 +1381,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.12.tgz
     version: 0.0.12
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.162387+02:00"
+    created: "2019-08-22T14:52:43.870364379+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: d9fec495b92c708cc35de12ae2ecbb3f212f85c14d5074ddcd6c3798ba4a0559
     name: ruby-ex
@@ -1379,7 +1389,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.11.tgz
     version: 0.0.11
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.16089+02:00"
+    created: "2019-08-22T14:52:43.869842708+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 07e13dfe2e0b0eafb41db0158417cf6eeb8247c312c48b066a1d690b959bee56
     name: ruby-ex
@@ -1387,7 +1397,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.10.tgz
     version: 0.0.10
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.169465+02:00"
+    created: "2019-08-22T14:52:43.875355915+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: f7686d88b920429d431294d08f4a798bc51a6bae070a1069e4626917bcd20b3a
     name: ruby-ex
@@ -1395,7 +1405,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.9.tgz
     version: 0.0.9
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.168983+02:00"
+    created: "2019-08-22T14:52:43.875032662+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 156aba80d226b01ea232e18097afc2ebddf66f9d394c4a11368bc37683e3b34b
     name: ruby-ex
@@ -1403,7 +1413,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.8.tgz
     version: 0.0.8
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.168509+02:00"
+    created: "2019-08-22T14:52:43.874736644+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 2f182c5a607895ab0cc8627af394ae695ab46959496bab96837d413320ecbaaf
     name: ruby-ex
@@ -1411,7 +1421,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.7.tgz
     version: 0.0.7
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.168073+02:00"
+    created: "2019-08-22T14:52:43.874404783+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 342dbf19002bb019bb4815b5d5b8243c18150cce616e0a4b5f258ef93b50aebd
     name: ruby-ex
@@ -1419,7 +1429,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.6.tgz
     version: 0.0.6
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.167183+02:00"
+    created: "2019-08-22T14:52:43.874062575+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: f0f8e99d2dcdc855cffd7cd3308eb267ba4aa57cae00fa48402c22b601354b1d
     name: ruby-ex
@@ -1427,7 +1437,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.5.tgz
     version: 0.0.5
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.16672+02:00"
+    created: "2019-08-22T14:52:43.87372725+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 03a01d6436839b19518688f69dd66853463c5bf21bd832b84cc9ee4948ab49da
     name: ruby-ex
@@ -1435,7 +1445,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.4.tgz
     version: 0.0.4
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.166263+02:00"
+    created: "2019-08-22T14:52:43.873358795+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 9898891aa16aec9d46ee20950b1e21afad87a241827451332300c8b23276c0cf
     name: ruby-ex
@@ -1443,7 +1453,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.165819+02:00"
+    created: "2019-08-22T14:52:43.873020465+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: b96879594f16c47cd0afa58b8f2135cfd01b6815e8fe6a95424a43d174b1e774
     name: ruby-ex
@@ -1451,7 +1461,7 @@ entries:
     - https://camptocamp.github.io/charts/ruby-ex-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v1
-    created: "2019-08-22T13:55:02.160338+02:00"
+    created: "2019-08-22T14:52:43.869500594+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 19b67a445f4bccc71d6602a5293c3e3e213e92519cb3266af41fd1754528636f
     name: ruby-ex
@@ -1461,7 +1471,7 @@ entries:
   s3-exporter:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.17661+02:00"
+    created: "2019-08-22T14:52:43.879000591+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: b44f7297e4d30ca784f170d729dc838004fb19a12a7aaa569e93b50cdbd76130
@@ -1472,7 +1482,7 @@ entries:
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.175334+02:00"
+    created: "2019-08-22T14:52:43.878655454+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: aee4f176b1942fa78a688aa277461359653da2a3becc5d512d1dd3b9f6e0c7f1
@@ -1483,7 +1493,7 @@ entries:
     version: 0.1.9
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.17453+02:00"
+    created: "2019-08-22T14:52:43.878301387+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 843c772700b103db53b82b1a1e8b4ed1ad9887107c1120bfeff7d8a023ad6652
@@ -1494,7 +1504,7 @@ entries:
     version: 0.1.8
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.173822+02:00"
+    created: "2019-08-22T14:52:43.877946707+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 97b7bec8c8791161b49b6db297da66ca4334dcb4e1099944897adbb5d0d3a082
@@ -1505,7 +1515,7 @@ entries:
     version: 0.1.7
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.173202+02:00"
+    created: "2019-08-22T14:52:43.877593921+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 0cc215076298f939bdf576b0633bdb02b649da7a5083950f35950faa10ddc59e
@@ -1516,7 +1526,7 @@ entries:
     version: 0.1.6
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.172548+02:00"
+    created: "2019-08-22T14:52:43.877242057+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 73cf1997a58f8f105662e6dfcaaa137231d81956354e56a751d75206c8c04b5c
@@ -1527,7 +1537,7 @@ entries:
     version: 0.1.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.171925+02:00"
+    created: "2019-08-22T14:52:43.876878492+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 0cb7f300967de7a7399e49800b1f739cd62283f34548728a8e7d315660c413be
@@ -1538,7 +1548,7 @@ entries:
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.171375+02:00"
+    created: "2019-08-22T14:52:43.876471495+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: b1f209bd7a679f59191736245016438b8bfeee142bcd9fa26eabc9563365ba5a
@@ -1549,7 +1559,7 @@ entries:
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.170807+02:00"
+    created: "2019-08-22T14:52:43.876083993+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 011caa7d4d4cede13c8195f62c7d0c529adc4e6ce128ef182c00bd75fdcf720a
@@ -1560,7 +1570,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.170071+02:00"
+    created: "2019-08-22T14:52:43.875722307+02:00"
     description: A Helm chart for Kubernetes
     digest: d804c118a295858c527c90fc00079b94bc852564136c2b9e6391cd68bffd13db
     name: s3-exporter
@@ -1570,7 +1580,7 @@ entries:
   secret:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.177502+02:00"
+    created: "2019-08-22T14:52:43.879779122+02:00"
     description: A Helm chart for Kubernetes
     digest: 0726614d6e8dddd343d0ac5732e4991fe8987acf728fd469f010765eb0aca4df
     name: secret
@@ -1580,7 +1590,7 @@ entries:
   subscription:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.178933+02:00"
+    created: "2019-08-22T14:52:43.881273336+02:00"
     description: A Helm chart for Kubernetes
     digest: 02b2861b4877793e2292c460a4eceaba1d2aeddc6e0e5f9df2c01594a00ea7b9
     name: subscription
@@ -1589,7 +1599,7 @@ entries:
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.178541+02:00"
+    created: "2019-08-22T14:52:43.880961602+02:00"
     description: A Helm chart for Kubernetes
     digest: dc9e670cccf17bc1c65206b91c69bf49f0f937cb760d18a102cba6c2fa7e506d
     name: subscription
@@ -1598,7 +1608,7 @@ entries:
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.178078+02:00"
+    created: "2019-08-22T14:52:43.880575674+02:00"
     description: A Helm chart for Kubernetes
     digest: 6484014c70b7da934c0d974f027f26baaecd753efc3e7d54e88777a11040d3a2
     name: subscription
@@ -1608,7 +1618,7 @@ entries:
   terraboard:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-08-22T13:55:02.179491+02:00"
+    created: "2019-08-22T14:52:43.881680634+02:00"
     description: A Helm chart for Kubernetes
     digest: 6b9725eece21e0b821103113317d95a629278b516470264b8f778d9b1ce2881b
     name: terraboard
@@ -1617,7 +1627,7 @@ entries:
     version: 0.1.0
   wordpress:
   - appVersion: 4.8.1
-    created: "2019-08-22T13:55:02.180906+02:00"
+    created: "2019-08-22T14:52:43.882679763+02:00"
     description: Web publishing platform for building blogs and websites.
     digest: b4e970d4b6c76912c65ce03979c635dc46cd01908cadcc7230c53a98a87697a3
     engine: gotpl
@@ -1640,4 +1650,4 @@ entries:
     urls:
     - https://camptocamp.github.io/charts/wordpress-0.6.10.tgz
     version: 0.6.10
-generated: "2019-08-22T13:55:02.035873+02:00"
+generated: "2019-08-22T14:52:43.681453419+02:00"
