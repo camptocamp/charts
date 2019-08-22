@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "prometheus-puppetdb-sd.fullname" $ }}
+  labels:
+    {{- include "prometheus-puppetdb-sd.labels" $ | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "prometheus-puppetdb-sd.selector" $ | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "prometheus-puppetdb-sd.labels" $ | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "prometheus-puppetdb-sd.fullname" $ }}
+      containers:
+        - name: {{ $.Chart.Name }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          args:
+          {{- range $key, $value := $.Values.prometheusPuppetdbSd.args }}
+            - --{{ $key }}={{ $value }}
+          {{- end }}
+          {{- if and $.Values.CACert $.Values.Cert $.Values.Key }}
+            - --puppetdb.cert-file=certs/client.pem
+            - --puppetdb.key-file=certs/client.key
+            - --puppetdb.cacert-file=certs/cacert.pem
+          {{- end }}
+        {{- if $.Values.prometheusPuppetdbSd.env }}
+          env:
+            {{- toYaml $.Values.prometheusPuppetdbSd.env | nindent 10 }}
+        {{- end }}
+        {{- if and $.Values.CACert $.Values.Cert $.Values.Key }}
+          volumeMounts:
+          - name: certs
+            mountPath: /certs
+            readOnly: true
+        {{- end }}
+          resources:
+            {{- toYaml $.Values.resources | nindent 12 }}
+    {{- with $.Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with $.Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with $.Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- if and $.Values.CACert $.Values.Cert $.Values.Key }}
+      volumes:
+      - name: certs
+        secret:
+          secretName: {{ include "prometheus-puppetdb-sd.fullname" $ }}
+    {{- end }}
