@@ -1,0 +1,58 @@
+# # Git source definition to be build with a s2i image
+source: {}
+# source:
+#   uri: __GIT_URI__
+#   ref: __GIT_BRANCH__
+#   secretName: __GIT_SECRET__
+#   # Location of your Dockerfile and context
+#   contextDir: mydir
+
+build:
+#   # This is only needed if you pull from docker registry
+#   # If you use an imagestream as input, no need to force pull.
+#   forcePull: true
+#   # Pull secret
+#   # This is only needed if you pull from docker registry
+#   # If you use an imagestream as input, creds should not be needed
+#   pullSecret: mysecret
+
+#   # Location of your Dockerfile wuth default context (root of project)
+#   dockerfilePath: FibreManagement/Dockerfile
+
+#   # Caution, this input imageStream must exist.
+# # As it can be used for multiple builds, first check if it exists.
+# # Use the import-image chart if you need to import images
+# #
+# # This imagestream will be triggered for changes.
+# # You will find a .parent-images directory in your repo for change tracking.
+#   input:
+#     kind: ImageStreamTag
+#     namespace: __FROM_IS_NAMESPACE__
+#     name: __FROM_IS_NAME__:__FROM_IS_TAG__
+
+  output:
+    privateImage:
+      repository: __PRIVATE_REPO_NAME__
+      org: __PRIVATE_REPO_ORG__
+      name: __PRIVATE_IMAGE_NAME__
+      tag: __PRIVATE_IMAGE_TAG__
+    imageStream:
+      namespace: __IS_NAMESPACE__
+      name: __IS_NAME__
+      tag: __IS_TAG__
+
+# # The imagestream defined in input will be triggered for changes
+# # but has the limitation that only one image can be defined as input.
+# # 
+# # Here you can define additional images here in case you have a build with
+# # multiple input images
+#   imageChangeCommits:
+#     - kind: ImageStreamTag
+#       namespace: __FROM_IS_NAMESPACE__
+#       name: __FROM_IS_NAME__:__FROM_IS_TAG_
+#     - kind: ImageStreamTag
+#       namespace: __FROM_IS_NAMESPACE__
+#       name: __FROM_IS_NAME__:__FROM_IS_TAG_
+
+
+

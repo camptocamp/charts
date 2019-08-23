@@ -1,0 +1,34 @@
+{{- $root := . -}}
+{{- range .Values.build.imageChangeCommits }}
+{{- $imageChangeCommit := . }}
+---
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  name: "commit-{{ $root.Release.Name }}-{{ $imageChangeCommit.name | replace ":" "-" }}"
+  annotations:
+    description: Watch for changes in imageStream and push a spec file in source repo
+  labels:
+{{ include "common.labels.standard" $root | indent 4 }}
+spec:
+  source:
+    secrets:
+      - secret:
+          name: {{ $root.Values.source.secretName | quote}}
+    type: None
+  strategy:
+    type: Custom
+    customStrategy:
+      from:
+        kind: ImageStreamTag
+        name: parent-image-updater:latest
+        namespace: {{ $root.Release.Namespace }}
+      env:
+      - name: CI_REPOSITORIES
+        value: {{ $root.Values.source.uri | quote}}
+  triggers:
+  - type: ImageChange
+    imageChange:
+      from:
+{{    toYaml $imageChangeCommit | indent 8 }}
+{{- end }}

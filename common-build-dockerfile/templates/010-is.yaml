@@ -1,0 +1,19 @@
+
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: {{ .Values.build.output.imageStream.name | quote }}
+  labels:
+{{ include "common.labels.standard" . | indent 4 }}
+spec:
+  lookupPolicy:
+    local: false
+  tags:
+  - from:
+      kind: DockerImage
+      name: "{{ .Values.build.output.privateImage.repository }}/{{ .Values.build.output.privateImage.org }}/{{ .Values.build.output.privateImage.name }}"
+    name: "{{ .Values.build.output.privateImage.tag }}"
+    referencePolicy:
+      type: Source
+    importPolicy:
+      scheduled: true
