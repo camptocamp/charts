@@ -12,6 +12,6 @@ Get the token of your services accounts with these commands:
     select(.metadata.annotations.\"kubernetes.io/created-by\" != \"openshift.io/create-dockercfg-secrets\") |
     select(.metadata.name | contains (\"${SERVICE_ACCOUNT}-token\")) |
     .data.token
-  "
+  " | base64 -d
 {{-   end }}
 {{- end }}
