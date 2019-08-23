@@ -15,6 +15,9 @@ build:
 #   # This is only needed if you pull from docker registry
 #   # If you use an imagestream as input, creds should not be needed
 #   pullSecret: mysecret
+#   # commit: add commit builds and is for remote image updates management
+#   commit:
+#     enabled: true
 
 #   # Location of your Dockerfile wuth default context (root of project)
 #   dockerfilePath: FibreManagement/Dockerfile

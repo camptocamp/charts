@@ -1,4 +1,4 @@
-{{- if or .Values.build.input }}
+{{- if and .Values.build.input .Values.build.commit.enabled }}
 ---
 kind: BuildConfig
 apiVersion: build.openshift.io/v1
