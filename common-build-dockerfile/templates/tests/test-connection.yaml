@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "common-build-dockerfile.fullname" . }}-test-connection"
+  labels:
+{{ include "common-build-dockerfile.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "common-build-dockerfile.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
