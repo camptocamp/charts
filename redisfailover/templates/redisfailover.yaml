@@ -1,0 +1,19 @@
+apiVersion: databases.spotahome.com/v1
+kind: RedisFailover
+metadata:
+  name: {{ .Values.name }}
+  labels:
+{{  include "common.labels.standard" . | indent 4 }}
+spec:
+  redis:
+    replicas: {{ .Values.redis.replicas }}
+{{- with .Values.redis.resources }}
+    resources:
+{{    toYaml . | indent 6 }}
+{{- end }}
+  sentinel:
+    replicas: {{ .Values.sentinel.replicas }}
+{{- with .Values.sentinel.resources }}
+    resources:
+{{    toYaml . | indent 6 }}
+{{- end }}
