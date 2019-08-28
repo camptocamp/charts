@@ -12,9 +12,6 @@ metadata:
 {{ include "common.labels.standard" $root | indent 4 }}
 spec:
   source:
-    secrets:
-      - secret:
-          name: {{ $root.Values.source.secretName | quote}}
     type: None
   strategy:
     type: Custom
