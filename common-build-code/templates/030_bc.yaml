@@ -12,8 +12,10 @@ spec:
     git:
       uri: {{ .Values.source.uri | quote }}
       ref: {{ .Values.source.ref | quote }}
+{{-   with .Values.source.secretName }}
     sourceSecret:
-      name: {{ .Values.source.secretName | quote }}
+      name: {{ . | quote }}
+{{-   end }}
     contextDir: {{ .Values.source.contextDir | default "" | quote }}
   strategy:
     type: Source
