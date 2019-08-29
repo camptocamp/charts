@@ -2,7 +2,7 @@
 source:
   uri: __GIT_URI__
   ref: __GIT_BRANCH__
-  secretName: __GIT_SECRET__
+  # secretName: __GIT_SECRET__
 
 build:
   # Caution, this input imageStream must exist.
