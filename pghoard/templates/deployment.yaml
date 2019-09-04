@@ -36,6 +36,7 @@ spec:
               containerPort: 16000
               protocol: TCP
           livenessProbe:
+            initialDelaySeconds: 300
             httpGet:
               path: /status
               port: http
