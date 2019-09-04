@@ -4,7 +4,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: ClusterServiceVersion
 metadata:
   name: prometheusoperator.0.27.0
-  namespace: placeholder
+  namespace: {{ $.Release.Namespace | quote }}
   annotations:
     capabilities: Seamless Upgrades
     categories: Monitoring
