@@ -10,7 +10,7 @@ metadata:
 {{- range $name, $value := $networkPolicy.labels }}
     {{ $name }}: {{ $value }}
 {{- end }}
-{{-   with $networkPolicy.rule }}
+{{-   with $networkPolicy.rules }}
 rules:
 {{   toYaml . }}
 {{-   end }}
