@@ -1,0 +1,17 @@
+{{ $root := . }}
+{{- range $networkPolicy := .Values.networkPolicies }}
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: {{ $networkPolicy.name }}
+  labels:
+{{ include "common.labels.standard" $root | indent 4 }}
+{{- range $name, $value := $networkPolicy.labels }}
+    {{ $name }}: {{ $value }}
+{{- end }}
+{{-   with $networkPolicy.rule }}
+rules:
+{{   toYaml . }}
+{{-   end }}
+{{- end }}
