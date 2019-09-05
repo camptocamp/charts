@@ -1,0 +1,13 @@
+networkPolicies: {}
+  #- name: my-policy
+  #  labels:
+  #    test: label
+  #  rules:
+  #    ingress:
+  #      - from:
+  #        - namespaceSelector:
+  #            matchLabels:
+  #              pod.network.openshift.io/legacy-netid: "0"
+  #    podSelector: {}
+  #    policyTypes:
+  #    - Ingress
