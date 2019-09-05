@@ -11,7 +11,7 @@ metadata:
     {{ $name }}: {{ $value }}
 {{- end }}
 {{-   with $networkPolicy.rules }}
-rules:
+spec:
 {{   toYaml . | indent 2 }}
 {{-   end }}
 {{- end }}
