@@ -12,6 +12,6 @@ metadata:
 {{- end }}
 {{-   with $networkPolicy.rules }}
 rules:
-{{   toYaml . }}
+{{   toYaml . | indent 2 }}
 {{-   end }}
 {{- end }}
