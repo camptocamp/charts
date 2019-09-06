@@ -44,6 +44,7 @@
 #       This is my cicd Project
 #     deployTiller: true
 #     deployAnyUidServiceAccount: true
+#     defaultNetworkPoliciesEnable: true
 #     tillerLimits:
 #       cpu: 0.1
 #       memory: 128MB
@@ -61,6 +62,7 @@
 #       This is my first Project
 #     deployTiller: true
 #     deployAnyUidServiceAccount: true
+#     defaultNetworkPoliciesEnable: false
 #     helmAccess:
 #       - ServiceAccountNamespace: my_cicd_project
 #         ServiceAccountName: jenkins
@@ -87,6 +89,7 @@
 #       This is my first Project
 #     deployTiller: true
 #     deployAnyUidServiceAccount: true
+#     defaultNetworkPoliciesEnable: true
 #     helmAccess:
 #       - ServiceAccountNamespace: my_cicd_project
 #         ServiceAccountName: jenkins
