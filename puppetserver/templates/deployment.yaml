@@ -36,6 +36,12 @@ spec:
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
               name: gnupgdir
       containers:
+        - name: {{ .Chart.Name }}-exporter
+          image: prom/graphite-exporter:v0.6.2
+          ports:
+            - name: metrics
+              containerPort: 9108
+              protocol: TCP
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -97,6 +103,9 @@ spec:
             - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
               name: puppetserver
               subPath: auth.conf
+            - mountPath: /etc/puppetlabs/puppetserver/conf.d/metrics.conf
+              name: puppetserver
+              subPath: metrics.conf
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
               readOnly: true
