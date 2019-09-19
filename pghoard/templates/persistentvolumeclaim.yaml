@@ -24,4 +24,8 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistentVolume.size | quote }}
+{{- if hasKey .Values.persistentVolume "selector" }}
+  selector:
+{{ toYaml .Values.persistentVolume.selector | indent 4 }}
+{{- end -}}
 {{- end -}}

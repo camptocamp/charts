@@ -59,6 +59,10 @@ persistentVolume:
   accessModes:
     - ReadWriteOnce
   size: 100Mi
+# optional label selector for PV, this will only work on openshift
+#  selector:
+#    matchLabels:
+#      project: test
 
 metrics:
   enabled: true
