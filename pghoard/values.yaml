@@ -51,8 +51,10 @@ service:
   type: ClusterIP
   port: 16000
 
+# If persistentVolumeName is defined, storageClass will not be used
 persistentVolume:
   enabled: false
+  #  persistentVolumeName: "pv-name"
   storageClass: "-"
   accessModes:
     - ReadWriteOnce

@@ -10,15 +10,17 @@ metadata:
 {{ toYaml .Values.labels | indent 4 }}
 {{- end }}
 spec:
-  accessModes:
-{{ toYaml .Values.persistentVolume.accessModes | indent 4 }}
-{{- if .Values.persistentVolume.storageClass -}}
+{{- if hasKey .Values.persistentVolume "persistentVolumeName" }}
+  volumeName: {{ .Values.persistentVolume.persistentVolumeName | quote }}
+{{- else if .Values.persistentVolume.storageClass -}}
 {{- if (eq "-" .Values.persistentVolume.storageClass) }}
   storageClassName: ""
 {{- else }}
   storageClassName: {{ .Values.persistentVolume.storageClass | quote }}
 {{- end -}}
 {{- end }}
+  accessModes:
+{{ toYaml .Values.persistentVolume.accessModes | indent 4 }}
   resources:
     requests:
       storage: {{ .Values.persistentVolume.size | quote }}
