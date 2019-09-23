@@ -10,6 +10,14 @@ metadata:
     heritage: "{{ .Release.Service }}"
 rules:
 - apiGroups: [""]
+  {{- if .Values.rbac.resources }}
+  resources: [{{ join ", " .Values.rbac.resources }}]
+  {{- else }}
   resources: ["*"]
+  {{- end }}
+  {{- if .Values.rbac.verbs }}
+  verbs: [{{ join ", " .Values.rbac.verbs }}]
+  {{- else }}
   verbs: ["*"]
+  {{- end }}
 {{- end -}}

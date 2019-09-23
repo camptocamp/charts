@@ -20,7 +20,7 @@ imagePullPolicy: IfNotPresent
 
 ## The Registration Token for adding new Runners to the GitLab Server. This must
 ## be retrieved from your GitLab Instance.
-## ref: https://docs.gitlab.com/ce/ci/runners/README.html#creating-and-registering-a-runner
+## ref: https://docs.gitlab.com/ce/ci/runners/README.html
 ##
 # runnerRegistrationToken: ""
 
@@ -39,9 +39,17 @@ imagePullPolicy: IfNotPresent
 ##
 unregisterRunners: true
 
+## When stopping ther runner, give it time to wait for it's jobs to terminate.
+##
+## Updating the runner's chart version or configuration will cause the runner container
+## to be terminated with a graceful stop request. terminationGracePeriodSeconds
+## instructs Kubernetes to wait long enough for the runner pod to terminate gracefully.
+## ref: https://docs.gitlab.com/runner/commands/#signals
+terminationGracePeriodSeconds: 3600
+
 ## Set the certsSecretName in order to pass custom certficates for GitLab Runner to use
 ## Provide resource name for a Kubernetes Secret Object in the same namespace,
-## this is used to populate the /etc/gitlab-runner/certs directory
+## this is used to populate the /home/gitlab-runner/.gitlab-runner/certs/ directory
 ## ref: https://docs.gitlab.com/runner/configuration/tls-self-signed.html#supported-options-for-self-signed-certificates
 ##
 # certsSecretName:
@@ -64,6 +72,9 @@ checkInterval: 30
 ## For RBAC support:
 rbac:
   create: false
+  ## Define specific rbac permissions.
+  # resources: ["pods", "pods/exec", "secrets"]
+  # verbs: ["get", "list", "watch", "create", "patch", "delete"]
 
   ## Run the gitlab-bastion container with the ability to deploy/manage containers of jobs
   ## cluster-wide or only within namespace
@@ -95,15 +106,28 @@ runners:
   ##
   # imagePullPolicy: ""
 
+  ## Defines number of concurrent requests for new job from GitLab
+  ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-runners-section
+  ##
+  # requestConcurrency: 1
+
   ## Specify whether the runner should be locked to a specific project: true, false. Defaults to true.
   ##
   # locked: true
-  
+
   ## Specify the tags associated with the runner. Comma-separated list of tags.
   ##
   ## ref: https://docs.gitlab.com/ce/ci/runners/#using-tags
   ##
   # tags: ""
+
+  ## Specify if jobs without tags should be run.
+  ## If not specified, Runner will default to true if no tags were specified. In other case it will
+  ## default to false.
+  ##
+  ## ref: https://docs.gitlab.com/ce/ci/runners/#allowing-runners-with-tags-to-pick-jobs-without-tags
+  ##
+  # runUntagged: true
 
   ## Run all containers with the privileged flag enabled
   ## This will allow the docker:dind image to run if you need to run Docker
@@ -138,7 +162,7 @@ runners:
   ##
   ## If you want to use s3 based distributing caching:
   ## First of all you need to uncomment General settings and S3 settings sections.
-  ##  
+  ##
   ## Create a secret 's3access' containing 'accesskey' & 'secretkey'
   ## ref: https://aws.amazon.com/blogs/security/wheres-my-secret-access-key/
   ##
@@ -152,7 +176,7 @@ runners:
   ##
   ## Access using credentials file:
   ## Create a secret 'google-application-credentials' containing your application credentials file.
-  ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-runners-cache-gcs-section
+  ## ref: https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-runnerscachegcs-section
   ## You could configure
   ## $ kubectl create secret generic google-application-credentials \
   ##   --from-file=gcs-applicaton-credentials-file=./path-to-your-google-application-credentials-file.json
@@ -180,11 +204,11 @@ runners:
     # secretName: s3access
 
     ## GCS settings
-    # gcsBucketName: 
+    # gcsBucketName:
     ## Use this line for access using access-id and private-key
     # secretName: gcsaccess
     ## Use this line for access using google-application-credentials file
-    # secretName: google-application-credential
+    # secretName: google-application-credentials
 
   ## Build Container specific configuration
   ##
@@ -223,6 +247,26 @@ runners:
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
   # nodeSelector: {}
+
+  ## Specify pod labels for CI job pods
+  ##
+  # podLabels: {}
+
+  ## Specify annotations for job pods, useful for annotations such as iam.amazonaws.com/role
+  # podAnnotations: {}
+
+  ## Configure environment variables that will be injected to the pods that are created while
+  ## the build is running. These variables are passed as parameters, i.e. `--env "NAME=VALUE"`,
+  ## to `gitlab-runner register` command.
+  ##
+  ## Note that `envVars` (see below) are only present in the runner pod, not the pods that are
+  ## created for each build.
+  ##
+  ## ref: https://docs.gitlab.com/runner/commands/#gitlab-runner-register
+  ##
+  # env:
+  #   NAME: VALUE
+
 
 ## Configure resource requests and limits
 ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -265,3 +309,36 @@ tolerations: []
 # envVars:
 #   - name: RUNNER_EXECUTOR
 #     value: kubernetes
+
+## list of hosts and IPs that will be injected into the pod's hosts file
+hostAliases: []
+  # Example:
+  # - ip: "127.0.0.1"
+  #   hostnames:
+  #   - "foo.local"
+  #   - "bar.local"
+  # - ip: "10.1.2.3"
+  #   hostnames:
+  #   - "foo.remote"
+  #   - "bar.remote"
+
+## Annotations to be added to manager pod
+##
+podAnnotations: {}
+  # Example:
+  # iam.amazonaws.com/role: <my_role_arn>
+
+## HPA support for custom metrics:
+## This section enables runners to autoscale based on defined custom metrics.
+## In order to use this functionality, Need to enable a custom metrics API server by
+## implementing "custom.metrics.k8s.io" using supported third party adapter
+## Example: https://github.com/directxman12/k8s-prometheus-adapter
+##
+#hpa: {}
+  # minReplicas: 1
+  # maxReplicas: 10
+  # metrics:
+  # - type: Pods
+  #   pods:
+  #     metricName: gitlab_runner_jobs
+  #     targetAverageValue: 400m

@@ -1,5 +1,61 @@
 # CHANGELOG
 
+## v0.9.0 (2019-09-20)
+
+- Use updated project path to release helm chart !172
+- Enabling horizontal pod auto-scaling based on custom metrics !127
+- Change base image used for CI jobs !156
+- Remove DJ as a listed chart maintainer !160
+- Release beta version on master using Bleeding Edge image !155
+- Update definition of 'release beta' CI jobs !164
+- Fix certs path in the comment in values file !148
+- Implement support for run-untagged option !140
+- Use new location for helm charts repo !162
+- Follow-up to adding run-untagged support !165
+
+## v0.8.0 (2019-08-22)
+
+- Add suport for graceful stop !150
+
+## v0.7.0 (2019-07-22)
+
+- Fix broken anchor link for gcs cache docs !135
+- Allow user to set rbac roles !112
+- Bump used Runner version to 12.1.0 !149
+
+## v0.6.0 (2019-06-24)
+
+- Allow to manually build the package for development branches !120
+- When configuring cache: if no S3 secret assume IAM role !111
+- Allow to define request_concurrency value !121
+- Bump used Runner version to 12.0.0 !138
+
+## v0.5.0 (2019-05-22)
+
+- Bump used Runner version to 11.11.0 !126
+
+## v0.4.1 (2019-04-24)
+
+- Bump used Runner version to 11.10.1 !113
+
+## v0.4.0 (2019-04-22)
+
+- Bump used Runner version to 11.10.0-rc2 !108
+- Fix a typo in values.yaml !101
+- Add pod labels for jobs !98
+- add hostAliases for pod assignment !89
+- Configurable deployment annotations !44
+- Add pod annotations for jobs !97
+- Bump used Runner version to 11.10.0-rc1 !107
+
+## v0.3.0 (2019-03-22)
+
+- Change mount of secret with S3 distributed cache credentials !64
+- Add environment variables to runner !48
+- Replace S3_CACHE_INSECURE with CACHE_S3_INSECURE !90
+- Update values.yaml to remove invalid anchor in comments !85
+- Bump used Runner version to 11.9.0 !102
+
 ## v0.2.0 (2019-02-22)
 
 - Fix the error caused by unset 'locked' value !79

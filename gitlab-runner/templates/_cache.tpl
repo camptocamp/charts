@@ -16,7 +16,7 @@
 - name: CACHE_S3_BUCKET_LOCATION
   value: {{ default "" .Values.runners.cache.s3BucketLocation | quote }}
 {{-       if .Values.runners.cache.s3CacheInsecure }}
-- name: S3_CACHE_INSECURE
+- name: CACHE_S3_INSECURE
   value: "true"
 {{-       end }}
 {{-     end }}

@@ -58,8 +58,12 @@ Template runners.cache.s3ServerAddress in order to allow overrides from external
 Define the image, using .Chart.AppVersion and GitLab Runner image as a default value
 */}}
 {{- define "gitlab-runner.image" }}
-{{- $image := printf "gitlab/gitlab-runner:alpine-v%s" .Chart.AppVersion -}}
-{{- default $image .Values.image}}
+{{-   $appVersion := .Chart.AppVersion -}}
+{{-   if ne $appVersion "bleeding" -}}
+{{-     $appVersion = printf "v%s" $appVersion -}}
+{{-   end -}}
+{{-   $image := printf "gitlab/gitlab-runner:alpine-%s" $appVersion -}}
+{{-   default $image .Values.image }}
 {{- end -}}
 {{/*
 Template for generating runners.kubernetes.volumes section in config.toml
