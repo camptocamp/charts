@@ -106,6 +106,12 @@ spec:
             - mountPath: /etc/puppetlabs/puppetserver/conf.d/metrics.conf
               name: puppetserver
               subPath: metrics.conf
+            - mountPath: /etc/puppetlabs/puppetserver/logback.xml
+              name: puppetserver
+              subPath: logback.xml
+            - mountPath: /etc/puppetlabs/puppetserver/request-logging.xml
+              name: puppetserver
+              subPath: request-logging.xml
             - mountPath: /etc/puppetlabs/code
               name: puppetcode
               readOnly: true

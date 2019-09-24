@@ -28,6 +28,63 @@ data:
 {{ .Values.ca_conf | indent 4 }}
   auth.conf: |
 {{ .Values.auth_conf | indent 4 }}
+  logback.xml: |
+    <configuration scan="true">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        </appender>
+
+        <logger name="org.eclipse.jetty" level="INFO"/>
+        <logger name="com.puppetlabs.puppetserver.LoggingPuppetProfiler" level="INFO"/>
+
+        <root level="info">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </configuration>
+  request-logging.xml: |
+    <configuration debug="false" scan="true">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.AccessEventCompositeJsonEncoder">
+                <providers>
+                    <version/>
+                    <pattern>
+                        <pattern>
+                            {
+                              "@timestamp":"%date{yyyy-MM-dd'T'HH:mm:ss.SSSXXX}",
+                              "clientip":"%remoteIP",
+                              "auth":"%user",
+                              "verb":"%requestMethod",
+                              "requestprotocol":"%protocol",
+                              "rawrequest":"%requestURL",
+                              "response":"#asLong{%statusCode}",
+                              "bytes":"#asLong{%bytesSent}",
+                              "total_service_time":"#asLong{%elapsedTime}",
+                              "request":"http://%header{Host}%requestURI",
+                              "referrer":"%header{Referer}",
+                              "agent":"%header{User-agent}",
+
+                              "request.host":"%header{Host}",
+                              "request.accept":"%header{Accept}",
+                              "request.accept-encoding":"%header{Accept-Encoding}",
+                              "request.connection":"%header{Connection}",
+
+                              "puppet.client-verify":"%header{X-Client-Verify}",
+                              "puppet.client-dn":"%header{X-Client-DN}",
+                              "puppet.client-cert":"%header{X-Client-Cert}",
+
+                              "response.content-type":"%responseHeader{Content-Type}",
+                              "response.content-length":"%responseHeader{Content-Length}",
+                              "response.server":"%responseHeader{Server}",
+                              "response.connection":"%responseHeader{Connection}"
+                            }
+                        </pattern>
+                    </pattern>
+                </providers>
+            </encoder>
+        </appender>
+
+        <appender-ref ref="STDOUT"/>
+    </configuration>
   metrics.conf: |
     # settings related to metrics
     metrics: {
