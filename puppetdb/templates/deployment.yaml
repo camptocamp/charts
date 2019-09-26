@@ -70,6 +70,8 @@ spec:
           env:
             - name: "PUPPETDB_URL"
               value: "{{ .Values.prometheusPuppetDBExporter.url }}"
+            - name: "PUPPETDB_SCRAPE_INTERVAL"
+              value: "{{ .Values.prometheusPuppetDBExporter.scrapeInterval }}"
 {{ end }}
       securityContext:
         supplementalGroups: [999]

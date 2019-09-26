@@ -88,3 +88,4 @@ prometheusPuppetDBExporter:
   url: "http://localhost:8080/pdb/query"
   service:
     port: 9121
+  scrapeInterval: 5s
