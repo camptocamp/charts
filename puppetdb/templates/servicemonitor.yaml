@@ -1,3 +1,4 @@
+{{ if .Values.prometheusPuppetDBExporter.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -19,3 +20,4 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ include "puppetdb.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}
