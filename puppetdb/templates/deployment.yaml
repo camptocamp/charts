@@ -72,6 +72,8 @@ spec:
               value: "{{ .Values.prometheusPuppetDBExporter.url }}"
             - name: "PUPPETDB_SCRAPE_INTERVAL"
               value: "{{ .Values.prometheusPuppetDBExporter.scrapeInterval }}"
+            - name: "REPORT_METRICS_CATEGORIES"
+              value: "{{ .Values.prometheusPuppetDBExporter.reportMetricsCategories }}"
 {{ end }}
       securityContext:
         supplementalGroups: [999]

@@ -89,3 +89,4 @@ prometheusPuppetDBExporter:
   service:
     port: 9121
   scrapeInterval: 5s
+  reportMetricsCategories: "resources,time,changes,events"
