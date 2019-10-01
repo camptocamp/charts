@@ -41,7 +41,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: [ "java" ]
-          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms256m", "-Xmx256m",
+          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms{{ .Values.java_mem_limit }}", "-Xmx{{ .Values.java_mem_limit }}",
             "-cp", "/puppetdb.jar", "clojure.main",
             "-m", "puppetlabs.puppetdb.core", "services", "-c",
             "/etc/puppetlabs/puppetdb/conf.d/" ]

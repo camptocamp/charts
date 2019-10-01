@@ -47,6 +47,8 @@ tolerations: []
 
 affinity: {}
 
+java_mem_limit: "256m"
+
 postgresql_cert: ""
 
 puppetdb_ini: |
