@@ -120,15 +120,16 @@ spec:
             - mountPath: /run/secrets/autosign_psk
               name: secrets
               subPath: autosign_psk
-#          livenessProbe:
-#            httpGet:
-#              path: /production/status/test
-#              port: http
-#              scheme: HTTPS
-#              httpHeaders:
-#                - name: Accept
-#                  value: pson
-#            initialDelaySeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /production/status/test
+              port: http
+              scheme: HTTPS
+              httpHeaders:
+                - name: Accept
+                  value: pson
+            initialDelaySeconds: 30
+            failureThreshold: 6
           readinessProbe:
             httpGet:
               path: /production/status/test
