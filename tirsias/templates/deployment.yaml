@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    app: {{ template "tirsias.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "tirsias.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      app: {{ template "tirsias.name" . }}
+      release: {{ .Release.Name }}
+  spec:
+    containers:
+      - name: tirsias
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+{{- with .Values.env }}
+{{    toYaml . | indent 14 }}
+{{- end -}}
