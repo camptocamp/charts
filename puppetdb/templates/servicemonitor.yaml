@@ -12,6 +12,8 @@ metadata:
 spec:
   endpoints:
   - path: /metrics
+    port: metrics
+  - path: /metrics
     port: puppetdb-exp
   namespaceSelector:
     matchNames:

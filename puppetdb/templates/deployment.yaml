@@ -36,18 +36,28 @@ spec:
               name: confdir
             - mountPath: /srv/puppetssl
               name: ssldir
+        - name: {{ .Chart.Name }}-jmx-exporter
+          image: camptocamp/jmx-exporter:0.12.0
+          command: [ "cp", "/jmx_prometheus_javaagent-0.12.0.jar", "/jmx-exporter/" ]
+          volumeMounts:
+            - mountPath: /jmx-exporter
+              name: jmx-exporter
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: [ "java" ]
           args: [ "-Djava.net.preferIPv4Stack=true", "-Xms{{ .Values.java_mem_limit }}", "-Xmx{{ .Values.java_mem_limit }}",
+            "-javaagent:/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=9080:/jmx-exporter/config.yaml",
             "-cp", "/puppetdb.jar", "clojure.main",
             "-m", "puppetlabs.puppetdb.core", "services", "-c",
             "/etc/puppetlabs/puppetdb/conf.d/" ]
           ports:
             - name: http
               containerPort: 8081
+              protocol: TCP
+            - name: metrics
+              containerPort: 9080
               protocol: TCP
           volumeMounts:
             - mountPath: /opt/puppetlabs/server/data/puppetdb
@@ -58,6 +68,11 @@ spec:
               name: ssldir
             - mountPath: /etc/puppetlabs/puppetdb/pgsql/
               name: postgresql
+            - mountPath: /jmx-exporter
+              name: jmx-exporter
+            - mountPath: /jmx-exporter/config.yaml
+              name: jmx-exporter-config
+              subPath: config.yaml
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 {{ if .Values.prometheusPuppetDBExporter.enabled }}
@@ -78,6 +93,8 @@ spec:
       securityContext:
         supplementalGroups: [999]
       volumes:
+        - name: jmx-exporter
+          emptyDir: {}
         - name: data
           emptyDir: {}
         - name: confdir
@@ -93,6 +110,9 @@ spec:
         - name: postgresql
           configMap:
             name: {{ include "puppetdb.fullname" . }}-postgresql
+        - name: jmx-exporter-config
+          configMap:
+            name: {{ include "puppetdb.fullname" . }}-jmx-exporter
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

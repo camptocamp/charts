@@ -19,6 +19,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: 9080
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
 {{ if .Values.prometheusPuppetDBExporter.enabled }}
     - port: {{ .Values.prometheusPuppetDBExporter.service.port }}
       targetPort: puppetdb-exp

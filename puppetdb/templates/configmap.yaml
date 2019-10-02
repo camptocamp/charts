@@ -24,3 +24,28 @@ metadata:
 data:
   postgresql.crt: |-
 {{ .Values.postgresql_cert | indent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "puppetdb.fullname" . }}-jmx-exporter
+  labels:
+    app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  config.yaml: |-
+    ---
+    whitelistObjectNames:
+      - puppetlabs.puppetdb.population:name=num-nodes
+      - puppetlabs.puppetdb.population:name=num-resources
+      - puppetlabs.puppetdb.population:name=avg-resources-per-node
+      - puppetlabs.puppetdb.population:name=pct-resource-dupes
+      - puppetlabs.puppetdb.database:*
+      - puppetlabs.puppetdb.mq:*
+      - puppetlabs.puppetdb.storage:name=duplicate-pct
+      - puppetlabs.puppetdb.storage:name=gc-time
+      - java.lang:type=Memory
+      - java.lang:type=OperatingSystem
+      - java.lang:type=Threading
