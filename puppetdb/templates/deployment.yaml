@@ -73,6 +73,21 @@ spec:
             - mountPath: /jmx-exporter/config.yaml
               name: jmx-exporter-config
               subPath: config.yaml
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "curl --fail --resolve 'puppetdb:8080:127.0.0.1' 'http://puppetdb:8080/status/v1/services/puppetdb-status' | grep -q '\"state\":\"running\"'"
+            initialDelaySeconds: 30
+            failureThreshold: 6
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "curl --fail --resolve 'puppetdb:8080:127.0.0.1' 'http://puppetdb:8080/status/v1/services/puppetdb-status' | grep -q '\"state\":\"running\"'"
+            initialDelaySeconds: 15
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 {{ if .Values.prometheusPuppetDBExporter.enabled }}
