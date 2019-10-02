@@ -15,14 +15,16 @@ spec:
       release: {{ .Release.Name }}
   template:
     metadata:
-      app: {{ template "tirsias.name" . }}
-      release: {{ .Release.Name }}
-  spec:
-    containers:
-      - name: tirsias
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
+      labels:
+        app: {{ template "tirsias.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ .Release.Name }}
+      containers:
+        - name: tirsias
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
 {{- with .Values.env }}
 {{    toYaml . | indent 14 }}
 {{- end -}}
