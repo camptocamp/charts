@@ -29,8 +29,6 @@ spec:
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          securityContext:
-            runAsUser: 1000590000
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
 {{- if and .Values.proxy.ldapHost .Values.secrets.ldapBindPassword }}
