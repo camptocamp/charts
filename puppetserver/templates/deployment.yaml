@@ -35,13 +35,13 @@ spec:
               subPath: gpg.asc
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
               name: gnupgdir
+        - name: {{ .Chart.Name }}-jmx-exporter
+          image: camptocamp/jmx-exporter:0.12.0
+          command: [ "cp", "/jmx_prometheus_javaagent-0.12.0.jar", "/jmx-exporter/" ]
+          volumeMounts:
+            - mountPath: /jmx-exporter
+              name: jmx-exporter
       containers:
-        - name: {{ .Chart.Name }}-exporter
-          image: prom/graphite-exporter:v0.6.2
-          ports:
-            - name: metrics
-              containerPort: 9108
-              protocol: TCP
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -52,6 +52,7 @@ spec:
             "-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger",
             "-Dlogappender=STDOUT",
             "-Djava.security.egd=/dev/urandom",
+            "-javaagent:/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=9080:/jmx-exporter/config.yaml",
             "-cp",
             "/opt/puppetlabs/server/apps/puppetserver/puppet-server-release.jar:/opt/puppetlabs/server/apps/puppetserver/jruby-1_7.jar:/opt/puppetlabs/server/data/puppetserver/jars/*",
             "clojure.main",
@@ -72,6 +73,9 @@ spec:
           ports:
             - name: http
               containerPort: 8140
+              protocol: TCP
+            - name: metrics
+              containerPort: 9080
               protocol: TCP
           volumeMounts:
             - mountPath: /etc/puppetlabs/puppet
@@ -103,9 +107,6 @@ spec:
             - mountPath: /etc/puppetlabs/puppetserver/conf.d/auth.conf
               name: puppetserver
               subPath: auth.conf
-            - mountPath: /etc/puppetlabs/puppetserver/conf.d/metrics.conf
-              name: puppetserver
-              subPath: metrics.conf
             - mountPath: /etc/puppetlabs/puppetserver/logback.xml
               name: puppetserver
               subPath: logback.xml
@@ -120,6 +121,11 @@ spec:
             - mountPath: /run/secrets/autosign_psk
               name: secrets
               subPath: autosign_psk
+            - mountPath: /jmx-exporter
+              name: jmx-exporter
+            - mountPath: /jmx-exporter/config.yaml
+              name: jmx-exporter-config
+              subPath: config.yaml
           livenessProbe:
             httpGet:
               path: /production/status/test
@@ -145,6 +151,8 @@ spec:
         supplementalGroups:
           {{- toYaml .Values.securityContext.supplementalGroups | nindent 10 }}
       volumes:
+        - name: jmx-exporter
+          emptyDir: {}
         - name: logs
           emptyDir: {}
         - name: confdir
@@ -185,6 +193,9 @@ spec:
         - name: secrets
           secret:
             secretName: {{ include "puppetserver.fullname" . }}
+        - name: jmx-exporter-config
+          configMap:
+            name: {{ include "puppetserver.fullname" . }}-jmx-exporter
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
