@@ -119,4 +119,45 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   config.yaml: |-
-    {}
+    ---
+    whitelistObjectNames:
+      - puppetserver:name=puppetlabs.localhost.compiler.compile
+      - puppetserver:name=puppetlabs.localhost.compiler.find_node
+      - puppetserver:name=puppetlabs.localhost.compiler.find_facts
+      - puppetserver:name=puppetlabs.localhost.functions
+      - puppetserver:name=puppetlabs.localhost.jruby.num-jrubies
+      - puppetserver:name=puppetlabs.localhost.jruby.num-free-jrubies
+      - puppetserver:name=puppetlabs.localhost.jruby.free-jrubies-histo
+      - puppetserver:name=puppetlabs.localhost.jruby.requested-jrubies-histo
+      - puppetserver:name=puppetlabs.localhost.memory.heap.used
+      - puppetserver:name=puppetlabs.localhost.memory.non-heap.used
+      - puppetserver:name=puppetlabs.localhost.num-cpus
+      - puppetserver:name=puppetlabs.localhost.jruby.borrow-timer
+      - puppetserver:name=puppetlabs.localhost.jruby.wait-timer
+      - puppetserver:name=puppetlabs.localhost.jruby.lock-held-timer
+      - puppetserver:name=puppetlabs.localhost.jruby.lock-wait-timer
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.command.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.command.replace_catalog.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.command.replace_facts.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.command.store_report.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.facts.find.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.facts.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.resource.full-response
+      - puppetserver:name=puppetlabs.localhost.http-client.experimental.with-metric-id.puppetdb.resource.search.full-response
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-catalog-/\*/-requests"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-report-/\*/-requests"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-node-/\*/-requests"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-file_metadatas-/\*/-requests"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-file_metadata-/\*/-requests"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-file_content-/\*/-requests"
+      - puppetserver:name=puppetlabs.localhost.http.other-requests
+      - puppetserver:name=puppetlabs.localhost.http.total-requests
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-catalog-/\*/-percentage"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-report-/\*/-percentage"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-node-/\*/-percentage"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-file_metadatas-/\*/-percentage"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-file_metadata-/\*/-percentage"
+      - puppetserver:name="puppetlabs.localhost.http.puppet-v3-file_content-/\*/-percentage"
+      - puppetserver:name=puppetlabs.localhost.http.active-requests
+      - puppetserver:name=puppetlabs.localhost.http.active-histo
