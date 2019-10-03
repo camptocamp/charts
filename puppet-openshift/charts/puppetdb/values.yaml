@@ -1,5 +1,0 @@
----
-dnsAltNames: puppetdb
-javaArgs: ""
-databasePassword: puppetdb
-databaseUser: puppetdb
