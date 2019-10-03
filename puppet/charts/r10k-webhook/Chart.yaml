@@ -1,4 +1,0 @@
-apiVersion: v1
-description: A Helm chart for R10k-webhook
-name: r10k-webhook
-version: 1.0.0

@@ -1,4 +1,0 @@
----
-image: camptocamp/g10k-webhook
-imageTag: fix_targetDir
-imagePullPolicy: Always

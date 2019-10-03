@@ -1,4 +1,0 @@
----
-image: camptocamp/puppetboard
-imageTag: 0.3.0-1
-imagePullPolicy: Always
