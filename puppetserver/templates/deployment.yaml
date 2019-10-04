@@ -126,16 +126,6 @@ spec:
             - mountPath: /jmx-exporter/config.yaml
               name: jmx-exporter-config
               subPath: config.yaml
-          livenessProbe:
-            httpGet:
-              path: /production/status/test
-              port: http
-              scheme: HTTPS
-              httpHeaders:
-                - name: Accept
-                  value: pson
-            initialDelaySeconds: 30
-            failureThreshold: 6
           readinessProbe:
             httpGet:
               path: /production/status/test
