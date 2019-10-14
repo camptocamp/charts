@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   puppetdb.ini: |-
-{{ .Values.puppetdb_ini | indent 4 }}
+{{ .Values.puppetdb.puppetdb_ini | indent 4 }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -23,7 +23,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   postgresql.crt: |-
-{{ .Values.postgresql_cert | indent 4 }}
+{{ .Values.puppetdb.postgresql_cert | indent 4 }}
 ---
 apiVersion: v1
 kind: ConfigMap

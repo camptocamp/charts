@@ -1,6 +1,6 @@
-{{- if .Values.ingress.enabled -}}
+{{- if .Values.puppetdb.ingress.enabled -}}
 {{- $fullName := include "puppetdb.fullname" . -}}
-{{- $ingressPaths := .Values.ingress.paths -}}
+{{- $ingressPaths := .Values.puppetdb.ingress.paths -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -10,14 +10,14 @@ metadata:
     helm.sh/chart: {{ include "puppetdb.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-  {{- with .Values.ingress.annotations }}
+  {{- with .Values.puppetdb.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+{{- if .Values.puppetdb.ingress.tls }}
   tls:
-  {{- range .Values.ingress.tls }}
+  {{- range .Values.puppetdb.ingress.tls }}
     - hosts:
       {{- range .hosts }}
         - {{ . | quote }}
@@ -26,15 +26,15 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
+  {{- range .Values.puppetdb.ingress.hosts }}
     - host: {{ . | quote }}
       http:
         paths:
-	{{- range $ingressPaths }}
+    {{- range $ingressPaths }}
           - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
-	{{- end }}
+    {{- end }}
   {{- end }}
 {{- end }}
