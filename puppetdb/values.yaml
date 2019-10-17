@@ -5,7 +5,6 @@
 autosign:
   psk: ''
 
-public_name: ''
 
 
 puppetdb:
@@ -54,6 +53,8 @@ puppetdb:
   tolerations: []
 
   affinity: {}
+
+  public_name: ''
 
   java_mem_limit: "256m"
 
