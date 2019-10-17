@@ -1,0 +1,25 @@
+{{ if .Values.prometheusPuppetdbExporter.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "prometheus-puppetdb-exporter.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "prometheus-puppetdb-exporter.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "{{ .Values.prometheusPuppetdbExporter.service.port }}"
+spec:
+  type: {{ .Values.prometheusPuppetdbExporter.service.type }}
+  ports:
+    - port: {{ .Values.prometheusPuppetdbExporter.service.port }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+
+  selector:
+    app.kubernetes.io/name: {{ include "prometheus-puppetdb-exporter.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}
