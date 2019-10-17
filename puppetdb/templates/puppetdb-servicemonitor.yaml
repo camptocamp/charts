@@ -1,4 +1,3 @@
-{{ if .Values.prometheusPuppetDBExporter.enabled }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -13,13 +12,10 @@ spec:
   endpoints:
   - path: /metrics
     port: metrics
-  - path: /metrics
-    port: puppetdb-exp
   namespaceSelector:
     matchNames:
-    - is-puppet
+    - {{ .Release.Namespace | quote }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "puppetdb.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
-{{ end }}

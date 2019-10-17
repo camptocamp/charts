@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.puppetdb.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "puppetdb.name" . }}
@@ -44,10 +44,10 @@ spec:
               name: jmx-exporter
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.puppetdb.image.repository }}:{{ .Values.puppetdb.image.tag }}"
+          imagePullPolicy: {{ .Values.puppetdb.image.pullPolicy }}
           command: [ "java" ]
-          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms{{ .Values.java_mem_limit }}", "-Xmx{{ .Values.java_mem_limit }}",
+          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms{{ .Values.puppetdb.java_mem_limit }}", "-Xmx{{ .Values.puppetdb.java_mem_limit }}",
             "-javaagent:/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=9080:/jmx-exporter/config.yaml",
             "-cp", "/puppetdb.jar", "clojure.main",
             "-m", "puppetlabs.puppetdb.core", "services", "-c",
@@ -81,22 +81,7 @@ spec:
                 - "curl --fail --resolve 'puppetdb:8080:127.0.0.1' 'http://puppetdb:8080/status/v1/services/puppetdb-status' | grep -q '\"state\":\"running\"'"
             initialDelaySeconds: 15
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-{{ if .Values.prometheusPuppetDBExporter.enabled }}
-        - name: prometheus-puppetdb-exporter
-          image: "{{ .Values.prometheusPuppetDBExporter.image.repository }}:{{ .Values.prometheusPuppetDBExporter.image.tag }}"
-          ports:
-            - name: puppetdb-exp
-              containerPort: 9121
-              protocol: TCP
-          env:
-            - name: "PUPPETDB_URL"
-              value: "{{ .Values.prometheusPuppetDBExporter.url }}"
-            - name: "PUPPETDB_SCRAPE_INTERVAL"
-              value: "{{ .Values.prometheusPuppetDBExporter.scrapeInterval }}"
-            - name: "REPORT_METRICS_CATEGORIES"
-              value: "{{ .Values.prometheusPuppetDBExporter.reportMetricsCategories }}"
-{{ end }}
+            {{- toYaml .Values.puppetdb.resources | nindent 12 }}
       securityContext:
         supplementalGroups: [999]
       volumes:
@@ -120,15 +105,15 @@ spec:
         - name: jmx-exporter-config
           configMap:
             name: {{ include "puppetdb.fullname" . }}-jmx-exporter
-      {{- with .Values.nodeSelector }}
+      {{- with .Values.puppetdb.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- with .Values.affinity }}
+    {{- with .Values.puppetdb.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- with .Values.tolerations }}
+    {{- with .Values.puppetdb.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}

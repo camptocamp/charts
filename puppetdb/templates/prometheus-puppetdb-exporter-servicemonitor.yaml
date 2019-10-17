@@ -1,0 +1,23 @@
+---
+{{ if .Values.prometheusPuppetdbExporter.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "prometheus-puppetdb-exporter.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "prometheus-puppetdb-exporter.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  endpoints:
+  - path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace | quote }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "prometheus-puppetdb-exporter.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+{{ end }}
