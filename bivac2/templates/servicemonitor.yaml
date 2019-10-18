@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "bivac.fullname" . }}
+  name: {{ .Release.Name }}
   labels:
 {{ include "bivac.labels" . | indent 4 }}
     {{- if .Values.metrics.serviceMonitor.additionalLabels }}

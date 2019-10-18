@@ -3,10 +3,10 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}
   labels:
-    app: {{ template "bivac.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+{{ include "bivac.labels" . | indent 4 }}
+    {{- if .Values.metrics.serviceMonitor.additionalLabels }}
+{{ toYaml .Values.metrics.serviceMonitor.additionalLabels | indent 4 }}
+    {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
