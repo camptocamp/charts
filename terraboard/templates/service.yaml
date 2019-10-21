@@ -15,7 +15,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: public
       protocol: TCP
-      name: proxy
+      name: public
   selector:
     app.kubernetes.io/name: {{ include "terraboard.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

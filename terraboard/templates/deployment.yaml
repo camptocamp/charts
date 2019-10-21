@@ -26,10 +26,10 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - name: public
-              containerPort: 8443
+              containerPort: {{ .Values.oauthProxy.port }}
               protocol: TCP
           args:
-            - --https-address=:8443
+            - --http{{ if .Values.oauthProxy.tls }}s{{ end }}-address=:{{ .Values.oauthProxy.port }}
             - --provider=openshift
             - --openshift-service-account={{ include "terraboard.fullname" . }}
             - --upstream=http://localhost:8080

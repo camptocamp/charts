@@ -28,6 +28,10 @@ db:
 nameOverride: ""
 fullnameOverride: ""
 
+oauthProxy:
+  tls: true
+  port: 8443
+
 service:
   type: ClusterIP
   port: 443
