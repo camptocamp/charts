@@ -3,34 +3,34 @@ entries:
   bivac:
   - apiVersion: v1
     appVersion: 1.0.0
-    created: "2019-10-22T13:24:59.810333726+02:00"
+    created: "2019-10-22T13:41:55.997063958+02:00"
     description: A Helm chart for Bivac
     digest: 698e061589c132e6cf82e8ba32e6c7989f3f8e34bcbfdeef3a51038bbb321e8c
     name: bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac-1.2.0.tgz
+    - https://camptocamp.github.io/charts/bivac-1.2.0.tgz
     version: 1.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.81012193+02:00"
+    created: "2019-10-22T13:41:55.996875821+02:00"
     description: A Helm chart for Bivac
     digest: fb1cb6bcac492af885ef1777ef4860c1ea7fee046b3926138ccc465089be91b9
     name: bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac-1.1.0.tgz
+    - https://camptocamp.github.io/charts/bivac-1.1.0.tgz
     version: 1.1.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.809918721+02:00"
+    created: "2019-10-22T13:41:55.996661686+02:00"
     description: A Helm chart for Bivac
     digest: fbcd9c1b2e3daf6e03993828779aebb1f342a0a09795b0ff77406b402586a7b8
     name: bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac-1.0.0.tgz
+    - https://camptocamp.github.io/charts/bivac-1.0.0.tgz
     version: 1.0.0
   bivac2:
   - appVersion: "2.1"
-    created: "2019-10-22T13:24:59.81166472+02:00"
+    created: "2019-10-22T13:41:55.998461785+02:00"
     description: backup interface for volumes attached to containers
     digest: 305f59cc8a2db8433fd53d1529cd21f631f34dbea127553a4642d27846d52535
     home: https://github.com/camptocamp/bivac
@@ -49,10 +49,10 @@ entries:
     sources:
     - https://github.com/camptocamp/bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac2-0.0.5.tgz
+    - https://camptocamp.github.io/charts/bivac2-0.0.5.tgz
     version: 0.0.5
   - appVersion: "2.1"
-    created: "2019-10-22T13:24:59.811392399+02:00"
+    created: "2019-10-22T13:41:55.998181729+02:00"
     description: backup interface for volumes attached to containers
     digest: 80419185fa8fbc9923390aab83590c4769db6eb71fbcee10341f2116baeae809
     home: https://github.com/camptocamp/bivac
@@ -71,10 +71,10 @@ entries:
     sources:
     - https://github.com/camptocamp/bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac2-0.0.4.tgz
+    - https://camptocamp.github.io/charts/bivac2-0.0.4.tgz
     version: 0.0.4
   - appVersion: "2.1"
-    created: "2019-10-22T13:24:59.811124269+02:00"
+    created: "2019-10-22T13:41:55.997899989+02:00"
     description: backup interface for volumes attached to containers
     digest: c751322e5d8baf333eab01bda84809e5dfb037d8083966ebcdaf9da123d246f1
     home: https://github.com/camptocamp/bivac
@@ -93,10 +93,10 @@ entries:
     sources:
     - https://github.com/camptocamp/bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac2-0.0.3.tgz
+    - https://camptocamp.github.io/charts/bivac2-0.0.3.tgz
     version: 0.0.3
   - appVersion: "2.1"
-    created: "2019-10-22T13:24:59.810873674+02:00"
+    created: "2019-10-22T13:41:55.997625669+02:00"
     description: backup interface for volumes attached to containers
     digest: debfdbb5d75c55f3016e892237a94c4d8542bd205ed0ee6cf3d8c12d93577ed2
     home: https://github.com/camptocamp/bivac
@@ -115,10 +115,10 @@ entries:
     sources:
     - https://github.com/camptocamp/bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac2-0.0.2.tgz
+    - https://camptocamp.github.io/charts/bivac2-0.0.2.tgz
     version: 0.0.2
   - appVersion: "2.1"
-    created: "2019-10-22T13:24:59.810612928+02:00"
+    created: "2019-10-22T13:41:55.997367492+02:00"
     description: backup interface for volumes attached to containers
     digest: 2e83dbbd3d9c8da93c2ea756d905d47074cca86c04d6e50054f9dbc5e4c632b7
     home: https://github.com/camptocamp/bivac
@@ -137,303 +137,303 @@ entries:
     sources:
     - https://github.com/camptocamp/bivac
     urls:
-    - https://camptocamp.github.io/chart/bivac2-0.0.1.tgz
+    - https://camptocamp.github.io/charts/bivac2-0.0.1.tgz
     version: 0.0.1
   blackbox-exporter:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.811874944+02:00"
+    created: "2019-10-22T13:41:55.998645201+02:00"
     description: A Helm chart to deploy blackbox-exporter on Kubernetes
     digest: 309862f6b33cec8aa2a91aa269a98fe6e096892e12126095e66ee30f335eae3c
     name: blackbox-exporter
     urls:
-    - https://camptocamp.github.io/chart/blackbox-exporter-0.1.0.tgz
+    - https://camptocamp.github.io/charts/blackbox-exporter-0.1.0.tgz
     version: 0.1.0
   bucket-cloner:
   - apiVersion: v1
     appVersion: "20190801"
-    created: "2019-10-22T13:24:59.812028046+02:00"
+    created: "2019-10-22T13:41:55.998792966+02:00"
     description: A Helm chart for Bucket-cloner
     digest: 374246158825fbfb8961cb6126651f55e7872f290f5494a7d992d33418702d7a
     name: bucket-cloner
     urls:
-    - https://camptocamp.github.io/chart/bucket-cloner-0.0.1.tgz
+    - https://camptocamp.github.io/charts/bucket-cloner-0.0.1.tgz
     version: 0.0.1
   common-build-code:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.814399458+02:00"
+    created: "2019-10-22T13:41:56.001319132+02:00"
     description: A Helm chart openshift builds from code
     digest: 1b85d9b251a29338a544b066ce95b7e2a580ea748fa281af4429b428c0867955
     name: common-build-code
     urls:
-    - https://camptocamp.github.io/chart/common-build-code-0.2.6.tgz
+    - https://camptocamp.github.io/charts/common-build-code-0.2.6.tgz
     version: 0.2.6
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.813218212+02:00"
+    created: "2019-10-22T13:41:56.000209019+02:00"
     description: A Helm chart openshift builds from code
     digest: 309dc1924b37fe871a87a75a36b7d9dfaa02f2449a08dff5037ecc895f807f59
     name: common-build-code
     urls:
-    - https://camptocamp.github.io/chart/common-build-code-0.2.5.tgz
+    - https://camptocamp.github.io/charts/common-build-code-0.2.5.tgz
     version: 0.2.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.812612246+02:00"
+    created: "2019-10-22T13:41:55.999416756+02:00"
     description: A Helm chart openshift builds from code
     digest: d4ec8fc85ea05594a80d647b2e2b4931d17f26eedf1865c31a5af600d9baf08d
     name: common-build-code
     urls:
-    - https://camptocamp.github.io/chart/common-build-code-0.2.4.tgz
+    - https://camptocamp.github.io/charts/common-build-code-0.2.4.tgz
     version: 0.2.4
   common-build-dockerfile:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.815200989+02:00"
+    created: "2019-10-22T13:41:56.001907346+02:00"
     description: A Helm chart for Kubernetes
     digest: 11cb62a0776f4177014f6fb5a7dd4d856d92061c82464f4967a50be0e4faccaf
     name: common-build-dockerfile
     urls:
-    - https://camptocamp.github.io/chart/common-build-dockerfile-0.5.4.tgz
+    - https://camptocamp.github.io/charts/common-build-dockerfile-0.5.4.tgz
     version: 0.5.4
   demo-geomapfish:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.815804981+02:00"
+    created: "2019-10-22T13:41:56.002440146+02:00"
     description: A Helm chart for Geomapfish DEMO
     digest: 69819185f209b1b6cdffaa668cc936c7f865b44e5a1580a1bcf6315e403d8c9d
     name: demo-geomapfish
     urls:
-    - https://camptocamp.github.io/chart/demo-geomapfish-2.0.16.tgz
+    - https://camptocamp.github.io/charts/demo-geomapfish-2.0.16.tgz
     version: 2.0.16
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.815619045+02:00"
+    created: "2019-10-22T13:41:56.002267329+02:00"
     description: A Helm chart for Geomapfish DEMO
     digest: 27f2c6025c268ab1e7e2bbdf515d70443db4726194681086a35a3ef2c6e4a557
     name: demo-geomapfish
     urls:
-    - https://camptocamp.github.io/chart/demo-geomapfish-2.0.15.tgz
+    - https://camptocamp.github.io/charts/demo-geomapfish-2.0.15.tgz
     version: 2.0.15
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.816000155+02:00"
+    created: "2019-10-22T13:41:56.002614438+02:00"
     description: A Helm chart for Kubernetes
     digest: adaeab8887d4c815d79a93f14ec5d30205f5deda739703fd5d5ce5ed86d5b67d
     name: demo-geomapfish
     urls:
-    - https://camptocamp.github.io/chart/demo-geomapfish-2.0.4.tgz
+    - https://camptocamp.github.io/charts/demo-geomapfish-2.0.4.tgz
     version: 2.0.4
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.81542598+02:00"
+    created: "2019-10-22T13:41:56.002088573+02:00"
     description: A Helm chart for Kubernetes
     digest: f574b6adcdef5b25f6392e01724c4a477e95ab02574ebcd00e7ff65cd702ec78
     name: demo-geomapfish
     urls:
-    - https://camptocamp.github.io/chart/demo-geomapfish-2.0.0.tgz
+    - https://camptocamp.github.io/charts/demo-geomapfish-2.0.0.tgz
     version: 2.0.0
   freeipa-proxy-ha:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.816251319+02:00"
+    created: "2019-10-22T13:41:56.00286066+02:00"
     description: A Helm chart to deploy an LDAP proxy for HA in OpenShift.
     digest: 8a36d80c18d8dd4580f189eb836cc8adea94b3dec455385999616d5f9eef8100
     name: freeipa-proxy-ha
     urls:
-    - https://camptocamp.github.io/chart/freeipa-proxy-ha-0.1.0.tgz
+    - https://camptocamp.github.io/charts/freeipa-proxy-ha-0.1.0.tgz
     version: 0.1.0
   g10k-webhook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.816689429+02:00"
+    created: "2019-10-22T13:41:56.00331534+02:00"
     description: A Helm chart for Kubernetes
     digest: 6f51bd803a20ecdd62972d63d003308a90af09772ecf0520a9f1e82a53c4c03f
     name: g10k-webhook
     urls:
-    - https://camptocamp.github.io/chart/g10k-webhook-0.1.2.tgz
+    - https://camptocamp.github.io/charts/g10k-webhook-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.81647191+02:00"
+    created: "2019-10-22T13:41:56.003064848+02:00"
     description: A Helm chart for Kubernetes
     digest: a86414e3feda25db59d53b5c4cf88814190a4d318a98e99b8b585677a0216022
     name: g10k-webhook
     urls:
-    - https://camptocamp.github.io/chart/g10k-webhook-0.1.1.tgz
+    - https://camptocamp.github.io/charts/g10k-webhook-0.1.1.tgz
     version: 0.1.1
   g10k-webhook-build:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.81738956+02:00"
+    created: "2019-10-22T13:41:56.003984236+02:00"
     description: A Helm chart for Kubernetes
     digest: 55966ed6130460072106cd98f9e20159af61dc85348fcce8b537d0f8c2a7b3ea
     name: g10k-webhook-build
     urls:
-    - https://camptocamp.github.io/chart/g10k-webhook-build-0.1.3.tgz
+    - https://camptocamp.github.io/charts/g10k-webhook-build-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.817211546+02:00"
+    created: "2019-10-22T13:41:56.003799838+02:00"
     description: A Helm chart for Kubernetes
     digest: a8cbdedcfd83cdd8c7710eec3da8e108352ead17dc94921b6a404fe46d163c1a
     name: g10k-webhook-build
     urls:
-    - https://camptocamp.github.io/chart/g10k-webhook-build-0.1.2.tgz
+    - https://camptocamp.github.io/charts/g10k-webhook-build-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.817044207+02:00"
+    created: "2019-10-22T13:41:56.003639936+02:00"
     description: A Helm chart for Kubernetes
     digest: 7a18fe909f35cdf4deb89d605c932420bed6762c97a06ded35bb5cf73863603f
     name: g10k-webhook-build
     urls:
-    - https://camptocamp.github.io/chart/g10k-webhook-build-0.1.1.tgz
+    - https://camptocamp.github.io/charts/g10k-webhook-build-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.816871488+02:00"
+    created: "2019-10-22T13:41:56.003481339+02:00"
     description: A Helm chart for Kubernetes
     digest: e61ac2d53ee8d70fbc5621f22b4e11e76ef0b4a76a7d6a2ac6d5491a9977ea63
     name: g10k-webhook-build
     urls:
-    - https://camptocamp.github.io/chart/g10k-webhook-build-0.1.0.tgz
+    - https://camptocamp.github.io/charts/g10k-webhook-build-0.1.0.tgz
     version: 0.1.0
   gitlab-backup:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.818760235+02:00"
+    created: "2019-10-22T13:41:56.005249674+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: c9608a987937dff99742e1ab9c05dd60e59ca57354e9bc0115a9b8785056429c
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.14.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.14.tgz
     version: 0.1.14
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.818552728+02:00"
+    created: "2019-10-22T13:41:56.00505564+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 84b8938dbd3b5e455e011c563af06249bf9c5eacdf4240cd9fba8bedf44d448a
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.13.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.13.tgz
     version: 0.1.13
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.818358342+02:00"
+    created: "2019-10-22T13:41:56.004872945+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 584828f4abb1c42ba13729ec28a0a0e052d7021205ab13282c519a9b6e768f62
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.12.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.12.tgz
     version: 0.1.12
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.818153021+02:00"
+    created: "2019-10-22T13:41:56.004688103+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: cfff64b47ad5724756412e2f00f64cd4dacf1801c62a0ffa4fee1d9d00c4c272
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.11.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.11.tgz
     version: 0.1.11
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.817963066+02:00"
+    created: "2019-10-22T13:41:56.004505397+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 76a7540d9e6984393f79a5f47791c8ab30fb07aafe8a1ac98ce71afb8c7834b3
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.10.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.10.tgz
     version: 0.1.10
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.820735374+02:00"
+    created: "2019-10-22T13:41:56.007134488+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 52d5237a51d092b4fe88380752b95fb17316f33563122bf01300eb1cf0c041d2
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.9.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.9.tgz
     version: 0.1.9
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.82015079+02:00"
+    created: "2019-10-22T13:41:56.006735243+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: e4fc5a98b6237ff04054e3d124e25664d9f240176c2906e0377173902083ccfa
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.8.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.8.tgz
     version: 0.1.8
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.819939614+02:00"
+    created: "2019-10-22T13:41:56.006367306+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: f3d825294906ad4304982d23cdf75bb185c253042b17c65ccbe1600f886e57bd
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.7.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.7.tgz
     version: 0.1.7
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.819740522+02:00"
+    created: "2019-10-22T13:41:56.006174686+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: cc0ba59a883947610ab03711bba106bd866718f157676303f06311fe7a87b099
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.6.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.6.tgz
     version: 0.1.6
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.819536096+02:00"
+    created: "2019-10-22T13:41:56.005983569+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 3b9e7847c58eefdbfaf6318bf24e56732f3ebf88c5317d8de314ae6a25a8789f
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.5.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.5.tgz
     version: 0.1.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.819336124+02:00"
+    created: "2019-10-22T13:41:56.005780912+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: f9ba320fa613e1ff2448be0f1485ca27737283bebe0a667b351afedcf7acdcbb
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.4.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.4.tgz
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.81914144+02:00"
+    created: "2019-10-22T13:41:56.005600934+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: b9cc74e7292b154566ae930e2302917c69b28798177ec87c9dc44a8998a0c2e5
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.3.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.818932781+02:00"
+    created: "2019-10-22T13:41:56.005410046+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: f1e63aa6bc321182b8966ee256a0607e3ccb2f771f1a28bfc25a528720ca402d
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.2.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.817754846+02:00"
+    created: "2019-10-22T13:41:56.004320621+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 50df24b9d8d7947ee1d9bc1a5351963168f28d44a9576303c6d89bb2720bc044
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.1.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.817578037+02:00"
+    created: "2019-10-22T13:41:56.004151459+02:00"
     description: A Helm chart for scheduling gitlab backups
     digest: 74a0162598ebc1f9ebe49ac3afeaba77b7f762d818144a8413ab432a99966ad2
     name: gitlab-backup
     urls:
-    - https://camptocamp.github.io/chart/gitlab-backup-0.1.0.tgz
+    - https://camptocamp.github.io/charts/gitlab-backup-0.1.0.tgz
     version: 0.1.0
   gitlab-runner:
   - appVersion: 11.8.0
-    created: "2019-10-22T13:24:59.824341679+02:00"
+    created: "2019-10-22T13:41:56.007934053+02:00"
     description: GitLab Runner
     digest: baa43fbfbbb4f98ec7e939bbb2c833aefee86c8f90adbce09ac705352ef815e4
     icon: https://gitlab.com/uploads/-/system/project/avatar/250833/runner_logo.png
@@ -451,50 +451,50 @@ entries:
     - https://hub.docker.com/r/gitlab/gitlab-runner/
     - https://docs.gitlab.com/runner/
     urls:
-    - https://camptocamp.github.io/chart/gitlab-runner-0.2.0+mr39.tgz
+    - https://camptocamp.github.io/charts/gitlab-runner-0.2.0+mr39.tgz
     version: 0.2.0+mr39
   hello-world:
-  - created: "2019-10-22T13:24:59.824601654+02:00"
+  - created: "2019-10-22T13:41:56.008168683+02:00"
     digest: 9f679f3de94eb259e10e1ac7ab2ffea6344c85c333bfb2634504517cf52f86e2
     name: hello-world
     urls:
-    - https://camptocamp.github.io/chart/hello-world-1.0.1.tgz
+    - https://camptocamp.github.io/charts/hello-world-1.0.1.tgz
     version: 1.0.1
-  - created: "2019-10-22T13:24:59.824463653+02:00"
+  - created: "2019-10-22T13:41:56.008040861+02:00"
     digest: 2217566310918d932fefc506c92e3d7bc29bff1cd73977f9028e90747ea0bb1a
     name: hello-world
     urls:
-    - https://camptocamp.github.io/chart/hello-world-1.0.0.tgz
+    - https://camptocamp.github.io/charts/hello-world-1.0.0.tgz
     version: 1.0.0
   hello-world-openshift:
-  - created: "2019-10-22T13:24:59.824748518+02:00"
+  - created: "2019-10-22T13:41:56.008313279+02:00"
     digest: 7eac4132849902afb983e1c9e9d612962b95ebd34a7e1aaecb4bd67df85ce4e6
     name: hello-world-openshift
     urls:
-    - https://camptocamp.github.io/chart/hello-world-openshift-1.0.1.tgz
+    - https://camptocamp.github.io/charts/hello-world-openshift-1.0.1.tgz
     version: 1.0.1
   imagestream:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.824929274+02:00"
+    created: "2019-10-22T13:41:56.008461017+02:00"
     description: A Helm chart for Kubernetes
     digest: 9da689c92baa2dc931b2c567b1aefdf8c9f280a6df7e564f126552632c353f5a
     name: imagestream
     urls:
-    - https://camptocamp.github.io/chart/imagestream-0.1.0.tgz
+    - https://camptocamp.github.io/charts/imagestream-0.1.0.tgz
     version: 0.1.0
   infra-doc:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.825247137+02:00"
+    created: "2019-10-22T13:41:56.008737741+02:00"
     description: A Helm chart for Kubernetes
     digest: c9abd52730cc47a886e3532453c5fac70adffea2f9c84f8768ff7b8686659f72
     name: infra-doc
     urls:
-    - https://camptocamp.github.io/chart/infra-doc-0.1.0.tgz
+    - https://camptocamp.github.io/charts/infra-doc-0.1.0.tgz
     version: 0.1.0
   mariadb:
-  - created: "2019-10-22T13:24:59.825629959+02:00"
+  - created: "2019-10-22T13:41:56.009107313+02:00"
     description: Fast, reliable, scalable, and easy to use open-source relational
       database system. MariaDB Server is intended for mission-critical, heavy-load
       production systems as well as for embedding into mass-deployed software.
@@ -514,22 +514,22 @@ entries:
     sources:
     - https://github.com/camptocamp/charts
     urls:
-    - https://camptocamp.github.io/chart/mariadb-1.0.0.tgz
+    - https://camptocamp.github.io/charts/mariadb-1.0.0.tgz
     version: 1.0.0
   metrics:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.826849165+02:00"
+    created: "2019-10-22T13:41:56.010147003+02:00"
     description: A Helm chart to deploy metrics on Kubernetes
     digest: 12f5c53f5a97383a0d6a677bf87edecb85a92ac9ee1f39b65e64503fb199b836
     name: metrics
     urls:
-    - https://camptocamp.github.io/chart/metrics-0.1.0.tgz
+    - https://camptocamp.github.io/charts/metrics-0.1.0.tgz
     version: 0.1.0
   nginx-ldapauth-proxy:
   - apiVersion: v1
     appVersion: 1.13.5
-    created: "2019-10-22T13:24:59.82773812+02:00"
+    created: "2019-10-22T13:41:56.010988914+02:00"
     description: nginx proxy with ldapauth
     digest: e63306134c192a68cedf0b39f33d5ec2c8be967749dd0074e3b38b9e89e94a68
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
@@ -543,11 +543,11 @@ entries:
     - https://github.com/dweomer/dockerfiles-nginx-auth-ldap
     - https://github.com/kvspb/nginx-auth-ldap
     urls:
-    - https://camptocamp.github.io/chart/nginx-ldapauth-proxy-0.2.2.tgz
+    - https://camptocamp.github.io/charts/nginx-ldapauth-proxy-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v1
     appVersion: 1.13.5
-    created: "2019-10-22T13:24:59.82746479+02:00"
+    created: "2019-10-22T13:41:56.010714644+02:00"
     description: nginx proxy with ldapauth
     digest: dd45a9f8d8fd87ebf3875ef0327fd38e5fbdf20e2cbd6e4378cada0818e19271
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
@@ -561,11 +561,11 @@ entries:
     - https://github.com/dweomer/dockerfiles-nginx-auth-ldap
     - https://github.com/kvspb/nginx-auth-ldap
     urls:
-    - https://camptocamp.github.io/chart/nginx-ldapauth-proxy-0.2.1.tgz
+    - https://camptocamp.github.io/charts/nginx-ldapauth-proxy-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
     appVersion: 1.13.5
-    created: "2019-10-22T13:24:59.827178699+02:00"
+    created: "2019-10-22T13:41:56.010432697+02:00"
     description: nginx proxy with ldapauth
     digest: d4087ece370b9fe4d74f02e6d29f6587d42f6a157d54987f7007731fcdc7c0e4
     icon: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Nginx_logo.svg/500px-Nginx_logo.svg.png
@@ -579,10 +579,10 @@ entries:
     - https://github.com/dweomer/dockerfiles-nginx-auth-ldap
     - https://github.com/kvspb/nginx-auth-ldap
     urls:
-    - https://camptocamp.github.io/chart/nginx-ldapauth-proxy-0.1.3.tgz
+    - https://camptocamp.github.io/charts/nginx-ldapauth-proxy-0.1.3.tgz
     version: 0.1.3
   nodejs-ex:
-  - created: "2019-10-22T13:24:59.827983221+02:00"
+  - created: "2019-10-22T13:41:56.011216921+02:00"
     description: An example Node.js application with no database. For more information
       about using this template, including OpenShift considerations, see https://github.com/openshift/nodejs-ex/blob/master/README.md.
     digest: c88b5143ff0a5779d80d0116981aa3dadf080ace428cdac5b38af29bc896ebdd
@@ -594,12 +594,12 @@ entries:
     sources:
     - https://github.com/openshift/nodejs-ex
     urls:
-    - https://camptocamp.github.io/chart/nodejs-ex-0.1.tgz
+    - https://camptocamp.github.io/charts/nodejs-ex-0.1.tgz
     version: "0.1"
   oauth2-proxy:
   - apiVersion: v1
     appVersion: 3.1.0
-    created: "2019-10-22T13:24:59.82880326+02:00"
+    created: "2019-10-22T13:41:56.012017158+02:00"
     description: A reverse proxy that provides authentication with Google, Github
       or other providers
     digest: d53f4e15c762f13d0db9446bc4990fee852732517071b792b0bd286dd306af55
@@ -619,11 +619,11 @@ entries:
     sources:
     - https://github.com/pusher/oauth2_proxy
     urls:
-    - https://camptocamp.github.io/chart/oauth2-proxy-0.13.1.tgz
+    - https://camptocamp.github.io/charts/oauth2-proxy-0.13.1.tgz
     version: 0.13.1
   - apiVersion: v1
     appVersion: 3.1.0
-    created: "2019-10-22T13:24:59.828399647+02:00"
+    created: "2019-10-22T13:41:56.011623202+02:00"
     description: A reverse proxy that provides authentication with Google, Github
       or other providers
     digest: ae9a8bfc50bdee74a803538401d51e9961c53774151c45606197581bd80a980f
@@ -643,463 +643,463 @@ entries:
     sources:
     - https://github.com/pusher/oauth2_proxy
     urls:
-    - https://camptocamp.github.io/chart/oauth2-proxy-0.13.0.tgz
+    - https://camptocamp.github.io/charts/oauth2-proxy-0.13.0.tgz
     version: 0.13.0
   openshift-acme:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.830345221+02:00"
+    created: "2019-10-22T13:41:56.013310887+02:00"
     description: A Helm chart for Openshit ACME (let's encrypt)
     digest: 56d8fa434f9655c16b34589d22a7ecfcf57a2f4ba7c261af243358e08943eacf
     name: openshift-acme
     urls:
-    - https://camptocamp.github.io/chart/openshift-acme-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-acme-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.82967224+02:00"
+    created: "2019-10-22T13:41:56.012656362+02:00"
     description: A Helm chart for Openshit ACME (let's encrypt)
     digest: 90a7e8e5ab9e89ad812241179d7dbbd8e5b554ba9f97eb8bf4ae0377ec11d384
     name: openshift-acme
     urls:
-    - https://camptocamp.github.io/chart/openshift-acme-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-acme-0.1.0.tgz
     version: 0.1.0
   openshift-jenkins:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.83589289+02:00"
+    created: "2019-10-22T13:41:56.017996493+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 6735f248f35d335619764e8e5611e356e21c7a50b4c5d850518e70e10e00a227
     name: openshift-jenkins
     urls:
-    - https://camptocamp.github.io/chart/openshift-jenkins-0.5.2.tgz
+    - https://camptocamp.github.io/charts/openshift-jenkins-0.5.2.tgz
     version: 0.5.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.835098306+02:00"
+    created: "2019-10-22T13:41:56.017336441+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 7c209d996c874b097c664f972ab3ac01688cc3e1312b338f553b5b3cd2f09193
     name: openshift-jenkins
     urls:
-    - https://camptocamp.github.io/chart/openshift-jenkins-0.5.1.tgz
+    - https://camptocamp.github.io/charts/openshift-jenkins-0.5.1.tgz
     version: 0.5.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.834305136+02:00"
+    created: "2019-10-22T13:41:56.016644479+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: eaa299842d441ad786534d0c6772dea2f5f4cd5c6d1f4d9a008b547fc90dfb48
     name: openshift-jenkins
     urls:
-    - https://camptocamp.github.io/chart/openshift-jenkins-0.3.1.tgz
+    - https://camptocamp.github.io/charts/openshift-jenkins-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.833508617+02:00"
+    created: "2019-10-22T13:41:56.015963977+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: f79a697c5c6ca2810adafb0f3b95e9c427b978694acccd13a09d20e7cd55826d
     name: openshift-jenkins
     urls:
-    - https://camptocamp.github.io/chart/openshift-jenkins-0.3.0.tgz
+    - https://camptocamp.github.io/charts/openshift-jenkins-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.832717803+02:00"
+    created: "2019-10-22T13:41:56.015291213+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 0f6c16859bcc9691dc4db4417f62a245582a1eaff1a60cbb2baf0f392397a9d0
     name: openshift-jenkins
     urls:
-    - https://camptocamp.github.io/chart/openshift-jenkins-0.2.0.tgz
+    - https://camptocamp.github.io/charts/openshift-jenkins-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.831825222+02:00"
+    created: "2019-10-22T13:41:56.014241819+02:00"
     description: This template deploys a Jenkins server capable of managing OpenShift
       Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: dbc34536ca71a6a4103ad4d5e24a9c75381d4e1b59686faa880ff38c56cd345a
     name: openshift-jenkins
     urls:
-    - https://camptocamp.github.io/chart/openshift-jenkins-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-jenkins-0.1.0.tgz
     version: 0.1.0
   openshift-logstash:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.836157902+02:00"
+    created: "2019-10-22T13:41:56.018253683+02:00"
     description: A Helm chart for Kubernetes
     digest: d4a457794576cb5b46589c69bc94686ea08c723a0d7ce791504a2d9add263b8b
     name: openshift-logstash
     urls:
-    - https://camptocamp.github.io/chart/openshift-logstash-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-logstash-0.1.0.tgz
     version: 0.1.0
   openshift-namespaces:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.840038197+02:00"
+    created: "2019-10-22T13:41:56.021607775+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 617ae1acb2792ed5bd3cd0a00a8ccd0a706a6401cbeb69823368c0e0d7c8368d
     name: openshift-namespaces
     urls:
-    - https://camptocamp.github.io/chart/openshift-namespaces-0.1.4.tgz
+    - https://camptocamp.github.io/charts/openshift-namespaces-0.1.4.tgz
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.839263898+02:00"
+    created: "2019-10-22T13:41:56.020928069+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 6ad0a206b908850c450ccbbfdc0425110dc2429690881c5ad44cce6cc64f6991
     name: openshift-namespaces
     urls:
-    - https://camptocamp.github.io/chart/openshift-namespaces-0.1.3.tgz
+    - https://camptocamp.github.io/charts/openshift-namespaces-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.838477294+02:00"
+    created: "2019-10-22T13:41:56.020251994+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: d6a8f2a36e2dc96f4aef5c2001ad05a74a1cc6cc9563882d389ea6d1e167f50e
     name: openshift-namespaces
     urls:
-    - https://camptocamp.github.io/chart/openshift-namespaces-0.1.2.tgz
+    - https://camptocamp.github.io/charts/openshift-namespaces-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.837694797+02:00"
+    created: "2019-10-22T13:41:56.019577071+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 5d93a034f9a3f14cd40efa0cc9c8b12e6c963b702a91a990d0393809e5aa14e5
     name: openshift-namespaces
     urls:
-    - https://camptocamp.github.io/chart/openshift-namespaces-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-namespaces-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.836941118+02:00"
+    created: "2019-10-22T13:41:56.018905692+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 098421086f04cb502fbc640cde109e49e5769f8239215e1ad094798acc6a0517
     name: openshift-namespaces
     urls:
-    - https://camptocamp.github.io/chart/openshift-namespaces-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-namespaces-0.1.0.tgz
     version: 0.1.0
   openshift-networkpolicy:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.842477304+02:00"
+    created: "2019-10-22T13:41:56.023880238+02:00"
     description: A Helm chart to manage network policies
     digest: e0dd1e8fc961fc9fd5af76ffd62fb7caf9af745bf2c784ac981a2fb41c4dc489
     name: openshift-networkpolicy
     urls:
-    - https://camptocamp.github.io/chart/openshift-networkpolicy-0.1.2.tgz
+    - https://camptocamp.github.io/charts/openshift-networkpolicy-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.841951404+02:00"
+    created: "2019-10-22T13:41:56.023165814+02:00"
     description: A Helm chart to manage network policies
     digest: ce41350147f5b16bad131be98063c7c158d7c9d92766e088cef720fb0b258b41
     name: openshift-networkpolicy
     urls:
-    - https://camptocamp.github.io/chart/openshift-networkpolicy-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-networkpolicy-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.840875378+02:00"
+    created: "2019-10-22T13:41:56.022129554+02:00"
     description: A Helm chart to manage network policies
     digest: d99398cd8e948d72158f2e495800371b0e32612a627a5231b77105d28fd38887
     name: openshift-networkpolicy
     urls:
-    - https://camptocamp.github.io/chart/openshift-networkpolicy-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-networkpolicy-0.1.0.tgz
     version: 0.1.0
   openshift-nexus3:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.843927693+02:00"
+    created: "2019-10-22T13:41:56.025080437+02:00"
     description: A Helm chart for Nexus3 on Openshift
     digest: 9df961eff12af24aef560281fe4266bab39a43dbc8eddb0266a6c4d5e8c09498
     name: openshift-nexus3
     urls:
-    - https://camptocamp.github.io/chart/openshift-nexus3-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-nexus3-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.843198418+02:00"
+    created: "2019-10-22T13:41:56.024483379+02:00"
     description: A Helm chart for Nexus3 on Openshift
     digest: 31507c967500893929b863af23b305faa763cdb97e18e96a2c0dfab889ef34c0
     name: openshift-nexus3
     urls:
-    - https://camptocamp.github.io/chart/openshift-nexus3-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-nexus3-0.1.0.tgz
     version: 0.1.0
   openshift-projects:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.851098374+02:00"
+    created: "2019-10-22T13:41:56.030770996+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 89c201b9f771637d205fce7d92dff75ca321d1fab28f48749c0f58141905cd3c
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.5.2.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.5.2.tgz
     version: 0.5.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.849986086+02:00"
+    created: "2019-10-22T13:41:56.030124801+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 829a20db3c56464b34fade8e1ffc576e86747a6c4640820743a3065370c43aeb
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.5.1.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.5.1.tgz
     version: 0.5.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.849205925+02:00"
+    created: "2019-10-22T13:41:56.029463976+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 22416a77c9fc342a5b9df0421334480302510135f6c6378006b77327aa4c6a9e
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.5.0.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.848408931+02:00"
+    created: "2019-10-22T13:41:56.028775364+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: b3072c9630a65d8d7e78857b83cff44be6074fe1d3a18af3fcb64ca957007e42
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.4.0.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.847618346+02:00"
+    created: "2019-10-22T13:41:56.028119304+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 324ab6220bf810aa739b3c8ee8d8ec2fa60651ab7083d5adbc935481dd6e1da9
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.3.0.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.846870037+02:00"
+    created: "2019-10-22T13:41:56.027482068+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 1304bd5a219caec7237de0e4ef13ef89f26366fb8b1c4716a64f37281999c0a8
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.1.3.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.846150854+02:00"
+    created: "2019-10-22T13:41:56.026879208+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 0219a4a07f3eced9892db6ea5cc2c4c3d72d6fbe26e80da8d8ee227cc78ea33e
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.1.2.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.845438759+02:00"
+    created: "2019-10-22T13:41:56.026279323+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: d90885eecdfb65fd15c224db7169ebaa825bb2a266d08454ebb2a646e0acdf74
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.844688881+02:00"
+    created: "2019-10-22T13:41:56.025673738+02:00"
     description: Openshift Projects creation with own tiller instances
     digest: 29b6ed44d991576c79780d3eb36bf3b35a25b651497b8c443c097ba63b9242a0
     name: openshift-projects
     urls:
-    - https://camptocamp.github.io/chart/openshift-projects-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-projects-0.1.0.tgz
     version: 0.1.0
   openshift-rbac:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.856177373+02:00"
+    created: "2019-10-22T13:41:56.035530846+02:00"
     description: A Helm chart for Kubernetes
     digest: 8e1fa4f13c9a990e9ba80859e358a401c7d5926db6f20dc443580045deeb98fe
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.2.3.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.2.3.tgz
     version: 0.2.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.855602805+02:00"
+    created: "2019-10-22T13:41:56.034962498+02:00"
     description: A Helm chart for Kubernetes
     digest: 505bea985d0f4692bf408b4040d79236f3d79ca875b742243c8358f3e5efc1a0
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.2.2.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.854911832+02:00"
+    created: "2019-10-22T13:41:56.034392122+02:00"
     description: A Helm chart for Kubernetes
     digest: 7b8153b85476e9233f4683e9d0e5a3a655d0ef64fb831796f1f92e9b4acf21f4
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.2.1.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.854222756+02:00"
+    created: "2019-10-22T13:41:56.033811701+02:00"
     description: A Helm chart for Kubernetes
     digest: 849e788b9b63009f0d1e7da0c1b54f6a500f08a034de399a9a9ad32e894c2734
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.2.0.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.85355341+02:00"
+    created: "2019-10-22T13:41:56.033257203+02:00"
     description: A Helm chart for Kubernetes
     digest: 962211ef697ad62abc1b65c95ea810ae8667e13e0ffdaca521e34255e4de3f8f
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.1.2.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.852901606+02:00"
+    created: "2019-10-22T13:41:56.032708816+02:00"
     description: A Helm chart for Kubernetes
     digest: c756d19406a58e275d54288a2dd8dd067ba04676c288fd2189022b3a0d8b6411
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.852145666+02:00"
+    created: "2019-10-22T13:41:56.031679357+02:00"
     description: A Helm chart for Kubernetes
     digest: fff29773656c8a7e8d4ee99f7a0f6f3fceaac900e92b2d13c9fff9a82c2feb78
     name: openshift-rbac
     urls:
-    - https://camptocamp.github.io/chart/openshift-rbac-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-rbac-0.1.0.tgz
     version: 0.1.0
   openshift-scc:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.85720352+02:00"
+    created: "2019-10-22T13:41:56.036573886+02:00"
     description: A Helm chart for openshift scc
     digest: e9059247a725a9f3a4b9f29108a2ac45c0dde2a5cf4187abf669634d97d79dfc
     name: openshift-scc
     urls:
-    - https://camptocamp.github.io/chart/openshift-scc-0.1.1.tgz
+    - https://camptocamp.github.io/charts/openshift-scc-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.856683213+02:00"
+    created: "2019-10-22T13:41:56.036041301+02:00"
     description: A Helm chart for openshift scc
     digest: 9536f6e59fefe7c2fe47d07cec1245bc646c0cede8e070a570581f42c00d8cd2
     name: openshift-scc
     urls:
-    - https://camptocamp.github.io/chart/openshift-scc-0.1.0.tgz
+    - https://camptocamp.github.io/charts/openshift-scc-0.1.0.tgz
     version: 0.1.0
   pghoard:
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.860220241+02:00"
+    created: "2019-10-22T13:41:56.039213702+02:00"
     description: A Helm chart for PGHoard
     digest: 50400ee7d4047a64f6420c36aa4e534e591ac88b93b0cfe696228f8a382291a3
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.6.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.6.0.tgz
     version: 5.6.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.859813473+02:00"
+    created: "2019-10-22T13:41:56.038669938+02:00"
     description: A Helm chart for PGHoard
     digest: 90c7ba8681b6e92cb4d66c111c8acf8270673b512a19bb549ea2959200f3729b
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.5.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.5.0.tgz
     version: 5.5.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.859378518+02:00"
+    created: "2019-10-22T13:41:56.03846913+02:00"
     description: A Helm chart for PGHoard
     digest: 465e8ffee8a695ef9911ded19a9f688a3cbf957e98002fd2d5139998b3132266
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.4.1.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.4.1.tgz
     version: 5.4.1
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.859023973+02:00"
+    created: "2019-10-22T13:41:56.038250228+02:00"
     description: A Helm chart for PGHoard
     digest: 916cd52bca65385acb7f6e40fc5e58e79f16884d428478ba6622df4460de588b
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.4.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.4.0.tgz
     version: 5.4.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.858804943+02:00"
+    created: "2019-10-22T13:41:56.038043604+02:00"
     description: A Helm chart for PGHoard
     digest: 86d90f9bee9fb2884e865ad97236dc7b60332d08a52f7863bd591b4391e54102
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.3.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.3.0.tgz
     version: 5.3.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.858564206+02:00"
+    created: "2019-10-22T13:41:56.037838687+02:00"
     description: A Helm chart for PGHoard
     digest: ab9ede7f38fad1c7ebd9be35486b7cf0b9dcc00dc598560d4805af0396c0e06b
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.2.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.2.0.tgz
     version: 5.2.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.858349174+02:00"
+    created: "2019-10-22T13:41:56.037649639+02:00"
     description: A Helm chart for PGHoard
     digest: c0506bec80da106091d087e51ac382b74d4fa5e75f25550c33061be6cb5cc4de
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.1.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.1.0.tgz
     version: 5.1.0
   - apiVersion: v1
     appVersion: 2.1.0
-    created: "2019-10-22T13:24:59.858156716+02:00"
+    created: "2019-10-22T13:41:56.037467604+02:00"
     description: A Helm chart for PGHoard
     digest: 3f22e6d049eac59648d6e81b565147bd06ed19e23a928f01b999efa83be59d5c
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-5.0.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-5.0.0.tgz
     version: 5.0.0
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.857958699+02:00"
+    created: "2019-10-22T13:41:56.037273017+02:00"
     description: A Helm chart for PGHoard
     digest: 945d6290d5bd93bbde031aba0202656d751b6b68a66f72e6e76ef39abde9389a
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-4.0.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-4.0.0.tgz
     version: 4.0.0
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.857763998+02:00"
+    created: "2019-10-22T13:41:56.037098195+02:00"
     description: A Helm chart for PGHoard
     digest: 7f913e9621e4da84c1feb2cbb0df9d35ab7f0ade2525ab75f5d945f399ba7744
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-3.0.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-3.0.0.tgz
     version: 3.0.0
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.857568607+02:00"
+    created: "2019-10-22T13:41:56.036915597+02:00"
     description: A Helm chart for PGHoard
     digest: 062fec9547f83cbb4b87a605dd895511b20f536d0da3db6fccc3fe426b5616ce
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-2.0.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.857392085+02:00"
+    created: "2019-10-22T13:41:56.036751649+02:00"
     description: A Helm chart for PGHoard
     digest: fe4f656b4c6209a4c19a48aafb5c187129c3aa16bdf4d1d9917f4b207c8da568
     name: pghoard
     urls:
-    - https://camptocamp.github.io/chart/pghoard-1.0.0.tgz
+    - https://camptocamp.github.io/charts/pghoard-1.0.0.tgz
     version: 1.0.0
   postgresql:
-  - created: "2019-10-22T13:24:59.860748283+02:00"
+  - created: "2019-10-22T13:41:56.03986094+02:00"
     description: |
       Object-relational database management system (ORDBMS) with an emphasis on extensibility and on standards-compliance.
       Patched version for pvc
@@ -1118,32 +1118,32 @@ entries:
     sources:
     - https://github.com/camptocamp/charts
     urls:
-    - https://camptocamp.github.io/chart/postgresql-0.7.1.tgz
+    - https://camptocamp.github.io/charts/postgresql-0.7.1.tgz
     version: 0.7.1
   prometheus-exporter:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.860973503+02:00"
+    created: "2019-10-22T13:41:56.040075709+02:00"
     description: A Helm chart for Kubernetes
     digest: 5d61031b3bc5374f9bdec9284694552e62d111d8f62fd2015e12d1df46b4fa77
     name: prometheus-exporter
     urls:
-    - https://camptocamp.github.io/chart/prometheus-exporter-0.1.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-exporter-0.1.0.tgz
     version: 0.1.0
   prometheus-jsonpath-exporter:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.861141336+02:00"
+    created: "2019-10-22T13:41:56.040237273+02:00"
     description: A Helm chart to deploy prometheus-jsonpath-exporter
     digest: c87e04e94db49e8815f97fd3c964978c67828c44481d7dcc1da1a54072e959c4
     home: https://github.com/project-sunbird/prometheus-jsonpath-exporter
     name: prometheus-jsonpath-exporter
     urls:
-    - https://camptocamp.github.io/chart/prometheus-jsonpath-exporter-0.1.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-jsonpath-exporter-0.1.0.tgz
     version: 0.1.0
   prometheus-operator:
   - apiVersion: v1
     appVersion: 0.31.1
-    created: "2019-10-22T13:24:59.876302324+02:00"
+    created: "2019-10-22T13:41:56.054253155+02:00"
     description: Provides easy monitoring definitions for Kubernetes services, and
       deployment and management of Prometheus instances.
     digest: 0336031412fb40454a3f71c4a84c2c41b54919fdb66e710ca2f24550ea192bf6
@@ -1163,11 +1163,11 @@ entries:
     - https://github.com/coreos/prometheus-operator
     - https://coreos.com/operators/prometheus
     urls:
-    - https://camptocamp.github.io/chart/prometheus-operator-5.15.1.tgz
+    - https://camptocamp.github.io/charts/prometheus-operator-5.15.1.tgz
     version: 5.15.1
   - apiVersion: v1
     appVersion: 0.31.1
-    created: "2019-10-22T13:24:59.868068592+02:00"
+    created: "2019-10-22T13:41:56.046982792+02:00"
     description: Provides easy monitoring definitions for Kubernetes services, and
       deployment and management of Prometheus instances.
     digest: 5a3d95c654dc4d56f786215d7e6f852e93f05fe07387c062ebbb2bf894b6cbe9
@@ -1187,870 +1187,870 @@ entries:
     - https://github.com/coreos/prometheus-operator
     - https://coreos.com/operators/prometheus
     urls:
-    - https://camptocamp.github.io/chart/prometheus-operator-5.15.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-operator-5.15.0.tgz
     version: 5.15.0
   prometheus-operator-csv:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.876539409+02:00"
+    created: "2019-10-22T13:41:56.054479672+02:00"
     description: Prometheus Operator ClusterServiceVersion
     digest: e8f0b6ddbb2d535375fb1e2b3584d58a1189f344d96e686fb9015fb0294b02a5
     name: prometheus-operator-csv
     urls:
-    - https://camptocamp.github.io/chart/prometheus-operator-csv-1.tgz
+    - https://camptocamp.github.io/charts/prometheus-operator-csv-1.tgz
     version: "1"
   prometheus-puppetdb:
   - apiVersion: v1
     appVersion: 0.10.0
-    created: "2019-10-22T13:24:59.879290452+02:00"
+    created: "2019-10-22T13:41:56.056838824+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: 4fb78a0c0b3aae7138e7f43181b80a6047bf5b83b031b96fca4a6b1cbadba2f9
     name: prometheus-puppetdb
     urls:
-    - https://camptocamp.github.io/chart/prometheus-puppetdb-3.0.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-puppetdb-3.0.0.tgz
     version: 3.0.0
   - apiVersion: v1
     appVersion: 0.9.0
-    created: "2019-10-22T13:24:59.879090281+02:00"
+    created: "2019-10-22T13:41:56.056650909+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: 97feb02c269146271a2da2b8dd4e94e69984334e6d7439aa4eb493dcd28e2224
     name: prometheus-puppetdb
     urls:
-    - https://camptocamp.github.io/chart/prometheus-puppetdb-2.0.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-puppetdb-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.878877973+02:00"
+    created: "2019-10-22T13:41:56.056450925+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: e013bffc70f89388237b51786e08cf4e16ca5dd95bcdeeaffc628f44be65da1d
     name: prometheus-puppetdb
     urls:
-    - https://camptocamp.github.io/chart/prometheus-puppetdb-1.0.1.tgz
+    - https://camptocamp.github.io/charts/prometheus-puppetdb-1.0.1.tgz
     version: 1.0.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.877729026+02:00"
+    created: "2019-10-22T13:41:56.055420751+02:00"
     description: A Helm chart for Prometheus-puppetdb
     digest: f4d10a179eb8d988cf21337108671abf24aca0e2646d1626eda1041c8d34dc3a
     name: prometheus-puppetdb
     urls:
-    - https://camptocamp.github.io/chart/prometheus-puppetdb-1.0.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-puppetdb-1.0.0.tgz
     version: 1.0.0
   prometheus-puppetdb-sd:
   - apiVersion: v1
     appVersion: 0.11.0
-    created: "2019-10-22T13:24:59.879514371+02:00"
+    created: "2019-10-22T13:41:56.057044149+02:00"
     description: A Helm chart for Prometheus PuppetDB SD
     digest: 93a5e94d164e0e3fd4f177cee4939cc7ed86c968f26a02d324ac1ccb0bcb5b75
     name: prometheus-puppetdb-sd
     urls:
-    - https://camptocamp.github.io/chart/prometheus-puppetdb-sd-4.0.0.tgz
+    - https://camptocamp.github.io/charts/prometheus-puppetdb-sd-4.0.0.tgz
     version: 4.0.0
   puppet:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.881493024+02:00"
+    created: "2019-10-22T13:41:56.058970871+02:00"
     description: A Helm chart for Puppet
     digest: b92d5f07955d52207b6b9dbd48747141225abb0828a1ee39818357c049136d0e
     name: puppet
     urls:
-    - https://camptocamp.github.io/chart/puppet-2.1.1.tgz
+    - https://camptocamp.github.io/charts/puppet-2.1.1.tgz
     version: 2.1.1
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.881050225+02:00"
+    created: "2019-10-22T13:41:56.058540836+02:00"
     description: A Helm chart for Puppet
     digest: dc879f6f531381306678899d8b39f030a1662b1ac00c59e5c4b72bf85c507e9e
     name: puppet
     urls:
-    - https://camptocamp.github.io/chart/puppet-2.1.0.tgz
+    - https://camptocamp.github.io/charts/puppet-2.1.0.tgz
     version: 2.1.0
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.880662129+02:00"
+    created: "2019-10-22T13:41:56.058164524+02:00"
     description: A Helm chart for Puppet
     digest: 606c91341de9f31d001cd652c368a3f3c832b17342d00ebcfdff5eab4e2dcbe2
     name: puppet
     urls:
-    - https://camptocamp.github.io/chart/puppet-2.0.1.tgz
+    - https://camptocamp.github.io/charts/puppet-2.0.1.tgz
     version: 2.0.1
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.880299786+02:00"
+    created: "2019-10-22T13:41:56.057810739+02:00"
     description: A Helm chart for Puppet
     digest: 43a974127c17a27572deb7a84660d8e1212e2a286e598a643bfd477653e324e5
     name: puppet
     urls:
-    - https://camptocamp.github.io/chart/puppet-2.0.0.tgz
+    - https://camptocamp.github.io/charts/puppet-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.879924226+02:00"
+    created: "2019-10-22T13:41:56.05744028+02:00"
     description: A Helm chart for Puppet
     digest: 1b9edbe5a7f9eb0fd74f0abc48ee7e41a7787bb8031c3ba6958c37965684eb16
     name: puppet
     urls:
-    - https://camptocamp.github.io/chart/puppet-1.0.0.tgz
+    - https://camptocamp.github.io/charts/puppet-1.0.0.tgz
     version: 1.0.0
   puppet-openshift:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.881907221+02:00"
+    created: "2019-10-22T13:41:56.05938252+02:00"
     description: A Helm chart for Puppet on OpenShift
     digest: a3aa46acdcf8087ab4ddc4889a76af539dcb7c6595e20753a196282bd269997d
     name: puppet-openshift
     urls:
-    - https://camptocamp.github.io/chart/puppet-openshift-1.0.0.tgz
+    - https://camptocamp.github.io/charts/puppet-openshift-1.0.0.tgz
     version: 1.0.0
   puppetboard:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.883421655+02:00"
+    created: "2019-10-22T13:41:56.060790512+02:00"
     description: A Helm chart for Kubernetes
     digest: 764a23e2405def25590fbaa3f9964f90c3fe3ed5e1ae122490e960eb0fc0db26
     name: puppetboard
     urls:
-    - https://camptocamp.github.io/chart/puppetboard-0.2.4.tgz
+    - https://camptocamp.github.io/charts/puppetboard-0.2.4.tgz
     version: 0.2.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.883168542+02:00"
+    created: "2019-10-22T13:41:56.060567233+02:00"
     description: A Helm chart for Kubernetes
     digest: 18d250f3428492b48b70d38ac5cde2941a8cae2bf9a53da8b3e1f9ba216da3a1
     name: puppetboard
     urls:
-    - https://camptocamp.github.io/chart/puppetboard-0.2.3.tgz
+    - https://camptocamp.github.io/charts/puppetboard-0.2.3.tgz
     version: 0.2.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.882914596+02:00"
+    created: "2019-10-22T13:41:56.060333713+02:00"
     description: A Helm chart for Kubernetes
     digest: 2adf78d20f8c911b1030a76bf800e62c65e9c48de5f452fe872db79a97f635ec
     name: puppetboard
     urls:
-    - https://camptocamp.github.io/chart/puppetboard-0.2.2.tgz
+    - https://camptocamp.github.io/charts/puppetboard-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.882657112+02:00"
+    created: "2019-10-22T13:41:56.060082529+02:00"
     description: A Helm chart for Kubernetes
     digest: 5fb6671bd9063f0b18b0fc64d37c993148ecdbd2fb515852853904d3aeaf14b0
     name: puppetboard
     urls:
-    - https://camptocamp.github.io/chart/puppetboard-0.2.1.tgz
+    - https://camptocamp.github.io/charts/puppetboard-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.882409209+02:00"
+    created: "2019-10-22T13:41:56.059852451+02:00"
     description: A Helm chart for Kubernetes
     digest: aa18643fdb4e6a11f3e0768ce6e1fc8655466072c4b921db7c14000e25413dd1
     name: puppetboard
     urls:
-    - https://camptocamp.github.io/chart/puppetboard-0.2.0.tgz
+    - https://camptocamp.github.io/charts/puppetboard-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.882158408+02:00"
+    created: "2019-10-22T13:41:56.059613543+02:00"
     description: A Helm chart for Kubernetes
     digest: 386a2561d2f9c0f9e4810d0b4437e0d2447de5fe807a8a2635d95a7b9b91f6f2
     name: puppetboard
     urls:
-    - https://camptocamp.github.io/chart/puppetboard-0.1.0.tgz
+    - https://camptocamp.github.io/charts/puppetboard-0.1.0.tgz
     version: 0.1.0
   puppetdb:
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.888396134+02:00"
+    created: "2019-10-22T13:41:56.065311481+02:00"
     description: A Helm chart for PuppetDB
     digest: 2a51c710eb51aa695aadb1009586d7493bf898980e5f06b415c2b1f1200c0e4e
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.7.1.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.7.1.tgz
     version: 0.7.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.888109136+02:00"
+    created: "2019-10-22T13:41:56.065040297+02:00"
     description: A Helm chart for PuppetDB
     digest: e6a33e5972247d6adf3b378744a7489024b89765f8845a242a17af38e01c3d9a
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.7.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.7.0.tgz
     version: 0.7.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.88775799+02:00"
+    created: "2019-10-22T13:41:56.064767967+02:00"
     description: A Helm chart for PuppetDB
     digest: efbc1a68be81dc719a7ffe72364da9b02d842f713d030d722eabe52af772f9ec
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.6.2.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.6.2.tgz
     version: 0.6.2
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.887217366+02:00"
+    created: "2019-10-22T13:41:56.06443469+02:00"
     description: A Helm chart for PuppetDB
     digest: b624cc7f30a9f6b99e5b31a07168c3b75b52c55a93e5a586aa307185cedc0133
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.6.1.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.6.1.tgz
     version: 0.6.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.886659898+02:00"
+    created: "2019-10-22T13:41:56.063918428+02:00"
     description: A Helm chart for PuppetDB
     digest: c226f690dd1053395edb25ab6e113f4abe2974c40be8c27dfae7ae7a322bf89c
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.6.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.6.0.tgz
     version: 0.6.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.886019269+02:00"
+    created: "2019-10-22T13:41:56.063500734+02:00"
     description: A Helm chart for PuppetDB
     digest: 365e57e073ed9975d915798e3121f6a124c706f2675608ecf8306fffbf5ac104
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.5.3.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.5.3.tgz
     version: 0.5.3
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.88579509+02:00"
+    created: "2019-10-22T13:41:56.062987293+02:00"
     description: A Helm chart for PuppetDB
     digest: 6f08080baed732a68b3e6e379453e7deec819d79b98998b453c93f9e77942e56
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.5.2.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.5.2.tgz
     version: 0.5.2
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.88556018+02:00"
+    created: "2019-10-22T13:41:56.062752459+02:00"
     description: A Helm chart for PuppetDB
     digest: eda2f72332b5a78218935b5056210afb34f105a8ef5f41cdc8a3e39062e7f061
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.5.1.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.5.1.tgz
     version: 0.5.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.885335471+02:00"
+    created: "2019-10-22T13:41:56.062524375+02:00"
     description: A Helm chart for PuppetDB
     digest: 093bfe8dd44043702afb23d6e62111f3fc0073ad9ce783541c3b04724a70e58f
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.5.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.885100422+02:00"
+    created: "2019-10-22T13:41:56.06229663+02:00"
     description: A Helm chart for PuppetDB
     digest: 9ccfce1e852511d3387f73646a8879dd71d74579246e6e431d09f90fdda80de8
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.4.1.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.884868309+02:00"
+    created: "2019-10-22T13:41:56.062076509+02:00"
     description: A Helm chart for PuppetDB
     digest: d6b96ba9d35d4e4cebf98f3cd11455f5ddf05b9af517adc0227713c7609e0d49
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.4.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.884622528+02:00"
+    created: "2019-10-22T13:41:56.061854206+02:00"
     description: A Helm chart for PuppetDB
     digest: a391ea709b9464ebb10ecd046e20cbc89edecdf3fc09169f0378f28a9ab06d4a
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.3.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.884377593+02:00"
+    created: "2019-10-22T13:41:56.061633114+02:00"
     description: A Helm chart for PuppetDB
     digest: 4285728d068fe9d6244b1a1b9145ea6de514fb5152e6e97089e223c24572ffa7
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.2.2.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.88413737+02:00"
+    created: "2019-10-22T13:41:56.061421765+02:00"
     description: A Helm chart for PuppetDB
     digest: 928f46412d88a41e39457c003dbc60c45a27ba791d96ddd4a406fda30a3f5449
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.2.1.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
     appVersion: 5.2.7
-    created: "2019-10-22T13:24:59.883887534+02:00"
+    created: "2019-10-22T13:41:56.061198108+02:00"
     description: A Helm chart for PuppetDB
     digest: 2a4f6fa36ab4e93175647efa2a921195d6d921b5345388f30f9168bbc132870d
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.2.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.883657425+02:00"
+    created: "2019-10-22T13:41:56.060992255+02:00"
     description: A Helm chart for Kubernetes
     digest: 57c1319fb735cd15e10c22cb8aad04f64f2db49b7d00eee4343382e6083eafae
     name: puppetdb
     urls:
-    - https://camptocamp.github.io/chart/puppetdb-0.1.0.tgz
+    - https://camptocamp.github.io/charts/puppetdb-0.1.0.tgz
     version: 0.1.0
   puppetserver:
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.892845234+02:00"
+    created: "2019-10-22T13:41:56.0694319+02:00"
     description: A Helm chart for Kubernetes
     digest: b47a7fa0ff166c6a1fcf8ff3674f0055a294049aebfb16480367fc0eb9f9b57b
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.5.2.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.5.2.tgz
     version: 0.5.2
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.892534997+02:00"
+    created: "2019-10-22T13:41:56.069123835+02:00"
     description: A Helm chart for Kubernetes
     digest: 12f7741a85ca747f24e9acdf39b8b37c790ddbfb7786a72ece3b05da376cc020
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.5.1.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.5.1.tgz
     version: 0.5.1
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.892222124+02:00"
+    created: "2019-10-22T13:41:56.068808672+02:00"
     description: A Helm chart for Kubernetes
     digest: 1e67ef9a4f8fbe00b2f25f6b36c5b294758e283e0bdc12bb35d4116888f61b15
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.5.0.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.5.0.tgz
     version: 0.5.0
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.891920571+02:00"
+    created: "2019-10-22T13:41:56.068491999+02:00"
     description: A Helm chart for Kubernetes
     digest: 78246837adea8e34c1a8c192af155f2020900fd550959ef524ec6d0d4bc51f04
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.4.2.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.4.2.tgz
     version: 0.4.2
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.89158928+02:00"
+    created: "2019-10-22T13:41:56.068184738+02:00"
     description: A Helm chart for Kubernetes
     digest: 990e9e6bae330b21bcf5f86f26bd1c0fefc259952b4c92a870efde87aad44858
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.4.1.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.891255758+02:00"
+    created: "2019-10-22T13:41:56.067883968+02:00"
     description: A Helm chart for Kubernetes
     digest: 959d1bb9d98a8222eaa4e866a81368c177651b94d61f2d31b947f976000e97a2
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.4.0.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.890972045+02:00"
+    created: "2019-10-22T13:41:56.067596319+02:00"
     description: A Helm chart for Kubernetes
     digest: 25844a16483210aa10b52dc05b28213c63364c0a07cbec0b146bd3e914a4ab18
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.3.0.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.890692677+02:00"
+    created: "2019-10-22T13:41:56.067338011+02:00"
     description: A Helm chart for Kubernetes
     digest: 3184672d8c02f482bdad5fa9ec034ea69184faa3ab082d0fa77d28c1f422e7c2
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.2.2.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.890411823+02:00"
+    created: "2019-10-22T13:41:56.067083711+02:00"
     description: A Helm chart for Kubernetes
     digest: fa5851e7b5ef864d73eecf61203303070153062540047d9f6538cbb5ed65a5f4
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.2.1.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.890119332+02:00"
+    created: "2019-10-22T13:41:56.066826067+02:00"
     description: A Helm chart for Kubernetes
     digest: a6f5043d0bbc15ca05de3478c1965c032eb74ac97be851b8d4758fa7e542aac6
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.2.0.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.889880914+02:00"
+    created: "2019-10-22T13:41:56.066603421+02:00"
     description: A Helm chart for Kubernetes
     digest: 6d2b6aeb2f7094034f9fc9bc8428440c25e9af5b7bb05a23321b9e48612e5e87
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.1.6.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.1.6.tgz
     version: 0.1.6
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.889637249+02:00"
+    created: "2019-10-22T13:41:56.066389107+02:00"
     description: A Helm chart for Kubernetes
     digest: 333de4e31a67b7bf8eb31f35b8e3bf438937c0afe89212ae8731ab01863c4f49
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.1.5.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.1.5.tgz
     version: 0.1.5
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.889361965+02:00"
+    created: "2019-10-22T13:41:56.066152976+02:00"
     description: A Helm chart for Kubernetes
     digest: ad689bdc9c32cd9d3ea565da83449e9f2fdf073a5cab32b1223c96ad48edf244
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.1.4.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.1.4.tgz
     version: 0.1.4
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.889106939+02:00"
+    created: "2019-10-22T13:41:56.065938531+02:00"
     description: A Helm chart for Kubernetes
     digest: fa67c43834c6ffe3d1462f62805b7adda229e894be53b093104e9d0100b9494d
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.1.3.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: 5.3.7
-    created: "2019-10-22T13:24:59.888880456+02:00"
+    created: "2019-10-22T13:41:56.065724503+02:00"
     description: A Helm chart for Kubernetes
     digest: 67058a4fc45aff81081f7fd3e8ed612d8167419a3ee5b5526927ecce17ce4960
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.1.2.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.888644559+02:00"
+    created: "2019-10-22T13:41:56.06550842+02:00"
     description: A Helm chart for Kubernetes
     digest: a5b1e47da5d2d8ab3323caa93cafd2ac62a8539fc739c3da01acf40df41f2843
     name: puppetserver
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-0.1.1.tgz
+    - https://camptocamp.github.io/charts/puppetserver-0.1.1.tgz
     version: 0.1.1
   puppetserver-build:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.893015906+02:00"
+    created: "2019-10-22T13:41:56.069579242+02:00"
     description: A Helm chart for Kubernetes
     digest: ee7db4920a3b9360dc21afcec1fef7c4cebefca00f447a4d8c8d5776b3ac7033
     name: puppetserver-build
     urls:
-    - https://camptocamp.github.io/chart/puppetserver-build-0.1.0.tgz
+    - https://camptocamp.github.io/charts/puppetserver-build-0.1.0.tgz
     version: 0.1.0
   pushprox:
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-10-22T13:24:59.894608214+02:00"
+    created: "2019-10-22T13:41:56.071231438+02:00"
     description: A Helm chart for Pushprox
     digest: e919752966ed39e340ed3a255df5d75f9508c3cc0eace350960239d47354febe
     name: pushprox
     urls:
-    - https://camptocamp.github.io/chart/pushprox-0.2.1.tgz
+    - https://camptocamp.github.io/charts/pushprox-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-10-22T13:24:59.894109603+02:00"
+    created: "2019-10-22T13:41:56.070796271+02:00"
     description: A Helm chart for Pushprox
     digest: 808f351874175cb74fe4a10defc6988ec192fbede29ad383e4976a7047bd6272
     name: pushprox
     urls:
-    - https://camptocamp.github.io/chart/pushprox-0.2.0.tgz
+    - https://camptocamp.github.io/charts/pushprox-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-10-22T13:24:59.893666531+02:00"
+    created: "2019-10-22T13:41:56.07035536+02:00"
     description: A Helm chart for Pushprox
     digest: 3267a2569f50d99986429920b7760116d15623de18757670a135f634c794be97
     name: pushprox
     urls:
-    - https://camptocamp.github.io/chart/pushprox-0.1.2.tgz
+    - https://camptocamp.github.io/charts/pushprox-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-10-22T13:24:59.893445294+02:00"
+    created: "2019-10-22T13:41:56.069979859+02:00"
     description: A Helm chart for Pushprox
     digest: 39f07651a74158293fb144db3fa476f03ee24c31b2d219c810be282b6ad30ba3
     name: pushprox
     urls:
-    - https://camptocamp.github.io/chart/pushprox-0.1.1.tgz
+    - https://camptocamp.github.io/charts/pushprox-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "20190708"
-    created: "2019-10-22T13:24:59.893231102+02:00"
+    created: "2019-10-22T13:41:56.069776317+02:00"
     description: A Helm chart for Pushprox
     digest: fcb740be24b796bb9b13df0120a1af31f94934f7e733f738f326066ca3e7e1dd
     name: pushprox
     urls:
-    - https://camptocamp.github.io/chart/pushprox-0.1.0.tgz
+    - https://camptocamp.github.io/charts/pushprox-0.1.0.tgz
     version: 0.1.0
   r10k-webhook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.89508972+02:00"
+    created: "2019-10-22T13:41:56.071530745+02:00"
     description: A Helm chart for Kubernetes
     digest: 7cad73aa2dd1f2abf79528f58941446313df9e31f39b382eec0ce54288031037
     name: r10k-webhook
     urls:
-    - https://camptocamp.github.io/chart/r10k-webhook-0.1.2.tgz
+    - https://camptocamp.github.io/charts/r10k-webhook-0.1.2.tgz
     version: 0.1.2
   redisfailover:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.895728712+02:00"
+    created: "2019-10-22T13:41:56.072096918+02:00"
     description: A Helm chart for redisfailover
     digest: 7ee8a85ed8d5a7970c0bae2af79f25f0c6d862535692605cf60a0fc484520319
     name: redisfailover
     urls:
-    - https://camptocamp.github.io/chart/redisfailover-0.1.0.tgz
+    - https://camptocamp.github.io/charts/redisfailover-0.1.0.tgz
     version: 0.1.0
   redisoperator:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.895931424+02:00"
+    created: "2019-10-22T13:41:56.072281606+02:00"
     description: A Helm chart for the Spotahome Redis Operator
     digest: 2b52e4dd97a84074480628a2b0332b72600a97ac88789213fb76f9cc48028924
     name: redisoperator
     urls:
-    - https://camptocamp.github.io/chart/redisoperator-3.0.1.tgz
+    - https://camptocamp.github.io/charts/redisoperator-3.0.1.tgz
     version: 3.0.1
   ruby-ex:
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.897546059+02:00"
+    created: "2019-10-22T13:41:56.073736081+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 5be2d09793872078fd28c7b6374551c78ce6d560ce80cfd36194e24fa9825fea
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.16.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.16.tgz
     version: 0.0.16
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.897335355+02:00"
+    created: "2019-10-22T13:41:56.07356416+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: c04552bd93073b06413518ce28d20827d7c58e465927e09017d35821023e73bf
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.15.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.15.tgz
     version: 0.0.15
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.89710446+02:00"
+    created: "2019-10-22T13:41:56.073355557+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 921b2ea1a28e4b29724953c80069aa441e7551a3e588a8a5066f36857fe4f5cc
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.14.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.14.tgz
     version: 0.0.14
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.896912178+02:00"
+    created: "2019-10-22T13:41:56.07318589+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: b9ebdd80c84bf765c7a813fb5a77690ac41318ecd880654cffc4f2d456f96fd0
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.13.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.13.tgz
     version: 0.0.13
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.896713804+02:00"
+    created: "2019-10-22T13:41:56.073014518+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: c51173e5922ed173048afde28f2060e409c80cad1d4c9a929019c1dc0b5389b3
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.12.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.12.tgz
     version: 0.0.12
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.896516055+02:00"
+    created: "2019-10-22T13:41:56.072842594+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: d9fec495b92c708cc35de12ae2ecbb3f212f85c14d5074ddcd6c3798ba4a0559
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.11.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.11.tgz
     version: 0.0.11
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.896332753+02:00"
+    created: "2019-10-22T13:41:56.072662874+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 07e13dfe2e0b0eafb41db0158417cf6eeb8247c312c48b066a1d690b959bee56
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.10.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.10.tgz
     version: 0.0.10
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.899068848+02:00"
+    created: "2019-10-22T13:41:56.07513571+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: f7686d88b920429d431294d08f4a798bc51a6bae070a1069e4626917bcd20b3a
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.9.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.9.tgz
     version: 0.0.9
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.8988734+02:00"
+    created: "2019-10-22T13:41:56.074964075+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 156aba80d226b01ea232e18097afc2ebddf66f9d394c4a11368bc37683e3b34b
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.8.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.8.tgz
     version: 0.0.8
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.898686781+02:00"
+    created: "2019-10-22T13:41:56.074792701+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 2f182c5a607895ab0cc8627af394ae695ab46959496bab96837d413320ecbaaf
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.7.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.7.tgz
     version: 0.0.7
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.898497352+02:00"
+    created: "2019-10-22T13:41:56.07462307+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 342dbf19002bb019bb4815b5d5b8243c18150cce616e0a4b5f258ef93b50aebd
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.6.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.6.tgz
     version: 0.0.6
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.898311156+02:00"
+    created: "2019-10-22T13:41:56.074445719+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: f0f8e99d2dcdc855cffd7cd3308eb267ba4aa57cae00fa48402c22b601354b1d
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.5.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.5.tgz
     version: 0.0.5
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.898127449+02:00"
+    created: "2019-10-22T13:41:56.07427408+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 03a01d6436839b19518688f69dd66853463c5bf21bd832b84cc9ee4948ab49da
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.4.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.4.tgz
     version: 0.0.4
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.897935726+02:00"
+    created: "2019-10-22T13:41:56.074099594+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 9898891aa16aec9d46ee20950b1e21afad87a241827451332300c8b23276c0cf
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.3.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.3.tgz
     version: 0.0.3
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.897739424+02:00"
+    created: "2019-10-22T13:41:56.073916407+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: b96879594f16c47cd0afa58b8f2135cfd01b6815e8fe6a95424a43d174b1e774
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.2.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v1
-    created: "2019-10-22T13:24:59.896131318+02:00"
+    created: "2019-10-22T13:41:56.072483959+02:00"
     description: A Helm chart for ruby-ex on Openshift
     digest: 19b67a445f4bccc71d6602a5293c3e3e213e92519cb3266af41fd1754528636f
     name: ruby-ex
     urls:
-    - https://camptocamp.github.io/chart/ruby-ex-0.0.1.tgz
+    - https://camptocamp.github.io/charts/ruby-ex-0.0.1.tgz
     version: 0.0.1
   s3-exporter:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.901638182+02:00"
+    created: "2019-10-22T13:41:56.077568834+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: b44f7297e4d30ca784f170d729dc838004fb19a12a7aaa569e93b50cdbd76130
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.2.0.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.901253738+02:00"
+    created: "2019-10-22T13:41:56.077203043+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: aee4f176b1942fa78a688aa277461359653da2a3becc5d512d1dd3b9f6e0c7f1
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.9.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.9.tgz
     version: 0.1.9
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.900843716+02:00"
+    created: "2019-10-22T13:41:56.076780383+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 843c772700b103db53b82b1a1e8b4ed1ad9887107c1120bfeff7d8a023ad6652
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.8.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.8.tgz
     version: 0.1.8
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.900637085+02:00"
+    created: "2019-10-22T13:41:56.076590919+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 97b7bec8c8791161b49b6db297da66ca4334dcb4e1099944897adbb5d0d3a082
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.7.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.7.tgz
     version: 0.1.7
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.900432864+02:00"
+    created: "2019-10-22T13:41:56.076397588+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 0cc215076298f939bdf576b0633bdb02b649da7a5083950f35950faa10ddc59e
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.6.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.6.tgz
     version: 0.1.6
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.900224677+02:00"
+    created: "2019-10-22T13:41:56.076197943+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 73cf1997a58f8f105662e6dfcaaa137231d81956354e56a751d75206c8c04b5c
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.5.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.5.tgz
     version: 0.1.5
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.90000904+02:00"
+    created: "2019-10-22T13:41:56.076000531+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 0cb7f300967de7a7399e49800b1f739cd62283f34548728a8e7d315660c413be
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.4.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.4.tgz
     version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.899775481+02:00"
+    created: "2019-10-22T13:41:56.075784932+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: b1f209bd7a679f59191736245016438b8bfeee142bcd9fa26eabc9563365ba5a
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.3.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.899530263+02:00"
+    created: "2019-10-22T13:41:56.075569429+02:00"
     description: A Helm chart for Kubernetes to export metrics about files stored
       in a s3 bucket
     digest: 011caa7d4d4cede13c8195f62c7d0c529adc4e6ce128ef182c00bd75fdcf720a
     home: https://github.com/camptocamp/charts/s3-exporter
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.2.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.899292781+02:00"
+    created: "2019-10-22T13:41:56.075336671+02:00"
     description: A Helm chart for Kubernetes
     digest: d804c118a295858c527c90fc00079b94bc852564136c2b9e6391cd68bffd13db
     name: s3-exporter
     urls:
-    - https://camptocamp.github.io/chart/s3-exporter-0.1.0.tgz
+    - https://camptocamp.github.io/charts/s3-exporter-0.1.0.tgz
     version: 0.1.0
   secret:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.903723597+02:00"
+    created: "2019-10-22T13:41:56.079491997+02:00"
     description: A Helm chart for Kubernetes
     digest: 203c5bef8a5674189a885a26057b7b0040bbc2f0e863f7c5bcade26ee7902c26
     name: secret
     urls:
-    - https://camptocamp.github.io/chart/secret-0.1.3.tgz
+    - https://camptocamp.github.io/charts/secret-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.903189811+02:00"
+    created: "2019-10-22T13:41:56.078962392+02:00"
     description: A Helm chart for Kubernetes
     digest: 39567c30fca8a2b9f7673309e961fdc83dad139ea6faf2ed623925ca8db90240
     name: secret
     urls:
-    - https://camptocamp.github.io/chart/secret-0.1.2.tgz
+    - https://camptocamp.github.io/charts/secret-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.90264934+02:00"
+    created: "2019-10-22T13:41:56.078437605+02:00"
     description: A Helm chart for Kubernetes
     digest: 0726614d6e8dddd343d0ac5732e4991fe8987acf728fd469f010765eb0aca4df
     name: secret
     urls:
-    - https://camptocamp.github.io/chart/secret-0.1.1.tgz
+    - https://camptocamp.github.io/charts/secret-0.1.1.tgz
     version: 0.1.1
   subscription:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.904206939+02:00"
+    created: "2019-10-22T13:41:56.07991838+02:00"
     description: A Helm chart for Kubernetes
     digest: 02b2861b4877793e2292c460a4eceaba1d2aeddc6e0e5f9df2c01594a00ea7b9
     name: subscription
     urls:
-    - https://camptocamp.github.io/chart/subscription-0.1.2.tgz
+    - https://camptocamp.github.io/charts/subscription-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.904049319+02:00"
+    created: "2019-10-22T13:41:56.079781848+02:00"
     description: A Helm chart for Kubernetes
     digest: dc9e670cccf17bc1c65206b91c69bf49f0f937cb760d18a102cba6c2fa7e506d
     name: subscription
     urls:
-    - https://camptocamp.github.io/chart/subscription-0.1.1.tgz
+    - https://camptocamp.github.io/charts/subscription-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.903886212+02:00"
+    created: "2019-10-22T13:41:56.07963336+02:00"
     description: A Helm chart for Kubernetes
     digest: 6484014c70b7da934c0d974f027f26baaecd753efc3e7d54e88777a11040d3a2
     name: subscription
     urls:
-    - https://camptocamp.github.io/chart/subscription-0.1.0.tgz
+    - https://camptocamp.github.io/charts/subscription-0.1.0.tgz
     version: 0.1.0
   terraboard:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.904679988+02:00"
+    created: "2019-10-22T13:41:56.080402018+02:00"
     description: A Helm chart for Kubernetes
     digest: bf7bf4404a877f7c86207c7ebd61570c8aef33f6de5255d5b529ea6fa0d20474
     name: terraboard
     urls:
-    - https://camptocamp.github.io/chart/terraboard-0.2.0.tgz
+    - https://camptocamp.github.io/charts/terraboard-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-22T13:24:59.904443165+02:00"
+    created: "2019-10-22T13:41:56.080156567+02:00"
     description: A Helm chart for Kubernetes
     digest: 6b9725eece21e0b821103113317d95a629278b516470264b8f778d9b1ce2881b
     name: terraboard
     urls:
-    - https://camptocamp.github.io/chart/terraboard-0.1.0.tgz
+    - https://camptocamp.github.io/charts/terraboard-0.1.0.tgz
     version: 0.1.0
   tirsias:
   - apiVersion: v1
     appVersion: "20191002"
-    created: "2019-10-22T13:24:59.904837584+02:00"
+    created: "2019-10-22T13:41:56.080554852+02:00"
     description: A Helm chart for Tirsias
     digest: 6700de0aa483294492fe9823e9eaad50d0d51641743e6c4f7c81f4f639286d79
     name: tirsias
     urls:
-    - https://camptocamp.github.io/chart/tirsias-0.0.1.tgz
+    - https://camptocamp.github.io/charts/tirsias-0.0.1.tgz
     version: 0.0.1
   wordpress:
   - appVersion: 4.8.1
-    created: "2019-10-22T13:24:59.905615337+02:00"
+    created: "2019-10-22T13:41:56.081165773+02:00"
     description: Web publishing platform for building blogs and websites.
     digest: b4e970d4b6c76912c65ce03979c635dc46cd01908cadcc7230c53a98a87697a3
     engine: gotpl
@@ -2071,6 +2071,6 @@ entries:
     sources:
     - https://github.com/camptocamp/charts
     urls:
-    - https://camptocamp.github.io/chart/wordpress-0.6.10.tgz
+    - https://camptocamp.github.io/charts/wordpress-0.6.10.tgz
     version: 0.6.10
-generated: "2019-10-22T13:24:59.809564434+02:00"
+generated: "2019-10-22T13:41:55.996341621+02:00"
