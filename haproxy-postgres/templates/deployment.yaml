@@ -3,12 +3,12 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-    {{ include "haproxy-postgres.labels" . }}
+{{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
   template:
     metadata:
       labels:
-        {{ include "haproxy-postgres.labels" . }}
+{{ include "haproxy-postgres.labels" . | ident 8 }}
     spec:
       containers:
         - name: haproxy
