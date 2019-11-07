@@ -1,7 +1,7 @@
 name: haproxy-postgres
 home: http://www.haproxy.org/
 icon: http://www.haproxy.org/img/HAProxyCommunityEdition_60px.png
-version: 0.0.5
+version: 0.0.6
 appVersion: 1.8
 description: 'Load balance postgres connections of node pool'
 keywords:
