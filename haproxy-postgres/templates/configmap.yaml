@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}
   labels:
-{{ include "haproxy-postgres.labels" . | ident 4 }}
+{{ include "haproxy-postgres.labels" . | indent 4 }}
 data:
   haproxy.cfg: |-
     global

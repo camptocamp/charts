@@ -8,7 +8,7 @@ spec:
   template:
     metadata:
       labels:
-{{ include "haproxy-postgres.labels" . | ident 8 }}
+{{ include "haproxy-postgres.labels" . | indent 8 }}
     spec:
       containers:
         - name: haproxy

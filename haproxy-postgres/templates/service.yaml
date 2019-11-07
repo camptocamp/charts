@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}
   labels:
-{{ include "haproxy-postgres.labels" . | ident 4 }}
+{{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
   type: ClusterIP
   ports:
@@ -24,4 +24,4 @@ spec:
       targetPort: pgsql-all
       protocol: TCP
   selector:
-{{ include "haproxy-postgres.labels" . | ident 4 }}
+{{ include "haproxy-postgres.labels" . | indent 4 }}
