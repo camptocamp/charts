@@ -44,13 +44,13 @@ data:
         # Send A StartUp message with the following arguments:
         # * Size(Int32): 2F
         # * Protocol Version(Int32): 3.0
-        # * user=healhcheck
-        # * database=healhcheck
+        # * user=healthcheck
+        # * database=healthcheck
         tcp-check comment     Sending\ StartUp\ message
         tcp-check send-binary 0000002f # Size of StartUp message
         tcp-check send-binary 00030000 # Protocol version 3.0
-        tcp-check send-binary 75736572006865616c7468636865636b00         # user\00healhcheck\00
-        tcp-check send-binary 6461746162617365006865616c7468636865636b00 # database\00healhcheck\00
+        tcp-check send-binary 75736572006865616c7468636865636b00         # user\00healthcheck\00
+        tcp-check send-binary 6461746162617365006865616c7468636865636b00 # database\00healthcheck\00
         tcp-check send-binary 00 # end message with \00
         tcp-check comment     StartUp\ message\ sent.
 
@@ -93,13 +93,13 @@ data:
         # Send A StartUp message with the following arguments:
         # * Size(Int32): 2F
         # * Protocol Version(Int32): 3.0
-        # * user=healhcheck
-        # * database=healhcheck
+        # * user=healthcheck
+        # * database=healthcheck
         tcp-check comment     Sending\ StartUp\ message
         tcp-check send-binary 0000002f # Size of StartUp message
         tcp-check send-binary 00030000 # Protocol version 3.0
-        tcp-check send-binary 75736572006865616c7468636865636b00         # user\00healhcheck\00
-        tcp-check send-binary 6461746162617365006865616c7468636865636b00 # database\00healhcheck\00
+        tcp-check send-binary 75736572006865616c7468636865636b00         # user\00healthcheck\00
+        tcp-check send-binary 6461746162617365006865616c7468636865636b00 # database\00healthcheck\00
         tcp-check send-binary 00 # end message with \00
         tcp-check comment     StartUp\ message\ sent.
 
@@ -136,4 +136,4 @@ data:
 
         server-template postgres-node 1-{{ .Values.target.maxCount }} {{ .Values.target.fqdn }}:{{ .Values.target.port }} resolvers dns check fastinter 1s
 
-        option pgsql-check user healhcheck
+        option pgsql-check user healthcheck
