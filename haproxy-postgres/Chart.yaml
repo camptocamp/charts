@@ -1,0 +1,17 @@
+name: haproxy-postgres
+home: http://www.haproxy.org/
+icon: http://www.haproxy.org/img/HAProxyCommunityEdition_60px.png
+version: 0.0.1
+appVersion: 1.8
+description: 'Load balance postgres connections of node pool'
+keywords:
+  - postgres
+  - haproxy
+  - master
+  - slave
+  - failover
+sources:
+  - https://github.com/camptocamp/charts
+maintainers:
+  - name: Camptocamp
+    email: info@camptocamp.com

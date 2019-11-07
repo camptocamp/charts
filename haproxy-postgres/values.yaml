@@ -1,0 +1,29 @@
+image:
+  repository: haproxy
+  tag: 1.8
+  pullPolicy: Always
+
+# Fill with a DNS entry that have multiple IP/backend
+# HAProxy will one backend per IP
+target:
+  fqdn: postgres-nodes.example.com
+  port: 5432
+  maxCount: 8
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    memory: 128Mi
+  #  cpu: 100m
+  requests:
+    cpu: 20m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

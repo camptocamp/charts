@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{ include "haproxy-postgres.labels" . }}
+spec:
+  template:
+    metadata:
+      labels:
+        {{ include "haproxy-postgres.labels" . }}
+    spec:
+      containers:
+        - name: haproxy
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: stats
+              containerPort: 8008
+              protocol: TCP
+            - name: pgsql-master
+              containerPort: 5432
+              protocol: TCP
+            - name: pgsql-slave
+              containerPort: 5433
+              protocol: TCP
+            - name: pgsql-all
+              containerPort: 5434
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /usr/local/etc/haproxy/
+          livenessProbe:
+            tcpSocket:
+              port: pgsql-master
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}
