@@ -23,9 +23,14 @@
 {{- end -}}
 
 {{/* Common labels */}}
-{{- define "haproxy-postgres.labels" -}}
+
+{{- define "haproxy-postgres.selector" -}}
 app.kubernetes.io/name: {{ include "haproxy-postgres.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end -}}
+
+{{- define "haproxy-postgres.labels" -}}
+{{ include "haproxy-postgres.selector" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}

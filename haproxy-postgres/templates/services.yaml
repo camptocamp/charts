@@ -13,7 +13,7 @@ spec:
       targetPort: stats
       protocol: TCP
   selector:
-{{ include "haproxy-postgres.labels" . | indent 4 }}
+{{ include "haproxy-postgres.selector" . | indent 4 }}
 ---
 apiVersion: v1
 kind: Service
@@ -29,7 +29,7 @@ spec:
       targetPort: pgsql-master
       protocol: TCP
   selector:
-{{ include "haproxy-postgres.labels" . | indent 4 }}
+{{ include "haproxy-postgres.selector" . | indent 4 }}
 ---
 apiVersion: v1
 kind: Service
@@ -45,7 +45,7 @@ spec:
       targetPort: pgsql-slave
       protocol: TCP
   selector:
-{{ include "haproxy-postgres.labels" . | indent 4 }}
+{{ include "haproxy-postgres.selector" . | indent 4 }}
 ---
 apiVersion: v1
 kind: Service
@@ -61,4 +61,4 @@ spec:
       targetPort: pgsql-all
       protocol: TCP
   selector:
-{{ include "haproxy-postgres.labels" . | indent 4 }}
+{{ include "haproxy-postgres.selector" . | indent 4 }}
