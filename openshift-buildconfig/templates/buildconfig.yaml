@@ -1,0 +1,48 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  annotations:
+   created-by: camptocamp.com
+  labels:
+    app: {{ include "openshift-buildconfig.name" . }}
+    app.kubernetes.io/name: {{ include "openshift-buildconfig.name" . }}
+    helm.sh/chart: {{ include "openshift-buildconfig.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  name: {{ include "openshift-buildconfig.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  source:
+    git:
+      ref: {{ .Values.buildConfig.source.git.ref }}
+      uri: {{ .Values.buildConfig.source.git.uri }}
+    type: Git
+  strategy:
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.buildConfig.strategy.dockerStrategy.from.name }}:{{ .Values.buildConfig.strategy.dockerStrategy.from.tag }}
+    type: Docker
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ template "openshift-buildconfig.fullname" . }}:latest
+  postCommit: {}
+  {{- with .Values.resources }}
+  resources:
+{{    toYaml . | indent 4 }}
+{{- end }}
+  runPolicy: Serial
+  {{- if .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.nodeSelector | indent 4 }}
+    {{- end }}
+  failedBuildsHistoryLimit: 5
+  successfulBuildsHistoryLimit: 5
+  triggers:
+  - imageChange:
+    type: ImageChange
+  - type: ConfigChange
+  - github:
+      secret: {{ .Values.buildConfig.triggers.github.secret }}
+    type: GitHub
