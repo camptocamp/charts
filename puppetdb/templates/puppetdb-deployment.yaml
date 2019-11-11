@@ -47,7 +47,7 @@ spec:
           image: "{{ .Values.puppetdb.image.repository }}:{{ .Values.puppetdb.image.tag }}"
           imagePullPolicy: {{ .Values.puppetdb.image.pullPolicy }}
           command: [ "java" ]
-          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms{{ .Values.puppetdb.java_mem_limit }}", "-Xmx{{ .Values.puppetdb.java_mem_limit }}",
+          args: [ "-Djava.net.preferIPv4Stack=true", "-Xms{{ .Values.puppetdb.java_mem_limit }}", "-Xmx{{ .Values.puppetdb.java_mem_limit }}", "-XX:+ExitOnOutOfMemoryError",
             "-javaagent:/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=9080:/jmx-exporter/config.yaml",
             "-cp", "/puppetdb.jar", "clojure.main",
             "-m", "puppetlabs.puppetdb.core", "services", "-c",
