@@ -12,7 +12,6 @@ spec:
     targetPort: {{ .Values.service.targetPort}}
   selector:
     app: {{ include "openshift-aws-exporter.fullname" . }}
-    name: {{ include "openshift-aws-exporter.fullname" . }}
   sessionAffinity: None
   type: ClusterIP
 status:
