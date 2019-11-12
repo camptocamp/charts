@@ -19,6 +19,9 @@ spec:
         - name: haproxy
           image: {{ .Values.prometheusExporterImage.repository }}:{{ .Values.prometheusExporterImage.tag }}
           imagePullPolicy: {{ .Values.prometheusExporterImage.pullPolicy }}
+          command:
+            - haproxy_exporter
+            - --haproxy.scrape-uri=http://{{ .Release.Name }}-stats/stats;csv
           ports:
             - name: metrics
               containerPort: 9101
