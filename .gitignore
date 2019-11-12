@@ -4,3 +4,4 @@
 .gitignore
 .vscode
 .vscode/launch.json
+*.swp

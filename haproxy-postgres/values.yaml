@@ -3,12 +3,32 @@ image:
   tag: 1.8
   pullPolicy: Always
 
+prometheusExporterImage:
+  repository: prom/haproxy-exporter
+  tag: v0.9.0
+  pullPolicy: Always
+
 # Fill with a DNS entry that have multiple IP/backend
 # HAProxy will one backend per IP
 target:
   fqdn: postgres-nodes.example.com
   port: 5432
   maxCount: 8
+
+metrics:
+  enabled: true
+  resources: {}
+    #limits:
+    #  memory: 128Mi
+    #  cpu: 100m
+    #requests:
+    #  cpu: 20m
+    #  memory: 128Mi
+  serviceMonitor:
+    enabled: true
+    additionalLabels: {}
+    # interval: 30s
+    # scrapeTimeout: 10s
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
