@@ -1,0 +1,18 @@
+{{- if .Values.metrics.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-prometheus-exporter
+  labels:
+{{ include "haproxy-postgres.labels" . | indent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - name: metrics
+      port: 9101
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    component: exporter
+{{ include "haproxy-postgres.selector" . | indent 4 }}
+{{- end }}
