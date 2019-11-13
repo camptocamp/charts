@@ -4,6 +4,7 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-prometheus-exporter
   labels:
+    component: exporter
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
   type: ClusterIP
