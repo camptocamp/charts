@@ -1,0 +1,33 @@
+{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+apiVersion: "monitoring.coreos.com/v1"
+kind: "PrometheusRule"
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+{{ include "haproxy-postgres.labels" . | indent 4 }}
+    {{- if .Values.metrics.prometheusRule.additionalLabels }}
+{{ toYaml .Values.metrics.prometheusRule.additionalLabels | indent 4 }}
+    {{- end }}
+spec:
+  groups:
+    - name: {{ .Release.Name }}
+      rules:
+        - alert: "MasterDown"
+          expr: haproxy_backend_up{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",backend="postgres_master"} < 1
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
+        - alert: "SlaveDown"
+          expr: haproxy_backend_up{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",backend="postgres_slave"} < 1
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
+        - alert: "Test"
+          expr: haproxy_backend_up{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",backend="postgres_master"} < 2
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
+{{- end }}

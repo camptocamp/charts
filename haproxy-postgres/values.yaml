@@ -29,6 +29,10 @@ metrics:
     additionalLabels: {}
     # interval: 30s
     # scrapeTimeout: 10s
+  prometheusRule:
+    enable: true
+    additionalLabels: {}
+    alertsLabels: {}
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
