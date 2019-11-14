@@ -74,6 +74,7 @@ metrics:
   prometheusRule:
     enable: true
     additionalLabels: {}
+    alertsLabels: {}
     lastBaseBackupAgeMax: 86400
     lastXlogAgeMax: 7200
     validBaseBackup: 15

@@ -14,8 +14,20 @@ spec:
       rules:
         - alert: "LastBaseBackupAge"
           expr: pghoard_last_upload_age{namespace="{{ .Release.Namespace }}",service="{{ include "pghoard.fullname" . }}",type="basebackup"} > {{ .Values.metrics.prometheusRule.lastBaseBackupAgeMax }}
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
         - alert: "LastXlogAge"
           expr: pghoard_last_upload_age{namespace="{{ .Release.Namespace }}",service="{{ include "pghoard.fullname" . }}",type="xlog"} > {{ .Values.metrics.prometheusRule.lastXlogAgeMax }}
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
         - alert: "ValidBasebackup"
           expr: pghoard_valid_basebackup_count{namespace="{{ .Release.Namespace }}",service="{{ include "pghoard.fullname" . }}"} < {{ .Values.metrics.prometheusRule.validBaseBackup }}
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
 {{- end }}
