@@ -1,0 +1,21 @@
+{{- if and .Values.metrics.enabled .Values.metrics.serviceMonitor.enabled }}
+apiVersion: "monitoring.coreos.com/v1"
+kind: "PrometheusRule"
+metadata:
+  name: {{ include "pghoard.fullname" . }}
+  labels:
+{{ include "pghoard.labels" . | indent 4 }}
+    {{- if .Values.metrics.prometheusRule.additionalLabels }}
+{{ toYaml .Values.metrics.prometheusRule.additionalLabels | indent 4 }}
+    {{- end }}
+spec:
+  groups:
+    - name: {{ include "pghoard.fullname" . }}
+      rules:
+        - alert: "LastBaseBackupAge"
+          expr: pghoard_last_upload_age{namespace="{{ .Release.Namespace }}",service="{{ include "pghoard.fullname" . }}",type="basebackup"} < {{ .Values.metrics.prometheusRule.lastBaseBackupAgeMax }}
+        - alert: "LastXlogAge"
+          expr: pghoard_last_upload_age{namespace="{{ .Release.Namespace }}",service="{{ include "pghoard.fullname" . }}",type="xlog"} < {{ .Values.metrics.prometheusRule.lastXlogAgeMax }}
+        - alert: "ValidBasebackup"
+          expr: pghoard_valid_basebackup_count{namespace="{{ .Release.Namespace }}",service="{{ include "pghoard.fullname" . }}"} < {{ .Values.metrics.prometheusRule.validBaseBackup }}
+{{- end }}

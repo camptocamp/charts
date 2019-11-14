@@ -71,6 +71,12 @@ metrics:
     additionalLabels: {}
     # interval: 30s
     # scrapeTimeout: 10s
+  prometheusRule:
+    enable: true
+    additionalLabels: {}
+    lastBaseBackupAgeMax: 86400
+    lastXlogAgeMax: 7200
+    validBaseBackup: 15
 
 labels: {}
 
