@@ -24,10 +24,4 @@ spec:
           labels:
 {{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
     {{- end }}
-        - alert: "Test"
-          expr: haproxy_backend_up{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",backend="postgres_master"} < 2
-    {{- if .Values.metrics.prometheusRule.alertsLabels }}
-          labels:
-{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
-    {{- end }}
 {{- end }}
