@@ -1,5 +1,8 @@
 # serviceAccounts:
 # - name: gitlab
+#   secrets:
+#   - name: gitlab-token
+
 
 # roles:
 # - name: my-secret-role

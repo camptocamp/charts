@@ -1,5 +1,7 @@
 serviceAccounts:
 - name: is-ci-admin
+  secrets:
+  - name: is-argocd-admin-token
 
 roles:
 - name: my-secret-role
