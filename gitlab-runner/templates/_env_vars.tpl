@@ -15,6 +15,8 @@
   {{- end }}
 - name: RUNNER_TAG_LIST
   value: {{ default "" .Values.runners.tags | quote }}
+- name: RUNNER_OUTPUT_LIMIT
+  value: {{ default "" .Values.runners.outputLimit | quote }}
 - name: KUBERNETES_IMAGE
   value: {{ .Values.runners.image | quote }}
 {{ if .Values.runners.privileged }}
@@ -23,6 +25,8 @@
 {{ end }}
 - name: KUBERNETES_NAMESPACE
   value: {{ default .Release.Namespace .Values.runners.namespace | quote }}
+- name: KUBERNETES_POLL_TIMEOUT
+  value: {{ default "" .Values.runners.pollTimeout | quote }}
 - name: KUBERNETES_CPU_LIMIT
   value: {{ default "" .Values.runners.builds.cpuLimit | quote }}
 - name: KUBERNETES_MEMORY_LIMIT

@@ -42,6 +42,13 @@ data:
       exit 1
     fi
 
+    # Temporary workaround until https://gitlab.com/gitlab-org/gitlab-runner/issues/4228
+    # is merged
+    sed -n '30,$p' /home/gitlab-runner/.gitlab-runner/config.toml >> /home/gitlab-runner/custom_commands
+    sed -e '30,$d' -i /home/gitlab-runner/.gitlab-runner/config.toml
+    cat /scripts/kubernetes.volumes | sed -e '1d' | sed '1,$s/^/      /' >> /home/gitlab-runner/.gitlab-runner/config.toml
+    cat /home/gitlab-runner/custom_commands >> /home/gitlab-runner/.gitlab-runner/config.toml
+
     # Start the runner
     exec /entrypoint run --user=gitlab-runner \
       --working-directory=/home/gitlab-runner
@@ -50,6 +57,9 @@ data:
     concurrent = {{ .Values.concurrent }}
     check_interval = {{ .Values.checkInterval }}
     log_level = {{ default "info" .Values.logLevel | quote }}
+    {{- if .Values.logFormat }}
+    log_format = {{ .Values.logFormat | quote }}
+    {{- end }}
     {{- if .Values.metrics.enabled }}
     listen_address = '[::]:9252'
     {{- end }}
@@ -82,6 +92,9 @@ data:
         {{- end }}
         {{- if and (hasKey .Values.runners "runUntagged") .Values.runners.runUntagged }}
         --run-untagged=true \
+        {{- end }}
+        {{- if and (hasKey .Values.runners "protected") .Values.runners.protected }}
+        --access-level="ref_protected" \
         {{- end }}
         --non-interactive
 

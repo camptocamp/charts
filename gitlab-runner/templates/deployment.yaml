@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "gitlab-runner.fullname" . }}
@@ -9,10 +9,16 @@ metadata:
     heritage: "{{ .Release.Service }}"
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "gitlab-runner.fullname" . }}
   template:
     metadata:
       labels:
         app: {{ include "gitlab-runner.fullname" . }}
+        chart: {{ include "gitlab-runner.chart" . }}
+        release: "{{ .Release.Name }}"
+        heritage: "{{ .Release.Service }}"
       annotations:
         checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
@@ -25,8 +31,10 @@ spec:
         {{- end }}
     spec:
       securityContext:
-        runAsUser: 100
-        fsGroup: 65533
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        {{- if .Values.securityContext.fsGroup }}
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+        {{- end}}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       initContainers:
       - name: configure
@@ -105,13 +113,15 @@ spec:
         projected:
           sources:
             {{- if and .Values.runners.cache .Values.runners.cache.cacheType }}
-            {{-   if and .Values.runners.cache.secretName (eq .Values.runners.cache.cacheType "s3") }}
+            {{-   if and (include "gitlab-runner.cache.secret" .) (eq .Values.runners.cache.cacheType "s3") }}
             - secret:
                 name: {{ include "gitlab-runner.cache.secret" . }}
             {{-   end }}
             {{-   if eq .Values.runners.cache.cacheType "gcs"}}
             - secret:
-                name: {{ include "gitlab-runner.cache.secret" . }}
+                # Outdated default secret "s3access" kept for compatibilty with older installs using it.
+                # Will be removed in next major release: https://gitlab.com/gitlab-org/charts/gitlab-runner/merge_requests/177
+                name: {{ default "s3access" (include "gitlab-runner.cache.secret" .) }}
             {{-   end }}
             {{- end }}
             - secret:
