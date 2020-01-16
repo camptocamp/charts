@@ -1,0 +1,24 @@
+# include the shared library
+include:
+  - project: "camptocamp/is/libraries/gitlab-pipelines"
+    ref: "master"
+    file: ".gitlab-ci-build-chart-template.yml"
+  - project: "camptocamp/is/release-mgmt/openshift-ch-3-camptocamp-com/gitlab-pipeline-config"
+    ref: "master"
+    file: ".gitlab-ci-config.yml"
+
+# use your own variables to build/deploy your app
+variables:
+  # chart repository
+  HELM_REPOS: |
+    camptocamp;https://charts.paas-ch-3.camptocamp.com/;${HELM_CHART_REPO_USER};${HELM_CHART_REPO_PW}
+  HELM_CHART_REPO_NAME: camptocamp
+  HELM_CHART_REPO_TYPE: chartmuseum
+
+  # helm chart vars
+  HELM_CHART_NAME: logstash-super-turbo
+  # stages vars
+  LINT_HELM_CHARTS: 'true'
+  UPLOAD_HELM_CHARTS_TO_CHARTMUSEUM: 'true'
+  UPLOAD_HELM_CHARTS: 'true'
+  UPDATE_CHART_VERSION_IN_ENV_REPO: 'true'

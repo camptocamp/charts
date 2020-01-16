@@ -1,0 +1,36 @@
+---
+# required labels we have on every metric
+sre_team: sret2
+line: prod
+
+# Below, generic overrides to upstream logstash chart. You can still
+# over-override these or others from elastic/logstash in your local
+# values.yaml
+logstash:
+  podSecurityContext:
+    fsGroup: 1000110000
+    runAsUser: 1000110000
+
+  securityContext:
+    runAsUser: 1000110000
+
+  secretMounts:
+    - name: kafka-ssl
+      secretName: kafka-ssl
+      path: /etc/logstash/kafka-ssl
+
+  logstashPipeline:
+    logstash.conf: |
+      input {}
+      output {}
+
+  service:
+    ports:
+      - name: prometheus-exporter
+        port: 9198
+        protocol: TCP
+        targetPort: 9198
+
+  extraContainers: |
+    - name: prometheus-exporter
+      image: docker.io/sequra/logstash_exporter:v0.1.3

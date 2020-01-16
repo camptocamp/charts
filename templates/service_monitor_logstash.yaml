@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: "{{ .Release.Name }}"
+  labels:
+    is-monitor: "true"
+    project: "{{ .Release.Namespace }}"
+spec:
+  selector:
+    matchLabels:
+      release: "{{ .Release.Name }}"
+  endpoints:
+    - port: prometheus-exporter
+      path: "/metrics"
+      scheme: "http"
+      honorLabels: true
+      metricRelabelings:
+        - sourceLabels:
+          - project
+          targetLabel: project
+          replacement: "{{ .Release.Namespace }}"
+        - sourceLabels:
+          - sre_team
+          targetLabel: sre_team
+          replacement: "{{ .Values.sre_team }}"
+        - sourceLabels:
+          - line
+          targetLabel: line
+          replacement: "{{ .Values.line }}"
