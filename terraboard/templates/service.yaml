@@ -7,15 +7,13 @@ metadata:
     helm.sh/chart: {{ include "terraboard.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-  annotations:
-    service.alpha.openshift.io/serving-cert-secret-name: {{ include "terraboard.name" . }}-proxy-tls
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: public
+      targetPort: 8080
       protocol: TCP
-      name: public
+      name: proxy
   selector:
-    app.kubernetes.io/name: {{ include "terraboard.name" . }}
+    app.kubernetes.io/name: {{ .Chart.Name }}
     app.kubernetes.io/instance: {{ .Release.Name }}
