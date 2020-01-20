@@ -36,6 +36,8 @@ spec:
 
             - name: DB_HOST
               value: {{ .Values.db.host }}
+            - name: DB_SSLMODE
+              value: {{ .Values.db.sslmode }}
             - name: DB_NAME
               value: {{ .Values.db.name }}
             - name: DB_USER
