@@ -34,3 +34,21 @@ logstash:
   extraContainers: |
     - name: prometheus-exporter
       image: docker.io/sequra/logstash_exporter:v0.1.3
+
+# Ditto, for upstream elasticsearch-curator chart.
+elasticsearch-curator:
+  securityContext:
+    runAsUser: 1000110000
+  cronjob:
+    failedJobsHistoryLimit: 2
+    successfulJobsHistoryLimit: 3
+
+  configMaps:
+    config_yml: |-
+      ---
+      client:
+        hosts:
+          - elasticsearch.logs.camptocamp.com
+        port: 443
+        use_ssl: True
+        http_auth: ${CURATOR_HTTP_AUTH}

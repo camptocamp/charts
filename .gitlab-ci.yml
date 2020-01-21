@@ -13,6 +13,7 @@ variables:
   HELM_REPOS: |
     camptocamp;https://charts.paas-ch-3.camptocamp.com/;${HELM_CHART_REPO_USER};${HELM_CHART_REPO_PW}
     elastic;https://helm.elastic.co/
+    stable;https://kubernetes-charts.storage.googleapis.com/
   HELM_CHART_REPO_NAME: camptocamp
   HELM_CHART_REPO_TYPE: chartmuseum
 
