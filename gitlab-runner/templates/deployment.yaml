@@ -24,9 +24,6 @@ spec:
         {{   $key }}: {{ $value | quote }}
         {{- end }}
     spec:
-      securityContext:
-        runAsUser: 100
-        fsGroup: 65533
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       initContainers:
       - name: configure
