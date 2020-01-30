@@ -42,6 +42,8 @@ data:
       exit 1
     fi
 
+    cat /scripts/kubernetes.volumes | sed '1,$s/^/      /' >> /home/gitlab-runner/.gitlab-runner/config.toml
+
     # Start the runner
     exec /entrypoint run --user=gitlab-runner \
       --working-directory=/home/gitlab-runner
@@ -93,7 +95,7 @@ data:
         exit 1
       fi
 
-      sleep 5 
+      sleep 5
     done
 
     exit 0

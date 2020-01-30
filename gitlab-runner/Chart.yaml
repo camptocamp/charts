@@ -1,5 +1,5 @@
 name: gitlab-runner
-version: 0.9.1
+version: 0.9.0+mr39
 appVersion: 12.3.0
 description: GitLab Runner
 keywords:
