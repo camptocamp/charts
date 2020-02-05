@@ -5,6 +5,7 @@ metadata:
   labels:
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:

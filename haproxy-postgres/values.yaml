@@ -1,3 +1,5 @@
+replicaCount: 1
+
 image:
   repository: haproxy
   tag: 1.8
