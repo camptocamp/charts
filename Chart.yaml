@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "1.0"
 description: Add custom resources around upstream logstash setup
 name: logstash-super-turbo
-version: 0.0.2
+version: 0.0.3

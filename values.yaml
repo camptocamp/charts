@@ -8,11 +8,11 @@ line: prod
 # values.yaml
 logstash:
   podSecurityContext:
-    fsGroup: 1000110000
-    runAsUser: 1000110000
+    fsGroup: 1000380000
+    runAsUser: 1000380000
 
   securityContext:
-    runAsUser: 1000110000
+    runAsUser: 1000380000
 
   secretMounts:
     - name: kafka-ssl
@@ -38,7 +38,7 @@ logstash:
 # Ditto, for upstream elasticsearch-curator chart.
 elasticsearch-curator:
   securityContext:
-    runAsUser: 1000110000
+    runAsUser: 1000380000
   cronjob:
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 3
