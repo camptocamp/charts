@@ -1,9 +1,9 @@
 # include the shared library
 include:
-  - project: "camptocamp/is/libraries/gitlab-pipelines"
+  - project: "camptocamp/is/gitlab/templates/gitlab-ci/openshift-build-deploy"
     ref: "master"
     file: ".gitlab-ci-build-chart-template.yml"
-  - project: "camptocamp/is/release-mgmt/openshift-ch-3-camptocamp-com/gitlab-pipeline-config"
+  - project: "camptocamp/is/k8s/openshift-ch-3-camptocamp-com/config/gitlab-pipeline-config"
     ref: "master"
     file: ".gitlab-ci-config.yml"
 
