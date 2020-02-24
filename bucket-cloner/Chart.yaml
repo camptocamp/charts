@@ -1,5 +1,5 @@
 apiVersion: v1
-appVersion: "20190801"
+appVersion: "20200224"
 description: A Helm chart for Bucket-cloner
 name: bucket-cloner
-version: 0.0.1
+version: 1.0.0
