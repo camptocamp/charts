@@ -24,4 +24,10 @@ spec:
           labels:
 {{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
     {{- end }}
+        - alert: "MoreThanOneMaster"
+          expr: haproxy_backend_current_server{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",backend="postgres_master"} > 1
+    {{- if .Values.metrics.prometheusRule.alertsLabels }}
+          labels:
+{{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
+    {{- end }}
 {{- end }}
