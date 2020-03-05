@@ -1,5 +1,15 @@
-apiVersion: v1
-appVersion: "0.18.0"
-description: Terraboard Helm chart
 name: terraboard
+home: https://github.com/camptocamp/terraboard
+icon: https://raw.githubusercontent.com/camptocamp/terraboard/master/logo/terraboard_logo_only.png
 version: 0.4.0
+appVersion: "0.18.0"
+apiVersion: v1
+description: A web interface for Terraform states
+keywords:
+  - terraform
+  - webui
+sources:
+  - https://github.com/camptocamp/terraboard
+maintainers:
+  - name: Camptocamp
+    email: info@camptocamp.com
