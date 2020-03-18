@@ -17,6 +17,20 @@ target:
   port: 5432
   maxCount: 8
 
+services:
+  stats:
+    type: ClusterIP
+    # nodePort:
+  master:
+    type: ClusterIP
+    # nodePort:
+  slave:
+    type: ClusterIP
+    # nodePort:
+  all:
+    type: ClusterIP
+    # nodePort:
+
 metrics:
   enabled: true
   resources: {}
