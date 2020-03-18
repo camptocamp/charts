@@ -6,13 +6,13 @@ metadata:
   labels:
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.services.stats.type }}
+  type: {{ .Values.services.stats.type }}
   ports:
     - name: http
       port: 80
       targetPort: stats
       protocol: TCP
-      {{- if (and (eq .Values.services.stats.type "NodePort") (not (empty .Values.services.stats.nodePort))}}
+      {{- if (and (eq .Values.services.stats.type "NodePort") (not (empty .Values.services.stats.nodePort)) }}
       nodePort: {{ .Values.services.stats.nodePort }}
       {{- end }}
   selector:
@@ -25,13 +25,13 @@ metadata:
   labels:
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.services.master.type }}
+  type: {{ .Values.services.master.type }}
   ports:
     - name: pgsql
       port: 5432
       targetPort: pgsql-master
       protocol: TCP
-      {{- if (and (eq .Values.services.master.type "NodePort") (not (empty .Values.services.master.nodePort))}}
+      {{- if (and (eq .Values.services.master.type "NodePort") (not (empty .Values.services.master.nodePort)) }}
       nodePort: {{ .Values.services.master.nodePort }}
       {{- end }}
   selector:
@@ -44,13 +44,13 @@ metadata:
   labels:
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.services.slave.type }}
+  type: {{ .Values.services.slave.type }}
   ports:
     - name: pgsql
       port: 5432
       targetPort: pgsql-slave
       protocol: TCP
-      {{- if (and (eq .Values.services.slave.type "NodePort") (not (empty .Values.services.slave.nodePort))}}
+      {{- if (and (eq .Values.services.slave.type "NodePort") (not (empty .Values.services.slave.nodePort)) }}
       nodePort: {{ .Values.services.slave.nodePort }}
       {{- end }}
   selector:
@@ -63,13 +63,13 @@ metadata:
   labels:
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.services.all.type }}
+  type: {{ .Values.services.all.type }}
   ports:
     - name: pgsql
       port: 5432
       targetPort: pgsql-all
       protocol: TCP
-      {{- if (and (eq .Values.services.all.type "NodePort") (not (empty .Values.services.all.nodePort))}}
+      {{- if (and (eq .Values.services.all.type "NodePort") (not (empty .Values.services.all.nodePort)) }}
       nodePort: {{ .Values.services.all.nodePort }}
       {{- end }}
   selector:
