@@ -1,0 +1,74 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.adminAccess }}
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: {{ $key }}-admin-binding
+  namespace: {{ $key }}
+roleRef:
+  name: admin
+subjects:
+{{-     range $adminAccess := $value.adminAccess }}
+- kind: {{ $adminAccess.kind }}
+  name: {{ $adminAccess.name }}
+{{-       if $adminAccess.namespace }}
+  namespace: {{ $adminAccess.namespace }}
+{{-       end }}
+{{-     end }}
+userNames:
+{{-     range $adminAccess := $value.adminAccess }}
+{{-       if eq $adminAccess.kind "User" }}
+- {{        $adminAccess.name }}
+{{-       end }}
+{{-       if eq $adminAccess.kind "ServiceAccount" }}
+- system:serviceaccount:{{ if $adminAccess.namespace }}{{ $adminAccess.namespace }}{{ else }}{{ $key }}{{ end }}:{{ $adminAccess.name }}
+{{-       end }}
+{{-     end }}
+groupNames:
+{{-     range $adminAccess := $value.adminAccess }}
+{{-       if eq $adminAccess.kind "Group" }}
+- {{        $adminAccess.name }}
+{{-       end }}
+{{-     end }}
+# This second rolebinding is to allow admin users to list the project
+# since the list right is not in the admin right (as of 3.11)
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: {{ $key }}-admin-listproject-binding
+  namespace: {{ $key }}
+roleRef:
+  name: basic-user
+subjects:
+{{-     range $adminAccess := $value.adminAccess }}
+- kind: {{ $adminAccess.kind }}
+  name: {{ $adminAccess.name }}
+{{-       if $adminAccess.namespace }}
+  namespace: {{ $adminAccess.namespace }}
+{{-       end }}
+{{-     end }}
+userNames:
+{{-     range $adminAccess := $value.adminAccess }}
+{{-       if eq $adminAccess.kind "User" }}
+- {{        $adminAccess.name }}
+{{-       end }}
+{{-       if eq $adminAccess.kind "ServiceAccount" }}
+- system:serviceaccount:{{ if $adminAccess.namespace }}{{ $adminAccess.namespace }}{{ else }}{{ $key }}{{ end }}:{{ $adminAccess.name }}
+{{-       end }}
+{{-     end }}
+groupNames:
+{{-     range $adminAccess := $value.adminAccess }}
+{{-       if eq $adminAccess.kind "Group" }}
+- {{        $adminAccess.name }}
+{{-       end }}
+{{-     end }}
+{{-   end }}
+{{- end }}
+

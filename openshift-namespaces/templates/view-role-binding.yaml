@@ -1,0 +1,73 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.viewAccess }}
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: {{ $key }}-view-binding
+  namespace: {{ $key }}
+roleRef:
+  name: view
+subjects:
+{{-     range $viewAccess := $value.viewAccess }}
+- kind: {{ $viewAccess.kind }}
+  name: {{ $viewAccess.name }}
+{{-       if $viewAccess.namespace }}
+  namespace: {{ $viewAccess.namespace }}
+{{-       end }}
+{{-     end }}
+userNames:
+{{-     range $viewAccess := $value.viewAccess }}
+{{-       if eq $viewAccess.kind "User" }}
+- {{        $viewAccess.name }}
+{{-       end }}
+{{-       if eq $viewAccess.kind "ServiceAccount" }}
+- system:serviceaccount:{{ if $viewAccess.namespace }}{{ $viewAccess.namespace }}{{ else }}{{ $key }}{{ end }}:{{ $viewAccess.name }}
+{{-       end }}
+{{-     end }}
+groupNames:
+{{-     range $viewAccess := $value.viewAccess }}
+{{-       if eq $viewAccess.kind "Group" }}
+- {{        $viewAccess.name }}
+{{-       end }}
+{{-     end }}
+# This second rolebinding is to allow view users to list the project
+# since the list right is not in the view right (as of 3.11)
+---
+kind: RoleBinding
+apiVersion: authorization.openshift.io/v1
+metadata:
+  labels:
+{{      include "common.labels.standard" $root | indent 4 }}
+  name: {{ $key }}-view-listproject-binding
+  namespace: {{ $key }}
+roleRef:
+  name: basic-user
+subjects:
+{{-     range $viewAccess := $value.viewAccess }}
+- kind: {{ $viewAccess.kind }}
+  name: {{ $viewAccess.name }}
+{{-       if $viewAccess.namespace }}
+  namespace: {{ $viewAccess.namespace }}
+{{-       end }}
+{{-     end }}
+userNames:
+{{-     range $viewAccess := $value.viewAccess }}
+{{-       if eq $viewAccess.kind "User" }}
+- {{        $viewAccess.name }}
+{{-       end }}
+{{-       if eq $viewAccess.kind "ServiceAccount" }}
+- system:serviceaccount:{{ if $viewAccess.namespace }}{{ $viewAccess.namespace }}{{ else }}{{ $key }}{{ end }}:{{ $viewAccess.name }}
+{{-       end }}
+{{-     end }}
+groupNames:
+{{-     range $viewAccess := $value.viewAccess }}
+{{-       if eq $viewAccess.kind "Group" }}
+- {{        $viewAccess.name }}
+{{-       end }}
+{{-     end }}
+{{-   end }}
+{{- end }}
