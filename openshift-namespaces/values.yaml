@@ -71,12 +71,24 @@
 #       requests.memory: 2Gi
 #     disableBestEffort: true
 #     nodeSelector: <node selector>
+#     viewAccess:
+#       - kind: Group
+#         name: myviewgroup
+#       - kind: ServiceAccount
+#         name: mysa
+#         namespace: myproject3
 #     editAccess:
 #       - kind: Group
 #         name: mygroup
 #       - kind: ServiceAccount
 #         name: mysa
 #         namespace: myproject2
+#     adminAccess:
+#       - kind: Group
+#         name: myadmingroup
+#       - kind: ServiceAccount
+#         name: mysa
+#         namespace: myproject4
 #     namespaceLabelMap:
 #       - labelName1: LabelValue1
 #       - labelName2: LabelValue2
