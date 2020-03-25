@@ -21,12 +21,12 @@ spec:
             args:
             - /usr/sbin/gitlab-backup.sh
             - -s={{ .Values.sre_team }}
-            {{ if .Values.prometheus_pushgateway_url -}}
+            {{- if .Values.prometheus_pushgateway_url }}
             - -p={{ .Values.prometheus_pushgateway_url }}
-            {{- end -}}
+            {{- end }}
             {{- if .Values.skip }}
             - --skip={{ .Values.skip }}
-            {{ end -}}
+            {{- end }}
             {{ if .Values.cronjob.resources -}}
             resources:
 {{ toYaml .Values.cronjob.resources | indent 14 }}
