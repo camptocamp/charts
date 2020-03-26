@@ -3,10 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "puppetboard.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "puppetboard.name" . }}
-    helm.sh/chart: {{ include "puppetboard.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ include "puppetboard.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -19,7 +16,13 @@ spec:
         app.kubernetes.io/name: {{ include "puppetboard.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ include "puppetboard.fullname" . }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "puppetboard.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: {{ .Chart.Name }}-autosign
           image: "docker.io/puppet/puppet-agent:5.5.1"
@@ -38,7 +41,12 @@ spec:
             - mountPath: /srv/puppetssl
               name: ssldir
       containers:
+{{- if .Values.containers }}
+{{ toYaml .Values.containers | indent 8 }}
+{{- end }}
         - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
