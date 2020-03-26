@@ -34,6 +34,12 @@ logstash:
   extraContainers: |
     - name: prometheus-exporter
       image: docker.io/sequra/logstash_exporter:v0.1.3
+      resources:
+        limits:
+          memory: "256M"
+        requests:
+          memory: "16M"
+          cpu: "10m"
 
 # Ditto, for upstream elasticsearch-curator chart.
 elasticsearch-curator:
