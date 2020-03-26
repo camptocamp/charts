@@ -40,6 +40,8 @@ spec:
               name: confdir
             - mountPath: /srv/puppetssl
               name: ssldir
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
       containers:
 {{- if .Values.containers }}
 {{ toYaml .Values.containers | indent 8 }}
