@@ -30,7 +30,7 @@ spec:
           env:
 {{- with .Values.env }}
 {{    toYaml . | indent 12 }}
-{{- end -}}
+{{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
