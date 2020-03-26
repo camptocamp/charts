@@ -30,21 +30,18 @@ spec:
           env:
 {{- with .Values.env }}
 {{    toYaml . | indent 12 }}
-{{- end -}}
-          {{- with .Values.resources }}
+{{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- end }}
-        {{- with .Values.nodeSelector }}
-          nodeSelector:
-            {{- toYaml . | nindent 8 }}
-        {{- end }}
-      {{- with .Values.affinity }}
-        affinity:
-          {{- toYaml . | nindent 8 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.tolerations }}
-        tolerations:
-          {{- toYaml . | nindent 8 }}
-      {{- end }}
-
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
