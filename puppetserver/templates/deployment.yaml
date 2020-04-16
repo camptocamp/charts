@@ -35,12 +35,16 @@ spec:
               subPath: gpg.asc
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
               name: gnupgdir
+          resources:
+            {{- toYaml .Values.initContainers.gpgImport.resources | nindent 12 }}
         - name: {{ .Chart.Name }}-jmx-exporter
           image: camptocamp/jmx-exporter:0.12.0
           command: [ "cp", "/jmx_prometheus_javaagent-0.12.0.jar", "/jmx-exporter/" ]
           volumeMounts:
             - mountPath: /jmx-exporter
               name: jmx-exporter
+          resources:
+            {{- toYaml .Values.initContainers.jmxExporter.resources | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
