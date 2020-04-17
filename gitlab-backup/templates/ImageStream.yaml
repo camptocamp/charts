@@ -7,4 +7,4 @@ metadata:
     app.kubernetes.io/name: {{ include "gitlab-backup.name" . }}
     helm.sh/chart: {{ include "gitlab-backup.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
