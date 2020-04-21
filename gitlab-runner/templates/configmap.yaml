@@ -42,7 +42,7 @@ data:
       exit 1
     fi
 
-    cat /scripts/kubernetes.volumes | sed '1,$s/^/      /' >> /home/gitlab-runner/.gitlab-runner/config.toml
+    cat /scripts/kubernetes.volumes | sed '1,$s/^/      /' >> /etc/gitlab-runner/config.toml
 
     # Start the runner
     exec /entrypoint run --user=gitlab-runner \
