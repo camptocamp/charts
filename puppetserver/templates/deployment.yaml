@@ -21,7 +21,7 @@ spec:
     spec:
       initContainers:
         - name: {{ .Chart.Name }}-gpg-import
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "centos:8"
           command: [
             "gpg",
             "--import",
