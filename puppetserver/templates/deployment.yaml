@@ -58,7 +58,7 @@ spec:
             "-Djava.security.egd=/dev/urandom",
             "-javaagent:/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=9080:/jmx-exporter/config.yaml",
             "-cp",
-            "/opt/puppetlabs/server/apps/puppetserver/puppet-server-release.jar:/opt/puppetlabs/server/apps/puppetserver/jruby-1_7.jar:/opt/puppetlabs/server/data/puppetserver/jars/*",
+            "/opt/puppetlabs/server/apps/puppetserver/puppet-server-release.jar:/opt/puppetlabs/server/apps/puppetserver/jruby-1_7.jar:/opt/puppetlabs/puppet/lib/ruby/vendor_ruby/facter.jar:/opt/puppetlabs/server/data/puppetserver/jars/*",
             "clojure.main",
             "-m",
             "puppetlabs.trapperkeeper.main",
