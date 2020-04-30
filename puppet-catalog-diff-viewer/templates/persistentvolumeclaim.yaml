@@ -21,4 +21,3 @@ spec:
   storageClassName: "{{ .Values.persistence.data.storageClass }}"
 {{- end }}
 {{- end }}
-{{- end -}}
