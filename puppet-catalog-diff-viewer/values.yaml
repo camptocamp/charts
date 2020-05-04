@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/camptocamp/puppet-catalog-diff-viewer
-  tag: 0.5.0
+  tag: 0.6.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
