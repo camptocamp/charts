@@ -1,0 +1,18 @@
+image:
+  repository: wrouesnel/postgres_exporter
+  tag: latest
+  pullPolicy: Always
+
+hosts:
+  - name: master
+    uri: pghost:5432/postgres?sslmode=require
+    username: postgres
+    password: pgpass
+  - name: slave1
+    uri: pghost:5432/postgres?sslmode=require
+    username: postgres
+    password: pgpass
+  - name: slave2
+    uri: pghost:5432/postgres?sslmode=require
+    username: postgres
+    password: pgpass

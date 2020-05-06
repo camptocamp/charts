@@ -1,0 +1,7 @@
+---
+name: prometheus-postgres-exporter
+version: 0.0.1
+description: 'Prometheus exporter for postgreSQL'
+keywords:
+  - postgres
+  - prometheus

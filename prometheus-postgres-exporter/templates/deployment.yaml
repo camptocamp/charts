@@ -1,0 +1,41 @@
+{{$root := .}}
+{{- range .Values.hosts }}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-{{ .name }}
+  labels:
+{{ include "prometheus-postgres-exporter.labels" $root | indent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+{{ include "prometheus-postgres-exporter.selector" $root | indent 8 }}
+        pginstance: {{ .name }}
+    spec:
+      containers:
+        - name: exporter
+          image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          env:
+            - name: DATA_SOURCE_PASS
+              value: {{ .password | quote}}
+            - name: DATA_SOURCE_URI
+              value: {{ .uri | quote }}
+            - name: DATA_SOURCE_USER
+              value: {{ .username | quote }}
+            - name: PG_EXPORTER_EXTEND_QUERY_PATH
+              value: /etc/prometheus-postgres-exporter/queries.yaml
+          ports:
+            - name: metrics
+              containerPort: 9187
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prometheus-postgres-exporter/
+      volumes:
+        - name: config
+          configMap:
+            name: {{ $.Release.Name }}
+{{- end }}
