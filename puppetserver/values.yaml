@@ -42,6 +42,7 @@ ca_conf: |
   }
 
 java_mem_limit: '2g'
+max_active_instances: '4'
 
 puppet_conf: ''
 puppetdb_conf: ''

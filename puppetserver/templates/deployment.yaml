@@ -73,7 +73,7 @@ spec:
             - name: HOME
               value: /opt/puppetlabs/server/data/puppetserver
             - name: PUPPETSERVER_MAX_ACTIVE_INSTANCES
-              value: '4'
+              value: {{ .Values.max_active_instances }}
           ports:
             - name: http
               containerPort: 8140
