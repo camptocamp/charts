@@ -138,7 +138,8 @@ spec:
               httpHeaders:
                 - name: Accept
                   value: pson
-            initialDelaySeconds: 30
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       securityContext:

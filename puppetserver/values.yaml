@@ -44,6 +44,10 @@ ca_conf: |
 java_mem_limit: '2g'
 max_active_instances: '4'
 
+readinessProbe:
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+
 puppet_conf: ''
 puppetdb_conf: ''
 routes_yaml: ''
