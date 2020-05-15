@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: docker.io/puppet/puppetserver
   tag: 6.10.0
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""
