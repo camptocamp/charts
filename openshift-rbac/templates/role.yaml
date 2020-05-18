@@ -5,7 +5,9 @@ apiVersion: authorization.openshift.io/v1
 kind: Role
 metadata:
   name: {{ $role.name }}
-  labels:
+{{-   with $role.namespace }}
+  namespace: {{ . }}
+{{-   end }}
 {{ include "common.labels.standard" $root | indent 4 }}
 {{-   with $role.rules }}
 rules:

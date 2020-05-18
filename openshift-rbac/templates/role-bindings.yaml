@@ -5,6 +5,9 @@ apiVersion: authorization.openshift.io/v1
 kind: RoleBinding
 metadata:
   name: {{ $roleBinding.name }}
+{{-   with $roleBinding.namespace }}
+  namespace: {{ . }}
+{{-   end }}
   labels:
 {{ include "common.labels.standard" $root | indent 4 }}
 {{-   with $roleBinding.roleRef }}

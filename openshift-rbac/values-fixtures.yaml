@@ -1,10 +1,12 @@
 serviceAccounts:
 - name: is-ci-admin
+  namespace: my-optional-namespace
   secrets:
   - name: is-argocd-admin-token
 
 roles:
 - name: my-secret-role
+  namespace: my-optional-namespace
   rules:
   - apiGroups:
     - ""
@@ -42,6 +44,7 @@ clusterRoles:
 
 roleBindings: 
 - name: gitlab
+  namespace: my-optional-namespace
   roleRef:
     name: admin
   subjects:
