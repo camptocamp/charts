@@ -13,7 +13,7 @@ puppetdb:
 
   image:
     repository: docker.io/puppet/puppetdb
-    tag: 6.9.1
+    tag: 6.10.1
     pullPolicy: Always
 
   nameOverride: ""
