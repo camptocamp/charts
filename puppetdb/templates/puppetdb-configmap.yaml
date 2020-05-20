@@ -11,6 +11,8 @@ metadata:
 data:
   puppetdb.ini: |-
 {{ .Values.puppetdb.puppetdb_ini | indent 4 }}
+  metrics.conf: |-
+{{ .Values.puppetdb.metrics_conf | indent 4 }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -49,3 +51,16 @@ data:
       - java.lang:type=Memory
       - java.lang:type=OperatingSystem
       - java.lang:type=Threading
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "puppetdb.fullname" . }}-jolokia
+  labels:
+    app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  jolokia-access.xml: |-
+{{ .Values.puppetdb.jolokia_access | indent 4 }}

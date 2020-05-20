@@ -78,6 +78,9 @@ spec:
             - mountPath: /jmx-exporter/config.yaml
               name: jmx-exporter-config
               subPath: config.yaml
+            - mountPath: /etc/puppetlabs/puppetdb/jolokia-access.xml
+              name: jolokia
+              subPath: jolokia-access.xml
           readinessProbe:
             exec:
               command:
@@ -110,6 +113,9 @@ spec:
         - name: jmx-exporter-config
           configMap:
             name: {{ include "puppetdb.fullname" . }}-jmx-exporter
+        - name: jolokia
+          configMap:
+            name: {{ include "puppetdb.fullname" . }}-jolokia
       {{- with .Values.puppetdb.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
