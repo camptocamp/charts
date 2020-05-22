@@ -14,7 +14,7 @@ spec:
     port: metrics
   namespaceSelector:
     matchNames:
-    - is-puppet
+      - {{ $.Release.Namespace | quote }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "puppetserver.name" . }}
