@@ -37,6 +37,8 @@ spec:
               name: confdir
             - mountPath: /srv/puppetssl
               name: ssldir
+          resources:
+            {{- toYaml .Values.prometheusPuppetdbExporter.init.autosign.resources | nindent 12 }}
       containers:
         - name: prometheus-puppetdb-exporter
           image: "{{ .Values.prometheusPuppetdbExporter.image.repository }}:{{ .Values.prometheusPuppetdbExporter.image.tag }}"

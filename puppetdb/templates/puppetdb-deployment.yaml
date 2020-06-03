@@ -36,12 +36,16 @@ spec:
               name: confdir
             - mountPath: /srv/puppetssl
               name: ssldir
+          resources:
+            {{- toYaml .Values.puppetdb.init.autosign.resources | nindent 12 }}
         - name: {{ .Chart.Name }}-jmx-exporter
           image: camptocamp/jmx-exporter:0.12.0
           command: [ "cp", "/jmx_prometheus_javaagent-0.12.0.jar", "/jmx-exporter/" ]
           volumeMounts:
             - mountPath: /jmx-exporter
               name: jmx-exporter
+          resources:
+            {{- toYaml .Values.puppetdb.init.jmx-exporter.resources | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.puppetdb.image.repository }}:{{ .Values.puppetdb.image.tag }}"
