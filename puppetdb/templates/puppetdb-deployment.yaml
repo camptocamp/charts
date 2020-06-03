@@ -45,7 +45,7 @@ spec:
             - mountPath: /jmx-exporter
               name: jmx-exporter
           resources:
-            {{- toYaml .Values.puppetdb.init.jmx-exporter.resources | nindent 12 }}
+            {{- toYaml .Values.puppetdb.init.jmx_exporter.resources | nindent 12 }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.puppetdb.image.repository }}:{{ .Values.puppetdb.image.tag }}"
