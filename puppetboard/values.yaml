@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/puppet/puppetboard
-  tag: 0.3.0
+  repository: docker.io/camptocamp/puppetboard
+  tag: 2.1.2
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
