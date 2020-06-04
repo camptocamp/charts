@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "0.6.0"
 description: Puppet catalog diff viewer
 name: puppet-catalog-diff-viewer
-version: 0.4.0
+version: 0.4.1
