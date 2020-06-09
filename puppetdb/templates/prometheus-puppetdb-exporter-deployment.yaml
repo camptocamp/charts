@@ -44,17 +44,19 @@ spec:
           image: "{{ .Values.prometheusPuppetdbExporter.image.repository }}:{{ .Values.prometheusPuppetdbExporter.image.tag }}"
           ports:
             - name: metrics
-              containerPort: 9121
+              containerPort: 9635
               protocol: TCP
           env:
             - name: "PUPPETDB_URL"
               value: "https://puppetdb:8081/pdb/query"
-            - name: PUPPETDB_KEY_FILE
-              value: /etc/puppetlabs/puppet/ssl/private_keys/prometheus-puppetdb-exporter.pem
-            - name: PUPPETDB_CERT_FILE
-              value: /etc/puppetlabs/puppet/ssl/certs/prometheus-puppetdb-exporter.pem
-            - name: PUPPETDB_CA_FILE
-              value: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+            - name: "PUPPETDB_KEY_FILE"
+              value: "/etc/puppetlabs/puppet/ssl/private_keys/prometheus-puppetdb-exporter.pem"
+            - name: "PUPPETDB_CERT_FILE"
+              value: "/etc/puppetlabs/puppet/ssl/certs/prometheus-puppetdb-exporter.pem"
+            - name: "PUPPETDB_CA_FILE"
+              value: "/etc/puppetlabs/puppet/ssl/certs/ca.pem"
+            - name: "PUPPETDB_LISTEN_ADDRESS"
+              value: "0.0.0.0:9635"
             - name: "PUPPETDB_SCRAPE_INTERVAL"
               value: "{{ .Values.prometheusPuppetdbExporter.scrapeInterval }}"
             - name: "REPORT_METRICS_CATEGORIES"
