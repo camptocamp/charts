@@ -53,6 +53,7 @@ spec:
           command: [ "java" ]
           args: [
             "-Dlogappender=STDOUT", "-Djava.net.preferIPv4Stack=true",
+            "-Djdk.tls.ephemeralDHKeySize=2048",
             "-Xms{{ .Values.puppetdb.java_mem_limit }}", "-Xmx{{ .Values.puppetdb.java_mem_limit }}", "-XX:+ExitOnOutOfMemoryError",
             "-javaagent:/jmx-exporter/jmx_prometheus_javaagent-0.12.0.jar=9080:/jmx-exporter/config.yaml",
             "-cp", "/opt/puppetlabs/server/apps/puppetdb/puppetdb.jar", "clojure.main",
