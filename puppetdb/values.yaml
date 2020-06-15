@@ -203,3 +203,8 @@ prometheusPuppetdbExporter:
   tolerations: []
 
   affinity: {}
+
+  init:
+    autosign:
+      resources: {}
+
