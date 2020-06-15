@@ -32,8 +32,7 @@ puppetdb:
     hosts:
       - chart-example.local
     tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
+    #  - secretName: chart-example-tls #    hosts:
     #      - chart-example.local
 
   resources: {}
