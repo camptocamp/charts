@@ -76,8 +76,8 @@ elasticsearch-curator:
   envFromSecrets:
     CURATOR_HTTP_AUTH:
       from:
-        secret: curator_http_auth
-        key: CURATOR_HTTP_AUTH
+        secret: curator-credentials
+        key: curator
 
   configMaps:
     config_yml: |-
