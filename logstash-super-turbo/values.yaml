@@ -73,6 +73,11 @@ elasticsearch-curator:
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 3
 
+  envFromSecrets:
+    from:
+      secret: curator_http_auth
+      key: CURATOR_HTTP_AUTH
+
   configMaps:
     config_yml: |-
       ---
