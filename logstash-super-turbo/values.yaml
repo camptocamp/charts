@@ -17,7 +17,7 @@ logstash:
   securityContext:
     runAsUser: 1000240000
 
-    logstashJavaOpts: "-Xms512m -Xmx512m"
+  logstashJavaOpts: "-Xms512m -Xmx512m"
 
   resources:
     limits:
