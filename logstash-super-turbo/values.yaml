@@ -7,12 +7,26 @@ line: prod
 # over-override these or others from elastic/logstash in your local
 # values.yaml
 logstash:
+  image: docker.elastic.co/logstash/logstash-oss
+  imageTag: 6.8.10
+
   podSecurityContext:
-    fsGroup: 1000380000
-    runAsUser: 1000380000
+    fsGroup: 1000240000
+    runAsUser: 1000240000
 
   securityContext:
-    runAsUser: 1000380000
+    runAsUser: 1000240000
+
+    logstashJavaOpts: "-Xms512m -Xmx512m"
+
+  resources:
+    limits:
+      memory: "2G"
+      cpu: "3"
+    requests:
+      memory: "750M"
+      cpu: "50m"
+
 
   secretMounts:
     - name: kafka-ssl
@@ -45,7 +59,16 @@ logstash:
 # Ditto, for upstream elasticsearch-curator chart.
 elasticsearch-curator:
   securityContext:
-    runAsUser: 1000380000
+    runAsUser: 1000240000
+
+  resources:
+    requests:
+      memory: "128M"
+      cpu: "100m"
+    limits:
+      memory: "256M"
+      cpu: "250m"
+
   cronjob:
     failedJobsHistoryLimit: 2
     successfulJobsHistoryLimit: 3
