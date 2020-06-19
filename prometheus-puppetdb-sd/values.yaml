@@ -7,6 +7,19 @@ image:
   tag: 0.11.0
   pullPolicy: IfNotPresent
 
+prometheusPuppetdbSd:
+  init:
+    psk: ''
+    puppetserver: puppetserver.puppet.svc.cluster.local
+    autosign:
+      resources: {}
+  args:
+    puppetdb.url: "https://puppetdb.camptocamp.com"
+    prometheus.proxy-url: "http://pushprox:8080"
+    output.method: k8s-secret
+    output.k8s-secret.secret-name: prometheus-puppetdb-sd-output
+    output.k8s-secret.secret-key: puppetdb-sd.yml
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -24,9 +37,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-prometheusPuppetdbSd:
-  args:
-    output.method: k8s-secret
-    output.k8s-secret.secret-name: prometheus-puppetdb-sd-output
-    output.k8s-secret.secret-key: puppetdb-sd.yml

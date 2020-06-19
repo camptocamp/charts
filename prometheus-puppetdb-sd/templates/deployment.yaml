@@ -15,6 +15,25 @@ spec:
         {{- include "prometheus-puppetdb-sd.labels" $ | nindent 8 }}
     spec:
       serviceAccountName: {{ include "prometheus-puppetdb-sd.fullname" $ }}
+      initContainers:
+        - name: {{ .Chart.Name }}-autosign
+          image: "docker.io/puppet/puppet-agent:6.15.0"
+          command: ["sh", "-c"]
+          args:
+            - "psk=$(cat /run/secrets/autosign_psk); hostname=$(puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetdb-sd/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetdb-sd'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; puppet ssl submit_request --environment production --server {{ .Values.prometheusPuppetdbSd.init.puppetserver }} --certificate_revocation=false --dns_alt_names='{{ include "prometheus-puppetdb-sd.fullname" . }}' --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/puppetdb-sd.pem && cp certs/$hostname.pem certs/puppetdb-sd.pem ; mv /etc/puppetlabs/puppet/ssl/* /srv/puppetssl/"
+          env:
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - name: secrets
+              mountPath: /run/secrets/autosign_psk
+              subPath: autosign_psk
+            - name: confdir
+              mountPath: /etc/puppetlabs/puppet
+            - name: ssldir
+              mountPath: /srv/puppetssl
+          resources:
+            {{- toYaml .Values.prometheusPuppetdbSd.init.autosign.resources | nindent 12 }}
       containers:
         - name: {{ $.Chart.Name }}
           image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
@@ -23,21 +42,16 @@ spec:
           {{- range $key, $value := $.Values.prometheusPuppetdbSd.args }}
             - --{{ $key }}={{ $value }}
           {{- end }}
-          {{- if and $.Values.CACert $.Values.Cert $.Values.Key }}
-            - --puppetdb.cert-file=certs/client.pem
-            - --puppetdb.key-file=certs/client.key
-            - --puppetdb.cacert-file=certs/cacert.pem
-          {{- end }}
+            - --puppetdb.cert-file=/etc/puppetlabs/puppet/ssl/certs/puppetdb-sd.pem
+            - --puppetdb.key-file=/etc/puppetlabs/puppet/ssl/private_keys/puppetdb-sd.pem
+            - --puppetdb.cacert-file=/etc/puppetlabs/puppet/ssl/certs/ca.pem
         {{- if $.Values.prometheusPuppetdbSd.env }}
           env:
             {{- toYaml $.Values.prometheusPuppetdbSd.env | nindent 10 }}
         {{- end }}
-        {{- if and $.Values.CACert $.Values.Cert $.Values.Key }}
           volumeMounts:
-          - name: certs
-            mountPath: /certs
-            readOnly: true
-        {{- end }}
+            - name: ssldir
+              mountPath: /etc/puppetlabs/puppet/ssl
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
     {{- with $.Values.nodeSelector }}
@@ -52,9 +66,11 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
     {{- end }}
-    {{- if and $.Values.CACert $.Values.Cert $.Values.Key }}
       volumes:
-      - name: certs
-        secret:
-          secretName: {{ include "prometheus-puppetdb-sd.fullname" $ }}
-    {{- end }}
+        - name: secrets
+          secret:
+            secretName: {{ include "prometheus-puppetdb-sd.fullname" . }}
+        - name: ssldir
+          emptyDir: {}
+        - name: confdir
+          emptyDir: {}
