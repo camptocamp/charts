@@ -5,6 +5,7 @@ apiVersion: authorization.openshift.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ $clusterRoleBinding.name }}
+  namespace: {{ $root.Release.Namespace }}
   labels:
 {{ include "common.labels.standard" $root | indent 4 }}
 {{-   with $clusterRoleBinding.roleRef }}
