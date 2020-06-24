@@ -27,6 +27,9 @@ spec:
             {{- if .Values.skip }}
             - --skip={{ .Values.skip }}
             {{- end }}
+            {{- if .Values.timestamp }}
+            - --timestamp={{ .Values.timestamp }}
+            {{- end }}
             {{ if .Values.cronjob.resources -}}
             resources:
 {{ toYaml .Values.cronjob.resources | indent 14 }}

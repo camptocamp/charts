@@ -4,6 +4,8 @@
 
 schedule: "0 0 * * *"
 
+timestamp: "-$(date +%d-%m-%G)"
+
 sre_team: 'sret1'
 
 prometheus_pushgateway_url:  null
