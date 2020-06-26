@@ -58,6 +58,7 @@ logstash:
 
 # Ditto, for upstream elasticsearch-curator chart.
 elasticsearch-curator:
+  enabled: true
   securityContext:
     runAsUser: 1000240000
 
