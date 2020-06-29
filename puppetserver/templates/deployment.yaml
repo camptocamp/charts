@@ -8,7 +8,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  {{- if not (.Values.autoScaling.enabled) }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ include "puppetserver.name" . }}
