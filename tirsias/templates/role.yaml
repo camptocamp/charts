@@ -35,6 +35,7 @@ rules:
   - apiGroups: ['monitoring.coreos.com']
     resources:
       - prometheuses
+      - alertmanagers
     verbs:
       - list
       - get
