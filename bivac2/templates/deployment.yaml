@@ -32,7 +32,7 @@ spec:
           env:
 {{-   with .Values.env }}
 {{      toYaml . | indent 12 }}
-{{-   end -}}
+{{-   end }}
             - name: BIVAC_LOG_SERVER
               value: "http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}"
           livenessProbe:
