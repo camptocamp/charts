@@ -60,8 +60,10 @@ spec:
               value: '8080'
             - name: INVENTORY_FACTS
               value: {{ .Values.puppetboard.inventory_facts | quote }}
+{{- if .Values.puppetboard.overview_filter }}
             - name: OVERVIEW_FILTER
               value: {{ .Values.puppetboard.overview_filter | quote }}
+{{- end }}
             - name: PUPPETDB_HOST
               value: {{ .Values.puppetdb.host }}
             - name: PUPPETDB_PORT
