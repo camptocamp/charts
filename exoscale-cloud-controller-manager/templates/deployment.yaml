@@ -38,17 +38,17 @@ spec:
             - name: EXOSCALE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  key: api-key
+                  key: api_key
                   name: {{ include "exoscale-cloud-controller-manager.fullname" . }}-credentials
             - name: EXOSCALE_API_SECRET
               valueFrom:
                 secretKeyRef:
-                  key: api-secret
+                  key: api_secret
                   name: {{ include "exoscale-cloud-controller-manager.fullname" . }}-credentials
             - name: EXOSCALE_API_ENDPOINT
               valueFrom:
                 secretKeyRef:
-                  key: api-endpoint
+                  key: api_endpoint
                   name: {{ include "exoscale-cloud-controller-manager.fullname" . }}-credentials
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

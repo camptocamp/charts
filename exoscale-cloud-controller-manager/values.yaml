@@ -14,9 +14,9 @@ nameOverride: ""
 fullnameOverride: ""
 
 exoscale:
-  api-key: ""
-  api-secret: ""
-  api-endpoint: "https://api.exoscale.ch/compute"
+  api_key: ""
+  api_secret: ""
+  api_endpoint: "https://api.exoscale.ch/compute"
 
 serviceAccount:
   # Specifies whether a service account should be created
