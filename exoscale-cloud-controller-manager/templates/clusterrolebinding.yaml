@@ -10,6 +10,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: {{ template "exoscale-cloud-controller-manager.fullname" . }}
+  namespace: kube-system
 roleRef:
   kind: ClusterRole
   name: system:{{ template "exoscale-cloud-controller-manager.fullname" . }}

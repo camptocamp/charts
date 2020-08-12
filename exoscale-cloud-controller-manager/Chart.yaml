@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: "0.1.0"
 description: Exoscale Cloud Controller Manager
 name: exoscale-cloud-controller-manager
-version: 0.2.1
+version: 0.2.2
