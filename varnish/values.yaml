@@ -97,7 +97,7 @@ varnishKafkaLogLevel: 6
 ## kafka is slow, or in case of peak in log rate, the messages overflowing this
 ## buffer will not be read from varnish shared buffer, thus the ring buffer
 ## might overflow.
-varnishKafkaBufferedMessages: 1000000
+varnishKafkaBufferedMessages: '1000000'
 
 # Configuration of the collectd Varnish plugin.
 collectdVarnish:
@@ -123,7 +123,7 @@ collectdVarnish:
 varnishKafkaSendMaxRetries: 3
 
 ## Message timeout for sending to kafka milliseconds
-varnishKafkaTimeout: 60000
+varnishKafkaTimeout: '60000'
 
 ## The name of the kafka topic to send logs to, required if output is kafka.
 varnishKafkaTopic: varnish
