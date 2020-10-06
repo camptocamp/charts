@@ -122,5 +122,9 @@ tiller:
 
 # Set the SA used for the anyUid scc
 anyUid:
-  deployScc: false # this will not yet work if enabled, you have to create the scc or scc binding yourself
   ServiceAccountName: anyuid
+  ## For the SCC, we have two options:
+  ## - either we deploy a SCC using the deployScc: true
+  ## - or we create a Role and a RoleBinding to bind to a pre-existing scc 
+  deployScc: false # this will not yet work if enabled, you have to create the scc or scc binding yourself
+  #bindToSccName: anyuid
