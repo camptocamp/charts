@@ -45,12 +45,12 @@ servicemonitor:
   enabled: false
 
 config: |-
-    access_key: "S3-ACCESS-KEY"
-    secret_key: "S3-SECRET-KEY"
-    host_base: "s3-host-base"
-    host_bucket: "%(bucket)s.{{host_base}}"
-    use_https: True
-    signature_v2: True
-    bucket: "bucket-world"
-    folders:
-      - "/"
+  access_key: "S3-ACCESS-KEY"
+  secret_key: "S3-SECRET-KEY"
+  host_base: "s3-host-base"
+  host_bucket: "%(bucket)s.{{host_base}}"
+  use_https: True
+  signature_v2: True
+  bucket: "bucket-world"
+  folders:
+    - "/"

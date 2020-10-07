@@ -1,0 +1,17 @@
+{{ if .Values.servicemonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ template "s3-exporter.fullname" . }}
+spec:
+  endpoints:
+  - port: {{ .Release.Name }}-{{ .Values.service.port }}-tcp
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      app:  {{ template "s3-exporter.fullname" . }}
+      release: {{ .Release.Name }}
+{{ end }}
+

@@ -6,4 +6,4 @@ metadata:
     {{- include "s3-exporter.labels" . | nindent 4 }}
 data:
   config: |-
-    {{ .Values.config | indent 4 }}
+    {{- .Values.config | nindent 4 }}
