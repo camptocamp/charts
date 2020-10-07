@@ -5,7 +5,7 @@ metadata:
   name: {{ template "s3-exporter.fullname" . }}
 spec:
   endpoints:
-  - port: {{ include "s3-exporter.fullname" . }}
+  - port: http
     path: /metrics
   namespaceSelector:
     matchNames:
