@@ -5,7 +5,8 @@ metadata:
   name: {{ template "s3-exporter.fullname" . }}
 spec:
   endpoints:
-  - port: {{ .Release.Name }}-{{ .Values.service.port }}-tcp
+  - port: {{ include "s3-exporter.fullname" . }}
+    path: /metrics
   namespaceSelector:
     matchNames:
     - {{ .Release.Namespace }}
