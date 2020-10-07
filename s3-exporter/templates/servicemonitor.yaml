@@ -12,7 +12,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app:  {{ template "s3-exporter.fullname" . }}
-      release: {{ .Release.Name }}
+      {{- include "s3-exporter.selectorLabels" . | nindent 6 }}
 {{ end }}
 
