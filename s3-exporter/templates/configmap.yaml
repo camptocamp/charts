@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "s3-exporter.fullname" . }}
+  labels:
+    {{- include "s3-exporter.labels" . | nindent 4 }}
+data:
+  config: |-
+    {{ .Values.config | indent 4 }}
