@@ -31,6 +31,14 @@ tolerations: []
 
 affinity: {}
 
+autoscaling:
+  enabled: false
+ingress:
+  enabled: false
+
+servicemonitor:
+  enabled: false
+
 config: |-
     access_key: "S3-ACCESS-KEY"
     secret_key: "S3-SECRET-KEY"

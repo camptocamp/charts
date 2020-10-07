@@ -3,10 +3,7 @@ kind: Pod
 metadata:
   name: "{{ include "s3-exporter.fullname" . }}-test-connection"
   labels:
-    app.kubernetes.io/name: {{ include "s3-exporter.name" . }}
-    helm.sh/chart: {{ include "s3-exporter.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- include "s3-exporter.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test-success
 spec:
@@ -14,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args:  ['{{ include "s3-exporter.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "s3-exporter.fullname" . }}:{{ .Values.service.port }}']
   restartPolicy: Never
