@@ -79,6 +79,14 @@ metrics:
     lastXlogAgeMax: 7200
     validBaseBackup: 15
 
+livenessProbe:
+  initialDelaySeconds: 300
+  timeoutSeconds: 10
+  periodSeconds: 30
+readinessProbe:
+  timeoutSeconds: 10
+  periodSeconds: 30
+
 labels: {}
 
 resources: {}

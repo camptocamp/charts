@@ -36,11 +36,16 @@ spec:
               containerPort: 16000
               protocol: TCP
           livenessProbe:
-            initialDelaySeconds: 300
+            {{- with .Values.livenessProbe }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
             httpGet:
               path: /status
               port: http
           readinessProbe:
+            {{- with .Values.readinessProbe }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
             httpGet:
               path: /status
               port: http
