@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ template "s3-exporter.fullname" . }}-{{ .Release.Namespace }}
+  name: {{ template "s3-exporter.fullname" . }}
 spec:
   endpoints:
   - port: http
