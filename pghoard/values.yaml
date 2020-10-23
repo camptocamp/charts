@@ -9,6 +9,25 @@ image:
   tag: "10"
   pullPolicy: IfNotPresent
 
+## 
+## There are 2 ways to manage the pghoard_json:
+## 
+## * Use an existing secret identified by pghoard_json_secretName to create the pghoard.json file:
+##
+## pghoard_json_create_secret: false
+## pghoard_json_secretName: "pghoard_secretName"
+##
+##
+## * Create a new secret initialized with the content defined under the key pghoard_json 
+##   in order to create the pghoard.json file:
+##
+## pghoard_json_create_secret: true
+## pghoard_json: |-
+##   {
+##     <...>
+##   }
+pghoard_json_create_secret: false
+#pghoard_json_secretName: "pghoard_secretName"
 pghoard_json: |-
   {
     "backup_location": "/var/lib/pghoard/incoming",
