@@ -26,7 +26,7 @@ image:
 ##   {
 ##     <...>
 ##   }
-pghoard_json_create_secret: false
+pghoard_json_create_secret: true
 #pghoard_json_secretName: "pghoard_secretName"
 pghoard_json: |-
   {
