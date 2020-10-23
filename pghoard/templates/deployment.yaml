@@ -59,7 +59,11 @@ spec:
       volumes:
         - name: config-volume
           secret:
+          {{- if .Values.pghoard_json_create_secret }}
             secretName: {{ include "pghoard.fullname" . }}
+          {{- else }}
+            secretName: {{ .Values.pghoard_json_secretName }}
+          {{- end }}
         - name: pghoard
         {{- if .Values.persistentVolume.enabled }}
           persistentVolumeClaim:
