@@ -14,8 +14,6 @@ prometheusPuppetdbSd:
     autosign:
       resources: {}
   args:
-    puppetdb.url: "https://puppetdb.camptocamp.com"
-    prometheus.proxy-url: "http://pushprox:8080"
     output.method: k8s-secret
     output.k8s-secret.secret-name: prometheus-puppetdb-sd-output
     output.k8s-secret.secret-key: puppetdb-sd.yml
