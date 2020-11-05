@@ -74,9 +74,18 @@ spec:
           volumeMounts:
             - mountPath: /var/cache/showoff/
               name: course
+            {{- if .Values.extraFilesSecret -}}
+            - mountPath: /var/cache/showoff/_files/share/secrets/
+              name: extraFiles
+            {{- end }}
       volumes:
         - name: course
           emptyDir: {}
+        {{- if .Values.extraFilesSecret -}}
+        - name: extraFiles
+          secret:
+            name: {{- .Values.extraFilesSecret | quote }}
+        {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

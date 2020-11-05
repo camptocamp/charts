@@ -9,6 +9,10 @@ image:
   tag: 0.20.2
   pullPolicy: IfNotPresent
 
+# a secret containing extra files to be mounted in
+# /var/cache/showoff/_files/share/secrets/
+extraFilesSecret: ""
+
 gitSync:
   image:
     repository: k8s.gcr.io/git-sync/git-sync
