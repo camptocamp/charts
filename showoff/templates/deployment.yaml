@@ -23,6 +23,34 @@ spec:
       serviceAccountName: {{ template "showoff.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: git-clone
+          image: "{{ .Values.gitSync.image.repository }}:{{ .Values.gitSync.image.tag }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          imagePullPolicy: {{ .Values.gitSync.image.pullPolicy }}
+          env:
+            - name: GIT_SYNC_REPO
+              value: {{ .Values.gitSync.repo }}
+            - name: GIT_SYNC_REV
+              value: {{ .Values.gitSync.rev }}
+            - name: GIT_SYNC_ROOT
+              value: /mnt
+            - name: GIT_SYNC_ONE_TIME
+              value: 'true'
+            - name: GIT_SYNC_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.gitSync.username.secretName }}
+                  key: {{ .Values.gitSync.username.secretKey }}
+            - name: GIT_SYNC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.gitSync.password.secretName }}
+                  key: {{ .Values.gitSync.password.secretKey }}
+          volumeMounts:
+            - mountPath: /mnt
+              name: course
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -43,6 +71,13 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /var/cache/showoff/
+              name: course
+      volumes:
+        - name: course
+          emptyDir: {}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

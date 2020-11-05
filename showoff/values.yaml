@@ -9,6 +9,18 @@ image:
   tag: 0.20.2
   pullPolicy: IfNotPresent
 
+gitSync:
+  image:
+    repository: k8s.gcr.io/git-sync/git-sync
+    tag: v3.2.0
+    pullPolicy: IfNotPresent
+  username:
+    secretName: repo-secret
+    secretKey: username
+  password:
+    secretName: repo-secret
+    secretKey: password
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
