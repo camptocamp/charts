@@ -76,13 +76,13 @@ spec:
               name: course
             {{- if .Values.extraFilesSecret }}
             - mountPath: /var/cache/showoff/_files/share/secrets/
-              name: extraFiles
+              name: extrafiles
             {{- end }}
       volumes:
         - name: course
           emptyDir: {}
         {{- if .Values.extraFilesSecret }}
-        - name: extraFiles
+        - name: extrafiles
           secret:
             secretName: {{ .Values.extraFilesSecret | quote }}
         {{- end }}
