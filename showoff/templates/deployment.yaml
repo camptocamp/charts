@@ -84,7 +84,7 @@ spec:
         {{- if .Values.extraFilesSecret }}
         - name: extraFiles
           secret:
-            name: {{- .Values.extraFilesSecret | quote }}
+            secretName: {{ .Values.extraFilesSecret | quote }}
         {{- end }}
 
       {{- with .Values.nodeSelector }}
