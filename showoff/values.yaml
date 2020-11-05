@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: binfork2k/showoff
+  repository: binford2k/showoff
   tag: 0.20.2
   pullPolicy: IfNotPresent
 
@@ -13,19 +13,12 @@ image:
 # /var/cache/showoff/_files/share/secrets/
 extraFilesSecret: ""
 
-gitSync:
-  image:
-    repository: k8s.gcr.io/git-sync/git-sync
-    tag: v3.2.0
-    pullPolicy: IfNotPresent
-  repo: https://github.com/camptocamp/charts.git
+gitClone:
+  repo: https://....
   rev: master
-  username:
+  netrc:
     secretName: repo-secret
-    secretKey: username
-  password:
-    secretName: repo-secret
-    secretKey: password
+    secretKey: .netrc
 
 imagePullSecrets: []
 nameOverride: ""

@@ -25,32 +25,28 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
         - name: git-clone
-          image: "{{ .Values.gitSync.image.repository }}:{{ .Values.gitSync.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          args:
+            - 'git config --global url.https://github.com/.insteadOf git@github.com: && git clone --recurse-submodules -b $GIT_CLONE_REV $GIT_CLONE_REPO /mnt'
+          command:
+            - /bin/sh
+            - -c
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          imagePullPolicy: {{ .Values.gitSync.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: GIT_SYNC_REPO
-              value: {{ .Values.gitSync.repo }}
-            - name: GIT_SYNC_REV
-              value: {{ .Values.gitSync.rev }}
-            - name: GIT_SYNC_ROOT
-              value: /mnt
-            - name: GIT_SYNC_ONE_TIME
-              value: 'true'
-            - name: GIT_SYNC_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.gitSync.username.secretName }}
-                  key: {{ .Values.gitSync.username.secretKey }}
-            - name: GIT_SYNC_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.gitSync.password.secretName }}
-                  key: {{ .Values.gitSync.password.secretKey }}
+            - name: HOME
+              value: /tmp
+            - name: GIT_CLONE_REPO
+              value: {{ .Values.gitClone.repo }}
+            - name: GIT_CLONE_REV
+              value: {{ .Values.gitClone.rev }}
           volumeMounts:
             - mountPath: /mnt
               name: course
+            - name: netrc
+              mountPath: /tmp/.netrc
+              subPath: {{ .Values.gitClone.netrc.secretKey}}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -86,6 +82,9 @@ spec:
           secret:
             secretName: {{ .Values.extraFilesSecret | quote }}
         {{- end }}
+        - name: netrc
+          secret:
+            secretName: {{ .Values.gitClone.netrc.secretName }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
