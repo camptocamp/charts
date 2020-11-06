@@ -13,6 +13,8 @@ image:
 # /var/cache/showoff/_files/share/secrets/
 extraFilesSecret: ""
 
+presentationFile: "showoff.json"
+
 gitClone:
   repo: https://....
   rev: master
