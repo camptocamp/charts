@@ -48,6 +48,9 @@ spec:
               mountPath: /tmp/.netrc
               subPath: {{ .Values.gitClone.netrc.secretKey}}
       containers:
+        {{- with .Values.containers }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}

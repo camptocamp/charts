@@ -22,6 +22,24 @@ gitClone:
     secretName: repo-secret
     secretKey: .netrc
 
+# Additional containers
+# example:
+#
+# containers:
+#   - image: quay.io/pusher/oauth2_proxy:v6.1.1
+#     args:
+#       - --http-address=0.0.0.0:9095
+#       - --upstream=http://localhost:9090
+#       - --provider=oidc
+#       - --oidc-issuer-url=https://cognito-idp....
+#       - --client-id=...
+#       - --client-secret=...
+#     name: showoff-proxy
+#     ports:
+#       - containerPort: 9095
+#         name: web
+containers: []
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
