@@ -23,6 +23,8 @@ gitClone:
     secretKey: .netrc
 
 # Additional containers
+#
+# For proxy you will need to set service.targetPort to this new container
 # example:
 #
 # containers:
@@ -38,7 +40,15 @@ gitClone:
 #     ports:
 #       - containerPort: 9095
 #         name: web
+#
+# service:
+#   targetPort: web
 containers: []
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: http
 
 imagePullSecrets: []
 nameOverride: ""
@@ -61,10 +71,6 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 80
 
 ingress:
   enabled: false
