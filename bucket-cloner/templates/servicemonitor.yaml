@@ -15,4 +15,8 @@ spec:
       release: {{ .Release.Name }}
       heritage: {{ .Release.Service }}
   endpoints:
-    - port: api
+    {{- with .Values.metricRelabelings }}
+    - metricRelabelings:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      port: api
