@@ -5,7 +5,7 @@ metadata:
   labels:
 {{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
 spec:
-  endpoints:
+  podMetricsEndpoints:
     - port: metrics
   namespaceSelector:
     matchNames:
