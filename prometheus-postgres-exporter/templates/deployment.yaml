@@ -18,11 +18,11 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           env:
             - name: DATA_SOURCE_PASS
-              value: {{ .Values.master.password | quote}}
+              value: {{ .Values.password | quote}}
             - name: DATA_SOURCE_URI
-              value: {{ .Values.master.uri | quote }}
+              value: {{ .Values.master | quote }}
             - name: DATA_SOURCE_USER
-              value: {{ .Values.master.username | quote }}
+              value: {{ .Values.username | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: /etc/prometheus-postgres-exporter/queries.yaml
           ports:
@@ -58,11 +58,11 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           env:
             - name: DATA_SOURCE_PASS
-              value: {{ $replica.password | quote}}
+              value: {{ $.Values.password | quote}}
             - name: DATA_SOURCE_URI
-              value: {{ $replica.uri | quote }}
+              value: {{ $replica | quote }}
             - name: DATA_SOURCE_USER
-              value: {{ $replica.username | quote }}
+              value: {{ $.Values.username | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: /etc/prometheus-postgres-exporter/queries.yaml
           ports:

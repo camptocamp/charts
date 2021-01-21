@@ -5,17 +5,10 @@ image:
 
 pg_stat_statements: true
 version: "12"
-master:
-  uri: master:5432/postgres?sslmode=require
-  username: postgres
-  password: pgpass
+username: postgres
+password: pgpass
+master: master:5432/postgres?sslmode=require
 replicas:
-  - uri: replica0:5432/postgres?sslmode=require
-    username: postgres
-    password: pgpassmaster
-  - uri: replica1:5432/postgres?sslmode=require
-    username: postgres
-    password: pgpassreplica0
-  - uri: replica2:5432/postgres?sslmode=require
-    username: postgres
-    password: pgpassreplica1
+  - replica0:5432/postgres?sslmode=require
+  - replica1:5432/postgres?sslmode=require
+  - replica2:5432/postgres?sslmode=require
