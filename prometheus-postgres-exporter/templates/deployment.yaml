@@ -1,18 +1,16 @@
-{{$root := .}}
-{{- range .Values.hosts }}
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-{{ .name }}
+  name: {{ $.Release.Name }}-master
   labels:
-{{ include "prometheus-postgres-exporter.labels" $root | indent 4 }}
+{{ include "prometheus-postgres-exporter.labels" $ | indent 4 }}
 spec:
   template:
     metadata:
       labels:
-{{ include "prometheus-postgres-exporter.selector" $root | indent 8 }}
-        pginstance: {{ .name }}
+{{ include "prometheus-postgres-exporter.selector" $ | indent 8 }}
+        pginstance: master
     spec:
       containers:
         - name: exporter
@@ -20,11 +18,11 @@ spec:
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
           env:
             - name: DATA_SOURCE_PASS
-              value: {{ .password | quote}}
+              value: {{ .Values.master.password | quote}}
             - name: DATA_SOURCE_URI
-              value: {{ .uri | quote }}
+              value: {{ .Values.master.uri | quote }}
             - name: DATA_SOURCE_USER
-              value: {{ .username | quote }}
+              value: {{ .Values.master.username | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: /etc/prometheus-postgres-exporter/queries.yaml
           ports:
@@ -37,5 +35,45 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ $.Release.Name }}
+            name: {{ $.Release.Name }}-master
+{{$root := .}}
+{{- range $index, $replica := .Values.replicas }}
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-replica{{ $index }}
+  labels:
+{{ include "prometheus-postgres-exporter.labels" $root | indent 4 }}
+spec:
+  template:
+    metadata:
+      labels:
+{{ include "prometheus-postgres-exporter.selector" $root | indent 8 }}
+        pginstance: replica{{ $index }}
+    spec:
+      containers:
+        - name: exporter
+          image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          env:
+            - name: DATA_SOURCE_PASS
+              value: {{ $replica.password | quote}}
+            - name: DATA_SOURCE_URI
+              value: {{ $replica.uri | quote }}
+            - name: DATA_SOURCE_USER
+              value: {{ $replica.username | quote }}
+            - name: PG_EXPORTER_EXTEND_QUERY_PATH
+              value: /etc/prometheus-postgres-exporter/queries.yaml
+          ports:
+            - name: metrics
+              containerPort: 9187
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /etc/prometheus-postgres-exporter/
+      volumes:
+        - name: config
+          configMap:
+            name: {{ $.Release.Name }}-replica
 {{- end }}

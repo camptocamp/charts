@@ -1,18 +1,21 @@
 image:
   repository: wrouesnel/postgres_exporter
-  tag: latest
-  pullPolicy: Always
+  tag: v0.8.0
+  pullPolicy: IfNotPresent
 
-hosts:
-  - name: master
-    uri: pghost:5432/postgres?sslmode=require
+pg_stat_statements: true
+version: "12"
+master:
+  uri: master:5432/postgres?sslmode=require
+  username: postgres
+  password: pgpass
+replicas:
+  - uri: replica0:5432/postgres?sslmode=require
     username: postgres
-    password: pgpass
-  - name: slave1
-    uri: pghost:5432/postgres?sslmode=require
+    password: pgpassmaster
+  - uri: replica1:5432/postgres?sslmode=require
     username: postgres
-    password: pgpass
-  - name: slave2
-    uri: pghost:5432/postgres?sslmode=require
+    password: pgpassreplica0
+  - uri: replica2:5432/postgres?sslmode=require
     username: postgres
-    password: pgpass
+    password: pgpassreplica1
