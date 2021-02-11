@@ -5,6 +5,8 @@ metadata:
   labels:
 {{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
 spec:
+  podTargetLabels:
+    {{- keys .Values.additionalLabels | toYaml | nindent 4 }}
   podMetricsEndpoints:
     - port: metrics
   namespaceSelector:

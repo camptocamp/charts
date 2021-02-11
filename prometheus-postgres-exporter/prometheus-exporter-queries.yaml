@@ -8,12 +8,12 @@ pg_is_in:
         description: "0 for master, 1 for slaves"
 
 pg_xlog:
-  master: true
   {{- if $.version | semverCompare ">= 10" }}
   query: "SELECT CASE WHEN pg_is_in_recovery() THEN pg_wal_lsn_diff(pg_last_wal_replay_lsn(), '0/0') ELSE pg_wal_lsn_diff(pg_current_wal_flush_lsn(), '0/0') END AS position"
   {{- else }}
   query: "SELECT CASE WHEN pg_is_in_recovery() THEN pg_xlog_location_diff(pg_last_xlog_replay_location(), '0/0') ELSE pg_xlog_location_diff(pg_current_xlog_location(), '0/0') END AS position"
   {{- end }}
+  master: true
   metrics:
     - position:
         usage: "COUNTER"
@@ -22,17 +22,16 @@ pg_xlog:
 {{- if eq $.role.type "replica" }}
 
 pg_replication:
-  master: true
   {{- if $.version | semverCompare ">= 10" }}
-  query: "SELECT CASE WHEN pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn() THEN 0 ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) * 1000 END AS replag"
+  query: "SELECT CASE WHEN NOT pg_is_in_recovery() THEN -1 WHEN pg_last_wal_receive_lsn() = pg_last_wal_replay_lsn() THEN 0 ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) * 1000 END AS replag"
   {{- else }}
-  query: "SELECT CASE WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0 ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) * 1000 END AS replag"
+  query: "SELECT CASE WHEN NOT pg_is_in_recovery() THEN -1 WHEN pg_last_xlog_receive_location() = pg_last_xlog_replay_location() THEN 0 ELSE EXTRACT (EPOCH FROM now() - pg_last_xact_replay_timestamp()) * 1000 END AS replag"
   {{- end }}
+  master: true
   metrics:
     - replag:
         usage: "GAUGE"
         description: "Replication lag behind master in milliseconds"
-
 {{- end }}
 
 {{- if eq $.role.type "master" }}
@@ -51,7 +50,6 @@ pg_replication_replay:
     - client_addr:
         usage: "LABEL"
         description: "Address of client"
-
 {{- end }}
 
 pg_postmaster:
@@ -62,168 +60,141 @@ pg_postmaster:
         usage: "GAUGE"
         description: "Time at which postmaster started"
 
-pg_stat_user_tables:
-  query: "SELECT current_database() datname, schemaname, relname, COALESCE(seq_scan, 0) AS seq_scan, COALESCE(seq_tup_read, 0) AS seq_tup_read, COALESCE(idx_scan, 0) AS idx_scan, COALESCE(idx_tup_fetch, 0) AS idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, n_mod_since_analyze, COALESCE(last_vacuum, '1970-01-01Z') as last_vacuum, COALESCE(last_autovacuum, '1970-01-01Z') as last_autovacuum, COALESCE(last_analyze, '1970-01-01Z') as last_analyze, COALESCE(last_autoanalyze, '1970-01-01Z') as last_autoanalyze, vacuum_count, autovacuum_count, analyze_count, autoanalyze_count FROM pg_stat_user_tables"
-  metrics:
-    - datname:
-        usage: "LABEL"
-        description: "Name of current database"
-    - schemaname:
-        usage: "LABEL"
-        description: "Name of the schema that this table is in"
-    - relname:
-        usage: "LABEL"
-        description: "Name of this table"
-    - seq_scan:
-        usage: "COUNTER"
-        description: "Number of sequential scans initiated on this table"
-    - seq_tup_read:
-        usage: "COUNTER"
-        description: "Number of live rows fetched by sequential scans"
-    - idx_scan:
-        usage: "COUNTER"
-        description: "Number of index scans initiated on this table"
-    - idx_tup_fetch:
-        usage: "COUNTER"
-        description: "Number of live rows fetched by index scans"
-    - n_tup_ins:
-        usage: "COUNTER"
-        description: "Number of rows inserted"
-    - n_tup_upd:
-        usage: "COUNTER"
-        description: "Number of rows updated"
-    - n_tup_del:
-        usage: "COUNTER"
-        description: "Number of rows deleted"
-    - n_tup_hot_upd:
-        usage: "COUNTER"
-        description: "Number of rows HOT updated (i.e., with no separate index update required)"
-    - n_live_tup:
-        usage: "GAUGE"
-        description: "Estimated number of live rows"
-    - n_dead_tup:
-        usage: "GAUGE"
-        description: "Estimated number of dead rows"
-    - n_mod_since_analyze:
-        usage: "GAUGE"
-        description: "Estimated number of rows changed since last analyze"
-    - last_vacuum:
-        usage: "GAUGE"
-        description: "Last time at which this table was manually vacuumed (not counting VACUUM FULL)"
-    - last_autovacuum:
-        usage: "GAUGE"
-        description: "Last time at which this table was vacuumed by the autovacuum daemon"
-    - last_analyze:
-        usage: "GAUGE"
-        description: "Last time at which this table was manually analyzed"
-    - last_autoanalyze:
-        usage: "GAUGE"
-        description: "Last time at which this table was analyzed by the autovacuum daemon"
-    - vacuum_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been manually vacuumed (not counting VACUUM FULL)"
-    - autovacuum_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been vacuumed by the autovacuum daemon"
-    - analyze_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been manually analyzed"
-    - autoanalyze_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been analyzed by the autovacuum daemon"
+{{- if not $.rds }}
 
-pg_stat_user_tables_light:
-  query: "SELECT current_database() datname, schemaname, relname, COALESCE(seq_scan, 0) AS seq_scan, COALESCE(seq_tup_read, 0) AS seq_tup_read, COALESCE(idx_scan, 0) AS idx_scan, COALESCE(idx_tup_fetch, 0) AS idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, n_mod_since_analyze, COALESCE(last_vacuum, '1970-01-01Z') as last_vacuum, COALESCE(last_autovacuum, '1970-01-01Z') as last_autovacuum, COALESCE(last_analyze, '1970-01-01Z') as last_analyze, COALESCE(last_autoanalyze, '1970-01-01Z') as last_autoanalyze, vacuum_count, autovacuum_count, analyze_count, autoanalyze_count FROM pg_stat_user_tables WHERE n_live_tup + n_dead_tup > 1000"
-  metrics:
-    - datname:
-        usage: "LABEL"
-        description: "Name of current database"
-    - schemaname:
-        usage: "LABEL"
-        description: "Name of the schema that this table is in"
-    - relname:
-        usage: "LABEL"
-        description: "Name of this table"
-    - seq_scan:
-        usage: "COUNTER"
-        description: "Number of sequential scans initiated on this table"
-    - seq_tup_read:
-        usage: "COUNTER"
-        description: "Number of live rows fetched by sequential scans"
-    - idx_scan:
-        usage: "COUNTER"
-        description: "Number of index scans initiated on this table"
-    - idx_tup_fetch:
-        usage: "COUNTER"
-        description: "Number of live rows fetched by index scans"
-    - n_tup_ins:
-        usage: "COUNTER"
-        description: "Number of rows inserted"
-    - n_tup_upd:
-        usage: "COUNTER"
-        description: "Number of rows updated"
-    - n_tup_del:
-        usage: "COUNTER"
-        description: "Number of rows deleted"
-    - n_tup_hot_upd:
-        usage: "COUNTER"
-        description: "Number of rows HOT updated (i.e., with no separate index update required)"
-    - n_live_tup:
-        usage: "GAUGE"
-        description: "Estimated number of live rows"
-    - n_dead_tup:
-        usage: "GAUGE"
-        description: "Estimated number of dead rows"
-    - n_mod_since_analyze:
-        usage: "GAUGE"
-        description: "Estimated number of rows changed since last analyze"
-    - last_vacuum:
-        usage: "GAUGE"
-        description: "Last time at which this table was manually vacuumed (not counting VACUUM FULL)"
-    - last_autovacuum:
-        usage: "GAUGE"
-        description: "Last time at which this table was vacuumed by the autovacuum daemon"
-    - last_analyze:
-        usage: "GAUGE"
-        description: "Last time at which this table was manually analyzed"
-    - last_autoanalyze:
-        usage: "GAUGE"
-        description: "Last time at which this table was analyzed by the autovacuum daemon"
-    - vacuum_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been manually vacuumed (not counting VACUUM FULL)"
-    - autovacuum_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been vacuumed by the autovacuum daemon"
-    - analyze_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been manually analyzed"
-    - autoanalyze_count:
-        usage: "COUNTER"
-        description: "Number of times this table has been analyzed by the autovacuum daemon"
-
-pg_client_connections:
+pg_wals:
+  {{- if $.version | semverCompare ">= 10" }}
+  # >= 10
+  query: |
+    WITH ls AS (
+      SELECT './pg_wal/' || pg_ls_dir AS filename, (pg_stat_file('./pg_wal/' || pg_ls_dir)).* FROM pg_ls_dir('./pg_wal/')
+    )
+    SELECT count(*) AS count, sum(size) AS size FROM ls WHERE NOT isdir;
+  {{- else }}
+  # < 10
+  query: |
+    WITH ls AS (
+      SELECT './pg_xlog/' || pg_ls_dir AS filename, (pg_stat_file('./pg_xlog/' || pg_ls_dir)).* FROM pg_ls_dir('./pg_xlog/')
+    )
+    SELECT count(*) AS count, sum(size) AS size FROM ls WHERE NOT isdir;
+  {{- end }}
   master: true
-  query: "SELECT count(datname) as count, datname, usename, application_name as appname, client_addr FROM pg_stat_activity WHERE backend_type = 'client backend' GROUP BY datname, usename, client_addr, application_name"
   metrics:
-    - datname:
-        usage: "LABEL"
-        description: "Name of the database"
-    - usename:
-        usage: "LABEL"
-        description: "Username connected as"
-    - appname:
-        usage: "LABEL"
-        description: "Application Name connection string"
-    - client_addr:
-        usage: "LABEL"
-        description: "Client connection address"
     - count:
         usage: "GAUGE"
-        description: "Clients connected"
+        description: "Number of wal segments"
+    - size:
+        usage: "GAUGE"
+        description: "Disk usage of wal segments"
+
+pg_archive_wals:
+  {{- if $.version | semverCompare ">= 10" }}
+  # >= 10
+  query: |
+    WITH ls AS (
+      select './pg_wal/archive_status/' || pg_ls_dir AS filename, (pg_stat_file('./pg_wal/archive_status/' || pg_ls_dir)).* from pg_ls_dir('./pg_wal/archive_status/')
+    )
+    SELECT (SELECT count(*) FROM ls WHERE filename LIKE '%.done') AS done, (SELECT count(*) FROM ls WHERE filename LIKE '%.ready') AS ready;
+  {{- else }}
+  # < 10
+  query: |
+    WITH ls AS (
+      select './pg_xlog/archive_status/' || pg_ls_dir AS filename, (pg_stat_file('./pg_xlog/archive_status/' || pg_ls_dir)).* from pg_ls_dir('./pg_xlog/archive_status/')
+    )
+    SELECT (SELECT count(*) FROM ls WHERE filename LIKE '%.done') AS done, (SELECT count(*) FROM ls WHERE filename LIKE '%.ready') AS ready;
+  {{- end }}
+  master: true
+  metrics:
+    - done:
+        usage: "GAUGE"
+        description: "Number of wal segments archived"
+    - ready:
+        usage: "GAUGE"
+        description: "Number of wal segments ready for archival"
+{{- end }}
+
+{{- if $.pg_stat_user_tables }}
+
+pg_stat_user_tables:
+  {{- if gt (int $.light_threshold) 0 }}
+  query: "SELECT current_database() datname, schemaname, relname, COALESCE(seq_scan, 0) AS seq_scan, COALESCE(seq_tup_read, 0) AS seq_tup_read, COALESCE(idx_scan, 0) AS idx_scan, COALESCE(idx_tup_fetch, 0) AS idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, n_mod_since_analyze, COALESCE(last_vacuum, '1970-01-01Z'), COALESCE(last_vacuum, '1970-01-01Z') as last_vacuum, COALESCE(last_autovacuum, '1970-01-01Z') as last_autovacuum, COALESCE(last_analyze, '1970-01-01Z') as last_analyze, COALESCE(last_autoanalyze, '1970-01-01Z') as last_autoanalyze, vacuum_count, autovacuum_count, analyze_count, autoanalyze_count FROM pg_stat_user_tables WHERE n_live_tup + n_dead_tup > {{ $.light_threshold }}"
+  {{- else }}
+  query: "SELECT current_database() datname, schemaname, relname, COALESCE(seq_scan, 0) AS seq_scan, COALESCE(seq_tup_read, 0) AS seq_tup_read, COALESCE(idx_scan, 0) AS idx_scan, COALESCE(idx_tup_fetch, 0) AS idx_tup_fetch, n_tup_ins, n_tup_upd, n_tup_del, n_tup_hot_upd, n_live_tup, n_dead_tup, n_mod_since_analyze, COALESCE(last_vacuum, '1970-01-01Z'), COALESCE(last_vacuum, '1970-01-01Z') as last_vacuum, COALESCE(last_autovacuum, '1970-01-01Z') as last_autovacuum, COALESCE(last_analyze, '1970-01-01Z') as last_analyze, COALESCE(last_autoanalyze, '1970-01-01Z') as last_autoanalyze, vacuum_count, autovacuum_count, analyze_count, autoanalyze_count FROM pg_stat_user_tables"
+  {{- end }}
+  metrics:
+    - datname:
+        usage: "LABEL"
+        description: "Name of current database"
+    - schemaname:
+        usage: "LABEL"
+        description: "Name of the schema that this table is in"
+    - relname:
+        usage: "LABEL"
+        description: "Name of this table"
+    - seq_scan:
+        usage: "COUNTER"
+        description: "Number of sequential scans initiated on this table"
+    - seq_tup_read:
+        usage: "COUNTER"
+        description: "Number of live rows fetched by sequential scans"
+    - idx_scan:
+        usage: "COUNTER"
+        description: "Number of index scans initiated on this table"
+    - idx_tup_fetch:
+        usage: "COUNTER"
+        description: "Number of live rows fetched by index scans"
+    - n_tup_ins:
+        usage: "COUNTER"
+        description: "Number of rows inserted"
+    - n_tup_upd:
+        usage: "COUNTER"
+        description: "Number of rows updated"
+    - n_tup_del:
+        usage: "COUNTER"
+        description: "Number of rows deleted"
+    - n_tup_hot_upd:
+        usage: "COUNTER"
+        description: "Number of rows HOT updated (i.e., with no separate index update required)"
+    - n_live_tup:
+        usage: "GAUGE"
+        description: "Estimated number of live rows"
+    - n_dead_tup:
+        usage: "GAUGE"
+        description: "Estimated number of dead rows"
+    - n_mod_since_analyze:
+        usage: "GAUGE"
+        description: "Estimated number of rows changed since last analyze"
+    - last_vacuum:
+        usage: "GAUGE"
+        description: "Last time at which this table was manually vacuumed (not counting VACUUM FULL)"
+    - last_autovacuum:
+        usage: "GAUGE"
+        description: "Last time at which this table was vacuumed by the autovacuum daemon"
+    - last_analyze:
+        usage: "GAUGE"
+        description: "Last time at which this table was manually analyzed"
+    - last_autoanalyze:
+        usage: "GAUGE"
+        description: "Last time at which this table was analyzed by the autovacuum daemon"
+    - vacuum_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been manually vacuumed (not counting VACUUM FULL)"
+    - autovacuum_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been vacuumed by the autovacuum daemon"
+    - analyze_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been manually analyzed"
+    - autoanalyze_count:
+        usage: "COUNTER"
+        description: "Number of times this table has been analyzed by the autovacuum daemon"
 
 pg_statio_user_tables:
+  {{- if gt (int $.light_threshold) 0 }}
+  query: "SELECT current_database() datname, pg_statio_user_tables.schemaname, pg_statio_user_tables.relname, COALESCE(heap_blks_read, 0) AS heap_blks_read, COALESCE(heap_blks_hit, 0) AS heap_blks_hit, COALESCE(idx_blks_read, 0) AS idx_blks_read, COALESCE(idx_blks_hit, 0) AS idx_blks_hit, COALESCE(toast_blks_read, 0) AS toast_blks_read, COALESCE(toast_blks_hit, 0) AS toast_blks_hit, COALESCE(tidx_blks_read, 0) AS tidx_blks_read, COALESCE(tidx_blks_hit, 0) AS tidx_blks_hit FROM pg_statio_user_tables LEFT JOIN pg_stat_user_tables ON (pg_statio_user_tables.relid = pg_stat_user_tables.relid) WHERE n_live_tup + n_dead_tup > {{ $.light_threshold }}"
+  {{- else }}
   query: "SELECT current_database() datname, schemaname, relname, COALESCE(heap_blks_read, 0) AS heap_blks_read, COALESCE(heap_blks_hit, 0) AS heap_blks_hit, COALESCE(idx_blks_read, 0) AS idx_blks_read, COALESCE(idx_blks_hit, 0) AS idx_blks_hit, COALESCE(toast_blks_read, 0) AS toast_blks_read, COALESCE(toast_blks_hit, 0) AS toast_blks_hit, COALESCE(tidx_blks_read, 0) AS tidx_blks_read, COALESCE(tidx_blks_hit, 0) AS tidx_blks_hit FROM pg_statio_user_tables"
+  {{- end }}
   metrics:
     - datname:
         usage: "LABEL"
@@ -258,10 +229,33 @@ pg_statio_user_tables:
     - tidx_blks_hit:
         usage: "COUNTER"
         description: "Number of buffer hits in this table's TOAST table indexes (if any)"
+{{- end }}
+
+{{- if $.pg_client_connections }}
+
+pg_client_connections:
+  master: true
+  query: "SELECT count(datname) as count, datname, usename, application_name as appname, client_addr FROM pg_stat_activity WHERE backend_type = 'client backend' GROUP BY datname, usename, client_addr, application_name"
+  metrics:
+    - datname:
+        usage: "LABEL"
+        description: "Name of the database"
+    - usename:
+        usage: "LABEL"
+        description: "Username connected as"
+    - appname:
+        usage: "LABEL"
+        description: "Application Name connection string"
+    - client_addr:
+        usage: "LABEL"
+        description: "Client connection address"
+    - count:
+        usage: "GAUGE"
+        description: "Clients connected"
+{{- end }}
 
 pg_database:
   query: "SELECT pg_database.datname, pg_database_size(pg_database.datname) as size_bytes FROM pg_database WHERE datname NOT LIKE 'template%'"
-  cache_seconds: 600
   master: true
   metrics:
     - datname:
@@ -274,7 +268,7 @@ pg_database:
 {{- if $.pg_stat_statements }}
 
 pg_stat_statements_most_frequent:
-  query: "SELECT userid::regrole as rolname, t2.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_database t2 ON (t1.dbid=t2.oid) WHERE userid::regrole != 'rdsadmin'::regrole AND t2.datname = current_database() ORDER BY calls DESC LIMIT 25"
+  query: "SELECT t2.rolname, t3.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_roles t2 ON (t1.userid=t2.oid) JOIN pg_database t3 ON (t1.dbid=t3.oid) WHERE t3.datname = current_database() AND t2.rolname != 'rdsadmin' ORDER BY calls DESC LIMIT 25"
   metrics:
     - rolname:
         usage: "LABEL"
@@ -347,7 +341,7 @@ pg_stat_statements_most_frequent:
         description: "Total time the statement spent writing blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"
 
 pg_stat_statements_total_time:
-  query: "SELECT userid::regrole as rolname, t2.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_database t2 ON (t1.dbid=t2.oid) WHERE userid::regrole != 'rdsadmin'::regrole AND t2.datname = current_database() ORDER BY total_time_seconds DESC LIMIT 25"
+  query: "SELECT t2.rolname, t3.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_roles t2 ON (t1.userid=t2.oid) JOIN pg_database t3 ON (t1.dbid=t3.oid) WHERE t3.datname = current_database() AND t2.rolname != 'rdsadmin' ORDER BY total_time_seconds DESC LIMIT 25"
   metrics:
     - rolname:
         usage: "LABEL"
@@ -418,10 +412,9 @@ pg_stat_statements_total_time:
     - blk_write_time_seconds:
         usage: "COUNTER"
         description: "Total time the statement spent writing blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"
-
 
 pg_stat_statements_max_time:
-  query: "SELECT userid::regrole as rolname, t2.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_database t2 ON (t1.dbid=t2.oid) WHERE userid::regrole != 'rdsadmin'::regrole AND t2.datname = current_database() ORDER BY max_time_seconds DESC LIMIT 25"
+  query: "SELECT t2.rolname, t3.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_roles t2 ON (t1.userid=t2.oid) JOIN pg_database t3 ON (t1.dbid=t3.oid) WHERE t3.datname = current_database() AND t2.rolname != 'rdsadmin' ORDER BY max_time_seconds DESC LIMIT 25"
   metrics:
     - rolname:
         usage: "LABEL"
@@ -493,9 +486,8 @@ pg_stat_statements_max_time:
         usage: "COUNTER"
         description: "Total time the statement spent writing blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"
 
-
 pg_stat_statements_most_rows:
-  query: "SELECT userid::regrole as rolname, t2.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_database t2 ON (t1.dbid=t2.oid) WHERE userid::regrole != 'rdsadmin'::regrole AND t2.datname = current_database() ORDER BY rows DESC LIMIT 25"
+  query: "SELECT t2.rolname, t3.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_roles t2 ON (t1.userid=t2.oid) JOIN pg_database t3 ON (t1.dbid=t3.oid) WHERE t3.datname = current_database() AND t2.rolname != 'rdsadmin' ORDER BY rows DESC LIMIT 25"
   metrics:
     - rolname:
         usage: "LABEL"
@@ -568,7 +560,7 @@ pg_stat_statements_most_rows:
         description: "Total time the statement spent writing blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"
 
 pg_stat_statements_temp_files:
-  query: "SELECT userid::regrole as rolname, t2.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_database t2 ON (t1.dbid=t2.oid) WHERE userid::regrole != 'rdsadmin'::regrole AND t2.datname = current_database() AND (temp_blks_written > 0 OR temp_blks_read > 0)"
+  query: "SELECT t2.rolname, t3.datname, queryid, regexp_replace(substring(query FOR 100), '[ \t\n]+', ' ', 'g') AS shrunk_query_text, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 JOIN pg_roles t2 ON (t1.userid=t2.oid) JOIN pg_database t3 ON (t1.dbid=t3.oid) WHERE t3.datname = current_database() AND t2.rolname != 'rdsadmin' AND (temp_blks_written > 0 OR temp_blks_read > 0)"
   metrics:
     - rolname:
         usage: "LABEL"
@@ -639,76 +631,4 @@ pg_stat_statements_temp_files:
     - blk_write_time_seconds:
         usage: "COUNTER"
         description: "Total time the statement spent writing blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"
-
 {{- end }}
-
-# pg >= 10
-#pg_stat_statements:
-#  query: "SELECT t2.rolname, t3.datname, queryid, calls, total_time / 1000 as total_time_seconds, min_time / 1000 as min_time_seconds, max_time / 1000 as max_time_seconds, mean_time / 1000 as mean_time_seconds, stddev_time / 1000 as stddev_time_seconds, rows, shared_blks_hit, shared_blks_read, shared_blks_dirtied, shared_blks_written, local_blks_hit, local_blks_read, local_blks_dirtied, local_blks_written, temp_blks_read, temp_blks_written, blk_read_time / 1000 as blk_read_time_seconds, blk_write_time / 1000 as blk_write_time_seconds FROM pg_stat_statements t1 join pg_roles t2 on (t1.userid=t2.oid) join pg_database t3 on (t1.dbid=t3.oid)"
-#  metrics:
-#    - rolname:
-#        usage: "LABEL"
-#        description: "Name of user"
-#    - datname:
-#        usage: "LABEL"
-#        description: "Name of database"
-#    - queryid:
-#        usage: "LABEL"
-#        description: "Query ID"
-#    - calls:
-#        usage: "COUNTER"
-#        description: "Number of times executed"
-#    - total_time_seconds:
-#        usage: "COUNTER"
-#        description: "Total time spent in the statement, in milliseconds"
-#    - min_time_seconds:
-#        usage: "GAUGE"
-#        description: "Minimum time spent in the statement, in milliseconds"
-#    - max_time_seconds:
-#        usage: "GAUGE"
-#        description: "Maximum time spent in the statement, in milliseconds"
-#    - mean_time_seconds:
-#        usage: "GAUGE"
-#        description: "Mean time spent in the statement, in milliseconds"
-#    - stddev_time_seconds:
-#        usage: "GAUGE"
-#        description: "Population standard deviation of time spent in the statement, in milliseconds"
-#    - rows:
-#        usage: "COUNTER"
-#        description: "Total number of rows retrieved or affected by the statement"
-#    - shared_blks_hit:
-#        usage: "COUNTER"
-#        description: "Total number of shared block cache hits by the statement"
-#    - shared_blks_read:
-#        usage: "COUNTER"
-#        description: "Total number of shared blocks read by the statement"
-#    - shared_blks_dirtied:
-#        usage: "COUNTER"
-#        description: "Total number of shared blocks dirtied by the statement"
-#    - shared_blks_written:
-#        usage: "COUNTER"
-#        description: "Total number of shared blocks written by the statement"
-#    - local_blks_hit:
-#        usage: "COUNTER"
-#        description: "Total number of local block cache hits by the statement"
-#    - local_blks_read:
-#        usage: "COUNTER"
-#        description: "Total number of local blocks read by the statement"
-#    - local_blks_dirtied:
-#        usage: "COUNTER"
-#        description: "Total number of local blocks dirtied by the statement"
-#    - local_blks_written:
-#        usage: "COUNTER"
-#        description: "Total number of local blocks written by the statement"
-#    - temp_blks_read:
-#        usage: "COUNTER"
-#        description: "Total number of temp blocks read by the statement"
-#    - temp_blks_written:
-#        usage: "COUNTER"
-#        description: "Total number of temp blocks written by the statement"
-#    - blk_read_time_seconds:
-#        usage: "COUNTER"
-#        description: "Total time the statement spent reading blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"
-#    - blk_write_time_seconds:
-#        usage: "COUNTER"
-#        description: "Total time the statement spent writing blocks, in milliseconds (if track_io_timing is enabled, otherwise zero)"

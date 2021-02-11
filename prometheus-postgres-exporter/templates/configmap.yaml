@@ -2,6 +2,10 @@
 {{- $_ := set $ "version" .Values.version }}
 {{- $_ := set $ "role" (dict "type" "master") }}
 {{- $_ := set $ "pg_stat_statements" .Values.pg_stat_statements }}
+{{- $_ := set $ "rds" .Values.rds }}
+{{- $_ := set $ "pg_stat_user_tables" .Values.pg_stat_user_tables }}
+{{- $_ := set $ "light_threshold" .Values.light_threshold }}
+{{- $_ := set $ "pg_client_connections" .Values.pg_client_connections }}
 ---
 apiVersion: v1
 kind: ConfigMap

@@ -3,7 +3,11 @@ image:
   tag: v0.8.0
   pullPolicy: IfNotPresent
 
+rds: false
 pg_stat_statements: true
+pg_stat_user_tables: true
+light_threshold: 0
+pg_client_connections: true
 version: "12"
 username: postgres
 password: pgpass
@@ -12,3 +16,6 @@ replicas:
   - replica0:5432/postgres?sslmode=require
   - replica1:5432/postgres?sslmode=require
   - replica2:5432/postgres?sslmode=require
+additionalLabels:
+  site: pg-12-prod
+  line: prod

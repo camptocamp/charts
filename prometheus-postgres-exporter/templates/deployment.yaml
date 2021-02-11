@@ -9,7 +9,8 @@ spec:
   template:
     metadata:
       labels:
-{{ include "prometheus-postgres-exporter.selector" $ | indent 8 }}
+        {{- include "prometheus-postgres-exporter.selector" $ | nindent 8 }}
+        {{- .Values.additionalLabels | toYaml | nindent 8 }}
         pginstance: master
     spec:
       containers:
@@ -49,7 +50,8 @@ spec:
   template:
     metadata:
       labels:
-{{ include "prometheus-postgres-exporter.selector" $root | indent 8 }}
+        {{- include "prometheus-postgres-exporter.selector" $root | nindent 8 }}
+        {{- $root.Values.additionalLabels | toYaml | nindent 8 }}
         pginstance: replica{{ $index }}
     spec:
       containers:
