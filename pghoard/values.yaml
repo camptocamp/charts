@@ -91,7 +91,7 @@ metrics:
     # interval: 30s
     # scrapeTimeout: 10s
   prometheusRule:
-    enable: true
+    enabled: true
     additionalLabels: {}
     alertsLabels: {}
     lastBaseBackupAgeMax: 86400
