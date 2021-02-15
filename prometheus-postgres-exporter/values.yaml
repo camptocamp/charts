@@ -3,6 +3,7 @@ image:
   tag: v0.8.0
   pullPolicy: IfNotPresent
 
+auto_discover_databases: true
 rds: false
 pg_stat_statements: true
 pg_stat_user_tables: true
