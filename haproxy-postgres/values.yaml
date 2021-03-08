@@ -45,6 +45,12 @@ metrics:
     additionalLabels: {}
     # interval: 30s
     # scrapeTimeout: 10s
+    metricsLabels:
+      - name: customLabel1
+        value: value1
+      - name: customLabel2
+        value: value2
+
   prometheusRule:
     enable: true
     additionalLabels: {}

@@ -17,6 +17,14 @@ spec:
       {{- if .Values.metrics.serviceMonitor.scrapeTimeout }}
       scrapeTimeout: {{ .Values.metrics.serviceMonitor.scrapeTimeout }}
       {{- end }}
+      {{- if .Values.metrics.serviceMonitor.metricsLabels }}
+      relabelings:
+        {{- range .Values.metrics.serviceMonitor.metricsLabels }}
+        - targetLabel: {{ .name }}
+          replacement: {{ .value }}
+        {{- end }}
+      {{- end }}
+
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}
