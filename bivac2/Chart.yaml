@@ -2,7 +2,7 @@ apiVersion: v1
 name: bivac2
 home: https://github.com/camptocamp/bivac
 icon: https://raw.githubusercontent.com/camptocamp/bivac/master/img/bivac_small.png
-version: 0.0.6
+version: 0.0.7
 appVersion: 2.1
 description: 'backup interface for volumes attached to containers'
 keywords:
