@@ -72,6 +72,13 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+# For OpenShift
+route:
+  enabled: false
+  annotations: {}
+  host: chart-example.local
+  ssl: false
+
 ingress:
   enabled: false
   annotations: {}

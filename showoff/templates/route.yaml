@@ -1,0 +1,28 @@
+{{- if .Values.route.enabled -}}
+{{- $fullName := include "showoff.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ $fullName }}
+  labels:
+{{ include "showoff.labels" . | indent 4 }}
+  {{- with .Values.route.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  host: {{ .Values.route.host }}
+  to:
+    kind: Service
+    name: {{ $fullName }}
+    weight: 100
+  port:
+    targetPort: {{ $svcPort }}
+{{- if .Values.route.ssl }}
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+{{- end }}
+{{- end }}
