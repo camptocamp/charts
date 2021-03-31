@@ -94,7 +94,10 @@ spec:
               subPath: {{ .subPath }}
               readOnly: {{ .readOnly }}
           {{- end }}            
-      volumes:     
+      volumes:
+    {{- if .Values.extraVolumes }}      
+{{ toYaml .Values.extraVolumes | indent 8 }}      
+    {{- end }}          
         - name: course
           emptyDir: {}
         {{- if .Values.extraFilesSecret }}
