@@ -82,7 +82,19 @@ spec:
             - mountPath: /var/cache/showoff/_files/share/secrets/
               name: extrafiles
             {{- end }}
-      volumes:
+          {{- range .Values.extraConfigmapMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath | default "" }}
+              readOnly: {{ .readOnly }}
+          {{- end }}
+          {{- range .Values.extraSecretMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+              subPath: {{ .subPath }}
+              readOnly: {{ .readOnly }}
+          {{- end }}            
+      volumes:     
         - name: course
           emptyDir: {}
         {{- if .Values.extraFilesSecret }}
@@ -93,7 +105,18 @@ spec:
         - name: netrc
           secret:
             secretName: {{ .Values.gitClone.netrc.secretName }}
-
+      {{- range .Values.extraConfigmapMounts }}
+        - name: {{ .name }}
+          configMap:
+            name: {{ .configMap }}
+            defaultMode: {{ .defaultMode }}
+      {{- end }}
+      {{- range .Values.extraSecretMounts }}
+        - name: {{ .name }}
+          secret:
+            secretName: {{ .secretName }}
+            defaultMode: {{ .defaultMode }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
