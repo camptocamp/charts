@@ -1,6 +1,6 @@
 image:
-  repository: wrouesnel/postgres_exporter
-  tag: v0.8.0
+  repository: bitnami/postgres-exporter
+  tag: 0.9.0
   pullPolicy: IfNotPresent
 
 auto_discover_databases: true
