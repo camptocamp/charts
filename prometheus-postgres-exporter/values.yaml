@@ -12,7 +12,7 @@ pg_client_connections: true
 version: "12"
 username: postgres
 password: pgpass
-exclude_databases: 'rdsadmin'
+exclude_databases: 'template0','template1','rdsadmin'
 master: master:5432/postgres?sslmode=require
 replicas:
   - replica0:5432/postgres?sslmode=require
