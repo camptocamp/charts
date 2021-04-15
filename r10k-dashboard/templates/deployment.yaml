@@ -39,9 +39,9 @@ spec:
           env:
             env:
             - name: GITHUB_ORG
-              value: {{ .Values.r10k-dashboard.github_org }}
+              value: {{ .Values.r10k-dashboard.github_org | quote }}
             - name: R10K_REPO
-              value: {{ .Values.r10k-dashboard.r10k_repo }}
+              value: {{ .Values.r10k-dashboard.r10k_repo | quote }}
 
             - name: CLIENT_ID
               valueFrom:
