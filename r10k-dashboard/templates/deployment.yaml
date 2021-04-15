@@ -38,9 +38,9 @@ spec:
               protocol: TCP
           env:
             - name: GITHUB_ORG
-              value: {{ .Values.r10k-dashboard.github_org | quote }}
+              value: {{ .Values.r10kDashboard.githubOrg | quote }}
             - name: R10K_REPO
-              value: {{ .Values.r10k-dashboard.r10k_repo | quote }}
+              value: {{ .Values.r10kDashboard.r10kRepo | quote }}
 
             - name: CLIENT_ID
               valueFrom:

@@ -4,6 +4,10 @@
 
 replicaCount: 1
 
+r10kDashboard:
+  githubOrg: ''
+  r10kRepo: ''
+
 image:
   repository: docker.io/camptocamp/r10k-dashboard
   tag: 0.2.6
