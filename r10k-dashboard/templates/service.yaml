@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "r10k-dashboard.fullname" . }}
+  labels:
+{{ include "r10k-dashboard.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "r10k-dashboard.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
