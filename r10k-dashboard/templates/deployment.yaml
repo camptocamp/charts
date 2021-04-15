@@ -37,7 +37,6 @@ spec:
               containerPort: 8080
               protocol: TCP
           env:
-            env:
             - name: GITHUB_ORG
               value: {{ .Values.r10k-dashboard.github_org | quote }}
             - name: R10K_REPO
