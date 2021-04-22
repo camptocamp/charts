@@ -28,6 +28,8 @@ spec:
               value: {{ .Values.master | quote }}
             - name: DATA_SOURCE_USER
               value: {{ .Values.username | quote }}
+            - name: PG_EXPORTER_EXCLUDE_DATABASES
+              value: {{ .Values.exclude_databases | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: /etc/prometheus-postgres-exporter/queries.yaml
           ports:
@@ -73,6 +75,8 @@ spec:
               value: {{ $replica | quote }}
             - name: DATA_SOURCE_USER
               value: {{ $.Values.username | quote }}
+            - name: PG_EXPORTER_EXCLUDE_DATABASES
+              value: {{ .Values.exclude_databases | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: /etc/prometheus-postgres-exporter/queries.yaml
           ports:
