@@ -16,6 +16,7 @@ spec:
         {{- include "prometheus-postgres-exporter.selector" $ | nindent 8 }}
         {{- .Values.additionalLabels | toYaml | nindent 8 }}
         pginstance: master
+        config-hash: {{ include "prometheus-postgres-exporter.confighash" (merge (dict "role" "master") $) | quote }}
     spec:
       containers:
         - name: exporter
@@ -64,19 +65,24 @@ spec:
 {{$root := .}}
 {{- range $index, $replica := .Values.replicas }}
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $.Release.Name }}-replica{{ $index }}
   labels:
 {{ include "prometheus-postgres-exporter.labels" $root | indent 4 }}
 spec:
+  selector:
+    matchLabels:
+      {{- include "prometheus-postgres-exporter.selector" $ | nindent 6 }}
+      pginstance: replica{{ $index }}
   template:
     metadata:
       labels:
         {{- include "prometheus-postgres-exporter.selector" $root | nindent 8 }}
         {{- $root.Values.additionalLabels | toYaml | nindent 8 }}
         pginstance: replica{{ $index }}
+        config-hash: {{ include "prometheus-postgres-exporter.confighash" (merge (dict "role" "replica") $) | quote }}
     spec:
       containers:
         - name: exporter

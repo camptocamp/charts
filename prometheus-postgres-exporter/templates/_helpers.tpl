@@ -38,3 +38,8 @@ app.kubernetes.io/component: "Monitoring"
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "prometheus-postgres-exporter.chart" . }}
 {{- end -}}
+
+{{/* Compute hash of monitoring queries */}}
+{{- define "prometheus-postgres-exporter.confighash" -}}
+{{- tpl ($.Files.Get "prometheus-exporter-queries.yaml") $ | sha256sum | trunc 8 }}
+{{- end -}}
