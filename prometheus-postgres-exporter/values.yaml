@@ -5,13 +5,28 @@ image:
 
 auto_discover_databases: true
 rds: false
+# Change this to 'true' if it's an azure rds instance
+# because hostname need to be added at the end of username.
+# Note that you cannot use secret for username in this case
+# If azure=true, you cannot use 'usernameSecret'
+azure: false
 pg_stat_statements: true
 pg_stat_user_tables: true
 light_threshold: 0
 pg_client_connections: true
 version: "12"
+# Use either 'username' or 'usernameSecret'
 username: postgres
+#usernameSecret:
+#  name: secret-name
+#  key: user
+
+# Use either 'password' or 'passwordSecret'
 password: pgpass
+#passwordSecret:
+#  name: secret-name
+#  key: pass
+
 exclude_databases: "template0,template1,rdsadmin"
 master: master:5432/postgres?sslmode=require
 replicas:
