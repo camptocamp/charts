@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "prometheus-postgres-exporter.selector" $ | nindent 8 }}
+      {{- include "prometheus-postgres-exporter.selector" $ | nindent 6 }}
       pginstance: master
   template:
     metadata:
