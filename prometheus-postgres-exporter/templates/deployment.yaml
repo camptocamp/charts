@@ -6,6 +6,10 @@ metadata:
   labels:
 {{ include "prometheus-postgres-exporter.labels" $ | indent 4 }}
 spec:
+  selector:
+    matchLabels:
+      {{- include "prometheus-postgres-exporter.selector" $ | nindent 8 }}
+      pginstance: master
   template:
     metadata:
       labels:
