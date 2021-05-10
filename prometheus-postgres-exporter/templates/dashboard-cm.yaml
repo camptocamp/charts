@@ -7,5 +7,5 @@ metadata:
     grafana_dashboard: '1'
 {{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
 data:
-  dashboar.json: |-
+  dashboard.json: |-
     {{- .Files.Get "dashboard.json" | nindent 4 }}
