@@ -38,3 +38,9 @@ app.kubernetes.io/component: "LoadBalancer"
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 helm.sh/chart: {{ include "haproxy-postgres.chart" . }}
 {{- end -}}
+
+
+{{/* Compute hash of configuration */}}
+{{- define "haproxy-postgres.confighash" -}}
+{{- tpl ($.Files.Get "haproxy.cfg") . | sha256sum | trunc 8 }}
+{{- end -}}

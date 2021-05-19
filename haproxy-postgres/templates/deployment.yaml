@@ -6,10 +6,14 @@ metadata:
 {{ include "haproxy-postgres.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "haproxy-postgres.selector" . | nindent 6 }}
   template:
     metadata:
       labels:
-{{ include "haproxy-postgres.selector" . | indent 8 }}
+        {{- include "haproxy-postgres.selector" . | nindent 8 }}
+        config-hash: {{ include "haproxy-postgres.confighash" $ | quote }}
     spec:
       containers:
         - name: haproxy

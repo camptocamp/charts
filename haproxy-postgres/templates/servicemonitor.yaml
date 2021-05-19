@@ -4,9 +4,9 @@ kind: ServiceMonitor
 metadata:
   name: {{ .Release.Name }}
   labels:
-{{ include "haproxy-postgres.labels" . | indent 4 }}
+    {{- include "haproxy-postgres.labels" . | nindent 4 }}
     {{- if .Values.metrics.serviceMonitor.additionalLabels }}
-{{ toYaml .Values.metrics.serviceMonitor.additionalLabels | indent 4 }}
+      {{- toYaml .Values.metrics.serviceMonitor.additionalLabels | nindent 4 }}
     {{- end }}
 spec:
   endpoints:
@@ -30,6 +30,5 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      component: exporter
-{{ include "haproxy-postgres.selector" . | indent 6 }}
+      {{- include "haproxy-postgres.selector" . | nindent 6 }}
 {{- end }}
