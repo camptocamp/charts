@@ -13,19 +13,19 @@ spec:
     - name: {{ .Release.Name }}
       rules:
         - alert: "MasterDown"
-          expr: haproxy_backend_active_servers{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",proxy="postgres_master"} < 1
+          expr: haproxy_backend_active_servers{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-stats",proxy="postgres_master"} < 1
     {{- if .Values.metrics.prometheusRule.alertsLabels }}
           labels:
 {{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
     {{- end }}
         - alert: "SlaveDown"
-          expr: haproxy_backend_active_servers{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",proxy="postgres_slave"} < 1
+          expr: haproxy_backend_active_servers{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-stats",proxy="postgres_slave"} < 1
     {{- if .Values.metrics.prometheusRule.alertsLabels }}
           labels:
 {{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
     {{- end }}
         - alert: "MoreThanOneMaster"
-          expr: haproxy_backend_active_servers{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-prometheus-exporter",proxy="postgres_master"} > 1
+          expr: haproxy_backend_active_servers{namespace="{{ .Release.Namespace }}",service="{{ .Release.Name }}-stats",proxy="postgres_master"} > 1
     {{- if .Values.metrics.prometheusRule.alertsLabels }}
           labels:
 {{ toYaml .Values.metrics.prometheusRule.alertsLabels | indent 12 }}
