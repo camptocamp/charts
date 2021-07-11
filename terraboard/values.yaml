@@ -77,6 +77,17 @@ aws:
   dynamodb_table: ""
   file_extension: ""
 
+# Use Terraform Cloud/Enterprise as the source for fetching statefiles and locks
+tfe:
+  # Address of the TFE API endpoint - (required)
+  address: https://app.terraform.io
+
+  # Token to authenticate/authorize yourself with the API - (required)
+  token:
+
+  # Organization to poll data from - (required)
+  organization:
+
 db:
   host: ""
   name: ""
