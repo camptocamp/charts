@@ -14,6 +14,8 @@ pg_stat_statements: true
 pg_stat_user_tables: true
 light_threshold: 0
 pg_client_connections: true
+pg_table_size: true
+pg_table_size_threshold: 100000
 version: "12"
 # Use either 'username' or 'usernameSecret'
 username: postgres

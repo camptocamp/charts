@@ -231,6 +231,24 @@ pg_statio_user_tables:
         description: "Number of buffer hits in this table's TOAST table indexes (if any)"
 {{- end }}
 
+{{- if $.Values.pg_table_size }}
+pg_table_size:
+  query: "SELECT schemaname, relname, pg_table_size(relid) AS data_bytes, pg_indexes_size(relid) AS index_bytes FROM pg_stat_user_tables WHERE pg_total_relation_size(relid) > {{ $.Values.pg_table_size_threshold }}"
+  metrics:
+    - schemaname:
+        usage: "LABEL"
+        description: "Name of the relation schema"
+    - relname:
+        usage: "LABEL"
+        description: "Name of the relation"
+    - data_bytes:
+        usage: "GAUGE"
+        description: "Size of relation data"
+    - indexs_bytes:
+        usage: "GAUGE"
+        description: "Size of relation indexes"
+{{- end }}
+
 {{- if $.Values.pg_client_connections }}
 
 pg_client_connections:
