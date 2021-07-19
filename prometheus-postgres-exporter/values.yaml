@@ -29,7 +29,7 @@ password: pgpass
 #  name: secret-name
 #  key: pass
 
-exclude_databases: "template0,template1,rdsadmin"
+exclude_databases: "template0,template1,rdsadmin,azure_maintenance"
 master: master:5432/postgres?sslmode=require
 replicas:
   - replica0:5432/postgres?sslmode=require
