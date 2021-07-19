@@ -34,7 +34,7 @@ spec:
                   name: {{ $.Values.usernameSecret.name }}
                   key: {{ $.Values.usernameSecret.key }}
             {{- else }}
-              value: "{{ .Values.username }}{{ if $.Values.azure }}@{{ (split ":" $.Values.master)._0 }}{{ end }}"
+              value: "{{ .Values.username }}"
             {{- end }}
             - name: DATA_SOURCE_PASS
             {{- if hasKey $.Values "passwordSecret" }}
@@ -45,8 +45,19 @@ spec:
             {{- else }}
               value: {{ .Values.password | quote }}
             {{- end }}
-            - name: DATA_SOURCE_URI
+            {{- if .Values.azure }}
+            - name: AZURE_PSQL_MASTER
+            {{- if hasKey $.Values "masterSecret" }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $.Values.masterSecret.name }}
+                  key: {{ $.Values.masterSecret.key }}
+            {{- else }}
               value: {{ .Values.master | quote }}
+            {{- end }}
+            {{- end }}
+            - name: DATA_SOURCE_URI
+              value: "$(AZURE_PSQL_MASTER):5432/postgres?sslmode=require"
             - name: PG_EXPORTER_EXCLUDE_DATABASES
               value: {{ $.Values.exclude_databases | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
