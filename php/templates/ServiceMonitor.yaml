@@ -1,0 +1,17 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "php.fullname" . }}-exporter
+spec:
+  endpoints:
+  - honorLabels: true
+    port: exporter
+  jobLabel: {{ include "php.fullname" . }}
+  namespaceSelector:
+    matchNames:
+      - {{ printf "%s" (include "php.namespace" .) | quote }}
+  selector:
+    matchLabels:
+      app: {{ include "php.fullname" . }}
+{{- end }}

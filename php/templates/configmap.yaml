@@ -1,0 +1,100 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "php.fullname" . }}-config
+  labels:
+{{ include "php.labels" . | indent 4 }}
+data:
+  apache2.conf: |
+    LoadModule alias_module /usr/lib/apache2/modules/mod_alias.so
+    LoadModule rewrite_module /usr/lib/apache2/modules/mod_rewrite.so
+    LoadModule remoteip_module /usr/lib/apache2/modules/mod_remoteip.so
+    LoadModule vhost_alias_module /usr/lib/apache2/modules/mod_vhost_alias.so
+
+    ServerRoot "/etc/apache2"
+
+    Listen 8080
+
+    DefaultRuntimeDir ${APACHE_RUN_DIR}
+    PidFile ${APACHE_PID_FILE}
+    Timeout 300
+    KeepAlive On
+    MaxKeepAliveRequests 100
+    KeepAliveTimeout 5
+
+    Mutex posixsem
+
+    HostnameLookups Off
+
+    User ${APACHE_RUN_USER}
+    Group ${APACHE_RUN_USER}
+
+    DocumentRoot "/var/www"
+    DirectoryIndex index.html
+
+    Alias /probe /usr/local/apache2/htdocs/probe.html
+
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+    </Directory>
+
+    <Directory "/usr/local/apache2/htdocs">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+        Require all granted
+    </Directory>
+
+    <Directory "/var/www">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+        Require all granted
+    </Directory>
+
+    <FilesMatch "^\.ht">
+        Order allow,deny
+        Deny from all
+        Satisfy All
+    </FilesMatch>
+
+    ExtendedStatus on
+    <Location /mod_status>
+        SetHandler server-status
+        Order deny,allow
+        Deny from all
+        Allow from 127.0.0.1 localhost
+    </Location>
+
+    RemoteIPHeader X-Forwarded-For
+    RemoteIPInternalProxy 10.180.21.232
+    RemoteIPInternalProxy 10.180.21.233
+    RemoteIPInternalProxy 10.180.21.244
+    RemoteIPInternalProxy 172.31.0.0/16
+
+    LogFormat "%v:%p %h %l %u %t \"%r\" %>s \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
+    LogFormat "%V %a %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\" %T %D" vcommon
+    CustomLog /dev/stdout vcommon
+
+    ErrorLogFormat "%V %a [%t] [%l] [pid %P] %F: %E: [client %a] %M"
+    ErrorLog /dev/stderr
+
+    LogLevel warn
+    RewriteEngine On
+    IncludeOptional mods-enabled/*.load
+    IncludeOptional mods-enabled/*.conf
+    IncludeOptional conf-enabled/*.conf
+    UseCanonicalName Off
+    VirtualDocumentRoot "/var/www/vhosts/%0/htdocs"
+  user.conf: |
+{{ .Values.apache.config | indent 4 }}
+  php.ini: |
+{{ .Values.php.config | indent 4 }}
+  probe.html: |
+    OK

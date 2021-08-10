@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "php.fullname" . }}
+  labels:
+{{ include "php.labels" . | indent 4 }}
+    app: {{ include "php.fullname" . }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+        {{- if .Values.extraServicePorts }}
+{{ toYaml .Values.extraServicePorts | indent 4 }}
+        {{- end }}
+    {{- if .Values.monitoring.enabled }}
+    - port: {{ .Values.monitoring.portNumber | default 9117 }}
+      targetPort: exporter
+      protocol: TCP
+      name: exporter
+    {{- end }}
+  selector:
+    app.kubernetes.io/name: {{ include "php.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

@@ -1,0 +1,35 @@
+---
+build-php74-image:
+  stage: build-images
+  when: manual
+  tags:
+    - argocd-runner
+  image:
+    name: gcr.io/kaniko-project/executor:v1.6.0-debug
+    entrypoint: [""]
+  script:
+  - mkdir -p /kaniko/.docker
+  - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  - |
+    echo "-----BEGIN CERTIFICATE-----
+    MIIDUTCCAjmgAwIBAgIVAOXectAvXyN+tXXciaszRa7vPOqfMA0GCSqGSIb3DQEB
+    CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTIxMDUxMTEz
+    MzgzMVoXDTI1MDUxMjEzMzgzMVowHzELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+    dm90YWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDZskhD+KUM9br+
+    /EVdvNo3crNxNgMzXoYfV7CXVsdLkj0H4w1c9ZXmsXLN4kNkIjPRxAtkCpekmCzx
+    c+143YDWxB8jr8JCR0rmcLECgGlUFSFA7/t/Bq++FQ9o+sg2iYNpPOxT3X3aolEe
+    WJOHXjACZXrb9z1snua5TDgJ+8mgSJHKw8Js1QImr8USCS9FXF1A1fVlNTQyhTDb
+    Ojs/mEhsML+WpJ2onH4yQgX0NKI0vkOXGDkoVkUbXt/euFHPJ6Cnl8i5pxLp5/Oj
+    k5TeYfaVTzth5qj0yJZs5uJmKJo9zinXBjRYRlHLPWaJGZVS/JarxekMfUiycMdm
+    WUZBG41tAgMBAAGjgYMwgYAwHQYDVR0OBBYEFJJHsnDxJ69sfUr/qFDuwieQErfq
+    MB8GA1UdIwQYMBaAFJJHsnDxJ69sfUr/qFDuwieQErfqMB0GA1UdJQQWMBQGCCsG
+    AQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIB
+    BjANBgkqhkiG9w0BAQsFAAOCAQEAFxJSKPcTe7aPzoZjnwUgqMtP5hOD9nPCM2jr
+    wXlUIOloacZco0OGn8CDPFbGeHRxb6GpgoTWja0bS1ub7o3h2wOhlxJYG/S58CaU
+    i/4NCaXbcTnuvPk3yOa6IduAs/oEUkuRhvybhGNBPsouhzvzm8BmRe5nuQseGQbw
+    ysSkmFTXesfoUB+LomrhYs6MvstDNelv0sMd9lVYwlhXnJiEElkxM96wQc0LKvF6
+    rM4MmI1Ye2oWJlLoBiXMjAj0aw+feUR0RNERZX9NBFIOlahfYoqWniO2FfQmlStC
+    3YoreXpSY6Tn9iXNuayB5tItE4IHyOPXrl1rKe3SF8uo4VJYKA==
+    -----END CERTIFICATE-----" >> /kaniko/ssl/certs/additional-ca-cert-bundle.crt
+  - /kaniko/executor --context $CI_PROJECT_DIR/tkgi/lamp/php-74/charts/php/resources --dockerfile $CI_PROJECT_DIR/tkgi/lamp/php-74/charts/php/resources/Dockerfile --destination $CI_REGISTRY_IMAGE:7.4.22-apache-$CI_COMMIT_SHORT_SHA
+  - rm -f /kaniko/.docker/config.json
