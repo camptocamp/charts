@@ -1,0 +1,108 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "lamphttpd.fullname" . }}
+  labels:
+{{ include "lamphttpd.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "lamphttpd.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "lamphttpd.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      securityContext:
+        {{ toYaml .Values.securityContext | indent  8 }}
+      containers:
+        {{- if .Values.extraContainers }}
+{{ toYaml .Values.extraContainers | indent 8 }}
+        {{- end }}      
+        {{- if .Values.monitoring.enabled }}
+        - name: exporter
+          image: "{{ .Values.monitoring.image.repository }}:{{ .Values.monitoring.image.tag }}"
+          imagePullPolicy: {{ .Values.monitoring.image.pullPolicy }}
+          ports:
+            - name: exporter
+              containerPort: {{ .Values.monitoring.portNumber | default "9117" }}
+              protocol: TCP
+          args:
+            - --insecure
+            - --scrape_uri
+            - http://localhost:8080/mod_status/?auto
+        {{- end }}      
+        - name: {{ .Chart.Name }}-httpd
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          readinessProbe:
+            httpGet:
+              path: /probe
+              port: 8080
+          livenessProbe:
+            httpGet:
+              path: /probe
+              port: 8080
+          ports:
+            - name: web
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /etc/httpd/conf.d/user.conf
+              name: apache-conf
+              subPath: user.conf
+            - mountPath: /etc/httpd/conf.d/probe.conf
+              name: apache-conf
+              subPath: probe.conf
+            - mountPath: /etc/httpd/conf.d/mode_status.conf
+              name: apache-conf
+              subPath: mode_status.conf
+            - mountPath: /etc/httpd/conf.d/remoteips.conf
+              name: apache-conf
+              subPath: remoteips.conf
+            - mountPath: /var/www/html/probe.html
+              name: apache-conf
+              subPath: probe.html
+{{- if .Values.tls }}
+            - name: tls
+              mountPath: "/etc/httpd/ssl"
+              readOnly: true
+{{- end }}
+            - mountPath: /var/www/vhosts
+              name: data
+{{- if .Values.imagePullSecret }}
+      imagePullSecrets:
+        - name: {{ .Values.imagePullSecret }}
+{{- end }}
+      volumes:
+        - name: tls
+          secret:
+            secretName: {{ include "lamphttpd.fullname" . }}-tls
+        - name: apache-conf
+          configMap:
+            name: {{ include "lamphttpd.fullname" . }}-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: "{{ .Values.storage.pvName }}"
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
