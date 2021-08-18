@@ -76,7 +76,7 @@ spec:
 {{- end }}
 {{- if hasKey .Values "php" }}
             - mountPath: /usr/local/etc/php/php.ini
-              name: php-conf
+              name: apache-conf
               subPath: php.ini
 {{- end }}
             - mountPath: /var/www/vhosts

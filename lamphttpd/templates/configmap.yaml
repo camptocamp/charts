@@ -9,7 +9,6 @@ data:
   user.conf: |
 {{ .Values.apache.user | indent 4 }}
   remoteips.conf: |+
-    LoadModule remoteip_module modules/mod_remoteip.so
 {{ .Values.apache.remoteips | indent 4 }}
   probe.html: |
     OK
