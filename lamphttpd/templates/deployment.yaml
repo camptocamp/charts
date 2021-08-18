@@ -74,6 +74,11 @@ spec:
               mountPath: "{{ .Values.serverRoot }}/ssl"
               readOnly: true
 {{- end }}
+{{- if hasKey .Values "php" }}
+            - mountPath: /usr/local/etc/php/php.ini
+              name: php-conf
+              subPath: php.ini
+{{- end }}
             - mountPath: /var/www/vhosts
               name: data
 {{- if .Values.imagePullSecret }}
@@ -90,7 +95,11 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: "{{ .Values.storage.pvName }}"
-
+{{- if hasKey .Values "php" }}
+        - name: php-conf
+          configMap:
+            name: {{ include "lamphttpd.fullname" . }}-php
+{{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
 

@@ -1,0 +1,12 @@
+{{- if hasKey .Values "php" }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "lamphttpd.fullname" . }}-php
+  labels:
+{{ include "lamphttpd.labels" . | indent 4 }}
+data:
+  php.ini: |
+{{ .Values.php | indent 4 }}
+{{- end }}
