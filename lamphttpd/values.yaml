@@ -1,9 +1,10 @@
 replicaCount: 1
-## Override the deployment namespace
-##
+
 namespaceOverride: ""
 
 containerPort: 8080
+
+serverRoot: "/etc/httpd/conf.d"
 
 securityContext:
   runAsUser: 1000

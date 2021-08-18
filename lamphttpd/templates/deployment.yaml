@@ -54,16 +54,16 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /etc/httpd/conf.d/user.conf
+            - mountPath: {{ .Values.serverRoot }}/user.conf
               name: apache-conf
               subPath: user.conf
-            - mountPath: /etc/httpd/conf.d/probe.conf
+            - mountPath: {{ .Values.serverRoot }}/probe.conf
               name: apache-conf
               subPath: probe.conf
-            - mountPath: /etc/httpd/conf.d/mode_status.conf
+            - mountPath: {{ .Values.serverRoot }}/mode_status.conf
               name: apache-conf
               subPath: mode_status.conf
-            - mountPath: /etc/httpd/conf.d/remoteips.conf
+            - mountPath: {{ .Values.serverRoot }}/remoteips.conf
               name: apache-conf
               subPath: remoteips.conf
             - mountPath: /var/www/html/probe.html
@@ -71,7 +71,7 @@ spec:
               subPath: probe.html
 {{- if .Values.tls }}
             - name: tls
-              mountPath: "/etc/httpd/ssl"
+              mountPath: "{{ .Values.serverRoot }}/ssl"
               readOnly: true
 {{- end }}
             - mountPath: /var/www/vhosts
