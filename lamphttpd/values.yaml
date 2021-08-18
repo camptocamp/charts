@@ -5,6 +5,7 @@ namespaceOverride: ""
 containerPort: 8080
 
 serverRoot: "/etc/httpd/conf.d"
+serverConfig: "/etc/httpd/conf/httpd.conf"
 
 securityContext:
   runAsUser: 1000

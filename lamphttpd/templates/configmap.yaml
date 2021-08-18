@@ -6,6 +6,10 @@ metadata:
   labels:
 {{ include "lamphttpd.labels" . | indent 4 }}
 data:
+{{- if ((.Values.apache).conf) }}
+  httpd.conf: |
+{{ .Values.apache.conf | indent 4 }}
+{{- end }}
   user.conf: |
 {{ .Values.apache.user | indent 4 }}
   remoteips.conf: |+

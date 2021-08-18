@@ -54,6 +54,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
+{{- if ((.Values.apache).conf) }}
+            - mountPath: {{ .Values.serverConfig }}
+              name: apache-conf
+              subPath: httpd.conf
+{{- end }}
             - mountPath: {{ .Values.serverRoot }}/user.conf
               name: apache-conf
               subPath: user.conf
