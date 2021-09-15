@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ template "s3-exporter.fullname" . }}
+  labels:
+    {{- include "s3-exporter.selectorLabels" . | nindent 8 }}
+spec:
+  groups:
+  - name: {{ template "s3-exporter.fullname" . }}-{{ .Release.Namespace }}
+    rules:
+      - alert: GitLabBackupSizeTooSmall
+        expr: s3_latest_file_size  < 1e+06
+        for: 5m
+        labels:
+          severity: "2"
+        annotations:
+          description: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
+          summary: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
+
