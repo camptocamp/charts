@@ -10,9 +10,16 @@ serverConfig: "/etc/httpd/conf/httpd.conf"
 securityContext:
   runAsUser: 1000
 
+backup:
+  enabled: false
+  # THe following are only needed if backup is enabled
+  # databaseurl: some.mysql.url
+  # s3endpoint: 'https://some.s3endpoint.url'
+  # s3bucket: 'Bucket name'
+
 monitoring:
   enabled: false
-  image: 
+  image:
     repository: lusotycoon/apache-exporter
     tag: v0.8.0
     pullPolicy: IfNotPresent

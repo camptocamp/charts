@@ -13,12 +13,6 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-backup:
-  enabled: false
-  # THe following are only needed if backup is enabled
-  # databaseurl: some.mysql.url
-  # s3endpoint: 'https://some.s3endpoint.url'
-  # s3bucket: 'Bucket name'
 monitoring:
   enabled: false
   image:
