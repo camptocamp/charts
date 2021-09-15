@@ -9,7 +9,7 @@ data:
       password=$(cat $i | cut -d':' -f 2)
       MYSQL_PWD=$password mysqldump --databases $login --host {{ .Values.backup.databaseurl}} --user $login > $(dirname $i)/backup.sql
       tar -zcvf /tmp/backup.tar.gz $(dirname $i)/../
-      aws {{- if .Values.backup.s3endpoint }}--endpoint-url {{ .Values.backup.s3endpoint }}{{- end }} s3 cp   /tmp/backup.tar.gz s3://{{ .Values.backup.s3bucket }}/$login/$(date +%F)-backup.tar.gz
+      aws {{ if .Values.backup.s3endpoint }}--endpoint-url {{ .Values.backup.s3endpoint }}{{- end }} s3 cp   /tmp/backup.tar.gz s3://{{ .Values.backup.s3bucket }}/$login/$(date +%F)-backup.tar.gz
       rm -rf /tmp/backup.tar.gz
     done
 kind: ConfigMap
