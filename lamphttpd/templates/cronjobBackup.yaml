@@ -53,7 +53,7 @@ spec:
               claimName: "{{ .Values.storage.pvName }}"
           - configMap:
               defaultMode: 420
-              name:  {{ include "php.fullname" . }}-backup-config
+              name:  {{ include "lamphttpd.fullname" . }}-backup-config
             name: backup-script
   schedule: '@daily'
   successfulJobsHistoryLimit: 3
