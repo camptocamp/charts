@@ -1,0 +1,11 @@
+{{- if .Values.logcleanup.enabled }}
+apiVersion: v1
+data:
+  cleanup-script: |
+    set -xeo
+    export WWWPATH=/var/www/vhosts
+    find $WWWPATH -iname *.log  -type f -mtime +365  -exec rm {} \;
+kind: ConfigMap
+metadata:
+  name: {{ include "lamphttpd.fullname" . }}-log-cleanup
+{{- end }}

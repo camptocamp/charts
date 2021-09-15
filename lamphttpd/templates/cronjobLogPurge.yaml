@@ -1,0 +1,43 @@
+{{- if .Values.logcleanup.enabled }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name:  {{ include "lamphttpd.fullname" . }}-log-cleanup
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - sh /cleanup-script.sh
+            image: busybox
+            imagePullPolicy: IfNotPresent
+            name: log-cleanup
+            resources: {}
+            volumeMounts:
+            - mountPath: /var/www/vhosts
+              name: www-data
+            - mountPath: /cleanup-script/
+              name: cleanup-script
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext:
+            runAsUser: 1000
+          terminationGracePeriodSeconds: 30
+          volumes:
+          - name: www-data
+            persistentVolumeClaim:
+              claimName: "{{ .Values.storage.pvName }}"
+          - configMap:
+              defaultMode: 420
+              name:  {{ include "lamphttpd.fullname" . }}-log-cleanup
+            name: cleanup-script
+  schedule: '@daily'
+  successfulJobsHistoryLimit: 3
+  suspend: false
+{{- end }}

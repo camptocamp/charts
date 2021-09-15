@@ -9,7 +9,8 @@ serverConfig: "/etc/httpd/conf/httpd.conf"
 
 securityContext:
   runAsUser: 1000
-
+cleanup:
+  enabled: false
 backup:
   enabled: false
   # THe following are only needed if backup is enabled
