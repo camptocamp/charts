@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name:  {{ include "php.fullname" . }}-backup-config
+  name:  {{ include "lamphttpd.fullname" . }}-backup-config
 spec:
   concurrencyPolicy: Allow
   failedJobsHistoryLimit: 1

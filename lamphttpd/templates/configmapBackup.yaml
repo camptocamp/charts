@@ -14,5 +14,5 @@ data:
     done
 kind: ConfigMap
 metadata:
-  name: {{ include "php.fullname" . }}-backup-config
+  name: {{ include "lamphttpd.fullname" . }}-backup-config
 {{- end }}
