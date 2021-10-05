@@ -9,7 +9,7 @@ serverConfig: "/etc/httpd/conf/httpd.conf"
 
 securityContext:
   runAsUser: 1000
-cleanup:
+logcleanup:
   enabled: false
 backup:
   enabled: false
