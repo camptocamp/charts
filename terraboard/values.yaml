@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/camptocamp/terraboard
-  tag: 1.1.0
+  tag: 2.0.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
