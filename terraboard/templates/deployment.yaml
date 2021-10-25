@@ -36,6 +36,9 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+            - name: swagger
+              containerPort: 8081
+              protocol: TCP
           env:
             - name: TERRABOARD_BASE_URL
               value: {{ .Values.terraboard.base_url }}

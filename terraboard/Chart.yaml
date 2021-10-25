@@ -1,7 +1,7 @@
 name: terraboard
 home: https://github.com/camptocamp/terraboard
 icon: https://raw.githubusercontent.com/camptocamp/terraboard/master/logo/terraboard_logo_only.png
-version: 2.0.1
+version: 2.0.2
 appVersion: "2.0.0"
 apiVersion: v1
 description: A web interface for Terraform states
