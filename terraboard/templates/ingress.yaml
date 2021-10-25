@@ -1,6 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "terraboard.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $mainPort := .Values.service.port -}}
+{{- $swaggerPort := .Values.swagger.service.port -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -27,11 +28,17 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-        {{- range .paths }}
+        {{- range .mainPaths }}
           - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              servicePort: {{ $mainPort }}
+        {{- end }}
+        {{- range .swaggerPaths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ $fullName }}-swagger
+              servicePort: {{ $swaggerPort }}
         {{- end }}
   {{- end }}
 {{- end }}
