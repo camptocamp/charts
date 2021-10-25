@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "terraboard.fullname" . }}-swagger
+  labels:
+{{ include "terraboard.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.swagger.service.type }}
+  ports:
+    - port: {{ .Values.swagger.service.port }}
+      targetPort: {{ .Values.swagger.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "terraboard.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+
