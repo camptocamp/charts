@@ -244,7 +244,7 @@ pg_table_size:
     - data_bytes:
         usage: "GAUGE"
         description: "Size of relation data"
-    - indexs_bytes:
+    - index_bytes:
         usage: "GAUGE"
         description: "Size of relation indexes"
 {{- end }}
