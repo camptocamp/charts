@@ -1,0 +1,20 @@
+{{- if .Values.alerting.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "lamphttpd.fullname" . }}-alerting
+spec:
+  groups:
+  - name: lamp-probe
+    rules:
+    - alert: LampCritical
+      expr: |
+        probe_http_status_code{instance="{{ .Values.alerting.target }}"} != 200
+      for: 5m
+      labels:
+        receivers: ""
+        severity: "4"
+      annotations:
+        description: The lamp probe "{{ "{{ $labels.target }}" }}" is critical for more than 5 minutes
+        description: Lamp probe "{{ "{{ $labels.target }}" }}" is critical
+{{- end }}

@@ -26,6 +26,10 @@ monitoring:
     pullPolicy: IfNotPresent
   portNumber: '9117'
 
+alerting:
+  enabled: false
+  target: http://localhost
+
 image:
   repository: httpd
   tag: 2.4-alpine
