@@ -1,19 +1,19 @@
 apiVersion: v1
-name: bivac2
+appVersion: "2.1"
+description: backup interface for volumes attached to containers
 home: https://github.com/camptocamp/bivac
 icon: https://raw.githubusercontent.com/camptocamp/bivac/master/img/bivac_small.png
-version: 0.0.7
-appVersion: 2.1
-description: 'backup interface for volumes attached to containers'
 keywords:
-  - backup
-  - bivac
-  - restic
-  - volume
-  - kubernetes
-  - openshift
-sources:
-  - https://github.com/camptocamp/bivac
+- backup
+- bivac
+- restic
+- volume
+- kubernetes
+- openshift
 maintainers:
-  - name: Camptocamp
-    email: info@camptocamp.com
+- email: info@camptocamp.com
+  name: Camptocamp
+name: bivac2
+sources:
+- https://github.com/camptocamp/bivac
+version: 0.1.1
