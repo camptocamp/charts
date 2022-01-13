@@ -13,5 +13,9 @@ spec:
   selector:
     matchLabels:
       {{- include "s3-exporter.selectorLabels" . | nindent 6 }}
+{{ if .Values.servicemonitor.targetLabels }}
+  targetLabels:
+    {{- include "s3-exporter.targetLabels" . | nindent 4 }}
+{{ end }}
 {{ end }}
 
