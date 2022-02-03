@@ -11,6 +11,7 @@ prometheusPuppetdbSd:
   init:
     psk: ''
     puppetserver: puppetserver.puppet.svc.cluster.local
+    serverport: '8140'
     autosign:
       resources: {}
   args:
