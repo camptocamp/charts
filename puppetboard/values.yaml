@@ -9,6 +9,11 @@ image:
   tag: 2.2.0
   pullPolicy: IfNotPresent
 
+initContainersImage:
+  repository: docker.io/puppet/puppet-agent
+  tag: 6.15.0
+  pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
