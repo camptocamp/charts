@@ -22,7 +22,8 @@ spec:
     spec:
       initContainers:
         - name: {{ .Chart.Name }}-autosign
-          image: "docker.io/puppet/puppet-agent:6.15.0"
+          image: "{{ .Values.initContainersImage.repository }}:{{ .Values.initContainersImage.tag }}"
+          imagePullPolicy: {{ .Values.initContainersImage.pullPolicy }}
           command: ["sh", "-c"]
           args:
             - "psk=$(cat /run/secrets/autosign_psk); hostname=$(puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetdb/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetdb'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; puppet ssl submit_request --environment production --server puppetserver --certificate_revocation=false --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/prometheus-puppetdb-exporter.pem && cp certs/$hostname.pem certs/prometheus-puppetdb-exporter.pem ; mv /etc/puppetlabs/puppet/ssl/* /srv/puppetssl/"

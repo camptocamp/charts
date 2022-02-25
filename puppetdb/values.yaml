@@ -5,6 +5,10 @@
 autosign:
   psk: ''
 
+initContainersImage:
+  repository: docker.io/puppet/puppet-agent
+  tag: 6.15.0
+  pullPolicy: IfNotPresent
 
 
 puppetdb:
@@ -207,4 +211,3 @@ prometheusPuppetdbExporter:
   init:
     autosign:
       resources: {}
-
