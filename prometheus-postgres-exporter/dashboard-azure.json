@@ -1,0 +1,6729 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 1,
+    "id": 28,
+    "iteration": 1646667250209,
+    "links": [],
+    "panels": [
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "dark-green",
+                  "value": null
+                },
+                {
+                  "color": "super-light-green",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byRegexp",
+                "options": ".*"
+              },
+              "properties": [
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "0": {
+                          "text": "Main"
+                        },
+                        "1": {
+                          "text": "Replica"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 7,
+          "x": 0,
+          "y": 0
+        },
+        "id": 171,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "name"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "pg_is_in_recovery{server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Server",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "ops"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 7,
+          "x": 7,
+          "y": 0
+        },
+        "id": 89,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "sum(rate(pg_stat_database_xact_commit{datname!~\"(template|postgres|rdsadmin).*\",server=~\"$dbserver\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "commit",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(rate(pg_stat_database_xact_rollback{datname!~\"(template|postgres|rdsadmin).*\",server=~\"$dbserver\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "rollback",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Transaction rate",
+        "type": "stat"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "$env",
+        "description": "master only",
+        "fieldConfig": {
+          "defaults": {
+            "links": [],
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 100
+                },
+                {
+                  "color": "orange",
+                  "value": 1000
+                },
+                {
+                  "color": "red",
+                  "value": 10000
+                }
+              ]
+            },
+            "unit": "rows/s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 10,
+          "x": 14,
+          "y": 0
+        },
+        "id": 87,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 1,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "max"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "topk(5, sum by (relname,datname) (rate(pg_stat_user_tables_n_tup_ins{site=\"$site\", server=\"$pg_master\"}[$__rate_interval])))",
+            "format": "time_series",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{datname}}/{{relname}} INSERTs",
+            "refId": "B",
+            "step": 5
+          },
+          {
+            "expr": "topk(5, sum by (relname,datname) (rate(pg_stat_user_tables_n_tup_upd{site=\"$site\", server=\"$pg_master\"}[$__rate_interval])))",
+            "format": "time_series",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{datname}}/{{relname}} UPDATEs",
+            "refId": "A",
+            "step": 5
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Top10 rows touched by INSERTs/UPDATEs per table",
+        "type": "bargauge"
+      },
+      {
+        "datasource": "$env",
+        "description": "Postgres server Uptime",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "dateTimeFromNow"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 7,
+          "x": 0,
+          "y": 4
+        },
+        "id": 186,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "pg_postmaster_start_time_seconds{server=~\"$dbserver\"} * 1000",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "PostgreSQL Uptime",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "writes/s, instant, master only",
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 7,
+          "y": 4
+        },
+        "id": 149,
+        "options": {
+          "datasource_tags_field": "relname",
+          "series_index": 0,
+          "wordCloudOptions": {
+            "deterministic": true,
+            "enableTooltip": true,
+            "fontFamily": "arial",
+            "fontSizes": [
+              15,
+              80
+            ],
+            "padding": 1,
+            "rotationAngles": [
+              0,
+              0
+            ],
+            "rotations": 2,
+            "scale": "linear",
+            "spiral": "archimedean",
+            "transitionDuration": 800
+          }
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "topk(25, sum(rate(pg_stat_user_tables_n_tup_ins{server=\"$pg_master\"}[5m]) + rate(pg_stat_user_tables_n_tup_upd{server=\"$pg_master\"}[5m]) + rate(pg_stat_user_tables_n_tup_del{server=\"$pg_master\"}[5m])) by (relname))",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Most written tables",
+        "type": "magnesium-wordcloud-panel"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": [],
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 100
+                },
+                {
+                  "color": "orange",
+                  "value": 1000
+                },
+                {
+                  "color": "red",
+                  "value": 10000
+                }
+              ]
+            },
+            "unit": "scan/s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 10,
+          "x": 14,
+          "y": 7
+        },
+        "id": 85,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 1,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "max"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "topk(10, sum by (relname,datname) (rate(pg_stat_user_tables_seq_scan{site=\"$site\"}[$__rate_interval])))",
+            "format": "time_series",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{datname}}/{{relname}}",
+            "refId": "A",
+            "step": 5
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Top10 table seq scan rates",
+        "type": "bargauge"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 7,
+          "x": 0,
+          "y": 8
+        },
+        "id": 184,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "none",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "allValues"
+            ],
+            "fields": "/^short_version$/",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "pg_static{server=~\"$dbserver\"}",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Version",
+        "transformations": [],
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "storage IO blocks hit/miss ratio",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.75
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 0.9
+                },
+                {
+                  "color": "green",
+                  "value": 0.95
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 0,
+          "y": 12
+        },
+        "id": 91,
+        "options": {
+          "reduceOptions": {
+            "calcs": [
+              "min"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "avg by (server) (rate(pg_stat_database_blks_hit{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])) / avg by (server) (rate(pg_stat_database_blks_hit{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval]) + rate(pg_stat_database_blks_read{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "C"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "%cache usage",
+        "type": "gauge"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "$env",
+        "description": "ratio dead / total rows",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "match": "null",
+                  "result": {
+                    "text": "N/A"
+                  }
+                },
+                "type": "special"
+              }
+            ],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.015
+                },
+                {
+                  "color": "red",
+                  "value": 0.02
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 3,
+          "y": 12
+        },
+        "id": 57,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 100,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "sum(pg_stat_user_tables_n_dead_tup{site=\"$site\", datname=~\"$database\", server=\"$pg_master\"}) / (sum(pg_stat_user_tables_n_live_tup{site=\"$site\", datname=~\"$database\", server=\"$pg_master\"}) + sum(pg_stat_user_tables_n_dead_tup{site=\"$site\", datname=~\"$database\", server=\"$pg_master\"}))",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Global fragmentation",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "sed + idx reads/s, instant, selected server(s)",
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 7,
+          "y": 12
+        },
+        "id": 148,
+        "options": {
+          "datasource_tags_field": "relname",
+          "series_index": 0,
+          "wordCloudOptions": {
+            "deterministic": true,
+            "enableTooltip": true,
+            "fontFamily": "arial",
+            "fontSizes": [
+              15,
+              80
+            ],
+            "padding": 1,
+            "rotationAngles": [
+              0,
+              0
+            ],
+            "rotations": 2,
+            "scale": "linear",
+            "spiral": "archimedean",
+            "transitionDuration": 800
+          }
+        },
+        "pluginVersion": "7.3.4",
+        "targets": [
+          {
+            "expr": "topk(25, sum(rate(pg_stat_user_tables_idx_tup_fetch{site=\"$site\"}[5m]) + rate(pg_stat_user_tables_seq_tup_read{site=\"$site\"}[5m])) by (relname))",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "queryType": "randomWalk",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Most read tables",
+        "type": "magnesium-wordcloud-panel"
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": [],
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 1000
+                },
+                {
+                  "color": "orange",
+                  "value": 10000
+                },
+                {
+                  "color": "red",
+                  "value": 100000
+                }
+              ]
+            },
+            "unit": "scan/s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 6,
+          "w": 10,
+          "x": 14,
+          "y": 14
+        },
+        "id": 86,
+        "interval": null,
+        "links": [],
+        "maxDataPoints": 1,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "max"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "topk(10, sum by (relname,datname) (rate(pg_stat_user_tables_idx_scan{site=\"$site\"}[$__rate_interval])))",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{datname}}/{{relname}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Top10 table idx scan rates",
+        "transformations": [],
+        "type": "bargauge"
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "decimals": 1,
+            "links": [],
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.75
+                },
+                {
+                  "color": "red",
+                  "value": 0.9
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 3,
+          "x": 0,
+          "y": 16
+        },
+        "id": 84,
+        "links": [],
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "(sum by (server) (pg_stat_database_numbackends{server=~\"$dbserver\"})) / on(server) (sum by (server) (pg_settings_max_connections{server=~\"$dbserver\"}))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{server}}",
+            "refId": "C",
+            "step": 2
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "% client connected",
+        "type": "gauge"
+      },
+      {
+        "datasource": "$env",
+        "description": "Maximum count over sliding 10m window",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 1
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 4,
+          "x": 3,
+          "y": 16
+        },
+        "id": 73,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "max"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "sum({__name__=~\"pg_stat_database_(deadlocks|conflicts).*\",server=~\"$dbserver\"}) - sum({__name__=~\"pg_stat_database_(deadlocks|conflicts).*\",server=~\"$dbserver\"} offset 10m)",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Conflict/Deadlock",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 20
+        },
+        "id": 407,
+        "panels": [],
+        "title": "Activity by Database",
+        "type": "row"
+      },
+      {
+        "aliasColors": {
+          "Max connections": "dark-red"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 21
+        },
+        "hiddenSeries": false,
+        "id": 176,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "repeat": "node",
+        "repeatDirection": "h",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_database_size_bytes{site=\"$site\", server=\"$pg_master\", datname=~\"$database\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{datname}}",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "DB Size",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "bytes",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 12,
+          "w": 12,
+          "x": 0,
+          "y": 29
+        },
+        "hiddenSeries": false,
+        "id": 27,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideZero": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/seq tuple read/",
+            "linewidth": 2,
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_seq_scan{site=\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "seq scan {{datname}}",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_seq_tup_read{site=\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "seq tuple read {{datname}}",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Table scans per DB",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "seq scans/s",
+            "logBase": 1,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "tuples read/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 12,
+          "w": 12,
+          "x": 12,
+          "y": 29
+        },
+        "hiddenSeries": false,
+        "id": 29,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/index tuple fetch/",
+            "linewidth": 2,
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": true,
+        "targets": [
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_idx_scan{site=\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "index scan {{datname}}",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_idx_tup_fetch{site=\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "index tuple fetch {{datname}}",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Index scans per DB",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "index scans/s",
+            "logBase": 1,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "tuples fetched/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 0,
+          "y": 41
+        },
+        "hiddenSeries": false,
+        "id": 31,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideZero": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_n_tup_ins{site=\"$site\", datname=~\"$database\"}[2m]) or rate(pg_stat_user_tables_light_n_tup_ins{site=\"$site\", datname=~\"$database\"}[2m]))",
+            "format": "time_series",
+            "hide": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Tuple inserted on {{datname}}",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_n_tup_upd{site=\"$site\", datname=~\"$database\"}[2m]) or rate(pg_stat_user_tables_light_n_tup_upd{site=\"$site\", datname=~\"$database\"}[2m]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Tuple updated on {{datname}}",
+            "refId": "C"
+          },
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_n_tup_del{site=\"$site\", datname=~\"$database\"}[2m]) or rate(pg_stat_user_tables_light_n_tup_del{site=\"$site\", datname=~\"$database\"}[2m]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "Tuple deleted on {{datname}}",
+            "refId": "D"
+          },
+          {
+            "expr": "sum by (datname) (rate(pg_stat_user_tables_n_tup_hot_upd{site=\"$site\", datname=~\"$database\"}[2m]) or rate(pg_stat_user_tables_light_n_tup_hot_upd{site=\"$site\", datname=~\"$database\"}[2m]))",
+            "interval": "",
+            "legendFormat": "Tuple hot updated on {{datname}}",
+            "refId": "E"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Write ops rate per DB",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "rows/s",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 51
+        },
+        "id": 13,
+        "panels": [],
+        "repeat": null,
+        "title": "Queries",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 0,
+          "y": 52
+        },
+        "hiddenSeries": false,
+        "id": 65,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": true,
+          "min": false,
+          "show": true,
+          "sort": "max",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": false
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 3,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/active/",
+            "color": "#F2495C"
+          },
+          {
+            "alias": "/idle in transaction/",
+            "color": "#FF9830"
+          },
+          {
+            "alias": "/idle on/",
+            "color": "#73BF69"
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_stat_activity_max_tx_duration{server=~\"$dbserver\", datname=~\"$database\"} > 0",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{state}} on {{server}}/{{datname}}",
+            "refId": "A",
+            "step": 5
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Longest transaction",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "s",
+            "label": "",
+            "logBase": 10,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 10,
+          "w": 12,
+          "x": 12,
+          "y": 52
+        },
+        "hiddenSeries": false,
+        "id": 431,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (server) (rate(pg_stat_user_tables_n_tup_ins{server=~\"dbserver\", datname=~\"$database\"}[$__rate_interval])) > 0",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "Tuple inserted on {{server}}",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (server) (rate(pg_stat_user_tables_n_tup_upd{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])) > 0",
+            "interval": "",
+            "legendFormat": "Tuple updated on {{server}}",
+            "refId": "C"
+          },
+          {
+            "expr": "sum by (server) (rate(pg_stat_user_tables_n_tup_del{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])) > 0",
+            "interval": "",
+            "legendFormat": "Tuple deleted on {{server}}",
+            "refId": "D"
+          },
+          {
+            "expr": "sum by (server) (rate(pg_stat_user_tables_n_tup_hot_upd{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])) > 0",
+            "interval": "",
+            "legendFormat": "Tuple hot updated on {{server}}",
+            "refId": "E"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Write ops rate",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "rows/s",
+            "logBase": 10,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 62
+        },
+        "id": 39,
+        "panels": [],
+        "title": "Table fragmentation (only master server)",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 63
+        },
+        "hiddenSeries": false,
+        "id": 47,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": true,
+          "max": true,
+          "min": false,
+          "show": true,
+          "total": true,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "(sum(pg_stat_user_tables_n_live_tup{server=\"$pg_master\", datname=~\"$database\"}) by (relname,datname)) - (sum(pg_stat_user_tables_n_live_tup{server=\"$pg_master\", datname=~\"$database\"} offset $__interval) by (relname,datname)) != 0",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "{{datname}} {{relname}}",
+            "refId": "C"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Rows added/removed",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "rows",
+            "logBase": 10,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 63
+        },
+        "hiddenSeries": false,
+        "id": 48,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideZero": false,
+          "max": false,
+          "min": false,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/vacuum/",
+            "color": "#FF9830",
+            "points": true,
+            "yaxis": 2
+          },
+          {
+            "alias": "/analyze/",
+            "color": "#73BF69",
+            "points": true,
+            "yaxis": 2
+          },
+          {
+            "alias": "/Total/",
+            "color": "#E02F44",
+            "fill": 0,
+            "linewidth": 2,
+            "stack": false
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "topk(25, sum(pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", datname=~\"$database\"}) by (datname, schemaname, relname))",
+            "interval": "",
+            "legendFormat": "{{datname}} {{schemaname}}.{{relname}}",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", datname=~\"$database\"})",
+            "interval": "",
+            "legendFormat": "Total dead tuples",
+            "refId": "F"
+          },
+          {
+            "expr": "rate(pg_stat_user_tables_autovacuum_count{server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]) > 0",
+            "interval": "",
+            "legendFormat": "auto vacuum {{datname}} {{schemaname}}.{{relname}}",
+            "refId": "B"
+          },
+          {
+            "expr": "rate(pg_stat_user_tables_vacuum_count{server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]) > 0",
+            "interval": "",
+            "legendFormat": "vacuum {{datname}} {{schemaname}}.{{relname}}",
+            "refId": "C"
+          },
+          {
+            "expr": "rate(pg_stat_user_tables_analyze_count{server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]) > 0",
+            "interval": "",
+            "legendFormat": "analyze {{datname}} {{schemaname}}.{{relname}}",
+            "refId": "D"
+          },
+          {
+            "expr": "rate(pg_stat_user_tables_autoanalyze_count{server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]) > 0",
+            "interval": "",
+            "legendFormat": "auto analyze {{datname}} {{schemaname}}.{{relname}}",
+            "refId": "E"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Top25 & total dead tuples, VACUUM/ANALYZE activity",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "rows",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": 0
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "Only tables with > 1000 records",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 71
+        },
+        "hiddenSeries": false,
+        "id": 49,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 3,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "topk(5, sum(rate(pg_stat_user_tables_n_mod_since_analyze{server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]) > 0) by (relname,schemaname,datname))",
+            "interval": "",
+            "legendFormat": "{{datname}} {{schemaname}}.{{relname}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Top5 modif rate since last ANALYZE",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "none",
+            "label": "rows/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "Only tables with > 1000 records",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 71
+        },
+        "hiddenSeries": false,
+        "id": 45,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "max": true,
+          "min": true,
+          "rightSide": false,
+          "show": false,
+          "sort": "max",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "topk(25,sum(((pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", datname=~\"$database\"} > 0) / (pg_stat_user_tables_n_live_tup{server=\"$pg_master\", datname=~\"$database\"} + pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", datname=~\"$database\"} > 0))) by (relname,schemaname,datname))",
+            "interval": "",
+            "legendFormat": "{{datname}} {{schemaname}}.{{relname}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Most fragmented Tables",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "percentunit",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "$env",
+        "description": "Only tables with > 1000 records",
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto",
+              "filterable": false
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byRegexp",
+                "options": "Last.*"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "dateTimeAsIsoNoDateIfToday"
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "options": {
+                        "1970-01-01 01:00:00": {
+                          "text": "-"
+                        }
+                      },
+                      "type": "value"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 80
+        },
+        "id": 43,
+        "links": [],
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {
+              "desc": true,
+              "displayName": "Dead Tuples"
+            }
+          ]
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "sum(pg_stat_user_tables_n_live_tup{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname,datname)",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname,datname)",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "B"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_n_mod_since_analyze{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname, datname)",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "H"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_last_autovacuum{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname,datname) * 1000",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "C"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_last_vacuum{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname,datname) * 1000",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "D"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_last_autoanalyze{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname,datname) * 1000",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "E"
+          },
+          {
+            "expr": "sum(pg_stat_user_tables_last_analyze{server=\"$pg_master\", datname=~\"$database\"}) by (relname, schemaname,datname) * 1000",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "F"
+          },
+          {
+            "expr": "sum(((pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", datname=~\"$database\"} > 0)/ (pg_stat_user_tables_n_live_tup{server=\"$pg_master\"} > 0) )* 100) by (relname,schemaname,datname)",
+            "format": "table",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "fragmentation",
+            "refId": "G"
+          }
+        ],
+        "title": "Tables Statistics",
+        "transformations": [
+          {
+            "id": "merge",
+            "options": {}
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value #A": 4,
+                "Value #B": 5,
+                "Value #C": 8,
+                "Value #D": 9,
+                "Value #E": 10,
+                "Value #F": 11,
+                "Value #G": 6,
+                "Value #H": 7,
+                "datname": 1,
+                "relname": 3,
+                "schemaname": 2
+              },
+              "renameByName": {
+                "Value #A": "Live tuples",
+                "Value #B": "Dead Tuples",
+                "Value #C": "Last Autovacuum",
+                "Value #D": "Last Vacuum",
+                "Value #E": "Last Auto Analyse",
+                "Value #F": "Last Analyse",
+                "Value #G": "% Fragmentation",
+                "Value #H": "Mod since analyse",
+                "datname": "Database",
+                "relname": "Table",
+                "schemaname": "Schema"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 92
+        },
+        "id": 59,
+        "panels": [],
+        "title": "Focus tables",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "Sum accross selected servers",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 17,
+          "w": 6,
+          "x": 0,
+          "y": 93
+        },
+        "hiddenSeries": false,
+        "id": 60,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/seq tuple read/",
+            "linewidth": 2,
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_seq_scan{relname=~\"$focus_table\",site=\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "seq scan {{relname}}",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_seq_tup_read{relname=~\"$focus_table\",site=\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "seq tuple read {{relname}}",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Table scans",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "seq scans/s",
+            "logBase": 1,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "tuples read/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "Sum accross selected servers",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 17,
+          "w": 6,
+          "x": 6,
+          "y": 93
+        },
+        "hiddenSeries": false,
+        "id": 61,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/index tuple fetch/",
+            "linewidth": 2,
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_idx_scan{relname=~\"$focus_table\",site=~\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "index scan {{relname}}",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_idx_tup_fetch{relname=~\"$focus_table\",site=~\"$site\", datname=~\"$database\"}[$__rate_interval]))",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "index tuple fetch {{relname}}",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Index scans",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "index scans/s",
+            "logBase": 1,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "tuples fetched/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "Master server only",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 17,
+          "w": 6,
+          "x": 12,
+          "y": 93
+        },
+        "hiddenSeries": false,
+        "id": 62,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_n_tup_ins{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval])) + sum by (relname) (rate(pg_stat_user_tables_n_tup_upd{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval])) + sum by (relname) (rate(pg_stat_user_tables_n_tup_del{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval])) + sum by (relname) (rate(pg_stat_user_tables_n_tup_hot_upd{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{relname}} Total",
+            "refId": "A",
+            "step": 5
+          },
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_n_tup_ins{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{relname}} inserts",
+            "refId": "B",
+            "step": 5
+          },
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_n_tup_upd{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{relname}} updates",
+            "refId": "C",
+            "step": 5
+          },
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_n_tup_hot_upd{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{relname}} hot updates",
+            "refId": "D",
+            "step": 5
+          },
+          {
+            "expr": "sum by (relname) (rate(pg_stat_user_tables_n_tup_del{relname=~\"$focus_table\",server=\"$pg_master\", datname=~\"$database\"}[$__rate_interval]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{relname}} deletes",
+            "refId": "E",
+            "step": 5
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Write ops rate",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "ops",
+            "label": null,
+            "logBase": 10,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "ops",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 7,
+          "w": 6,
+          "x": 18,
+          "y": 93
+        },
+        "hiddenSeries": false,
+        "id": 51,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "hideZero": true,
+          "max": false,
+          "min": false,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/(vacuum|analyze) .+/",
+            "bars": true,
+            "hideTooltip": false,
+            "lines": false,
+            "yaxis": 2
+          },
+          {
+            "alias": "/vacuum .+/",
+            "color": "#FF9830"
+          },
+          {
+            "alias": "/analyze .+/",
+            "color": "#73BF69"
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(((pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", relname=~\"$focus_table\", datname=~\"$database\"} > 0)/ (pg_stat_user_tables_n_live_tup{server=\"$pg_master\", relname=~\"$focus_table\", datname=~\"$database\"} > 0) )* 100) by (relname,schemaname,datname)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "{{datname}} {{schemaname}}.{{relname}} fragmentation %",
+            "refId": "A"
+          },
+          {
+            "expr": "pg_stat_user_tables_n_dead_tup{server=\"$pg_master\", relname=~\"$focus_table\", datname=~\"$database\"} /\n(\n    (pg_stat_user_tables_n_live_tup{server=\"$pg_master\", relname=~\"$focus_table\", datname=~\"$database\"} *\n     ignoring (datname,relname,schemaname) group_left (server) pg_settings_autovacuum_vacuum_scale_factor{server=\"$pg_master\"}\n    ) + ignoring (datname,relname,schemaname) group_left (server) pg_settings_autovacuum_vacuum_threshold{server=\"$pg_master\"}\n) * 100",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "{{datname}} {{schemaname}}.{{relname}} maintenance  needed %",
+            "refId": "B"
+          },
+          {
+            "expr": "pg_stat_user_tables_vacuum_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} - (pg_stat_user_tables_vacuum_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} offset $__interval)",
+            "interval": "",
+            "legendFormat": "vacuum {{relname}}",
+            "refId": "C"
+          },
+          {
+            "expr": "pg_stat_user_tables_autovacuum_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} - (pg_stat_user_tables_autovacuum_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} offset $__interval)",
+            "interval": "",
+            "legendFormat": "autovacuum {{relname}}",
+            "refId": "D"
+          },
+          {
+            "expr": "pg_stat_user_tables_autoanalyze_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} - (pg_stat_user_tables_autoanalyze_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} offset $__interval)",
+            "interval": "",
+            "legendFormat": "autoanalyze {{relname}}",
+            "refId": "E"
+          },
+          {
+            "expr": "pg_stat_user_tables_analyze_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} - (pg_stat_user_tables_analyze_count{server=\"$pg_master\",relname=~\"$focus_table\", datname=~\"$database\"} offset $__interval)",
+            "interval": "",
+            "legendFormat": "analyze {{relname}}",
+            "refId": "F"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Focus Tables live/dead tuples ratio (fragmentation) + VACUUM/ANALYZE activity",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": null,
+            "format": "none",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": "1",
+            "min": "0",
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "cacheTimeout": null,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "max": 1,
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "red",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 0.75
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 0.9
+                },
+                {
+                  "color": "green",
+                  "value": 0.95
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 6,
+          "x": 18,
+          "y": 100
+        },
+        "id": 92,
+        "interval": null,
+        "links": [],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "sum(rate(pg_statio_user_tables_idx_blks_hit{relname=~\"$focus_table\", datname=~\"$database\", site=\"$site\"}[$__rate_interval])) by (relname)  / (sum(rate(pg_statio_user_tables_idx_blks_hit{relname=~\"$focus_table\", datname=~\"$database\", site=\"$site\"}[$__rate_interval])) by (relname) + sum(rate(pg_statio_user_tables_idx_blks_read{relname=~\"$focus_table\", datname=~\"$database\", site=\"$site\"}[$__rate_interval])) by (relname))",
+            "interval": "",
+            "legendFormat": "{{relname}} idx",
+            "refId": "A"
+          },
+          {
+            "expr": "sum(rate(pg_statio_user_tables_heap_blks_hit{relname=~\"$focus_table\", datname=~\"$database\", site=\"$site\"}[$__rate_interval])) by (relname)  / (sum(rate(pg_statio_user_tables_heap_blks_hit{relname=~\"$focus_table\", datname=~\"$database\", site=\"$site\"}[$__rate_interval])) by (relname) + sum(rate(pg_statio_user_tables_heap_blks_read{relname=~\"$focus_table\", datname=~\"$database\", site=\"$site\"}[$__rate_interval])) by (relname))",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{relname}} heap",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "IO %cache usage",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 110
+        },
+        "id": 100,
+        "panels": [],
+        "title": "Badly performing statements",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 0,
+          "y": 111
+        },
+        "hiddenSeries": false,
+        "id": 110,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "hideEmpty": false,
+          "hideZero": false,
+          "max": true,
+          "min": false,
+          "show": true,
+          "sort": "max",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "label_replace(topk(5, rate(pg_stat_statements_most_frequent_calls{site=\"$site\"}[$__rate_interval])) by (server), \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "{{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Most frequent queries (5 worst by server)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "reqps",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 9,
+          "y": 111
+        },
+        "hiddenSeries": false,
+        "id": 106,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "label_replace(topk(5, (pg_stat_statements_total_time_total_time_seconds{site=\"$site\"} - (pg_stat_statements_total_time_total_time_seconds{site=\"$site\"} offset 10m))) by (server), \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
+            "interval": "",
+            "legendFormat": "{{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Total time spent during last 10min (5 worst by server)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "s",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 18,
+          "y": 111
+        },
+        "hiddenSeries": false,
+        "id": 94,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": false,
+          "show": true,
+          "sort": "max",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null as zero",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 3,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "label_replace(rate(pg_stat_statements_temp_files_temp_blks_read{site=\"$site\",shrunk_query_text!~\"SELECT.+queryid,.+\"}[$__rate_interval]) > 0, \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
+            "interval": "",
+            "legendFormat": "reads {{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
+            "refId": "A"
+          },
+          {
+            "expr": "label_replace(rate(pg_stat_statements_temp_files_temp_blks_written{server=\"$site\",shrunk_query_text!~\"SELECT.+queryid,.+\"}[$__rate_interval]) * -1 < 0, \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
+            "interval": "",
+            "legendFormat": "writes {{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Queries triggering temporary files (work_mem overflow)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "Bps",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 5
+                },
+                {
+                  "color": "orange",
+                  "value": 15
+                },
+                {
+                  "color": "red",
+                  "value": 60
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 119
+        },
+        "id": 108,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "topk(5, label_replace(pg_stat_statements_max_time_max_time_seconds{server=~\"$dbserver\"}, \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")) by (server)",
+            "interval": "",
+            "legendFormat": "{{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Slowest single queries (5 worst by server)",
+        "type": "bargauge"
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 10000
+                },
+                {
+                  "color": "orange",
+                  "value": 100000
+                },
+                {
+                  "color": "red",
+                  "value": 1000000
+                }
+              ]
+            },
+            "unit": "rows"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 126
+        },
+        "id": 109,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "label_replace(topk(5, pg_stat_statements_most_rows_rows{server=~\"$dbserver\"} / pg_stat_statements_most_rows_calls{server=~\"$dbserver\"}) by (server), \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
+            "interval": "",
+            "legendFormat": "{{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Single queries returning the most rows per call (5 worst by server)",
+        "type": "bargauge"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "For full details run:\nSELECT * from pg_stat_statements WHERE queryid='$focus_query';",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 0,
+          "y": 133
+        },
+        "hiddenSeries": false,
+        "id": 112,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/^rows returned/",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "max(rate(label_replace({__name__=~\"pg_stat_statements_.+_calls\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")[$__rate_interval:$__interval])) by (queryid,shrunk_query_text)",
+            "interval": "",
+            "legendFormat": "request rate: {{shrunk_query_text}}[...]",
+            "refId": "A"
+          },
+          {
+            "expr": "max(rate(label_replace({__name__=~\"pg_stat_statements_.+_rows\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")[$__rate_interval:$__interval])) by (queryid,shrunk_query_text)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "rows returned: {{shrunk_query_text}}[...]",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Drilldown on query ID \"$focus_query\"",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "ops",
+            "label": "queries/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "rows returned/s",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 8,
+          "x": 9,
+          "y": 133
+        },
+        "hiddenSeries": false,
+        "id": 118,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "max(rate(label_replace({__name__=~\"pg_stat_statements_.+_blks_read\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")[$__rate_interval:$__interval])) by (queryid,shrunk_query_text)",
+            "interval": "",
+            "legendFormat": "IO reads: {{shrunk_query_text}}[...]",
+            "refId": "A"
+          },
+          {
+            "expr": "(max(rate(label_replace({__name__=~\"pg_stat_statements_.+_blks_read\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")[$__rate_interval:$__interval])) by (queryid,shrunk_query_text)) * -1",
+            "interval": "",
+            "legendFormat": "IO writes: {{shrunk_query_text}}[...]",
+            "refId": "C"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Drilldown on query ID \"$focus_query\"",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "Bps",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(0, 0, 0)",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byRegexp",
+                "options": "/stddev|calls|rows/"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "none"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 7,
+          "x": 17,
+          "y": 133
+        },
+        "id": 113,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "max(label_replace({__name__=~\"pg_stat_statements_.+_max_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "max resp. time",
+            "refId": "A"
+          },
+          {
+            "expr": "min(label_replace({__name__=~\"pg_stat_statements_.+_min_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "min resp. time",
+            "refId": "B"
+          },
+          {
+            "expr": "avg(label_replace({__name__=~\"pg_stat_statements_.+_mean_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "mean resp. time",
+            "refId": "C"
+          },
+          {
+            "expr": "avg(label_replace({__name__=~\"pg_stat_statements_.+_stddev_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "resp. time stddev",
+            "refId": "D"
+          },
+          {
+            "expr": "max(label_replace({__name__=~\"pg_stat_statements_.+_blk_read_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\") - label_replace({__name__=~\"pg_stat_statements_.+_blk_read_time_seconds\",queryid=\"$focus_query\"} offset 10m, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "IO read time over last 10min",
+            "refId": "G"
+          },
+          {
+            "expr": "max(label_replace({__name__=~\"pg_stat_statements_.+_blk_write_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\") - label_replace({__name__=~\"pg_stat_statements_.+_blk_write_time_seconds\",queryid=\"$focus_query\"} offset 10m, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "IO write time over last 10min",
+            "refId": "I"
+          },
+          {
+            "expr": "max(label_replace({__name__=~\"pg_stat_statements_.+_total_time_seconds\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\") - label_replace({__name__=~\"pg_stat_statements_.+_total_time_seconds\",queryid=\"$focus_query\"} offset 10m, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "total time over last 10min",
+            "refId": "F"
+          },
+          {
+            "expr": "max(label_replace({__name__=~\"pg_stat_statements_.+_rows\",queryid=\"$focus_query\"}, \"metric_name_subset\", \"$1\", \"__name__\", \"pg_stat_statements_(.+)_rows\") / label_replace({__name__=~\"pg_stat_statements_.+_calls\",queryid=\"$focus_query\"}, \"metric_name_subset\", \"$1\", \"__name__\", \"pg_stat_statements_(.+)_calls\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "avg rows/call",
+            "refId": "E"
+          },
+          {
+            "expr": "max(label_replace({__name__=~\"pg_stat_statements_.+_calls\",queryid=\"$focus_query\"}, \"metric_name\", \"$1\", \"__name__\", \"(.+)\") - label_replace({__name__=~\"pg_stat_statements_.+_calls\",queryid=\"$focus_query\"} offset 10m, \"metric_name\", \"$1\", \"__name__\", \"(.+)\")) by (queryid)",
+            "hide": false,
+            "instant": true,
+            "interval": "",
+            "legendFormat": "#calls over last 10min",
+            "refId": "H"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Drilldown on query ID \"$focus_query\"",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 141
+        },
+        "id": 14,
+        "panels": [],
+        "repeat": null,
+        "title": "Clients",
+        "type": "row"
+      },
+      {
+        "aliasColors": {
+          "master.monitoring-rds (ceil)": "#890F02",
+          "replica0.monitoring-rds (ceil)": "#890F02",
+          "replica1.monitoring-rds (ceil)": "#890F02"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 0,
+          "y": 142
+        },
+        "hiddenSeries": false,
+        "id": 33,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/current/",
+            "linewidth": 2
+          },
+          {
+            "alias": "/Max/",
+            "color": "#e24d42",
+            "legend": false
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (server) (pg_stat_database_numbackends{server=~\"$dbserver\"})",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{server}} (current)",
+            "refId": "C",
+            "step": 2
+          },
+          {
+            "expr": "min(pg_settings_max_connections{server=~\"$dbserver\"})",
+            "interval": "",
+            "legendFormat": "Max",
+            "refId": "D"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Connected clients",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {
+          "master.monitoring-rds (ceil)": "#890F02",
+          "replica0.monitoring-rds (ceil)": "#890F02",
+          "replica1.monitoring-rds (ceil)": "#890F02"
+        },
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 9,
+          "w": 12,
+          "x": 12,
+          "y": 142
+        },
+        "hiddenSeries": false,
+        "id": 37,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "sort": null,
+          "sortDesc": null,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/current/",
+            "linewidth": 2
+          },
+          {
+            "alias": "/Max/",
+            "color": "#e24d42",
+            "legend": false,
+            "stack": false
+          }
+        ],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum by (datname) (pg_stat_database_numbackends{server=~\"$dbserver\", datname=~\"$database\"}) > 0",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{datname}}",
+            "refId": "C",
+            "step": 2
+          },
+          {
+            "expr": "sum(pg_settings_max_connections{server=~\"$dbserver\"})",
+            "interval": "",
+            "legendFormat": "Max",
+            "refId": "D"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Connected clients per DB (main & replicas)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 7,
+          "w": 24,
+          "x": 0,
+          "y": 151
+        },
+        "hiddenSeries": false,
+        "id": 67,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "repeat": "dbserver",
+        "repeatDirection": "h",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(pg_client_connections_count{server=~\"$dbserver\"}) by (appname, client_addr)",
+            "interval": "",
+            "legendFormat": "{{client_addr}}: {{appname}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Clients connected to $dbserver",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": "conn. per client",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "cacheTimeout": null,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 158
+        },
+        "hiddenSeries": false,
+        "id": 422,
+        "interval": null,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "repeat": "dbserver",
+        "seriesOverrides": [
+          {
+            "alias": "work_mem * max_conns",
+            "color": "#C4162A",
+            "fill": 0,
+            "linewidth": 3,
+            "stack": false
+          },
+          {
+            "alias": "work * current_connections",
+            "color": "#1F60C4",
+            "fill": 0,
+            "linewidth": 3,
+            "stack": false
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_settings_work_mem_bytes{site=\"$site\", server=~\"$dbserver\"} * pg_settings_max_connections{site=\"$site\", server=~\"$dbserver\"}",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "work_mem * max_conns",
+            "refId": "C"
+          },
+          {
+            "expr": "max by (server) (pg_settings_work_mem_bytes{site=\"$site\", server=~\"$dbserver\"}) * (count by (server) (pg_stat_database_numbackends{site=\"$site\",server=~\"$dbserver\"}))",
+            "hide": false,
+            "instant": false,
+            "interval": "",
+            "legendFormat": "work * current_connections",
+            "refId": "E"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Client memory usage ($dbserver)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "decbytes",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 166
+        },
+        "id": 35,
+        "panels": [],
+        "title": "Replication",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 12,
+          "w": 6,
+          "x": 0,
+          "y": 167
+        },
+        "hiddenSeries": false,
+        "id": 8,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": true,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "Alert",
+            "color": "#C4162A",
+            "fill": 0
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "max(pg_xlog_position{site=\"$site\"}) - min(pg_xlog_position{site=\"$site\"})",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A",
+            "step": 2
+          },
+          {
+            "expr": "1000000000",
+            "interval": "",
+            "legendFormat": "Alert",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Lag between master and last replica (xlog diff)",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "none",
+            "label": null,
+            "logBase": 2,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 12,
+          "w": 6,
+          "x": 6,
+          "y": 167
+        },
+        "hiddenSeries": false,
+        "id": 7,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": true,
+          "min": false,
+          "show": true,
+          "sort": "max",
+          "sortDesc": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_replication_replag{site=\"$site\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{server}}",
+            "refId": "A",
+            "step": 2
+          }
+        ],
+        "thresholds": [
+          {
+            "colorMode": "critical",
+            "fill": true,
+            "line": true,
+            "op": "gt",
+            "value": 30000,
+            "yaxis": "left"
+          }
+        ],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Lag on replica (seconds) slave point of view",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "ms",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "editable": true,
+        "error": false,
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "grid": {},
+        "gridPos": {
+          "h": 12,
+          "w": 6,
+          "x": 12,
+          "y": 167
+        },
+        "hiddenSeries": false,
+        "id": 36,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": true,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "connected",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_replication_replay_lag{site=\"$site\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{client_addr}}",
+            "refId": "A",
+            "step": 2
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Lag on replica (Bytes) master point of view",
+        "tooltip": {
+          "msResolution": false,
+          "shared": true,
+          "sort": 2,
+          "value_type": "cumulative"
+        },
+        "transparent": true,
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "bytes",
+            "label": null,
+            "logBase": 2,
+            "max": null,
+            "min": 0,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 12,
+          "w": 6,
+          "x": 18,
+          "y": 167
+        },
+        "hiddenSeries": false,
+        "id": 133,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_xlog_position{site=\"$site\"}",
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Xlog position",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "hex",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "gridPos": {
+          "h": 2,
+          "w": 24,
+          "x": 0,
+          "y": 179
+        },
+        "id": 323,
+        "options": {
+          "content": "# ${dbserver}",
+          "mode": "markdown"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "timeFrom": null,
+        "timeShift": null,
+        "transparent": true,
+        "type": "text"
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "text": "MAIN"
+                  },
+                  "1": {
+                    "text": "REPLICA"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 181
+        },
+        "id": 337,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_is_in_recovery{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 6,
+          "w": 24,
+          "x": 0,
+          "y": 184
+        },
+        "hiddenSeries": false,
+        "id": 339,
+        "legend": {
+          "alignAsTable": false,
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "rightSide": false,
+          "show": false,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "repeat": "dbserver",
+        "repeatDirection": "h",
+        "seriesOverrides": [
+          {
+            "alias": "size",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_wals_count{site=\"$site\",server=~\"$dbserver\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "count",
+            "refId": "A"
+          },
+          {
+            "expr": "pg_wals_size{site=\"$site\",server=~\"$dbserver\"}",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "size",
+            "refId": "B"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Wal segment count",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "decbytes",
+            "label": "",
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 190
+        },
+        "id": 15,
+        "panels": [],
+        "repeat": null,
+        "title": "Internals",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 12,
+          "w": 8,
+          "x": 0,
+          "y": 191
+        },
+        "hiddenSeries": false,
+        "id": 9,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": false,
+          "hideEmpty": false,
+          "hideZero": true,
+          "max": true,
+          "min": false,
+          "show": true,
+          "total": true,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/bytes/",
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "rate(pg_stat_database_temp_bytes{site=\"$site\"}[$__rate_interval]) > 0",
+            "interval": "",
+            "legendFormat": "Temp bytes {{server}} DB:{{datname}}",
+            "refId": "C"
+          },
+          {
+            "expr": "rate(pg_stat_database_temp_files{site=\"$site\"}[$__rate_interval]) > 0",
+            "interval": "",
+            "legendFormat": "Temp files {{server}} DB:{{datname}}",
+            "refId": "D"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Temporary tables (work_mem overflow)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "ops",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "Bps",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 15,
+          "w": 8,
+          "x": 8,
+          "y": 191
+        },
+        "hiddenSeries": false,
+        "id": 11,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "hideZero": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null as zero",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/Deadlock/",
+            "color": "#E02F44",
+            "lines": false,
+            "nullPointMode": "null",
+            "pointradius": 3,
+            "points": true
+          },
+          {
+            "alias": "/Conflict/",
+            "color": "rgb(20, 20, 20)",
+            "lines": false,
+            "nullPointMode": "null",
+            "pointradius": 3,
+            "points": true
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "rate(pg_stat_database_deadlocks{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])",
+            "interval": "",
+            "legendFormat": "Deadlock {{datname}} {{server}}",
+            "refId": "B"
+          },
+          {
+            "expr": "rate(pg_stat_database_conflicts{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])",
+            "interval": "",
+            "legendFormat": "Conflicts {{datname}} {{server}}",
+            "refId": "C"
+          },
+          {
+            "expr": "max by (mode, datname, server) (rate(pg_locks_count{server=~\"$dbserver\", datname=~\"$database\"}[$__rate_interval])) > 0",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "{{mode}} {{datname}} {{server}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Lock / Conflicts",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "locks/s",
+            "logBase": 2,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 15,
+          "w": 8,
+          "x": 16,
+          "y": 191
+        },
+        "hiddenSeries": false,
+        "id": 10,
+        "legend": {
+          "alignAsTable": true,
+          "avg": false,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null as zero",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "sum(pg_stat_activity_count{server=~\"$dbserver\", datname=~\"$database\"}) by (datname, server, state) > 0",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "{{state}} on {{server}}/{{datname}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Workers state",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 13,
+          "w": 8,
+          "x": 0,
+          "y": 203
+        },
+        "hiddenSeries": false,
+        "id": 124,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "/checkpoints/",
+            "bars": true,
+            "legend": false,
+            "lines": false,
+            "yaxis": 2
+          },
+          {
+            "alias": "/scheduled/",
+            "color": "#56A64B"
+          },
+          {
+            "alias": "/requested/",
+            "color": "#FFB357"
+          }
+        ],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_stat_bgwriter_checkpoints_timed{server=~\"$dbserver\"} - (pg_stat_bgwriter_checkpoints_timed{server=~\"$dbserver\"} offset $__interval)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "scheduled checkpoints: {{server}}",
+            "refId": "D"
+          },
+          {
+            "expr": "pg_stat_bgwriter_checkpoints_req{server=~\"$dbserver\"} - (pg_stat_bgwriter_checkpoints_req{server=~\"$dbserver\"} offset $__interval)",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "requested checkpoints: {{server}}",
+            "refId": "C"
+          },
+          {
+            "expr": "rate(pg_stat_bgwriter_checkpoint_write_time{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "hide": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "write time rate: {{server}}",
+            "refId": "B"
+          },
+          {
+            "expr": "rate(pg_stat_bgwriter_checkpoint_sync_time{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "hide": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "sync time rate: {{server}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Background writer: checkpoints",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "ms",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": "1",
+            "min": "0",
+            "show": false
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 0,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 10,
+          "w": 8,
+          "x": 8,
+          "y": 206
+        },
+        "hiddenSeries": false,
+        "id": 126,
+        "legend": {
+          "alignAsTable": true,
+          "avg": true,
+          "current": true,
+          "max": true,
+          "min": true,
+          "rightSide": false,
+          "show": true,
+          "total": false,
+          "values": true
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "rate(pg_stat_bgwriter_buffers_backend{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "backend: {{server}}",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(pg_stat_bgwriter_buffers_alloc{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "alloc: {{server}}",
+            "refId": "B"
+          },
+          {
+            "expr": "rate(pg_stat_bgwriter_buffers_backend_fsync{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "fsync: {{server}}",
+            "refId": "C"
+          },
+          {
+            "expr": "rate(pg_stat_bgwriter_buffers_checkpoint{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "checkpoint: {{server}}",
+            "refId": "D"
+          },
+          {
+            "expr": "rate(pg_stat_bgwriter_buffers_clean{server=~\"$dbserver\"}[$__rate_interval])",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "clean: {{server}}",
+            "refId": "E"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Background writer: buffer allocations per type",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": "buffers allocated/s",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "decimals": 3,
+            "mappings": [],
+            "min": 0,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "rgb(0, 0, 0)",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 8,
+          "x": 16,
+          "y": 206
+        },
+        "id": 136,
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.0",
+        "targets": [
+          {
+            "expr": "sum(pg_stat_user_tables_n_live_tup{server=\"$pg_master\"})",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Database total rows count",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "cacheTimeout": null,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "$env",
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 24,
+          "x": 0,
+          "y": 216
+        },
+        "hiddenSeries": false,
+        "id": 138,
+        "interval": null,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.0",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "repeat": "dbserver",
+        "seriesOverrides": [
+          {
+            "alias": "effective_cache_size",
+            "color": "#C4162A",
+            "fill": 0,
+            "linewidth": 3,
+            "stack": false
+          },
+          {
+            "alias": "/current_conns/",
+            "color": "#1F60C4",
+            "fill": 0,
+            "linewidth": 3,
+            "stack": false
+          }
+        ],
+        "spaceLength": 10,
+        "stack": true,
+        "steppedLine": false,
+        "targets": [
+          {
+            "expr": "pg_settings_shared_buffers_bytes{server=~\"$dbserver\"}",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "shared_buffers",
+            "refId": "A"
+          },
+          {
+            "expr": "pg_settings_effective_cache_size_bytes{server=~\"$dbserver\"}",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "effective_cache_size",
+            "refId": "B"
+          },
+          {
+            "expr": "pg_settings_work_mem_bytes{server=~\"$dbserver\"} * pg_settings_max_connections{server=~\"$dbserver\"}",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "work_mem * max_conns",
+            "refId": "C"
+          },
+          {
+            "expr": "sum(pg_settings_work_mem_bytes{server=~\"$dbserver\"}) * sum(pg_stat_database_numbackends{server=~\"$dbserver\"})",
+            "instant": false,
+            "interval": "",
+            "legendFormat": "work_mem * current_conns",
+            "refId": "E"
+          },
+          {
+            "expr": "pg_settings_maintenance_work_mem_bytes{server=~\"$dbserver\"}",
+            "interval": "",
+            "legendFormat": "maintenance_work_mem",
+            "refId": "D"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Memory usage breakdown ($dbserver)",
+        "tooltip": {
+          "shared": true,
+          "sort": 2,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "decbytes",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": "0",
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 224
+        },
+        "id": 190,
+        "panels": [],
+        "title": "Postgres Settings",
+        "type": "row"
+      },
+      {
+        "datasource": null,
+        "gridPos": {
+          "h": 2,
+          "w": 24,
+          "x": 0,
+          "y": 225
+        },
+        "id": 206,
+        "options": {
+          "content": "# ${dbserver}",
+          "mode": "markdown"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "timeFrom": null,
+        "timeShift": null,
+        "transparent": true,
+        "type": "text"
+      },
+      {
+        "datasource": "$env",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "options": {
+                  "0": {
+                    "text": "MAIN"
+                  },
+                  "1": {
+                    "text": "REPLICA"
+                  }
+                },
+                "type": "value"
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 227
+        },
+        "id": 220,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_is_in_recovery{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 230
+        },
+        "id": 484,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_max_connections{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max Connections",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 233
+        },
+        "id": 196,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_max_wal_size_bytes{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max WAL size",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 236
+        },
+        "id": 201,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_shared_buffers_bytes{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Shared Buffer",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 239
+        },
+        "id": 194,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_effective_cache_size_bytes{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Effective cache size",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 242
+        },
+        "id": 195,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_maintenance_work_mem_bytes{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Maintenance work mem",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 245
+        },
+        "id": 572,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_work_mem_bytes{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Work mem",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 248
+        },
+        "id": 193,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_max_standby_streaming_delay_seconds{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max Standby Streaming Delay",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "s"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 251
+        },
+        "id": 192,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_max_standby_archive_delay_seconds{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max Standby Archive Delay",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 254
+        },
+        "id": 199,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_random_page_cost{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Random page cost",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 257
+        },
+        "id": 200,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_seq_page_cost{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Sequential page cost",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 260
+        },
+        "id": 197,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_max_worker_processes{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max Worker",
+        "type": "stat"
+      },
+      {
+        "datasource": "$env",
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "fixed"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "none"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 3,
+          "w": 24,
+          "x": 0,
+          "y": 263
+        },
+        "id": 198,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.0",
+        "repeat": "dbserver",
+        "targets": [
+          {
+            "expr": "pg_settings_max_parallel_workers{site=\"$site\", server=~\"$dbserver\"}",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "{{server}}",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Max Parallel Worker",
+        "type": "stat"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 30,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": false,
+            "text": "Prometheus",
+            "value": "Prometheus"
+          },
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Environment",
+          "multi": false,
+          "name": "env",
+          "options": [],
+          "query": "prometheus",
+          "queryValue": "",
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "type": "datasource"
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": true,
+            "text": "montblanc",
+            "value": "montblanc"
+          },
+          "datasource": "$env",
+          "definition": "label_values(pg_static, site)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "site",
+          "options": [],
+          "query": {
+            "query": "label_values(pg_static, site)",
+            "refId": "Prometheus-site-Variable-Query"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": ".*",
+          "current": {
+            "selected": false,
+            "text": "All",
+            "value": "$__all"
+          },
+          "datasource": "$env",
+          "definition": "label_values(pg_database_size_bytes{site=\"$site\"}, datname)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": true,
+          "label": null,
+          "multi": true,
+          "name": "database",
+          "options": [],
+          "query": {
+            "query": "label_values(pg_database_size_bytes{site=\"$site\"}, datname)",
+            "refId": "Prometheus-database-Variable-Query"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "data_merge_record",
+            "value": "data_merge_record"
+          },
+          "datasource": "$env",
+          "definition": "label_values(pg_stat_user_tables_idx_scan{datname=~\"$database\", site=\"$site\"}, relname)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Table(s) picked for detailed analysis in \"Focus tables\" row",
+          "multi": true,
+          "name": "focus_table",
+          "options": [],
+          "query": {
+            "query": "label_values(pg_stat_user_tables_idx_scan{datname=~\"$database\", site=\"$site\"}, relname)",
+            "refId": "Prometheus-focus_table-Variable-Query"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": "",
+          "current": {
+            "selected": false,
+            "text": "fr-montblanc-1-int.postgres.database.azure.com:5432",
+            "value": "fr-montblanc-1-int.postgres.database.azure.com:5432"
+          },
+          "datasource": "$env",
+          "definition": "label_values(pg_static{site=\"$site\"}, server)",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": "Database server",
+          "multi": true,
+          "name": "dbserver",
+          "options": [],
+          "query": {
+            "query": "label_values(pg_static{site=\"$site\"}, server)",
+            "refId": "Prometheus-dbserver-Variable-Query"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 1,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "current": {},
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "label": "QueryID for pg_stat_statements drill-down",
+          "name": "focus_query",
+          "options": [],
+          "query": "",
+          "skipUrlSync": false,
+          "type": "textbox"
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "12.8.0",
+            "value": "12.8.0"
+          },
+          "datasource": "$env",
+          "definition": "label_values(pg_static{site=\"$site\"}, short_version)",
+          "description": null,
+          "error": null,
+          "hide": 2,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "pg_version",
+          "options": [],
+          "query": {
+            "query": "label_values(pg_static{site=\"$site\"}, short_version)",
+            "refId": "Prometheus-pg_version-Variable-Query"
+          },
+          "refresh": 2,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        },
+        {
+          "allValue": null,
+          "current": {
+            "selected": false,
+            "text": "fr-montblanc-1-prod.postgres.database.azure.com:5432",
+            "value": "fr-montblanc-1-prod.postgres.database.azure.com:5432"
+          },
+          "datasource": "$env",
+          "definition": "query_result(pg_is_in_recovery{site=\"$site\"} == 0)",
+          "description": null,
+          "error": null,
+          "hide": 2,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "pg_master",
+          "options": [],
+          "query": {
+            "query": "query_result(pg_is_in_recovery{site=\"$site\"} == 0)",
+            "refId": "Prometheus-pg_master-Variable-Query"
+          },
+          "refresh": 1,
+          "regex": "/.*server=\"([^\"]+)\".*/",
+          "skipUrlSync": false,
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ]
+    },
+    "timezone": "browser",
+    "title": "💾 Postgres Database",
+    "uid": "RP86ihCGl",
+    "version": 4
+  }

@@ -1,11 +1,17 @@
+{{- with .Values.dashboard }}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-dashboard
+  name: {{ $.Release.Name }}-dashboard
   labels:
     grafana_dashboard: '1'
-{{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
+{{ include "prometheus-postgres-exporter.labels" $ | indent 4 }}
 data:
   dashboard.json: |-
-    {{- .Files.Get "dashboard.json" | nindent 4 }}
+{{- if eq . "azure" }}
+    {{- $.Files.Get "dashboard-azure.json" | nindent 4 }}
+{{- else }}
+    {{- $.Files.Get "dashboard.json" | nindent 4 }}
+{{- end }}
+{{- end }}

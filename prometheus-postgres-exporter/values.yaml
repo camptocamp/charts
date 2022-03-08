@@ -38,3 +38,5 @@ replicas:
 additionalLabels:
   site: pg-12-prod
   line: prod
+
+dashboard: default
