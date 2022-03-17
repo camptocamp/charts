@@ -4,7 +4,9 @@ metadata:
   name: {{ include "s3-exporter.fullname" . }}
   labels:
     {{- include "s3-exporter.labels" . | nindent 4 }}
+    {{- if .Values.extraLabels }}
     {{- toYaml .Values.extraLabels | nindent 4 }}
+    {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
