@@ -39,4 +39,8 @@ additionalLabels:
   site: pg-12-prod
   line: prod
 
+scrape: {}
+  #timeout: 10s
+  #interval: 30s
+
 dashboard: default
