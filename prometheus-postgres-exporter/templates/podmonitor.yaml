@@ -9,6 +9,12 @@ spec:
     {{- keys .Values.additionalLabels | toYaml | nindent 4 }}
   podMetricsEndpoints:
     - port: metrics
+      {{- with .Values.scrape.timeout }}
+      scrapeTimeout: {{ . | quote }}
+      {{- end }}
+      {{- with .Values.scrape.interval }}
+      interval: {{ . | quote }}
+      {{- end }}
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}
