@@ -233,8 +233,11 @@ pg_statio_user_tables:
 
 {{- if $.Values.pg_table_size }}
 pg_table_size:
-  query: "SELECT schemaname, relname, pg_table_size(relid) AS data_bytes, pg_indexes_size(relid) AS index_bytes FROM pg_stat_user_tables WHERE pg_total_relation_size(relid) > {{ $.Values.pg_table_size_threshold }}"
+  query: "SELECT current_database() AS datname, schemaname, relname, pg_table_size(relid) AS data_bytes, pg_indexes_size(relid) AS index_bytes FROM pg_stat_user_tables WHERE pg_total_relation_size(relid) > {{ $.Values.pg_table_size_threshold }}"
   metrics:
+    - datname:
+        usage: "LABEL"
+        description: "Name of the database"
     - schemaname:
         usage: "LABEL"
         description: "Name of the relation schema"
