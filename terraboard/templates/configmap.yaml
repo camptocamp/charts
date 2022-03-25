@@ -7,5 +7,6 @@ metadata:
   labels:
 {{ include "terraboard.labels" . | indent 4 }}
 data:
-  config.yaml: {{ .Values.additionalYamlConfig | indent 4 }}
+  config.yaml: |
+{{ .Values.additionalYamlConfig | toYaml | indent 4 }}
 {{- end }}
