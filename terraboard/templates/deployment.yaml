@@ -80,6 +80,14 @@ spec:
               value: {{ .Values.aws.dynamodb_table }}
             - name: AWS_FILE_EXTENSION
               value: {{ .Values.aws.file_extension }}
+            
+            - name: TFE_ADDRESS
+              value: {{ .Values.tfe.address }}
+            - name: TFE_TOKEN
+              value: {{ .Values.tfe.token }}
+            - name: TFE_ORGANIZATION
+              value: {{ .Values.tfe.organization }}
+
 #          livenessProbe:
 #            httpGet:
 #              path: /
@@ -88,6 +96,7 @@ spec:
 #            httpGet:
 #              path: /
 #              port: http
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
