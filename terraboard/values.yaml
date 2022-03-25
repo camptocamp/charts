@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/camptocamp/terraboard
-  tag: 2.0.0
+  tag: 2.1.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -19,6 +19,44 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name:
+
+# Specify additional environment variables to be set in the container.
+# For example:
+# - name: FOO
+#   value: ""
+# - name: BAR
+#   valueFrom:
+#     secretKeyRef:
+#       name: SECRET_NAME
+#       key: BAR
+additionalEnv: []
+
+# Specify additional yaml config for Terraboard following the configuration scheme
+# defined in the github repo
+# Allow configuration of multiples providers which env/flags config doesn't support
+# Check the github readme for more details about YAML configuration: https://github.com/camptocamp/terraboard#available-parameters
+
+# additionalYamlConfig:
+#   provider:
+#     no-locks: true
+#     no-versioning: true
+#
+#   aws:
+#     - endpoint: http://minio:9000/
+#       region: eu-west-1
+#       s3:
+#         - bucket: test-bucket
+#           force-path-style: true
+#           file-extension: 
+#             - .tfstate
+#
+#     - endpoint: http://minio:9000/
+#       region: eu-west-1
+#       s3:
+#         - bucket: test-bucket2
+#           force-path-style: true
+#           file-extension: 
+#             - .tfstate
 
 podSecurityContext: {}
   # fsGroup: 2000

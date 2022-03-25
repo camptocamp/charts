@@ -32,6 +32,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.additionalYamlConfig }}
+          volumeMounts:
+            - name: custom-config-yaml
+              mountPath: /config
+          {{- end }}
           ports:
             - name: http
               containerPort: 8080
@@ -40,6 +45,10 @@ spec:
               containerPort: 8081
               protocol: TCP
           env:
+            {{- if .Values.additionalYamlConfig }}
+            - name: CONFIG_FILE
+              value: /config/config.yaml
+            {{- end }}
             - name: TERRABOARD_BASE_URL
               value: {{ .Values.terraboard.base_url }}
             - name: TERRABOARD_PORT
@@ -80,6 +89,11 @@ spec:
               value: {{ .Values.aws.dynamodb_table }}
             - name: AWS_FILE_EXTENSION
               value: {{ .Values.aws.file_extension }}
+
+            {{- with .Values.additionalEnv }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+
 #          livenessProbe:
 #            httpGet:
 #              path: /
@@ -91,6 +105,14 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+      {{- if .Values.additionalYamlConfig }}
+        - name: custom-config-yaml
+          configMap:
+            name: {{ include "terraboard.fullname" . }}-configmap
+            items:
+            - key: config.yaml
+              path: config.yaml
+      {{- end }}
 {{- if .Values.volumes }}
 {{ toYaml .Values.volumes | indent 8 }}
 {{- end }}
