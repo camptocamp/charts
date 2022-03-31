@@ -54,3 +54,7 @@ config: |-
   bucket: "bucket-world"
   folders:
     - "/"
+
+podAnnotations: []
+
+imagePullSecrets: []
