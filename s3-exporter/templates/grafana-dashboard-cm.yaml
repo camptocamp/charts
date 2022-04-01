@@ -6,7 +6,7 @@ metadata:
     release: kube-prometheus-stack
   name: s3-exporter-dashboard
 data:
-  argocd.json: |-
+  s3-exporter-dashboard.json: |-
     {
     "annotations": {
       "list": [
@@ -288,7 +288,7 @@ data:
             "refId": "A"
           }
         ],
-        "title": "s3 expoter cpu / second rate",
+        "title": "s3 exporter cpu / second rate",
         "type": "timeseries"
       },
       {
@@ -385,7 +385,7 @@ data:
             "refId": "A"
           }
         ],
-        "title": "gitlab bacukp latest backup date",
+        "title": "gitlab backup latest backup date",
         "type": "timeseries"
       },
       {
@@ -564,7 +564,7 @@ data:
             "refId": "A"
           }
         ],
-        "title": "gitlab bacukp oldest backup date",
+        "title": "gitlab backup oldest backup date",
         "type": "timeseries"
       },
       {
