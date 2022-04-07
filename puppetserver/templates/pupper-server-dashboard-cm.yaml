@@ -8,3 +8,1895 @@ metadata:
 data:
   puppet-server-dashboard.json: |-
     {
+      "__inputs": [
+        {
+          "name": "DS_OS-PROMETHEUS",
+          "label": "os-prometheus",
+          "description": "",
+          "type": "datasource",
+          "pluginId": "prometheus",
+          "pluginName": "Prometheus"
+        },
+        {
+          "name": "VAR_FILTER",
+          "type": "constant",
+          "label": "filter",
+          "value": "(^poste.+\\\\.internal\\\\.avocats-ch\\\\.ch)|(^.+\\\\.wrk\\\\.(lsn|cby|muc)\\\\.camptocamp\\\\.com)",
+          "description": ""
+        }
+      ],
+      "__elements": [],
+      "__requires": [
+        {
+          "type": "grafana",
+          "id": "grafana",
+          "name": "Grafana",
+          "version": "8.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "graph",
+          "name": "Graph (old)",
+          "version": ""
+        },
+        {
+          "type": "datasource",
+          "id": "prometheus",
+          "name": "Prometheus",
+          "version": "1.0.0"
+        },
+        {
+          "type": "panel",
+          "id": "stat",
+          "name": "Stat",
+          "version": ""
+        }
+      ],
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 1,
+      "id": null,
+      "iteration": 1649324925091,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+          },
+          "id": 16,
+          "panels": [],
+          "title": "Puppetserver",
+          "type": "row"
+        },
+        {
+          "aliasColors": {
+            "create scope": "#BADFF4"
+          },
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Time spent in different parts of handling a Catalog request\n\n* `compile`: time to compile catalogs.\n* `static_compile`: time to do a static compile of catalogs.\n* `static compile postprocessing`: time to do postprocessing of static catalog, including inlining file metadata.\n* `function calls`: time spent calling functions (included in `compile` time)\n* `find_node`: time to get node object (not included in `compile` time)\n* `find_facts`: time to parse facts sent as part of catalog request (not included in `compile` time)",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_compiler_compile_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "compile",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.compiler.compile.mean,'compile')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_functions_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "function calls",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.functions.mean,'function calls')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_compiler_find_node_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "find_node",
+              "refId": "C",
+              "target": "alias(puppetlabs.master.example.com.compiler.find_node.mean,'find_node')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_compiler_static_compile_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "static compile",
+              "refId": "D",
+              "target": "alias(puppetlabs.master.example.com.compiler.static_compile.mean,'static compile')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_compiler_static_compile_processing_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "static compile postprocessing",
+              "refId": "E",
+              "target": "alias(puppetlabs.master.example.com.compiler.static_compile_postprocessing.mean,'static compile postprocessing')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_compiler_find_facts_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "find_facts",
+              "refId": "F",
+              "target": "alias(puppetlabs.master.example.com.compiler.find_facts.mean,'find_facts')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Compilation",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "* `num jrubies`: number of JRuby instances (constant)\n* `num free jrubies`: number of JRuby instances free\n* `average free jrubies`: average free JRubies over time\n* `average requested jrubies`: average requested JRubies over time",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {
+            "min": 0
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 1,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_num_jrubies_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "num jrubies",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.jruby.num-jrubies,'num jrubies')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_num_free_jrubies_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "num free jrubies",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.jruby.num-free-jrubies,'num free jrubies')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_free_jrubies_histo_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "average free jrubies",
+              "refId": "C",
+              "target": "alias(puppetlabs.master.example.com.jruby.free-jrubies-histo.mean,'average free jrubies')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_requested_jrubies_histo_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "average requested jrubies",
+              "refId": "D",
+              "target": "alias(puppetlabs.master.example.com.jruby.requested-jrubies-histo.mean,'average requested jrubies')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "JRuby Usage",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "show": true
+            },
+            {
+              "format": "short",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Heap and non-heap memory used, number of cpus available.",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 1
+          },
+          "hiddenSeries": false,
+          "id": 3,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [
+            {
+              "alias": "num cpus",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_memory_heap_used_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "heap used",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.memory.heap.used,'heap used')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_memory_non_heap_used_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "non-heap used",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.memory.non-heap.used,'non-heap used')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_num_cpus_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "num cpus",
+              "refId": "C",
+              "target": "alias(puppetlabs.master.example.com.num-cpus, 'num cpus')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "JVM metrics",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "Memory",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "CPUs",
+              "logBase": 1,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Average request time by type - time the server spends serving each type of request, including time waiting to acquire a JRuby",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 4,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_catalog_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "catalog",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.http.puppet-v3-catalog-.*.-requests.mean,'catalog')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_report_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "report",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.http.puppet-v3-report-.*.-requests.mean,'report')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_node_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "node",
+              "refId": "C",
+              "target": "alias(puppetlabs.master.example.com.http.puppet-v3-node-.*.-requests.mean,'node')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_file_metadatas_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "file_metadatas",
+              "refId": "D",
+              "target": "alias(puppetlabs.master.example.com.http.puppet-v3-file_metadatas-.*.-requests.mean,'file_metadatas')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_file_metadata_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "file_metadata",
+              "refId": "E",
+              "target": "alias(puppetlabs.master.example.com.http.puppet-v3-file_metadata-.*.-requests.mean,'file_metadata')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_file_content_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "file_content",
+              "refId": "F",
+              "target": "alias(puppetlabs.master.example.com.http.puppet-v3-file_content-.*.-requests.mean,'file_content')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_other_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "other",
+              "refId": "G",
+              "target": "alias(puppetlabs.master.example.com.http.other-requests.mean,'other')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_total_requests_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "all",
+              "refId": "H",
+              "target": "alias(puppetlabs.master.example.com.http.total-requests.mean,'all')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Request Durations",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "show": true
+            },
+            {
+              "format": "short",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "* `borrow time`: average time a JRuby is borrowed for\n* `wait time`: average time Puppet Server spends waiting to borrow a JRuby to service a request\n* `lock held time`: average time the lock on the JRuby pool is held\n* `lock wait time`: average time Puppet Server spends waiting to acquire the lock",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_borrow_timer_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "borrow time",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.jruby.borrow-timer.mean,'borrow time')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_wait_timer_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "wait time",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.jruby.wait-timer.mean,'wait time')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_lock_held_timer_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "lock held time",
+              "refId": "C",
+              "target": "alias(puppetlabs.master.example.com.jruby.lock-held-timer.mean,'lock held time')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_jruby_lock_wait_timer_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "lock wait time",
+              "refId": "D",
+              "target": "alias(puppetlabs.master.example.com.jruby.lock-wait-timer.mean,'lock wait time')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "JRuby Pool Timers",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "show": true
+            },
+            {
+              "format": "short",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Puppetserver Garbage Collection rates on 1 minute",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 9
+          },
+          "hiddenSeries": false,
+          "id": 27,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [
+            {
+              "alias": "/rate .*/",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(jvm_gc_collection_seconds_sum{job=\"puppetserver\"}[1m])/rate(jvm_gc_collection_seconds_count{job=\"puppetserver\"}[1m])",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "time per request {{gc}}",
+              "refId": "C"
+            },
+            {
+              "expr": "rate(jvm_gc_collection_seconds_sum{job=\"puppetserver\"}[1m])",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "rate {{gc}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Garbage Collection",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": "Mean time per GC",
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "percentunit",
+              "label": "GC time",
+              "logBase": 1,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Percentage of requests handled of each type.",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 17
+          },
+          "hiddenSeries": false,
+          "id": 7,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_catalog_percentage_Value * 100",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "catalog",
+              "refId": "A",
+              "target": "alias(scale(puppetlabs.master.example.com.http.puppet-v3-catalog-.*.-percentage,100),'catalog')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_report_percentage_Value * 100",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "report",
+              "refId": "B",
+              "target": "alias(scale(puppetlabs.master.example.com.http.puppet-v3-report-.*.-percentage,100),'report')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_node_percentage_Value * 100",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "node",
+              "refId": "C",
+              "target": "alias(scale(puppetlabs.master.example.com.http.puppet-v3-node-.*.-percentage,100),'node')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_file_metadatas_percentage_Value * 100",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "file_metadatas",
+              "refId": "D",
+              "target": "alias(scale(puppetlabs.master.example.com.http.puppet-v3-file_metadatas-.*.-percentage,100),'file_metadatas')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_file_metadata_percentage_Value * 100",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "file_metadata",
+              "refId": "E",
+              "target": "alias(scale(puppetlabs.master.example.com.http.puppet-v3-file_metadata-.*.-percentage,100),'file_metadata')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_puppet_v3_file_content_percentage_Value * 100",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "file_content",
+              "refId": "F",
+              "target": "alias(scale(puppetlabs.master.example.com.http.puppet-v3-file_content-.*.-percentage,100),'file_content')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Request Ratios",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": "Percentage of Requests",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Number of active requests and average number of active requests (over ~ 5 minutes).",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 17
+          },
+          "hiddenSeries": false,
+          "id": 8,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_active_requests_Count",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "active requests",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.http.active-requests.count,'active requests')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_active_histo_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "average number of active requests",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.http.active-histo.mean, 'average number of active requests')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Active Requests",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "show": true
+            },
+            {
+              "format": "short",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "aliasColors": {},
+          "annotate": {
+            "enable": false
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Time to make HTTP requests to other services\n\n* `PuppetDB: replace facts`: time to send a \"facts replace\" command to PuppetDB (part of a catalog compile)\n* `PuppetDB: replace catalog`: time to send a \"catalog replace\" command to PuppetDB (part of a catalog compile)\n* `PuppetDB: store report`: time to send a \"report store\" command to PuppetDB (part of handling a report request)\n* `PuppetDB: find facts`: time to get facts from PuppetDB (part of a node and catalog request, if the facts for the node are not cached)\n* `PuppetDB: search resources`: time to get exported resources from PuppetDB (part of a catalog compile if exported resources are used)\n*`PuppetDB: query`: time to execute a PuppetDB query (part of a catalog compile if the puppetdb query function is used)\n* `Http report processor`: time to submit a report to the http report url (if the http report processor is used)",
+          "editable": true,
+          "fill": 0,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 17
+          },
+          "hiddenSeries": false,
+          "id": 6,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "loadingEditor": false,
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "resolution": 100,
+          "scale": 1,
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppetdb_command_replace_facts_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PuppetDB: replace facts",
+              "refId": "A",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppetdb.command.replace_facts.full-response.mean, 'PuppetDB: replace facts')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppetdb_command_replace_catalog_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PuppetDB: replace catalog",
+              "refId": "B",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppetdb.command.replace_catalog.full-response.mean, 'PuppetDB: replace catalog')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppetdb_command_store_report_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PuppetDB: store report",
+              "refId": "C",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppetdb.command.store_report.full-response.mean, 'PuppetDB: store report')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppetdb_facts_find_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PuppetDB: find facts",
+              "refId": "D",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppetdb.facts.find.full-response.mean, 'PuppetDB: find facts')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppetdb_resource_search_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PuppetDB: search resources",
+              "refId": "E",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppetdb.resource.search.full-response.mean, 'PuppetDB: search resources')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppetdb_query_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PuppetDB: query",
+              "refId": "F",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppetdb.query.full-response.mean, 'PuppetDB: query')"
+            },
+            {
+              "expr": "puppetserver_puppetlabs_localhost_http_client_experimental_with_metric_id_puppet_report_http_full_response_Mean",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Http report processor",
+              "refId": "G",
+              "target": "alias(puppetlabs.master.example.com.http-client.experimental.with-metric-id.puppet.report.http.full-response.mean, 'Http report processor')"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "External HTTP Communications",
+          "tooltip": {
+            "query_as_alias": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "show": true
+            },
+            {
+              "format": "short",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          },
+          "zerofill": true
+        },
+        {
+          "collapsed": false,
+          "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 25
+          },
+          "id": 18,
+          "panels": [],
+          "title": "PuppetDB",
+          "type": "row"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "description": "Heap and non-heap memory used, number of cpus available.",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 26
+          },
+          "hiddenSeries": false,
+          "id": 12,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "num cpus",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "java_lang_Memory_HeapMemoryUsage_used{job=\"puppetdb\"}\t",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "heap used",
+              "refId": "A"
+            },
+            {
+              "expr": "java_lang_Memory_NonHeapMemoryUsage_used{job=\"puppetdb\"}\t",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "non-heap used",
+              "refId": "B"
+            },
+            {
+              "expr": "java_lang_OperatingSystem_AvailableProcessors{job=\"puppetdb\"}",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "num cpus",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "PuppetDB JVM metrics",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": "Memory",
+              "logBase": 1,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "CPUs",
+              "logBase": 1,
+              "min": "0",
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 26
+          },
+          "hiddenSeries": false,
+          "id": 26,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetlabs_puppetdb_database_PDBWritePool_pool_ActiveConnections_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Active connections",
+              "refId": "C"
+            },
+            {
+              "expr": "puppetlabs_puppetdb_database_PDBWritePool_pool_IdleConnections_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Idle connections",
+              "refId": "A"
+            },
+            {
+              "expr": "puppetlabs_puppetdb_database_PDBWritePool_pool_PendingConnections_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Pending threads",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Write Pool DB Connections",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 26
+          },
+          "hiddenSeries": false,
+          "id": 25,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "8.3.3",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "puppetlabs_puppetdb_database_PDBReadPool_pool_ActiveConnections_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Active connections",
+              "refId": "C"
+            },
+            {
+              "expr": "puppetlabs_puppetdb_database_PDBReadPool_pool_IdleConnections_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Idle connections",
+              "refId": "A"
+            },
+            {
+              "expr": "puppetlabs_puppetdb_database_PDBReadPool_pool_PendingConnections_Value",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "Pending threads",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeRegions": [],
+          "title": "Read Pool DB Connections",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "logBase": 1,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false
+          }
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 0,
+            "y": 34
+          },
+          "id": 20,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "max(puppetlabs_puppetdb_population_num_nodes_Value)",
+              "format": "time_series",
+              "instant": false,
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Population",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 4,
+            "y": 34
+          },
+          "id": 21,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "max(puppetlabs_puppetdb_population_num_resources_Value)",
+              "format": "time_series",
+              "instant": false,
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Resources",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "none"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 8,
+            "y": 34
+          },
+          "id": 22,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "max(puppetlabs_puppetdb_population_avg_resources_per_node_Value)",
+              "format": "time_series",
+              "instant": false,
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Average resources per node",
+          "type": "stat"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_OS-PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "fixedColor": "rgb(31, 120, 193)",
+                "mode": "fixed"
+              },
+              "mappings": [
+                {
+                  "options": {
+                    "match": "null",
+                    "result": {
+                      "text": "N/A"
+                    }
+                  },
+                  "type": "special"
+                }
+              ],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percentunit"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 4,
+            "x": 12,
+            "y": 34
+          },
+          "id": 23,
+          "links": [],
+          "maxDataPoints": 100,
+          "options": {
+            "colorMode": "none",
+            "graphMode": "area",
+            "justifyMode": "auto",
+            "orientation": "horizontal",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "textMode": "auto"
+          },
+          "pluginVersion": "8.3.3",
+          "targets": [
+            {
+              "expr": "max(puppetlabs_puppetdb_population_pct_resource_dupes_Value)",
+              "format": "time_series",
+              "instant": false,
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "A"
+            }
+          ],
+          "title": "Percentage of resource duplication",
+          "type": "stat"
+        }
+      ],
+      "refresh": false,
+      "schemaVersion": 34,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+        "list": [
+          {
+            "hide": 2,
+            "name": "filter",
+            "query": "${VAR_FILTER}",
+            "skipUrlSync": false,
+            "type": "constant",
+            "current": {
+              "value": "${VAR_FILTER}",
+              "text": "${VAR_FILTER}",
+              "selected": false
+            },
+            "options": [
+              {
+                "value": "${VAR_FILTER}",
+                "text": "${VAR_FILTER}",
+                "selected": false
+              }
+            ]
+          }
+        ]
+      },
+      "time": {
+        "from": "now-3h",
+        "to": "now"
+      },
+      "timepicker": {
+        "collapse": false,
+        "enable": true,
+        "notice": false,
+        "now": true,
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "status": "Stable",
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ],
+        "type": "timepicker"
+      },
+      "timezone": "browser",
+      "title": "Puppet Server",
+      "uid": "gemtAmtWz",
+      "version": 22,
+      "weekStart": ""
+    }
