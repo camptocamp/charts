@@ -4,7 +4,7 @@ metadata:
   labels:
     grafana_dashboard: "1"
     release: kube-prometheus-stack
-  name: s3-exporter-dashboard
+  name: puppet-server-dashboard
 data:
   puppet-server-dashboard.json: |-
     {
