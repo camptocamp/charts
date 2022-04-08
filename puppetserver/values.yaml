@@ -50,6 +50,8 @@ ca_conf: |
       # allow-authorization-extensions: false
   }
 
+auth_conf: ''
+
 java_mem_limit: '2g'
 max_active_instances: '4'
 

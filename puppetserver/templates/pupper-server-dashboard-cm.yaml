@@ -790,14 +790,14 @@ data:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "time per request {{gc}}",
+              "legendFormat": "time per request {{`{{gc}}`}}",
               "refId": "C"
             },
             {
               "expr": "rate(jvm_gc_collection_seconds_sum{job=\"puppetserver\"}[1m])",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "rate {{gc}}",
+              "legendFormat": "rate {{`{{gc}}`}}",
               "refId": "A"
             }
           ],
