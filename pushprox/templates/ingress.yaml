@@ -30,7 +30,7 @@ spec:
           - path: {{ . }}
             backend:
               serviceName: {{ $fullName }}
-              servicePort: oauth
+              servicePort: {{ if $.Values.auth.enabled }}oauth{{ else }}http{{ end }}
         {{- end }}
   {{- end }}
 {{- end }}

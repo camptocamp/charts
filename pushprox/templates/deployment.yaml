@@ -21,6 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       containers:
+{{ if .Values.auth.enabled }}
         - name: {{ .Chart.Name }}-auth
           image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
           imagePullPolicy: {{ .Values.auth.image.pullPolicy }}
@@ -44,6 +45,7 @@ spec:
               name: secret-{{ include "pushprox.fullname" . }}-tls
             - mountPath: /etc/proxy/htpasswd
               name: secret-{{ include "pushprox.fullname" . }}-htpasswd
+{{ end }}
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}

@@ -10,6 +10,7 @@ image:
   pullPolicy: IfNotPresent
 
 auth:
+  enabled: true
   image:
     repository: registry.redhat.io/openshift3/oauth-proxy
     tag: v3.11.104

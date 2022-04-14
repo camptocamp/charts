@@ -11,10 +11,12 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+{{ if .Values.auth.enabled }}
     - port: {{ .Values.auth.service.port }}
       targetPort: oauth
       protocol: TCP
       name: oauth
+{{ end }}
   selector:
     app.kubernetes.io/name: {{ include "pushprox.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
