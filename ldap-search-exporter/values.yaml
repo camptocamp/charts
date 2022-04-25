@@ -4,6 +4,8 @@
 
 replicaCount: 1
 
+imagePullSecrets: []
+
 image:
   repository: docker.io/camptocamp/ldap-search-exporter
   tag: latest
