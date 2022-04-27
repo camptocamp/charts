@@ -11,10 +11,19 @@ image:
 
 auth:
   enabled: true
+  provider: openshift
+  additionalArgs:
+    - --http-address=:4180
+    - --htpasswd-file=/etc/proxy/htpasswd/auth
+    - --cookie-secret={{ .Values.auth.cookieSecret }}
+    - --openshift-service-account={{ include "pushprox.fullname" . }}
+    - --tls-cert=/etc/tls/private/tls.crt
+    - --tls-key=/etc/tls/private/tls.key
   image:
     repository: registry.redhat.io/openshift3/oauth-proxy
     tag: v3.11.104
     pullPolicy: IfNotPresent
+  envFrom: []
   cookieSecret: SECRET
   service:
     type: ClusterIP
