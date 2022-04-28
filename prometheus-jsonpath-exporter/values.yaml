@@ -1,3 +1,5 @@
+imagePullSecrets: []
+
 image:
   repository: sunbird/prometheus-jsonpath-exporter
   tag: latest
