@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: 0.11.0
 description: A Helm chart for Prometheus PuppetDB SD
 name: prometheus-puppetdb-sd
-version: 5.2.0
+version: 6.0.0
