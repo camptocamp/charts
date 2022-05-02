@@ -11,11 +11,7 @@ entries:
     - https://camptocamp.github.io/charts/azure-metrics-exporter-1.1.1.tgz
     version: 1.1.1
   - apiVersion: v2
-    created: "2022-05-09T09:40:23.724496991+02:00"
     description: Azure metrics prometheus exporter
-    digest: 05f22613e5f1a592932db4a634112ad4da99c438030ffd82f17c92c33198e80b
-    name: azure-metrics-exporter
-    type: application
     urls:
     - https://camptocamp.github.io/charts/azure-metrics-exporter-1.1.0.tgz
     version: 1.1.0
@@ -27,18 +23,6 @@ entries:
     digest: 698e061589c132e6cf82e8ba32e6c7989f3f8e34bcbfdeef3a51038bbb321e8c
     name: bivac
     urls:
-    - https://camptocamp.github.io/charts/bivac-1.2.0.tgz
-    version: 1.2.0
-  - apiVersion: v1
-    appVersion: "1.0"
-    created: "2022-05-09T09:40:23.725416426+02:00"
-    description: A Helm chart for Bivac
-    digest: fb1cb6bcac492af885ef1777ef4860c1ea7fee046b3926138ccc465089be91b9
-    name: bivac
-    urls:
-    - https://camptocamp.github.io/charts/bivac-1.1.0.tgz
-    version: 1.1.0
-  - apiVersion: v1
     appVersion: "1.0"
     created: "2022-05-09T09:40:23.725169487+02:00"
     description: A Helm chart for Bivac
@@ -1847,8 +1831,7 @@ entries:
     - name: common
       repository: https://kubernetes-charts-incubator.storage.googleapis.com
       version: 0.0.2
-    description: This template deploys a Jenkins server capable of managing OpenShift
-      Pipeline builds and supporting OpenShift-based oauth login and plugins customization
+    description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 6735f248f35d335619764e8e5611e356e21c7a50b4c5d850518e70e10e00a227
     name: openshift-jenkins
     urls:
@@ -1861,8 +1844,7 @@ entries:
     - name: common
       repository: https://kubernetes-charts-incubator.storage.googleapis.com
       version: 0.0.2
-    description: This template deploys a Jenkins server capable of managing OpenShift
-      Pipeline builds and supporting OpenShift-based oauth login and plugins customization
+    description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 7c209d996c874b097c664f972ab3ac01688cc3e1312b338f553b5b3cd2f09193
     name: openshift-jenkins
     urls:
@@ -1875,8 +1857,7 @@ entries:
     - name: common
       repository: https://kubernetes-charts-incubator.storage.googleapis.com
       version: 0.1.0
-    description: This template deploys a Jenkins server capable of managing OpenShift
-      Pipeline builds and supporting OpenShift-based oauth login and plugins customization
+    description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: eaa299842d441ad786534d0c6772dea2f5f4cd5c6d1f4d9a008b547fc90dfb48
     name: openshift-jenkins
     urls:
@@ -1889,8 +1870,7 @@ entries:
     - name: common
       repository: https://kubernetes-charts-incubator.storage.googleapis.com
       version: 0.1.0
-    description: This template deploys a Jenkins server capable of managing OpenShift
-      Pipeline builds and supporting OpenShift-based oauth login and plugins customization
+    description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: f79a697c5c6ca2810adafb0f3b95e9c427b978694acccd13a09d20e7cd55826d
     name: openshift-jenkins
     urls:
@@ -1903,8 +1883,7 @@ entries:
     - name: common
       repository: https://kubernetes-charts-incubator.storage.googleapis.com
       version: 0.1.0
-    description: This template deploys a Jenkins server capable of managing OpenShift
-      Pipeline builds and supporting OpenShift-based oauth login and plugins customization
+    description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: 0f6c16859bcc9691dc4db4417f62a245582a1eaff1a60cbb2baf0f392397a9d0
     name: openshift-jenkins
     urls:
@@ -1917,8 +1896,7 @@ entries:
     - name: common
       repository: https://kubernetes-charts-incubator.storage.googleapis.com
       version: 0.1.0
-    description: This template deploys a Jenkins server capable of managing OpenShift
-      Pipeline builds and supporting OpenShift-based oauth login and plugins customization
+    description: This template deploys a Jenkins server capable of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login and plugins customization
     digest: dbc34536ca71a6a4103ad4d5e24a9c75381d4e1b59686faa880ff38c56cd345a
     name: openshift-jenkins
     urls:
@@ -2636,8 +2614,7 @@ entries:
       name: grafana
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 3.3.*
-    description: Provides easy monitoring definitions for Kubernetes services, and
-      deployment and management of Prometheus instances.
+    description: Provides easy monitoring definitions for Kubernetes services, and deployment and management of Prometheus instances.
     digest: 0336031412fb40454a3f71c4a84c2c41b54919fdb66e710ca2f24550ea192bf6
     home: https://github.com/coreos/prometheus-operator
     icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
@@ -2672,8 +2649,7 @@ entries:
       name: grafana
       repository: https://kubernetes-charts.storage.googleapis.com/
       version: 3.3.*
-    description: Provides easy monitoring definitions for Kubernetes services, and
-      deployment and management of Prometheus instances.
+    description: Provides easy monitoring definitions for Kubernetes services, and deployment and management of Prometheus instances.
     digest: 5a3d95c654dc4d56f786215d7e6f852e93f05fe07387c062ebbb2bf894b6cbe9
     home: https://github.com/coreos/prometheus-operator
     icon: https://raw.githubusercontent.com/prometheus/prometheus.github.io/master/assets/prometheus_logo-cb55bb5c346.png
