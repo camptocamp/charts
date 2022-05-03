@@ -8,6 +8,5 @@ rules:
 {{- if eq (default "" (index $.Values.prometheusPuppetdbSd.args "output.method")) "k8s-secret" }}
 - apiGroups: [""]
   resources: ["secrets"]
-  resourceNames: [{{ required "output.k8s-secret.secret-name must be set in prometheusPuppetdbSd.args" (index $.Values.prometheusPuppetdbSd.args "output.k8s-secret.secret-name") | quote }}]
   verbs: ["*"]
 {{- end }}
