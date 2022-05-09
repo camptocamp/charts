@@ -26,8 +26,10 @@ spec:
           image: "{{ .Values.auth.image.repository }}:{{ .Values.auth.image.tag }}"
           imagePullPolicy: {{ .Values.auth.image.pullPolicy }}
           args:
-            - --provider={{ .Values.auth.provider }}
             - --upstream=http://localhost:8080
+          {{ if .Values.auth.provider }}
+            - --provider={{ .Values.auth.provider }}
+          {{- end }}
           {{- with .Values.auth.additionalArgs }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
