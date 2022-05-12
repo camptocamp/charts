@@ -16,4 +16,34 @@ spec:
         annotations:
           description: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
           summary: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
+      - alert: GitLabLatestBackupAge
+        expr: time()
+          - s3_latest_file_timestamp{namespace="is-gitlab"}/ 1000 > 108000
+        for: 5m
+        labels:
+          severity: "warning"
+          line: "prod"
+          sre_team: "sret3"
+          project: "is-gitlab"
+        annotations:
+          description: The latest GitLab backup file '{{ "{{ $labels.file }}" }}' is more
+            than 1 day old ({{ "{{ $value | humanizeDuration }}" }})
+          summary: Latest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more than 1 day
+            old ({{ "{{ $value | humanizeDuration }}" }})
+      - alert: GitLabOldestBackupAge
+        expr: time()
+          - s3_oldest_file_timestamp{namespace="is-gitlab"} / 1000 > 604800
+        for: 5m
+        labels:
+          severity: "warning"
+          line: "prod"
+          sre_team: "sret3"
+          project: "is-gitlab"
+        annotations:
+          description: The oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more
+            than 7 days old ({{ "{{ $value | humanizeDuration }}" }})
+          summary: Oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more than 7 days
+            old ({{ "{{ $value | humanizeDuration }}" }})
+
+
 
