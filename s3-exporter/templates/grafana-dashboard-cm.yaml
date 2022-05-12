@@ -118,7 +118,7 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_file_count{job=\"gitlab-s3-exporter\",namespace=\"gitlab\"}",
+            "expr": "s3_file_count{job=\"{{ .Values.dashboards.job}}\",namespace=\"{{ .Values.dashboards.namespace}}\"}",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
@@ -199,7 +199,7 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "up{container=\"s3-exporter\", endpoint=\"http\", job=\"gitlab-s3-exporter\", namespace=\"gitlab\", service=\"gitlab-s3-exporter\"}",
+            "expr": "up{container=\"s3-exporter\", endpoint=\"http\", job=\"{{ .Values.dashboards.job}}\",namespace=\"{{ .Values.dashboards.namespace}}\", service=\"gitlab-s3-exporter\"}",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
@@ -378,7 +378,7 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_latest_file_timestamp{job=\"gitlab-s3-exporter\",namespace=\"gitlab\"}",
+            "expr": "s3_latest_file_timestamp{job=\"{{ .Values.dashboards.job}}\",namespace=\"{{ .Values.dashboards.namespace}}\"}",
             "format": "time_series",
             "interval": "",
             "legendFormat": "",
@@ -461,7 +461,7 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_latest_file_size{job=\"gitlab-s3-exporter\",namespace=\"gitlab\"}",
+            "expr": "s3_latest_file_size{job=\"{{ .Values.dashboards.job}}\",namespace=\"{{ .Values.dashboards.namespace}}\"}",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
@@ -557,7 +557,7 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_oldest_file_timestamp{job=\"gitlab-s3-exporter\",namespace=\"gitlab\"}",
+            "expr": "s3_oldest_file_timestamp{job=\"{{ .Values.dashboards.job}}\",namespace=\"{{ .Values.dashboards.namespace}}\"}",
             "format": "time_series",
             "interval": "",
             "legendFormat": "",
@@ -640,7 +640,7 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_oldest_file_size{job=\"gitlab-s3-exporter\",namespace=\"gitlab\"}",
+            "expr": "s3_oldest_file_size{job=\"{{ .Values.dashboards.job}}\",namespace=\"{{ .Values.dashboards.namespace}}\"}",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
