@@ -51,9 +51,10 @@ spec:
             {{- end }}
             - name: TERRABOARD_BASE_URL
               value: {{ .Values.terraboard.base_url }}
-            - name: TERRABOARD_PORT
+            - name: TERRABOARD_WEB_PORT
               value: '8080'
-
+            - name: TERRABOARD_WEB_SWAGGER_PORT
+              value: '8081'
             - name: DB_HOST
               value: {{ .Values.db.host }}
             - name: DB_SSLMODE
