@@ -30,6 +30,7 @@ spec:
         paths:
         {{- range .mainPaths }}
           - path: {{ . }}
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}
@@ -38,6 +39,7 @@ spec:
         {{- end }}
         {{- range .swaggerPaths }}
           - path: {{ . }}
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ $fullName }}-swagger
