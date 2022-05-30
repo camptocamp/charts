@@ -52,9 +52,9 @@ spec:
             - name: TERRABOARD_BASE_URL
               value: {{ .Values.terraboard.base_url }}
             - name: TERRABOARD_PORT
-              value: {{ .Values.service.targetPort }}
+              value: {{ .Values.service.targetPort | quote }}
             - name: TERRABOARD_SWAGGER_PORT
-              value: {{ .Values.swagger.service.targetPort }}
+              value: {{ .Values.swagger.service.targetPort | quote }}
             - name: DB_HOST
               value: {{ .Values.db.host }}
             - name: DB_SSLMODE
