@@ -16,9 +16,6 @@ podSecurityContext: {}
 
 securityContext: {}
 
-extraArgs:
-  - "--log.level=warn"
-
 service:
   type: ClusterIP
   port: 9276
