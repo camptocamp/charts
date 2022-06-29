@@ -22,6 +22,12 @@ spec:
         - name: exporter
           image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          {{- if $.Values.extraArgs }}
+          args:
+          {{- range $.Values.extraArgs  }}
+            - {{ . }}
+          {{- end }}
+          {{- end }}
           env:
             {{- if $.Values.auto_discover_databases }}
             - name: PG_EXPORTER_AUTO_DISCOVER_DATABASES
@@ -88,6 +94,12 @@ spec:
         - name: exporter
           image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
           imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          {{- if $.Values.extraArgs }}
+          args:
+          {{- range $.Values.extraArgs  }}
+            - {{ . }}
+          {{- end }}
+          {{- end }}
           env:
             {{- if $.Values.auto_discover_databases }}
             - name: PG_EXPORTER_AUTO_DISCOVER_DATABASES

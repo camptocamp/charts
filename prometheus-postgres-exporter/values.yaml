@@ -3,7 +3,11 @@ image:
   tag: 0.9.0
   pullPolicy: IfNotPresent
 
+# -- List of additional cli arguments (example: `--log.level`)
+extraArgs: []
+
 auto_discover_databases: true
+
 rds: false
 # Change this to 'true' if it's an azure rds instance
 # because hostname need to be added at the end of username.
