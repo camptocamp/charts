@@ -48,3 +48,6 @@ scrape: {}
   #interval: 30s
 
 dashboard: default
+
+query_text_size: 1000
+exclude_roles: "'rdsadmin', 'azuresu', 'psqladmin'"
