@@ -1,6 +1,6 @@
 ---
 name: prometheus-postgres-exporter
-version: 2.1.1
+version: 2.2.0
 description: 'Prometheus exporter for postgreSQL'
 keywords:
   - postgres
