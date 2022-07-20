@@ -1,0 +1,49 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ template "s3-exporter.fullname" . }}
+  labels:
+    {{- include "s3-exporter.selectorLabels" . | nindent 8 }}
+spec:
+  groups:
+  - name: {{ template "s3-exporter.fullname" . }}-{{ .Release.Namespace }}
+    rules:
+      - alert: GitLabBackupSizeTooSmall
+        expr: s3_latest_file_size  < 1e+06
+        for: 5m
+        labels:
+          severity: "2"
+        annotations:
+          description: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
+          summary: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
+      - alert: GitLabLatestBackupAge
+        expr: time()
+          - s3_latest_file_timestamp{namespace={{ quote .Release.Namespace }} }/ 1000 > 108000
+        for: 5m
+        labels:
+          severity: "warning"
+          line: "prod"
+          sre_team: "sret3"
+          project: {{ quote .Release.Namespace }}
+        annotations:
+          description: The latest GitLab backup file '{{ "{{ $labels.file }}" }}' is more
+            than 1 day old ({{ "{{ $value | humanizeDuration }}" }})
+          summary: Latest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more than 1 day
+            old ({{ "{{ $value | humanizeDuration }}" }})
+      - alert: GitLabOldestBackupAge
+        expr: time()
+          - s3_oldest_file_timestamp{namespace={{ quote .Release.Namespace }}} / 1000 > {{mul 86400 .Values.prometheusrules.oldestfiledays}}
+        for: 5m
+        labels:
+          severity: "warning"
+          line: "prod"
+          sre_team: "sret3"
+          project: {{ quote .Release.Namespace }}
+        annotations:
+          description: The oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more
+            than {{ .Values.prometheusrules.oldestfiledays }} days old ({{ "{{ $value | humanizeDuration }}" }})
+          summary: Oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more than {{ .Values.prometheusrules.oldestfiledays }} days
+            old ({{ "{{ $value | humanizeDuration }}" }})
+
+
+
