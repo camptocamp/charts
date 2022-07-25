@@ -1,4 +1,47 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.4.5"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -20,9 +63,11 @@
   },
   "description": "https://github.com/yesoreyeram/grafana-azure-dashboards",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": 10535,
   "graphTooltip": 1,
-  "iteration": 1639406552007,
+  "id": null,
+  "iteration": 1658753390550,
   "links": [
     {
       "icon": "doc",
@@ -34,9 +79,9 @@
       "url": "https://docs.microsoft.com/en-in/azure/azure-monitor/platform/metrics-supported#microsoftdbforpostgresqlservers"
     }
   ],
+  "liveNow": false,
   "panels": [
     {
-      "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -48,7 +93,6 @@
       "type": "row"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -85,7 +129,6 @@
               "mode": "off"
             }
           },
-          "decimals": null,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -113,7 +156,7 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 12,
+        "w": 9,
         "x": 0,
         "y": 1
       },
@@ -127,11 +170,11 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.0",
-      "repeat": null,
       "targets": [
         {
           "appInsights": {
@@ -238,8 +281,177 @@
       "type": "timeseries"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 5,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "index": 0,
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "index": 1,
+                "value": 80
+              },
+              {
+                "color": "red",
+                "index": 2,
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 9,
+        "x": 9,
+        "y": 1
+      },
+      "hideTimeOverride": true,
+      "id": 26,
+      "links": [],
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "8.1.0",
+      "targets": [
+        {
+          "appInsights": {
+            "groupBy": "none",
+            "metricName": "select",
+            "rawQuery": false,
+            "rawQueryString": "",
+            "spliton": "",
+            "timeGrainType": "auto",
+            "xaxis": "timestamp",
+            "yaxis": ""
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "None",
+              "Average",
+              "Minimum",
+              "Maximum",
+              "Total",
+              "Count"
+            ],
+            "aggregation": "Average",
+            "alias": "CPU Usage",
+            "dimension": "",
+            "dimensionFilter": "*",
+            "dimensions": [],
+            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
+            "metricName": "cpu_percent",
+            "resourceGroup": "$ResourceGroup",
+            "resourceName": "$ResourceName",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ]
+          },
+          "exemplar": true,
+          "expr": "storage_percent_percent_average{resource_name=$ResourceName}",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "Average",
+          "queryType": "Azure Monitor",
+          "refId": "A"
+        }
+      ],
+      "timeShift": "1m",
+      "title": "Storage Usage",
+      "type": "timeseries"
+    },
+    {
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -283,12 +495,11 @@
       "gridPos": {
         "h": 5,
         "w": 3,
-        "x": 12,
+        "x": 18,
         "y": 1
       },
       "hideTimeOverride": true,
       "id": 14,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -304,7 +515,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "appInsights": {
@@ -331,7 +542,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{`{{`}}metric{{`}}`}}",
+            "alias": "{{metric}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -379,23 +590,23 @@
               }
             ]
           },
-          "datasource": "$Subscriptions",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
-          "expr": "storage_percent_percent_total{resource_name=$ResourceName}",
+          "expr": "storage_percent_percent_average{resource_name=$ResourceName}",
           "interval": "",
           "legendFormat": "",
           "queryType": "Azure Monitor",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
       "timeShift": "1m",
       "title": "Storage Used Percentage",
       "type": "gauge"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -429,308 +640,11 @@
       "gridPos": {
         "h": 5,
         "w": 3,
-        "x": 15,
+        "x": 21,
         "y": 1
-      },
-      "hideTimeOverride": true,
-      "id": 25,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.0",
-      "targets": [
-        {
-          "appInsights": {
-            "groupBy": "none",
-            "metricName": "select",
-            "rawQuery": false,
-            "rawQueryString": "",
-            "spliton": "",
-            "timeGrainType": "auto",
-            "xaxis": "timestamp",
-            "yaxis": ""
-          },
-          "azureLogAnalytics": {
-            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
-            "resultFormat": "time_series"
-          },
-          "azureMonitor": {
-            "aggOptions": [
-              "None",
-              "Average",
-              "Minimum",
-              "Maximum",
-              "Total",
-              "Count"
-            ],
-            "aggregation": "Average",
-            "alias": "{{`{{`}}metric{{`}}`}}",
-            "dimension": "",
-            "dimensionFilter": "*",
-            "dimensions": [],
-            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
-            "metricName": "storage_used",
-            "resourceGroup": "$ResourceGroup",
-            "resourceName": "$ResourceName",
-            "timeGrain": "auto",
-            "timeGrains": [
-              {
-                "text": "auto",
-                "value": "auto"
-              },
-              {
-                "text": "1 minute",
-                "value": "PT1M"
-              },
-              {
-                "text": "5 minutes",
-                "value": "PT5M"
-              },
-              {
-                "text": "15 minutes",
-                "value": "PT15M"
-              },
-              {
-                "text": "30 minutes",
-                "value": "PT30M"
-              },
-              {
-                "text": "1 hour",
-                "value": "PT1H"
-              },
-              {
-                "text": "6 hours",
-                "value": "PT6H"
-              },
-              {
-                "text": "12 hours",
-                "value": "PT12H"
-              },
-              {
-                "text": "1 day",
-                "value": "P1D"
-              }
-            ]
-          },
-          "datasource": "$Subscriptions",
-          "exemplar": true,
-          "expr": "storage_used_bytes_total{resource_name=$ResourceName}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "Azure Monitor",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": "1m",
-      "title": "Storage Used",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "noValue": "n/a",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 1
-      },
-      "hideTimeOverride": true,
-      "id": 23,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.0",
-      "targets": [
-        {
-          "appInsights": {
-            "groupBy": "none",
-            "metricName": "select",
-            "rawQuery": false,
-            "rawQueryString": "",
-            "spliton": "",
-            "timeGrainType": "auto",
-            "xaxis": "timestamp",
-            "yaxis": ""
-          },
-          "azureLogAnalytics": {
-            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
-            "resultFormat": "time_series"
-          },
-          "azureMonitor": {
-            "aggOptions": [
-              "None",
-              "Average",
-              "Minimum",
-              "Maximum",
-              "Total",
-              "Count"
-            ],
-            "aggregation": "Average",
-            "alias": "{{`{{`}}metric{{`}}`}}",
-            "dimension": "",
-            "dimensionFilter": "*",
-            "dimensions": [],
-            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
-            "metricName": "storage_used",
-            "resourceGroup": "$ResourceGroup",
-            "resourceName": "$ResourceName",
-            "timeGrain": "auto",
-            "timeGrains": [
-              {
-                "text": "auto",
-                "value": "auto"
-              },
-              {
-                "text": "1 minute",
-                "value": "PT1M"
-              },
-              {
-                "text": "5 minutes",
-                "value": "PT5M"
-              },
-              {
-                "text": "15 minutes",
-                "value": "PT15M"
-              },
-              {
-                "text": "30 minutes",
-                "value": "PT30M"
-              },
-              {
-                "text": "1 hour",
-                "value": "PT1H"
-              },
-              {
-                "text": "6 hours",
-                "value": "PT6H"
-              },
-              {
-                "text": "12 hours",
-                "value": "PT12H"
-              },
-              {
-                "text": "1 day",
-                "value": "P1D"
-              }
-            ]
-          },
-          "datasource": "$Subscriptions",
-          "exemplar": true,
-          "expr": "active_connections_count_total{resource_name=$ResourceName}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "Azure Monitor",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": "1m",
-      "title": "Active Connections",
-      "type": "stat"
-    },
-    {
-      "cacheTimeout": null,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "noValue": "n/a",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "decbytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 12,
-        "y": 6
       },
       "hideTimeOverride": true,
       "id": 20,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -748,7 +662,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "appInsights": {
@@ -775,7 +689,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{`{{`}}metric{{`}}`}}",
+            "alias": "{{metric}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -823,23 +737,170 @@
               }
             ]
           },
-          "datasource": "$Subscriptions",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
-          "expr": "txlogs_storage_used_bytes_total{resource_name=$ResourceName}",
+          "expr": "txlogs_storage_used_bytes_average{resource_name=$ResourceName}",
           "interval": "",
           "legendFormat": "",
           "queryType": "Azure Monitor",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
       "timeShift": "1m",
       "title": "Log Storage Used",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "n/a",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 3,
+        "x": 18,
+        "y": 6
+      },
+      "hideTimeOverride": true,
+      "id": 25,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.5",
+      "targets": [
+        {
+          "appInsights": {
+            "groupBy": "none",
+            "metricName": "select",
+            "rawQuery": false,
+            "rawQueryString": "",
+            "spliton": "",
+            "timeGrainType": "auto",
+            "xaxis": "timestamp",
+            "yaxis": ""
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "None",
+              "Average",
+              "Minimum",
+              "Maximum",
+              "Total",
+              "Count"
+            ],
+            "aggregation": "Average",
+            "alias": "{{metric}}",
+            "dimension": "",
+            "dimensionFilter": "*",
+            "dimensions": [],
+            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
+            "metricName": "storage_used",
+            "resourceGroup": "$ResourceGroup",
+            "resourceName": "$ResourceName",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ]
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "storage_used_bytes_average{resource_name=$ResourceName}",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "Azure Monitor",
+          "refId": "A"
+        }
+      ],
+      "timeShift": "1m",
+      "title": "Storage Used",
+      "type": "stat"
+    },
+    {
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -872,12 +933,11 @@
       "gridPos": {
         "h": 5,
         "w": 3,
-        "x": 15,
+        "x": 21,
         "y": 6
       },
       "hideTimeOverride": true,
       "id": 21,
-      "interval": null,
       "links": [],
       "maxDataPoints": 100,
       "options": {
@@ -895,7 +955,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.1.0",
+      "pluginVersion": "8.4.5",
       "targets": [
         {
           "appInsights": {
@@ -922,7 +982,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{`{{`}}metric{{`}}`}}",
+            "alias": "{{metric}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -970,174 +1030,23 @@
               }
             ]
           },
-          "datasource": "$Subscriptions",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
-          "expr": "backup_storage_used_bytes_total{resource_name=$ResourceName}",
+          "expr": "backup_storage_used_bytes_average{resource_name=$ResourceName}",
           "interval": "",
           "legendFormat": "",
           "queryType": "Azure Monitor",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
       "timeShift": "1m",
       "title": "Backup Storage Used",
       "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "noValue": "n/a",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 1
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 6,
-        "x": 18,
-        "y": 6
-      },
-      "hideTimeOverride": true,
-      "id": 24,
-      "interval": null,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.1.0",
-      "targets": [
-        {
-          "appInsights": {
-            "groupBy": "none",
-            "metricName": "select",
-            "rawQuery": false,
-            "rawQueryString": "",
-            "spliton": "",
-            "timeGrainType": "auto",
-            "xaxis": "timestamp",
-            "yaxis": ""
-          },
-          "azureLogAnalytics": {
-            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
-            "resultFormat": "time_series"
-          },
-          "azureMonitor": {
-            "aggOptions": [
-              "None",
-              "Average",
-              "Minimum",
-              "Maximum",
-              "Total",
-              "Count"
-            ],
-            "aggregation": "Average",
-            "alias": "{{`{{`}}metric{{`}}`}}",
-            "dimension": "",
-            "dimensionFilter": "*",
-            "dimensions": [],
-            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
-            "metricName": "storage_used",
-            "resourceGroup": "$ResourceGroup",
-            "resourceName": "$ResourceName",
-            "timeGrain": "auto",
-            "timeGrains": [
-              {
-                "text": "auto",
-                "value": "auto"
-              },
-              {
-                "text": "1 minute",
-                "value": "PT1M"
-              },
-              {
-                "text": "5 minutes",
-                "value": "PT5M"
-              },
-              {
-                "text": "15 minutes",
-                "value": "PT15M"
-              },
-              {
-                "text": "30 minutes",
-                "value": "PT30M"
-              },
-              {
-                "text": "1 hour",
-                "value": "PT1H"
-              },
-              {
-                "text": "6 hours",
-                "value": "PT6H"
-              },
-              {
-                "text": "12 hours",
-                "value": "PT12H"
-              },
-              {
-                "text": "1 day",
-                "value": "P1D"
-              }
-            ]
-          },
-          "datasource": "$Subscriptions",
-          "exemplar": true,
-          "expr": "connections_failed_count_total{resource_name=$ResourceName}",
-          "interval": "",
-          "legendFormat": "",
-          "queryType": "Azure Monitor",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": "1m",
-      "title": "Failed Connections",
-      "type": "stat"
-    },
-    {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1174,7 +1083,6 @@
               "mode": "off"
             }
           },
-          "decimals": null,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1202,7 +1110,7 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 12,
+        "w": 9,
         "x": 0,
         "y": 11
       },
@@ -1216,7 +1124,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.0",
@@ -1302,23 +1211,6 @@
           "legendFormat": "Average",
           "queryType": "Azure Monitor",
           "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "memory_percent_percent_min{resource_name=$ResourceName}",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "Min",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "memory_percent_percent_max{resource_name=$ResourceName}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Max",
-          "refId": "C"
         }
       ],
       "timeShift": "1m",
@@ -1326,7 +1218,6 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1363,7 +1254,6 @@
               "mode": "off"
             }
           },
-          "decimals": null,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -1380,8 +1270,8 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 12,
-        "x": 12,
+        "w": 9,
+        "x": 9,
         "y": 11
       },
       "hideTimeOverride": true,
@@ -1394,7 +1284,8 @@
           "placement": "bottom"
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.1.0",
@@ -1502,10 +1393,308 @@
       "timeShift": "1m",
       "title": "IO Usage",
       "type": "timeseries"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "n/a",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 11
+      },
+      "hideTimeOverride": true,
+      "id": 23,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.5",
+      "targets": [
+        {
+          "appInsights": {
+            "groupBy": "none",
+            "metricName": "select",
+            "rawQuery": false,
+            "rawQueryString": "",
+            "spliton": "",
+            "timeGrainType": "auto",
+            "xaxis": "timestamp",
+            "yaxis": ""
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "None",
+              "Average",
+              "Minimum",
+              "Maximum",
+              "Total",
+              "Count"
+            ],
+            "aggregation": "Average",
+            "alias": "{{metric}}",
+            "dimension": "",
+            "dimensionFilter": "*",
+            "dimensions": [],
+            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
+            "metricName": "storage_used",
+            "resourceGroup": "$ResourceGroup",
+            "resourceName": "$ResourceName",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ]
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "active_connections_count_average{resource_name=$ResourceName}",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "Azure Monitor",
+          "refId": "A"
+        }
+      ],
+      "timeShift": "1m",
+      "title": "Active Connections",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "n/a",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 6,
+        "x": 18,
+        "y": 16
+      },
+      "hideTimeOverride": true,
+      "id": 24,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.5",
+      "targets": [
+        {
+          "appInsights": {
+            "groupBy": "none",
+            "metricName": "select",
+            "rawQuery": false,
+            "rawQueryString": "",
+            "spliton": "",
+            "timeGrainType": "auto",
+            "xaxis": "timestamp",
+            "yaxis": ""
+          },
+          "azureLogAnalytics": {
+            "query": "//change this example to create your own time series query\n<table name>                                                              //the table to query (e.g. Usage, Heartbeat, Perf)\n| where $__timeFilter(TimeGenerated)                                      //this is a macro used to show the full chart’s time range, choose the datetime column here\n| summarize count() by <group by column>, bin(TimeGenerated, $__interval) //change “group by column” to a column in your table, such as “Computer”. The $__interval macro is used to auto-select the time grain. Can also use 1h, 5m etc.\n| order by TimeGenerated asc",
+            "resultFormat": "time_series"
+          },
+          "azureMonitor": {
+            "aggOptions": [
+              "None",
+              "Average",
+              "Minimum",
+              "Maximum",
+              "Total",
+              "Count"
+            ],
+            "aggregation": "Average",
+            "alias": "{{metric}}",
+            "dimension": "",
+            "dimensionFilter": "*",
+            "dimensions": [],
+            "metricDefinition": "Microsoft.DBforPostgreSQL/servers",
+            "metricName": "storage_used",
+            "resourceGroup": "$ResourceGroup",
+            "resourceName": "$ResourceName",
+            "timeGrain": "auto",
+            "timeGrains": [
+              {
+                "text": "auto",
+                "value": "auto"
+              },
+              {
+                "text": "1 minute",
+                "value": "PT1M"
+              },
+              {
+                "text": "5 minutes",
+                "value": "PT5M"
+              },
+              {
+                "text": "15 minutes",
+                "value": "PT15M"
+              },
+              {
+                "text": "30 minutes",
+                "value": "PT30M"
+              },
+              {
+                "text": "1 hour",
+                "value": "PT1H"
+              },
+              {
+                "text": "6 hours",
+                "value": "PT6H"
+              },
+              {
+                "text": "12 hours",
+                "value": "PT12H"
+              },
+              {
+                "text": "1 day",
+                "value": "P1D"
+              }
+            ]
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "exemplar": true,
+          "expr": "connections_failed_count_average{resource_name=$ResourceName}",
+          "interval": "",
+          "legendFormat": "",
+          "queryType": "Azure Monitor",
+          "refId": "A"
+        }
+      ],
+      "timeShift": "1m",
+      "title": "Failed Connections",
+      "type": "stat"
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 30,
+  "schemaVersion": 35,
   "style": "dark",
   "tags": [
     "azure",
@@ -1514,16 +1703,8 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "\"default\"",
-          "value": "\"default\""
-        },
-        "datasource": null,
+        "current": {},
         "definition": "azure_resource_info",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "Resource Group",
@@ -1538,19 +1719,12 @@
         "regex": "/resource_group=(.*?),/",
         "skipUrlSync": false,
         "sort": 1,
-        "type": "query"
+        "type": "query",
+        "datasource": "${DS_PROMETHEUS}"
       },
       {
-        "allValue": null,
-        "current": {
-          "selected": false,
-          "text": "\"ch-weissenstein-1-prod\"",
-          "value": "\"ch-weissenstein-1-prod\""
-        },
-        "datasource": null,
+        "current": {},
         "definition": "azure_resource_info{resource_group=$ResourceGroup,resource_type=\"Microsoft.DBforPostgreSQL/flexibleServers\"}",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": "PostgreSQL Server Name",
@@ -1568,7 +1742,8 @@
         "tagValuesQuery": "",
         "tagsQuery": "",
         "type": "query",
-        "useTags": false
+        "useTags": false,
+        "datasource": "${DS_PROMETHEUS}"
       }
     ]
   },
@@ -1601,6 +1776,6 @@
   "timezone": "",
   "title": "Azure PostgreSQL",
   "uid": "f1x7cxcnz",
-  "version": 1
+  "version": 1,
+  "weekStart": ""
 }
-
