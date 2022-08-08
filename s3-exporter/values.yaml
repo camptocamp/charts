@@ -46,7 +46,9 @@ servicemonitor:
 
 prometheusrules:
   oldestfiledays: 7
-
+  labels:
+    severity: "warning"
+    line: "prod"
 
 config: |-
   access_key: "S3-ACCESS-KEY"

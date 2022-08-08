@@ -12,7 +12,7 @@ spec:
         expr: s3_latest_file_size  < 1e+06
         for: 5m
         labels:
-          severity: "2"
+          {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
         annotations:
           description: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
           summary: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
@@ -21,10 +21,7 @@ spec:
           - s3_latest_file_timestamp{namespace={{ quote .Release.Namespace }} }/ 1000 > 108000
         for: 5m
         labels:
-          severity: "warning"
-          line: "prod"
-          sre_team: "sret3"
-          project: {{ quote .Release.Namespace }}
+          {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
         annotations:
           description: The latest GitLab backup file '{{ "{{ $labels.file }}" }}' is more
             than 1 day old ({{ "{{ $value | humanizeDuration }}" }})
@@ -35,10 +32,7 @@ spec:
           - s3_oldest_file_timestamp{namespace={{ quote .Release.Namespace }}} / 1000 > {{mul 86400 .Values.prometheusrules.oldestfiledays}}
         for: 5m
         labels:
-          severity: "warning"
-          line: "prod"
-          sre_team: "sret3"
-          project: {{ quote .Release.Namespace }}
+          {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
         annotations:
           description: The oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more
             than {{ .Values.prometheusrules.oldestfiledays }} days old ({{ "{{ $value | humanizeDuration }}" }})
