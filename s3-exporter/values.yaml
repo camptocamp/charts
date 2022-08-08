@@ -49,8 +49,6 @@ prometheusrules:
   labels:
     severity: "warning"
     line: "prod"
-    sre_team: "sret3"
-    project: "s3-exporter"
 
 config: |-
   access_key: "S3-ACCESS-KEY"
