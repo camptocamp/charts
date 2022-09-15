@@ -1,47 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
-    }
-  ],
-  "__elements": [],
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "8.4.5"
-    },
-    {
-      "type": "datasource",
-      "id": "prometheus",
-      "name": "Prometheus",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "stat",
-      "name": "Stat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -66,8 +23,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 10535,
   "graphTooltip": 1,
-  "id": null,
-  "iteration": 1658753390550,
+  "id": 32,
+  "iteration": 1663249813451,
   "links": [
     {
       "icon": "doc",
@@ -93,6 +50,10 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -249,6 +210,10 @@
               }
             ]
           },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "cpu_percent_percent_average{resource_name=$ResourceName}",
           "format": "time_series",
@@ -259,6 +224,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "cpu_percent_percent_min{resource_name=$ResourceName}",
           "hide": false,
@@ -268,6 +237,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "cpu_percent_percent_max{resource_name=$ResourceName}",
           "hide": false,
@@ -281,6 +254,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -437,6 +414,10 @@
               }
             ]
           },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "storage_percent_percent_average{resource_name=$ResourceName}",
           "format": "time_series",
@@ -452,6 +433,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -542,7 +527,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{metric}}",
+            "alias": "{{`{{`}}metric{{`}}`}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -592,7 +577,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "storage_percent_percent_average{resource_name=$ResourceName}",
@@ -607,6 +592,10 @@
       "type": "gauge"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -689,7 +678,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{metric}}",
+            "alias": "{{`{{`}}metric{{`}}`}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -739,7 +728,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "txlogs_storage_used_bytes_average{resource_name=$ResourceName}",
@@ -754,6 +743,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -836,7 +829,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{metric}}",
+            "alias": "{{`{{`}}metric{{`}}`}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -886,7 +879,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "storage_used_bytes_average{resource_name=$ResourceName}",
@@ -901,6 +894,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -982,7 +979,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{metric}}",
+            "alias": "{{`{{`}}metric{{`}}`}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -1032,7 +1029,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "backup_storage_used_bytes_average{resource_name=$ResourceName}",
@@ -1047,6 +1044,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1203,6 +1204,10 @@
               }
             ]
           },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "memory_percent_percent_average{resource_name=$ResourceName}",
           "format": "time_series",
@@ -1218,6 +1223,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1363,6 +1372,10 @@
               }
             ]
           },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "iops_count_average{resource_name=$ResourceName}",
           "format": "time_series",
@@ -1373,6 +1386,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "iops_count_min{resource_name=$ResourceName}",
           "hide": false,
@@ -1382,6 +1399,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${datasource}"
+          },
           "exemplar": true,
           "expr": "iops_count_max{resource_name=$ResourceName}",
           "hide": false,
@@ -1395,6 +1416,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1477,7 +1502,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{metric}}",
+            "alias": "{{`{{`}}metric{{`}}`}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -1527,7 +1552,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "active_connections_count_average{resource_name=$ResourceName}",
@@ -1542,6 +1567,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${datasource}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1628,7 +1657,7 @@
               "Count"
             ],
             "aggregation": "Average",
-            "alias": "{{metric}}",
+            "alias": "{{`{{`}}metric{{`}}`}}",
             "dimension": "",
             "dimensionFilter": "*",
             "dimensions": [],
@@ -1678,7 +1707,7 @@
           },
           "datasource": {
             "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+            "uid": "${datasource}"
           },
           "exemplar": true,
           "expr": "connections_failed_count_average{resource_name=$ResourceName}",
@@ -1703,7 +1732,11 @@
   "templating": {
     "list": [
       {
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "\"default\"",
+          "value": "\"default\""
+        },
         "definition": "azure_resource_info",
         "hide": 0,
         "includeAll": false,
@@ -1719,11 +1752,14 @@
         "regex": "/resource_group=(.*?),/",
         "skipUrlSync": false,
         "sort": 1,
-        "type": "query",
-        "datasource": "${DS_PROMETHEUS}"
+        "type": "query"
       },
       {
-        "current": {},
+        "current": {
+          "selected": false,
+          "text": "\"ch-cosanum-1\"",
+          "value": "\"ch-cosanum-1\""
+        },
         "definition": "azure_resource_info{resource_group=$ResourceGroup,resource_type=\"Microsoft.DBforPostgreSQL/flexibleServers\"}",
         "hide": 0,
         "includeAll": false,
@@ -1742,8 +1778,26 @@
         "tagValuesQuery": "",
         "tagsQuery": "",
         "type": "query",
-        "useTags": false,
-        "datasource": "${DS_PROMETHEUS}"
+        "useTags": false
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Data source",
+        "multi": false,
+        "name": "datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
