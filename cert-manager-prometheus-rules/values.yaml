@@ -1,0 +1,5 @@
+rules:
+  expiry_soon: true
+  expiry_iminent: true
+  cert_not_ready: true
+  hitting_rate_limits: true
