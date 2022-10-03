@@ -1,5 +1,5 @@
 ---
 apiVersion: "v2"
 name: "cert-manager-prometheus-rules"
-version: "v0.0.1"
+version: "v0.0.2"
 description: "This chart is based upon this chart here https://github.com/adfinis/helm-charts/tree/main/charts/cert-manager-monitoring. It contains the alert rules available on that repository and some other customizations."
