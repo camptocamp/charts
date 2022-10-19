@@ -1,0 +1,50 @@
+# Please, at least, change the following 4 values :
+oidc:
+  providerName: FreeIPA Account
+  issuerURL: https://dex.apps.chart-example.com
+  clientID: getconfig
+  clientSecret:
+    # Name of k8s secret with OIDC Client secret
+    name: oidc-secret
+    # Key in k8s secret with OIDC Client secret
+    key: client_secret
+config:
+  configMapName: config
+userID: 135345
+cookieSecret: Aechedeec2i
+ingress:
+  annotations: {}
+    # cert-manager.io/cluster-issuer: letsencrypt-prod
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  host: getconfig.chart-example.com
+  # note that HTTPS is hardcoded on the redirect-url
+  tls: true
+#  ---- end of mandatory adaptation ----
+
+replicaCount: 1
+
+image:
+  repository: quay.io/oauth2-proxy/oauth2-proxy
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v7.3.0"
+
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

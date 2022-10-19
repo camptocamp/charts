@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "getconfig.fullname" . }}
+  labels:
+    {{- include "getconfig.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "getconfig.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+    {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "getconfig.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: oauth-proxy
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - --http-address=0.0.0.0:4180
+            - --upstream=file:///mnt/config/#/
+            - --provider=oidc
+            - --provider-display-name="{{ .Values.oidc.providerName }}"
+            - --oidc-issuer-url={{ .Values.oidc.issuerURL }}
+            - --client-id={{ .Values.oidc.clientID }}
+            - --client-secret-file=/mnt/oidcsecret/{{ .Values.oidc.clientSecret.key }}
+            - --cookie-secure=false
+            - --cookie-secret={{ .Values.cookieSecret }}
+            - "--email-domain=*"
+            - --redirect-url=https://{{ .Values.ingress.host }}/oauth2/callback
+          ports:
+            - name: http
+              containerPort: 4180
+              protocol: TCP
+          livenessProbe: &healthcheck
+            httpGet:
+              path: /ping
+              port: http
+          readinessProbe:
+            *healthcheck
+          securityContext:
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: {{ .Values.UserID }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /mnt/config/
+              readOnly: true
+            - name: oidcsecret
+              mountPath: /mnt/oidcsecret/
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Values.config.configMapName }}
+        - name: oidcsecret
+          secret:
+            secretName: {{ .Values.oidc.clientSecret.name }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
