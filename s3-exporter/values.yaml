@@ -64,7 +64,3 @@ config: |-
 podAnnotations: []
 
 imagePullSecrets: []
-
-dashboards:
-  job: gitlab-s3-exporter
-  namespace: gitlab
