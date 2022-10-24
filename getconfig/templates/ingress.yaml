@@ -20,6 +20,9 @@ spec:
       http:
         paths:
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: {{ include "getconfig.fullname" $ }}
-              servicePort: 80
+              service:
+                name: {{ include "getconfig.fullname" $ }}
+                port:
+                  number: 80

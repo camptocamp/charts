@@ -2,4 +2,4 @@ apiVersion: v2
 name: getconfig
 description: Deploy an Oauth proxy in front of a config file, mainly to expose a kubeconfig
 type: application
-version: 0.1.0
+version: 0.1.1
