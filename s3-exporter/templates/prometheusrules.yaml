@@ -8,36 +8,22 @@ spec:
   groups:
   - name: {{ template "s3-exporter.fullname" . }}-{{ .Release.Namespace }}
     rules:
-      - alert: GitLabBackupSizeTooSmall
-        expr: s3_latest_file_size  < 1e+06
+      - alert: BackupSizeTooSmall
+        expr: s3_last_modified_object_size_bytes < 1e+06
         for: 5m
         labels:
           {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
         annotations:
-          description: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
-          summary: GitLab backup file '{{ "{{ $labels.file }}" }}' is too small
-      - alert: GitLabLatestBackupAge
+          description: Backup file '{{ "{{ $labels.file }}" }}' is too small
+          summary: Backup file '{{ "{{ $labels.file }}" }}' is too small
+      - alert: LatestBackupAge
         expr: time()
-          - s3_latest_file_timestamp{namespace={{ quote .Release.Namespace }} }/ 1000 > 108000
+          - s3_last_modified_object_date{namespace={{ quote .Release.Namespace }} }/ 1000 > 108000
         for: 5m
         labels:
           {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
         annotations:
-          description: The latest GitLab backup file '{{ "{{ $labels.file }}" }}' is more
+          description: The latest backup file '{{ "{{ $labels.file }}" }}' is more
             than 1 day old ({{ "{{ $value | humanizeDuration }}" }})
-          summary: Latest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more than 1 day
+          summary: Latest backup file  '{{ "{{ $labels.file }}" }}' is more than 1 day
             old ({{ "{{ $value | humanizeDuration }}" }})
-      - alert: GitLabOldestBackupAge
-        expr: time()
-          - s3_oldest_file_timestamp{namespace={{ quote .Release.Namespace }}} / 1000 > {{mul 86400 .Values.prometheusrules.oldestfiledays}}
-        for: 5m
-        labels:
-          {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
-        annotations:
-          description: The oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more
-            than {{ .Values.prometheusrules.oldestfiledays }} days old ({{ "{{ $value | humanizeDuration }}" }})
-          summary: Oldest GitLab backup file  '{{ "{{ $labels.file }}" }}' is more than {{ .Values.prometheusrules.oldestfiledays }} days
-            old ({{ "{{ $value | humanizeDuration }}" }})
-
-
-

@@ -43,12 +43,12 @@ data:
           "y": 0
         },
         "id": 13,
-        "title": "gitlab backup general info",
+        "title": "Backup general info",
         "type": "row"
       },
       {
         "datasource": "Prometheus",
-        "description": "counts how many backup file are stored for gitlab",
+        "description": "counts how many backup file are stored",
         "fieldConfig": {
           "defaults": {
             "color": {
@@ -119,177 +119,13 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_file_count{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
+            "expr": "s3_objects{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
           }
         ],
-        "title": "gitlab backup s3 file count",
-        "type": "timeseries"
-      },
-      {
-        "datasource": "Prometheus",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "bars",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            }
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 6,
-          "x": 12,
-          "y": 1
-        },
-        "id": 16,
-        "options": {
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom"
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "targets": [
-          {
-            "exemplar": true,
-            "expr": "up{container=\"s3-exporter\", endpoint=\"http\", job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\", service=\"gitlab-s3-exporter\"}",
-            "interval": "",
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "title": "s3 exporter UP/DOWN",
-        "type": "timeseries"
-      },
-      {
-        "datasource": "Prometheus",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "s"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 6,
-          "x": 18,
-          "y": 1
-        },
-        "id": 18,
-        "options": {
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom"
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "pluginVersion": "8.1.0",
-        "targets": [
-          {
-            "exemplar": true,
-            "expr": "rate(process_cpu_seconds_total{container=\"s3-exporter\", endpoint=\"http\", job=\"gitlab-s3-exporter\", namespace=\"gitlab\", service=\"gitlab-s3-exporter\"}  [5m])",
-            "interval": "",
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "title": "s3 exporter cpu / second rate",
+        "title": "File count",
         "type": "timeseries"
       },
       {
@@ -379,14 +215,14 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_latest_file_timestamp{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
+            "expr": "s3_last_modified_object_date{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
             "format": "time_series",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
           }
         ],
-        "title": "gitlab backup latest backup date",
+        "title": "Latest push file date",
         "type": "timeseries"
       },
       {
@@ -462,13 +298,13 @@ data:
         "targets": [
           {
             "exemplar": true,
-            "expr": "s3_latest_file_size{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
+            "expr": "s3_last_modified_object_size_bytes{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
             "interval": "",
             "legendFormat": "",
             "refId": "A"
           }
         ],
-        "title": "gitlab backup lastest file size",
+        "title": "Lastest file size",
         "type": "timeseries"
       },
       {
@@ -484,171 +320,6 @@ data:
         "panels": [],
         "title": "oldest backup",
         "type": "row"
-      },
-      {
-        "datasource": "Prometheus",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "dateTimeAsIso"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 19
-        },
-        "id": 7,
-        "options": {
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom"
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "targets": [
-          {
-            "exemplar": true,
-            "expr": "s3_oldest_file_timestamp{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
-            "format": "time_series",
-            "interval": "",
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "title": "gitlab backup oldest backup date",
-        "type": "timeseries"
-      },
-      {
-        "datasource": "Prometheus",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bits"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 19
-        },
-        "id": 14,
-        "options": {
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom"
-          },
-          "tooltip": {
-            "mode": "single"
-          }
-        },
-        "targets": [
-          {
-            "exemplar": true,
-            "expr": "s3_oldest_file_size{job=\"{{ .Values.dashboards.job }}\",namespace=\"{{ .Values.dashboards.namespace | default .Release.Namespace }}\"}",
-            "interval": "",
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "title": "gitlab backup oldest file size",
-        "type": "timeseries"
       }
     ],
     "refresh": false,
@@ -664,7 +335,7 @@ data:
     },
     "timepicker": {},
     "timezone": "",
-    "title": "gitlab-s3-exporter",
+    "title": "s3-exporter",
     "uid": "EdYPKbsnk",
     "version": 6
     }

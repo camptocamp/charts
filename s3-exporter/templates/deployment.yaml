@@ -36,38 +36,29 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-          - mountPath: /config
-            name: config-vol
+          {{- if .Values.exporterFlags }}
+          args:
+          {{- range .Values.exporterFlags }}
+          - {{ . }}
+          {{- end }}
+          {{- end }}
+          envFrom:
+          - secretRef:
+              name: {{ template "s3-exporter.fullname" . }}
           ports:
-            - name: http
-              containerPort: 9327
+            - name: exporter
+              containerPort: 9340
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: http
-            initialDelaySeconds: 60
-            periodSeconds: 60
-            timeoutSeconds: 30
-            failureThreshold: 10
+              port: exporter
           readinessProbe:
             httpGet:
               path: /
-              port: http
-            initialDelaySeconds: 60
-            periodSeconds: 60
-            timeoutSeconds: 30
-            failureThreshold: 10
+              port: exporter
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-      volumes:
-        - name: config-vol
-          configMap:
-            name: {{ template "s3-exporter.fullname" . }}
-            items:
-              - key: config
-                path: config.yml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
