@@ -60,8 +60,9 @@ podAnnotations: []
 
 imagePullSecrets: []
 
+# Inject the dashboard for this exporter
 dashboards:
-  enabled: true
-  job: gitlab-s3-exporter
-  namespace: gitlab
+  enabled: false
+  job: s3-exporter # The name of the job label in the prometheus metric
+#  namespace: app Which namesapce the probes are deployed
 
