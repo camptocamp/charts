@@ -8,14 +8,6 @@ spec:
   groups:
   - name: {{ template "s3-exporter.fullname" . }}-{{ .Release.Namespace }}
     rules:
-      - alert: BackupSizeTooSmall
-        expr: s3_last_modified_object_size_bytes < 1e+06
-        for: 5m
-        labels:
-          {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
-        annotations:
-          description: Backup file '{{ "{{ $labels.file }}" }}' is too small
-          summary: Backup file '{{ "{{ $labels.file }}" }}' is too small
       - alert: LatestBackupAge
         expr: time()
           - s3_last_modified_object_date{namespace={{ quote .Release.Namespace }} } > 108000
