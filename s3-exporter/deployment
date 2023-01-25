@@ -1,0 +1,465 @@
+---
+# Source: s3-exporter/templates/s3-accesskey.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name:  lamp-backup-monitoring-s3-exporter
+type: Opaque
+data:
+  AWS_ACCESS_KEY_ID: UzMtQUNDRVNTLUtFWQ==
+  AWS_SECRET_ACCESS_KEY: UzMtU0VDUkVULUtFWQ==
+---
+# Source: s3-exporter/templates/grafana-dashboard-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_dashboard: "1"
+    release: kube-prometheus-stack
+  name: s3-exporter-dashboard
+data:
+  s3-exporter-dashboard.json: |-
+    {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 33,
+    "links": [],
+    "panels": [
+      {
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 13,
+        "title": "Backup general info",
+        "type": "row"
+      },
+      {
+        "datasource": "Prometheus",
+        "description": "counts how many backup file are stored",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 1
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "s3_objects{job=\"s3-exporter\",namespace=\"default\"}",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "File count",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": true,
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 11,
+        "panels": [],
+        "title": "latest backup",
+        "type": "row"
+      },
+      {
+        "datasource": "Prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "dateTimeAsIso"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 10
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "s3_last_modified_object_date{job=\"s3-exporter\",namespace=\"default\"}",
+            "format": "time_series",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Latest push file date",
+        "type": "timeseries"
+      },
+      {
+        "datasource": "Prometheus",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bits"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 10
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "s3_last_modified_object_size_bytes{job=\"s3-exporter\",namespace=\"default\"}",
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "title": "Lastest file size",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "datasource": "Prometheus",
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 18
+        },
+        "id": 9,
+        "panels": [],
+        "title": "oldest backup",
+        "type": "row"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 30,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "now-7d",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "s3-exporter",
+    "uid": "EdYPKbsnk",
+    "version": 6
+    }
+---
+# Source: s3-exporter/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: lamp-backup-monitoring-s3-exporter
+  labels:
+    helm.sh/chart: s3-exporter-2.0.1
+    app.kubernetes.io/name: s3-exporter
+    app.kubernetes.io/instance: lamp-backup-monitoring
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9340
+      targetPort: exporter
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: s3-exporter
+    app.kubernetes.io/instance: lamp-backup-monitoring
+---
+# Source: s3-exporter/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lamp-backup-monitoring-s3-exporter
+  labels:
+    helm.sh/chart: s3-exporter-2.0.1
+    app.kubernetes.io/name: s3-exporter
+    app.kubernetes.io/instance: lamp-backup-monitoring
+    app.kubernetes.io/version: "1.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: s3-exporter
+      app.kubernetes.io/instance: lamp-backup-monitoring
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: s3-exporter
+        app.kubernetes.io/instance: lamp-backup-monitoring
+    spec:
+      serviceAccountName: default
+      securityContext:
+        null
+      containers:
+        - name: s3-exporter
+          securityContext:
+            null
+          image: "ribbybibby/s3-exporter:v0.5.0"
+          imagePullPolicy: IfNotPresent
+          args:
+          - --log.level=debug
+          envFrom:
+          - secretRef:
+              name: lamp-backup-monitoring-s3-exporter
+          ports:
+            - name: exporter
+              containerPort: 9340
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          readinessProbe:
+            httpGet:
+              path: /
+              port: exporter
+          resources:
+            limits:
+              cpu: 300m
+              memory: 256M
+            requests:
+              cpu: 100m
+              memory: 50M
+---
+# Source: s3-exporter/templates/prometheusrules.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: lamp-backup-monitoring-s3-exporter
+  labels:
+        app.kubernetes.io/name: s3-exporter
+        app.kubernetes.io/instance: lamp-backup-monitoring
+spec:
+  groups:
+  - name: lamp-backup-monitoring-s3-exporter-default
+    rules:
+      - alert: BackupSizeTooSmall
+        expr: s3_last_modified_object_size_bytes < 1e+06
+        for: 5m
+        labels:
+          line: prod
+          severity: warning
+        annotations:
+          description: Backup file '{{ $labels.file }}' is too small
+          summary: Backup file '{{ $labels.file }}' is too small
+      - alert: LatestBackupAge
+        expr: time()
+          - s3_last_modified_object_date{namespace="default" }/ 1000 > 108000
+        for: 5m
+        labels:
+          line: prod
+          severity: warning
+        annotations:
+          description: The latest backup file '{{ $labels.file }}' is more
+            than 1 day old ({{ $value | humanizeDuration }})
+          summary: Latest backup file  '{{ $labels.file }}' is more than 1 day
+            old ({{ $value | humanizeDuration }})
