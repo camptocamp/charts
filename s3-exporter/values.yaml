@@ -52,6 +52,7 @@ prometheusrules:
 s3:
   accessKey: "S3-ACCESS-KEY"
   secretKey: "S3-SECRET-KEY"
+  region: "us-east-1"
 exporterFlags:
   - '--log.level=debug'
 
