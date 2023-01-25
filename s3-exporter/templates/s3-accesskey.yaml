@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name:  {{ template "s3-exporter.fullname" . }}
+type: Opaque
+data:
+  AWS_ACCESS_KEY_ID: {{ .Values.s3.accessKey | b64enc }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.s3.secretKey | b64enc }}
