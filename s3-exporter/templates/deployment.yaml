@@ -44,7 +44,7 @@ spec:
           {{- end }}
           envFrom:
           - secretRef:
-              name: {{ template "s3-exporter.fullname" . }}
+              name: {{ template "s3-exporter.bucketAccessSecretName" . }}
           ports:
             - name: exporter
               containerPort: 9340
