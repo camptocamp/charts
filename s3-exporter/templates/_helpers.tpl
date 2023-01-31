@@ -25,6 +25,18 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
+The name of the secret used to store the SecretKey and AccessKey to access the bucket.
+It is the fullname of the release if .Values.s3.secretName is not set.
+*/}}
+{{- define "s3-exporter.bucketAccessSecretName" -}}
+{{- if .Values.s3.secretName }}
+{{- .Values.s3.secretName }}
+{{- else }}
+{{- include "s3-exporter.fullname" . }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "s3-exporter.chart" -}}
