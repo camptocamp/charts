@@ -63,8 +63,8 @@ s3:
   #  - AWS_SECRET_ACCESS_KEY
   # Optionnally any other environment variable taken by the s3-exporter.
   existingSecret: false
-exporterFlags:
-  - '--log.level=debug'
+
+exporterFlags: []
 
 podAnnotations: []
 
