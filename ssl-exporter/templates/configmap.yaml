@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-{{ include "ssl-exporter.fullname" . }}
+  labels:
+    {{- include "ssl-exporter.labels" . | nindent 4 }}
+data:
+  ssl-exporter.yaml: |
+{{- if .Values.config }}
+{{ toYaml .Values.config | indent 4 }}
+{{- end }}
