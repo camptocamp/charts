@@ -46,7 +46,7 @@ service:
 ingress:
   enabled: false
 
-resources: {}
+resources: 
   limits:
     cpu: 300m
     memory: 256Mi
