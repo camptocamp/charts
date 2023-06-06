@@ -55,6 +55,8 @@ spec:
               value: {{ .Values.master | quote }}
             - name: PG_EXPORTER_EXCLUDE_DATABASES
               value: {{ $.Values.exclude_databases | quote }}
+            - name: PG_EXPORTER_INCLUDE_DATABASES
+              value: {{ $.Values.include_databases | quote }}
             - name: PG_EXPORTER_EXTEND_QUERY_PATH
               value: /etc/prometheus-postgres-exporter/queries.yaml
           ports:
