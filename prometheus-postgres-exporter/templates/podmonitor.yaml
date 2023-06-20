@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ include "prometheus-postgres-exporter.fullname" . }}
   labels:
 {{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
 spec:
