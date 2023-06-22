@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-master
+  name: {{ include "prometheus-postgres-exporter.fullname" . }}-master
   labels:
 {{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
 data:
@@ -12,7 +12,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-replica
+  name: {{ include "prometheus-postgres-exporter.fullname" . }}-replica
   labels:
 {{ include "prometheus-postgres-exporter.labels" . | indent 4 }}
 data:
