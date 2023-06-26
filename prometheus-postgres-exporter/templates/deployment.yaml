@@ -76,7 +76,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "prometheus-postgres-exporter.fullname" . }}-replica{{ $index }}
+  name: {{ include "prometheus-postgres-exporter.fullname" $root }}-replica{{ $index }}
   labels:
 {{ include "prometheus-postgres-exporter.labels" $root | indent 4 }}
 spec:
@@ -143,5 +143,5 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "prometheus-postgres-exporter.fullname" . }}-replica
+            name: {{ include "prometheus-postgres-exporter.fullname" $root }}-replica
 {{- end }}
