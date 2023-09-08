@@ -39,7 +39,7 @@ pg_replication:
 pg_replication_replay:
   master: true
   {{- if $.Values.version | semverCompare ">= 10" }}
-  query: "SELECT client_addr, coalesce(pg_wal_lsn_diff(pg_current_wal_flush_lsn(), replay_lsn), 0) AS lag FROM pg_stat_replication WHERE state <> 'backup'"
+  query: "SELECT client_addr, sum(coalesce(pg_wal_lsn_diff(pg_current_wal_flush_lsn(), replay_lsn), 0)) AS lag FROM pg_stat_replication WHERE state <> 'backup' group by client_addr"
   {{- else }}
   query: "SELECT client_addr, coalesce(pg_xlog_location_diff(pg_current_xlog_location(), replay_location), 0) AS lag FROM pg_stat_replication WHERE state <> 'backup'"
   {{- end }}
