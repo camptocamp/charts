@@ -3265,7 +3265,7 @@
         "pluginVersion": "8.1.0",
         "targets": [
           {
-            "expr": "topk(5, label_replace(pg_stat_statements_max_time_max_time_seconds{server=~\"$dbserver\"}, \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")) by (server)",
+            "expr": "topk(5, label_replace(pg_stat_statements_max_time_max_time_seconds{server=~\"$dbserver\", datname=~\"$database\"}, \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")) by (server)",
             "interval": "",
             "legendFormat": "{{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
             "refId": "A"
@@ -3330,7 +3330,7 @@
         "pluginVersion": "8.1.0",
         "targets": [
           {
-            "expr": "label_replace(topk(5, pg_stat_statements_most_rows_rows{server=~\"$dbserver\"} / pg_stat_statements_most_rows_calls{server=~\"$dbserver\"}) by (server), \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
+            "expr": "label_replace(topk(5, pg_stat_statements_most_rows_rows{server=~\"$dbserver\", datname=~\"$database\"} / pg_stat_statements_most_rows_calls{server=~\"$dbserver\", datname=~\"$database\"}) by (server), \"short_name\", \"$1\", \"server\", \"([^\\\\.]+)\\\\..+\")",
             "interval": "",
             "legendFormat": "{{short_name}}/{{datname}}: {{queryid}} ({{shrunk_query_text}})",
             "refId": "B"
