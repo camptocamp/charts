@@ -1,0 +1,34 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "create", "update", "delete"]
+- apiGroups: ["cilium.io"]
+  resources: ["tracingpoliciesnamespaced"]
+  verbs: ["get", "list", "create", "update", "delete"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["replicasets", "deployments", "daemonsets", "statefulsets"]
+  verbs: ["get", "list"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+  labels:
+    {{- include "tetragon-policy-builder.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "tetragon-policy-builder.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "tetragon-policy-builder.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "tetragon-policy-builder.fullname" . }}
+      containers:
+        - name: policy-builder
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: TETRAGON_POD_SELECTOR
+              value: {{ .Values.tetragon_pod_selector | toYaml | replace ": " "="  | replace "\n" "," | quote }}
+          ports:
+            - name: http
+              containerPort: 5000
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,25 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+rules:
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list"]
+  resourceNames: []
+  resourceLabels:
+    {{- .Values.tetragon_pod_selector | toYaml | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: {{ include "tetragon-policy-builder.fullname" . }}
+  apiGroup: rbac.authorization.k8s.io
