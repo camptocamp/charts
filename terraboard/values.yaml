@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/camptocamp/terraboard
-  tag: 2.2.0
+  repository: ghcr.io/camptocamp/terraboard
+  tag: v2.3.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -47,7 +47,7 @@ additionalEnv: []
 #       s3:
 #         - bucket: test-bucket
 #           force-path-style: true
-#           file-extension: 
+#           file-extension:
 #             - .tfstate
 #
 #     - endpoint: http://minio:9000/
@@ -55,7 +55,7 @@ additionalEnv: []
 #       s3:
 #         - bucket: test-bucket2
 #           force-path-style: true
-#           file-extension: 
+#           file-extension:
 #             - .tfstate
 
 podSecurityContext: {}
