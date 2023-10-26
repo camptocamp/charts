@@ -4,7 +4,7 @@
 
 image:
   repository: camptocamp/prometheus-puppetdb-sd
-  tag: 0.11.0
+  # tag: x.y.z
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
