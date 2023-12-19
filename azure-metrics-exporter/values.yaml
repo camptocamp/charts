@@ -37,15 +37,7 @@ affinity: {}
 # NOTE : Azure imposes an API read limit of 15,000 requests per hour so the number of metrics you're querying for should be proportional to your scrape interval.
 scrapeInterval: 30s
 
-# do not use if using `credentials` map, use credentials.sibscriptionId instead
 subscriptionId: ""
-
-# NOTE: using credentials value will generate a Secret instead of ConfigMap, and map this accordingly
-credentials: {}
-#  subscription_id: <secret>
-#  client_id: <secret>
-#  client_secret: <secret>
-#  tenant_id: <secret>
 
 # NOTE : azure_resource_id should start with /resourceGroups... (/subscriptions/xxxxxxxx-xxxx-xxxx-xxx-xxxxxxxxx must be removed from the begining of azure_resource_id property value)
 config: {}

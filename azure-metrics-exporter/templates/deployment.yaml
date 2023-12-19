@@ -39,17 +39,10 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /etc/azure/
-      {{- if .Values.credentials }}
-      volumes:
-        - name: config
-          secret:
-            secretName: {{ include "azure-metrics-exporter.fullname" . }}
-      {{- else }}
       volumes:
         - name: config
           configMap:
             name: {{ include "azure-metrics-exporter.fullname" . }}
-      {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
