@@ -19,3 +19,11 @@ spec:
             than 1 day old ({{ "{{ $value | humanizeDuration }}" }})
           summary: Latest backup file  '{{ "{{ $labels.file }}" }}' is more than 1 day
             old ({{ "{{ $value | humanizeDuration }}" }})
+      - alert: NoMetricsForBackup
+        expr: absent( s3_file_count{namespace={{ quote .Release.Namespace }} })
+        for: 5m
+        labels:
+          {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
+        annotations:
+          description: Cannot find any metric for the backup S3 bucket
+          summary: Cannot find any metric for the backup S3 bucke
