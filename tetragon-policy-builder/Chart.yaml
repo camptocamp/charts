@@ -1,4 +1,4 @@
 apiVersion: v2
 name: tetragon-policy-builder
 description: Deploy a policy builder to read events from tetragon and create policy
-version: 0.1.0
+version: 0.1.1
