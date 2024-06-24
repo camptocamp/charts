@@ -1,9 +1,13 @@
+{{ if .Values.prometheusrules.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: {{ template "s3-exporter.fullname" . }}
   labels:
     {{- include "s3-exporter.selectorLabels" . | nindent 8 }}
+    {{- if .Values.prometheusrules.additionalLabels }}
+    {{ toYaml .Values.prometheusrules.additionalLabels | nindent 4 }}
+    {{- end }}
 spec:
   groups:
   - name: {{ template "s3-exporter.fullname" . }}-{{ .Release.Namespace }}
@@ -26,4 +30,5 @@ spec:
           {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
         annotations:
           description: Cannot find any metric for the backup S3 bucket
-          summary: Cannot find any metric for the backup S3 bucke
+          summary: Cannot find any metric for the backup S3 bucket
+{{ end }}

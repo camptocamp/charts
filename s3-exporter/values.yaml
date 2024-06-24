@@ -42,12 +42,18 @@ serviceAccount:
 
 servicemonitor:
   enabled: false
+  additionalLabels: {}
+  #  release: kube-prometheus-stack
+  targetLabels: {}
 
 prometheusrules:
+  enabled: true
   oldestfiledays: 7
   labels:
     severity: "warning"
     line: "prod"
+  additionalLabels: {}
+  #  release: kube-prometheus-stack
 
 s3:
   accessKey: "S3-ACCESS-KEY"
@@ -72,7 +78,7 @@ imagePullSecrets: []
 
 # Inject the dashboard for this exporter
 dashboards:
-  enabled: false
+  enabled: true
   job: s3-exporter # The name of the job label in the prometheus metric
 #  namespace: app Which namesapce the probes are deployed
 

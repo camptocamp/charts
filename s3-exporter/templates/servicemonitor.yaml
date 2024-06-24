@@ -3,6 +3,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ template "s3-exporter.fullname" . }}
+  labels:
+    {{- include "s3-exporter.selectorLabels" . | nindent 8 }}
+    {{- if .Values.servicemonitor.additionalLabels }}
+    {{ toYaml .Values.servicemonitor.additionalLabels | nindent 4 }}
+    {{- end }}
 spec:
   endpoints:
   - port: http
