@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" . }}
+  labels:
+    {{- include "pgbouncer-tls.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "pgbouncer-tls.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "pgbouncer-tls.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      securityContext:
+        fsGroup: 1001
+      containers:
+        - name: pgbouncer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - sh
+            - -c
+            - |
+              cp /opt/bitnami/pgbouncer/conf/pgbouncer.ini /etc/pgbouncer_config/pgbouncer.ini
+              sed -i "s/HOST/${host}/g" "/etc/pgbouncer_config/pgbouncer.ini"
+              sed -i "s/PORT/${port}/g" "/etc/pgbouncer_config/pgbouncer.ini"
+              sed -i "s/USER/${user}/g" "/etc/pgbouncer_config/pgbouncer.ini"
+              sed -i "s/PASSWORD/${password}/g" "/etc/pgbouncer_config/pgbouncer.ini"
+              exec /opt/bitnami/pgbouncer/bin/pgbouncer /etc/pgbouncer_config/pgbouncer.ini
+          envFrom:
+            - secretRef:
+                name: {{ .Values.target_postgres_secret }}
+          env: # for liveness probe
+            - name: PGHOST
+              value: "127.0.0.1"
+            - name: PGPORT
+              value: "6432"
+            - name: PGUSER
+              value: "pgbouncer"
+            - name: PGDATABASE
+              value: "pgbouncer" # allow acces to the pgbouncer admin console
+            - name: PGSSLCERT
+              value: "/etc/pgbouncer_probes/tls.crt"
+            - name: PGSSLKEY
+              value: "/etc/pgbouncer_probes/tls.key"
+            - name: PGSSLROOTCERT
+              value: "/etc/pgbouncer_probes/ca.crt"
+            - name: PGSSLMODE
+              value: "verify-ca"
+          ports:
+            - name: postgres
+              containerPort: 6432
+              protocol: TCP
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - psql -t -c "SHOW STATE" | grep active | grep yes
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - psql -t -c "SHOW STATE" | grep active | grep yes
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            runAsUser: 1001
+            fsGroup: 1001
+          volumeMounts:
+            - name: cert
+              mountPath: /etc/pgbouncer_cert/
+              readOnly: true
+            - name: cert-probes
+              mountPath: /etc/pgbouncer_probes/
+              readOnly: true
+            - name: config
+              mountPath: /opt/bitnami/pgbouncer/conf/
+              readOnly: true
+            - name: config-rw
+              mountPath: /etc/pgbouncer_config/
+      volumes:
+        - name: cert
+          secret:
+            secretName: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer
+            defaultMode: 0400
+        - name: cert-probes
+          secret:
+            secretName: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer-probes
+            defaultMode: 0400
+        - name: config
+          configMap:
+            name: {{ include "pgbouncer-tls.fullname" $ }}
+            defaultMode: 0400
+        - name: config-rw
+          emptyDir:
+            sizeLimit: 1Mi
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

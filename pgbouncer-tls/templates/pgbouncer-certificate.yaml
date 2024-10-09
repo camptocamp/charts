@@ -1,0 +1,36 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer
+  labels:
+    {{- include "pgbouncer-tls.labels" $ | nindent 4 }}
+spec:
+  secretName: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer
+  duration: 87600h # 10 year
+  renewBefore: 24h # 1 days
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: {{ include "pgbouncer-tls.fullname" . }}-issuer
+    kind: Issuer
+  commonName: "{{ $.Values.public_endpoint.dns }}"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer-probes
+  labels:
+    {{- include "pgbouncer-tls.labels" $ | nindent 4 }}
+spec:
+  secretName: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer-probes
+  duration: 87600h # 10 year
+  renewBefore: 24h # 1 days
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: {{ include "pgbouncer-tls.fullname" . }}-issuer
+    kind: Issuer
+  commonName: "pgbouncer"

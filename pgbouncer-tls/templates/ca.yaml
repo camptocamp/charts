@@ -1,0 +1,34 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" . }}-selfsigned-issuer
+  labels:
+    {{- include "pgbouncer-tls.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" . }}-root-ca
+  labels:
+    {{- include "pgbouncer-tls.labels" . | nindent 4 }}
+spec:
+  isCA: true
+  secretName: {{ include "pgbouncer-tls.fullname" . }}-root-ca-secret
+  commonName: "{{ include "pgbouncer-tls.fullname" . }}-root-ca"
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: {{ include "pgbouncer-tls.fullname" . }}-selfsigned-issuer
+    kind: Issuer
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" . }}-issuer
+spec:
+  ca:
+    secretName: {{ include "pgbouncer-tls.fullname" . }}-root-ca-secret

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" . }}
+  labels:
+    {{- include "pgbouncer-tls.labels" . | nindent 4 }}
+  annotations:
+      service.beta.kubernetes.io/scw-loadbalancer-id: {{ .Values.public_endpoint.loadbalancer_id }}
+      service.beta.kubernetes.io/scw-loadbalancer-externally-managed: "true"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: {{ .Values.public_endpoint.port }}
+      targetPort: postgres
+      protocol: TCP
+      name: postgres
+  selector:
+    {{- include "pgbouncer-tls.selectorLabels" . | nindent 4 }}

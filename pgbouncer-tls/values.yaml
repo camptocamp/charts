@@ -1,0 +1,68 @@
+---
+target_cluster:
+  host: db_cluster.provider.com
+  port: 3294
+  databases:
+    - name: db1
+      username: user_db1
+      password: pass_db1
+    - name: db2
+      username: user_db2
+      password: pass_db2
+
+public_endpoint:
+  dns: pg.gs-fr-prod.camptocamp.com
+  port: 5438
+  loadbalancer_id: fr-par-1/fbd7be40-a487-4404-b0ff-4af648f828ca
+    ## to add following annotations on the k8s load balancer service
+    #annotations:
+    #    service.beta.kubernetes.io/scw-loadbalancer-id: fr-par-1/8b01ee92-5341-4cb3-ba51-0904bfd73fdd
+    #    service.beta.kubernetes.io/scw-loadbalancer-externally-managed: "true"
+    #
+
+
+certificates:
+  duration: 8760h # 1 year
+  renewBefore: 240h # 10 days
+
+members:
+  # access for a dev
+  - jean_mich
+  # access for a customer
+  - remi
+
+# Configuration for pgbouncer deployment
+
+image:
+  repository: bitnami/pgbouncer
+  pullPolicy: Always
+  tag: "1"
+
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

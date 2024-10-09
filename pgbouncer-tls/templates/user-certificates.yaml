@@ -1,0 +1,21 @@
+{{ $fullname := include "pgbouncer-tls.fullname" . }}
+{{- range .Values.members }}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ $fullname }}-{{ . }}
+  labels:
+    {{- include "pgbouncer-tls.labels" $ | nindent 4 }}
+spec:
+  secretName: {{ include "pgbouncer-tls.fullname" $ }}-{{ . }}
+  duration: {{ $.Values.certificates.duration }}
+  renewBefore: {{ $.Values.certificates.renewBefore }}
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: {{ $fullname }}-issuer
+    kind: Issuer
+  commonName: "{{ . }}"
+{{- end }}
