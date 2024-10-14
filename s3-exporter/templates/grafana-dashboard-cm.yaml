@@ -1,4 +1,4 @@
-{{ if .Values.dashboards.enabled | default true }}
+{{ if .Values.dashboards.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
