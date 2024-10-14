@@ -27,18 +27,8 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - sh
-            - -c
-            - |
-              cp /opt/bitnami/pgbouncer/conf/pgbouncer.ini /etc/pgbouncer_config/pgbouncer.ini
-              sed -i "s/HOST/${host}/g" "/etc/pgbouncer_config/pgbouncer.ini"
-              sed -i "s/PORT/${port}/g" "/etc/pgbouncer_config/pgbouncer.ini"
-              sed -i "s/USER/${user}/g" "/etc/pgbouncer_config/pgbouncer.ini"
-              sed -i "s/PASSWORD/${password}/g" "/etc/pgbouncer_config/pgbouncer.ini"
-              exec /opt/bitnami/pgbouncer/bin/pgbouncer /etc/pgbouncer_config/pgbouncer.ini
-          envFrom:
-            - secretRef:
-                name: {{ .Values.target_postgres_secret }}
+            - /opt/bitnami/pgbouncer/bin/pgbouncer
+            - /opt/bitnami/pgbouncer/conf/pgbouncer.ini
           env: # for liveness probe
             - name: PGHOST
               value: "127.0.0.1"
@@ -91,8 +81,6 @@ spec:
             - name: config
               mountPath: /opt/bitnami/pgbouncer/conf/
               readOnly: true
-            - name: config-rw
-              mountPath: /etc/pgbouncer_config/
       volumes:
         - name: cert
           secret:
@@ -103,12 +91,9 @@ spec:
             secretName: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer-probes
             defaultMode: 0400
         - name: config
-          configMap:
-            name: {{ include "pgbouncer-tls.fullname" $ }}
+          secret:
+            secretName: {{ include "pgbouncer-tls.fullname" $ }}
             defaultMode: 0400
-        - name: config-rw
-          emptyDir:
-            sizeLimit: 1Mi
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
