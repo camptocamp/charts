@@ -70,7 +70,6 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
             runAsUser: 1001
-            fsGroup: 1001
           volumeMounts:
             - name: cert
               mountPath: /etc/pgbouncer_cert/
