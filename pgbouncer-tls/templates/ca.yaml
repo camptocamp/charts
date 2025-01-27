@@ -16,6 +16,7 @@ metadata:
     {{- include "pgbouncer-tls.labels" . | nindent 4 }}
 spec:
   isCA: true
+  duration: 87600h # 10 year
   secretName: {{ include "pgbouncer-tls.fullname" . }}-root-ca-secret
   commonName: "{{ include "pgbouncer-tls.fullname" . }}-root-ca"
   privateKey:
