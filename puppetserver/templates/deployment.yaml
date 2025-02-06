@@ -21,7 +21,11 @@ spec:
         app.kubernetes.io/name: {{ include "puppetserver.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      {{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- end }}
       initContainers:
+        {{- if .Values.gnupg.enabled }}
         - name: {{ .Chart.Name }}-gpg-import
           image: "centos:8"
           command: [
@@ -39,6 +43,7 @@ spec:
               name: gnupgdir
           resources:
             {{- toYaml .Values.initContainers.gpgImport.resources | nindent 12 }}
+        {{- end }}
         - name: {{ .Chart.Name }}-jmx-exporter
           image: camptocamp/jmx-exporter:0.12.0
           command: [ "cp", "/jmx_prometheus_javaagent-0.12.0.jar", "/jmx-exporter/" ]
@@ -90,8 +95,10 @@ spec:
               name: logs
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.puppetlabs/etc/puppet
               name: user-confdir
+            {{- if .Values.gnupg.enabled}}
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
               name: gnupgdir
+            {{- end }}
             - mountPath: /etc/puppetlabs/puppet/puppet.conf
               name: puppet
               subPath: puppet.conf
@@ -124,9 +131,11 @@ spec:
               readOnly: true
             - mountPath: /srv/puppetca
               name: puppetca
+            {{- if .Values.gnupg.enabled }}
             - mountPath: /run/secrets/autosign_psk
               name: secrets
               subPath: autosign_psk
+            {{- end }}
             - mountPath: /jmx-exporter
               name: jmx-exporter
             - mountPath: /jmx-exporter/config.yaml
@@ -134,7 +143,7 @@ spec:
               subPath: config.yaml
           readinessProbe:
             httpGet:
-              path: /production/status/test
+              path: /status/v1/simple
               port: http
               scheme: HTTPS
               httpHeaders:
@@ -147,6 +156,12 @@ spec:
       securityContext:
         supplementalGroups:
           {{- toYaml .Values.securityContext.supplementalGroups | nindent 10 }}
+        {{- if .Values.securityContext.runAsUser }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+        {{- end }}
+        {{- if .Values.securityContext.runAsGroup }}
+        runAsGroup: {{ .Values.securityContext.runAsGroup }}
+        {{- end }}
       volumes:
         - name: jmx-exporter
           emptyDir: {}
@@ -154,14 +169,16 @@ spec:
           emptyDir: {}
         - name: confdir
           emptyDir: {}
+        {{ if .Values.gnupg.enabled }}
         - name: gnupgdir
           emptyDir: {}
+        {{- end }}
         - name: user-confdir
           configMap:
             name: {{ include "puppetserver.fullname" . }}-user-confdir
         - name: puppet
           configMap:
-            name: {{ include "puppetserver.fullname" . }}-puppet
+            name: {{ .Values.puppetConfigMap | default (printf "%s-puppet" (include "puppetserver.fullname" .)) }}
             items:
               - key: autosign
                 path: autosign
@@ -180,16 +197,18 @@ spec:
                 mode: 0644
         - name: puppetserver
           configMap:
-            name: {{ include "puppetserver.fullname" . }}-puppetserver
+            name: {{ .Values.puppetserverConfigMap | default (printf "%s-puppetserver" (include "puppetserver.fullname" .)) }}
         - name: puppetcode
           persistentVolumeClaim:
             claimName: {{ if eq "-" .Values.persistence.puppetcode.existingClaim }}{{ include "puppetserver.fullname" . }}-puppetcode{{- else }}{{ .Values.persistence.puppetcode.existingClaim }}{{- end }}
         - name: puppetca
           persistentVolumeClaim:
             claimName: {{ if eq "-" .Values.persistence.puppetca.existingClaim }}{{ include "puppetserver.fullname" . }}-puppetca{{- else }}{{ .Values.persistence.puppetca.existingClaim }}{{- end }}
+        {{- if .Values.gnupg.enabled }}
         - name: secrets
           secret:
             secretName: {{ include "puppetserver.fullname" . }}
+        {{- end }}
         - name: jmx-exporter-config
           configMap:
             name: {{ include "puppetserver.fullname" . }}-jmx-exporter
