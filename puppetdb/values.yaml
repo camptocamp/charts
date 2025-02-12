@@ -6,8 +6,8 @@ autosign:
   psk: ''
 
 initContainersImage:
-  repository: docker.io/puppet/puppet-agent
-  tag: 6.15.0
+  repository: ghcr.io/openvoxproject/openvoxagent
+  tag: 8.11.0-main
   pullPolicy: IfNotPresent
 
 
@@ -16,9 +16,10 @@ puppetdb:
   replicaCount: 1
 
   image:
-    repository: docker.io/puppet/puppetdb
-    tag: 6.10.1
+    repository: ghcr.io/openvoxproject/openvoxdb
+    tag: 8.9.0-main
     pullPolicy: Always
+    pullSecrets: []
 
   nameOverride: ""
   fullnameOverride: ""

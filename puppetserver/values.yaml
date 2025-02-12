@@ -12,10 +12,11 @@ autoScaling:
   maxCompilers: 5
   cpuUtilizationPercentage: 80
   memoryUtilizationPercentage: 80
-
+grafanaDashboard:
+  enabled: false
 image:
-  repository: docker.io/puppet/puppetserver
-  tag: 6.10.0
+  repository: ghcr.io/openvoxproject/openvoxserver
+  tag: 8.8.0-latest
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -59,6 +60,16 @@ readinessProbe:
   initialDelaySeconds: 30
   timeoutSeconds: 5
 
+# The configmap it points to must contain those keys:
+# - autosign
+# - puppet.conf
+# - hiera.yaml
+# - puppetdb.conf
+# - routes.yaml
+#  If setted, puppet_conf, puppetdb_conf and routes_yaml are ignored
+puppetConfigMap: nil
+
+
 puppet_conf: ''
 puppetdb_conf: ''
 routes_yaml: ''
@@ -69,7 +80,10 @@ autosign:
   script: ''
 
 # Hiera
-gpg: ''
+gnupg:
+  enabled: false
+  private: '' # GPG key for eyaml
+
 
 initContainers:
   gpgImport:
