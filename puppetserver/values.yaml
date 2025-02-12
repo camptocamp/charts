@@ -15,9 +15,10 @@ autoScaling:
 grafanaDashboard:
   enabled: false
 image:
-  repository: ghcr.io/openvoxproject/openvoxserver
-  tag: 8.8.0-latest
+  repository: ghcr.io/voxpupuli/puppetserver
+  tag: 8.7.0-main
   pullPolicy: IfNotPresent
+  pullSecrets: []
 
 nameOverride: ""
 fullnameOverride: ""
