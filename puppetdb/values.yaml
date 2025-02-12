@@ -6,23 +6,31 @@ autosign:
   psk: ''
 
 initContainersImage:
-  repository: docker.io/puppet/puppet-agent
-  tag: 6.15.0
+  # This image can be replaced by an open source version of the puppet agent with a higher version
+  repository: puppet/puppet-agent
+  tag: 7.20.0
   pullPolicy: IfNotPresent
 
+securityContext:
+  supplementalGroups: [999]
 
 puppetdb:
-
   replicaCount: 1
-
+  envs: []
+  securityContext: {}
   image:
-    repository: docker.io/puppet/puppetdb
-    tag: 6.10.1
+    # This image can be replaced by an open source version of the puppetdb
+    repository: ghcr.io/voxpupuli/container-puppetdb
+    tag: 8.8.1-latest
     pullPolicy: Always
+    pullSecrets: []
 
   nameOverride: ""
   fullnameOverride: ""
-
+  serviceAccountName: ""   # Service account used for the deployment
+  puppetServerURL: puppetserver
+  psk:
+    existingSecret: ""     # the secret for the autosigning on the server side
   service:
     type: ClusterIP
     port: 8081
