@@ -24,6 +24,10 @@ spec:
       {{- if .Values.serviceAccountName }}
       serviceAccountName: {{ .Values.serviceAccountName }}
       {{- end }}
+      {{- if .Values.image.pullSecrets }}
+      imagePullSecrets:
+      {{ toYaml .values.imagePullSecrets | nindent  8 }}
+      {{- end }}
       initContainers:
         {{- if .Values.gnupg.enabled }}
         - name: {{ .Chart.Name }}-gpg-import
@@ -131,11 +135,9 @@ spec:
               readOnly: true
             - mountPath: /srv/puppetca
               name: puppetca
-            {{- if .Values.gnupg.enabled }}
             - mountPath: /run/secrets/autosign_psk
               name: secrets
               subPath: autosign_psk
-            {{- end }}
             - mountPath: /jmx-exporter
               name: jmx-exporter
             - mountPath: /jmx-exporter/config.yaml
@@ -204,11 +206,9 @@ spec:
         - name: puppetca
           persistentVolumeClaim:
             claimName: {{ if eq "-" .Values.persistence.puppetca.existingClaim }}{{ include "puppetserver.fullname" . }}-puppetca{{- else }}{{ .Values.persistence.puppetca.existingClaim }}{{- end }}
-        {{- if .Values.gnupg.enabled }}
         - name: secrets
           secret:
-            secretName: {{ include "puppetserver.fullname" . }}
-        {{- end }}
+            secretName: {{ .Values.pskExistingSecret | default ( printf "%s" (include "puppetserver.fullname" . ))}}
         - name: jmx-exporter-config
           configMap:
             name: {{ include "puppetserver.fullname" . }}-jmx-exporter
