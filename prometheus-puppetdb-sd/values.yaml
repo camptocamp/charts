@@ -8,19 +8,32 @@ image:
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
+  
+init:
+  # should set either psk or pskExistingSecret
+  # the value of psk
+  psk: ''
+  # or an existing secret containes the value of psk
+  pskExistingSecret: ''
+  puppetserver: puppetserver.puppet.svc.cluster.local
+  serverport: '8140'
+  autosign:
+    resources: {}
 
-prometheusPuppetdbSd:
-  init:
-    psk: ''
-    puppetserver: puppetserver.puppet.svc.cluster.local
-    serverport: '8140'
-    autosign:
-      resources: {}
-  args:
-    output.method: k8s-secret
-    output.k8s-secret.secret-name: prometheus-puppetdb-sd-output
-    output.k8s-secret.secret-key: puppetdb-sd.yml
+# Should enable one and only one of the following output method:
+#   - outputSecret
+#   - outputHttp
 
+# outputSecret: output method is k8s-secret
+# should define the secretName and secretKey with
+outputSecret:
+  enabled: true
+  secretName: prometheus-puppetdb-sd-output
+  secretKey: puppetdb-sd.yml
+
+# outputHttp: output method is http
+outputHttp:
+  enabled: false
 
 service:
   enabled: false
