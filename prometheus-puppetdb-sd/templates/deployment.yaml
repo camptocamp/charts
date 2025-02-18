@@ -51,6 +51,7 @@ spec:
           {{- if and (.Values.outputHttp.enabled) (not .Values.outputSecret.enabled) }}
             - --output.method=http
           {{- end }}
+            - --puppetdb.url={{ .Values.puppetdbUrl }}
             - --puppetdb.cert-file=/etc/puppetlabs/puppet/ssl/certs/puppetdb-sd.pem
             - --puppetdb.key-file=/etc/puppetlabs/puppet/ssl/private_keys/puppetdb-sd.pem
             - --puppetdb.cacert-file=/etc/puppetlabs/puppet/ssl/certs/ca.pem
