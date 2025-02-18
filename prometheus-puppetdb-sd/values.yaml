@@ -38,7 +38,6 @@ outputHttp:
 # the puppetdb url
 puppetdbUrl: ''
 
-
 service:
   enabled: false
   port: 8080
