@@ -1,3 +1,0 @@
-Blackbox exporter can be accessed via port {{ .Values.service.servicePort }} on the following DNS name from within the cluster:
-
-{{ template "blackbox-exporter.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local

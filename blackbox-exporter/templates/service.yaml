@@ -1,19 +1,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "blackbox-exporter.fullname" . }}
+  name: {{ include "blackbox-exporter.fullname" . }}
   labels:
-    app: {{ template "blackbox-exporter.name" . }}
-    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "blackbox-exporter.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.servicePort }}
-      targetPort: 9115
-      protocol: TCP
-      name: {{ .Values.service.name }}
+    - name: http
+      port: 9115
+      targetPort: http
   selector:
-    app: {{ template "blackbox-exporter.name" . }}
-    release: {{ .Release.Name }}
+    {{- include "blackbox-exporter.selectorLabels" . | nindent 6 }}

@@ -1,6 +1,6 @@
-{{- if not .Values.useDaemonSet }}
-apiVersion: extensions/v1beta1
-kind: Deployment
+{{- if .Values.useDaemonSet }}
+apiVersion: apps/v1
+kind: DaemonSet
 metadata:
   name: {{ include "blackbox-exporter.fullname" . }}
   labels:

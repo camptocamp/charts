@@ -1,51 +1,19 @@
-# Default values for blackbox-exporter.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 ## Container image
-##
 image:
   repository: prom/blackbox-exporter
-  tag: v0.12.0
+  tag: v0.25.0
   pullPolicy: IfNotPresent
 
-
-## Custom update strategy
-##
-updateStrategy:
-  type: OnDelete
-
-
-## Additional blackbox-exporter container arguments
-##
-extraArgs: {}
-
-
 ## Node labels for pod assigment
-##
 nodeSelector: {}
 
+# Use a Deployment or a DeamonSet
+useDaemonSet: false
 
-## Annotations to be added to the pod
-##
-podAnnotations: {}
-
-
-##
-##
-service:
-  annotations: {}
-  labels: {}
-
-  servicePort: 9115
-
-
-## Configuration file
-##
-configFiles:
-  config.yml:
-    modules:
-      http_2xx:
-        prober: http
-        timeout: 5s
-        http:
+## Configuration (module, ...)
+config: {}
+#  modules:
+#    http_2xx:
+#      prober: http
+#      timeout: 5s
+#      http:
