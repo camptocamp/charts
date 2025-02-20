@@ -1,4 +1,26 @@
 ---
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "puppetdb.fullname" . }}-jetty
+  labels:
+    app.kubernetes.io/name: {{ include "puppetdb.name" . }}
+    helm.sh/chart: {{ include "puppetdb.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  jetty: |-
+    [jetty]
+    host = 127.0.0.1
+    port = 8080
+    ssl-host = 0.0.0.0
+    ssl-port = 8081
+    ssl-key = /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pem
+    ssl-cert = /etc/puppetlabs/puppet/ssl/certs/puppetdb.pem
+    ssl-ca-cert = /etc/puppetlabs/puppet/ssl/certs/ca.pem
+
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
