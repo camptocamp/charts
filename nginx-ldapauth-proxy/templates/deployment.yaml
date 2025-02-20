@@ -55,10 +55,14 @@ spec:
             - mountPath: /etc/nginx/nginx.conf
               name: config
               subPath: nginx.conf
+            - mountPath: /var/run/
+              name: nginx-pid
           resources:
 {{ toYaml .Values.resources | indent 12 }}
       volumes:
         - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-pid
           emptyDir: {}
         - name: config
           configMap:
