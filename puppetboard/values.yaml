@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/camptocamp/puppetboard
-  tag: 2.2.0
+  tag: 6.0.0
   pullPolicy: IfNotPresent
 
 initContainersImage:
