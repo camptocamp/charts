@@ -15,5 +15,5 @@ spec:
       protocol: TCP
       name: {{ .Values.service.name }}
   selector:
-    app: {{ template "imap-mailbox-exporter.name" . }}
+    app: {{ template "imap-mailbox-exporter.fullname" . }}
     release: {{ .Release.Name }}
