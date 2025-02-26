@@ -1,0 +1,34 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/camptocamp/snow-webhook
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+securityContext: {}
+
+# set servicenow password 
+# either by snowExistingSecret
+# either by alertmanagerSnowPasswords
+snowExistingSecret: 'test'
+alertmanagerSnowPasswords: {}
+
+env: []
+
+service:
+  # This sets the service type more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+  type: ClusterIP
+  # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
+  port: 9000
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
