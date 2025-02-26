@@ -1,6 +1,7 @@
 # Default values for imap-mailbox-exporter.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+fullnameOverride: ''
 
 imagePullSecrets: []
 
@@ -23,3 +24,5 @@ imap:
   passwordSecret: TO_BE_DEFINED
   mailbox: INBOX
   queryInterval: 120
+
+resources: {}

@@ -9,10 +9,14 @@ metadata:
     heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "imap-mailbox-exporter.fullname" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "imap-mailbox-exporter.name" . }}
+        app: {{ template "imap-mailbox-exporter.fullname" . }}
         release: {{ .Release.Name }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -25,14 +29,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: {{ .Values.service.internalPort }}
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: {{ .Values.service.internalPort }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           env:
             - name: IMAP_SERVER
               value: {{ .Values.imap.server }}
