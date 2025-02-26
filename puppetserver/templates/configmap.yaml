@@ -1,3 +1,4 @@
+{{- if not .Values.puppetConfDir }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -13,6 +14,8 @@ data:
     [main]
     ssldir = /etc/puppetlabs/puppet/ssl
     server = {{ include "puppetserver.fullname" . }}
+{{- end }}
+{{- if not .Values.puppetserverConfigMap }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -85,6 +88,8 @@ data:
 
         <appender-ref ref="STDOUT"/>
     </configuration>
+{{- end }}
+{{- if not .Values.puppetConfigMap }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -107,6 +112,7 @@ data:
 {{ .Values.puppetdb_conf | indent 4 }}
   routes.yaml: |
 {{ .Values.routes_yaml | indent 4 }}
+{{- end }}
 ---
 apiVersion: v1
 kind: ConfigMap
