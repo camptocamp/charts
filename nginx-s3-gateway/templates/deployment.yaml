@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "nginx-s3-gateway.fullname" . }}
+  labels:
+    {{- include "nginx-s3-gateway.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "nginx-s3-gateway.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "nginx-s3-gateway.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "nginx-s3-gateway.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.s3.accesskey.secret.name | quote}}
+                  key: {{ .Values.s3.accesskey.secret.key | quote}}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.s3.secretkey.secret.name | quote}}
+                  key: {{ .Values.s3.secretkey.secret.key | quote}}
+            - name: S3_BUCKET_NAME
+              value: {{ .Values.s3.bucketName | quote }}
+            - name: S3_SERVER
+              value: {{ .Values.s3.server | quote }}
+            - name: S3_SERVER_PROTO
+              value: {{ .Values.s3.proto | quote }}
+            - name: S3_SERVER_PORT
+              value: {{ .Values.s3.port | quote }}
+            - name: S3_STYLE
+              value: {{ .Values.s3.style | quote }}
+            - name: S3_REGION
+              value: {{ .Values.s3.region | quote }}
+            - name: AWS_SIGS_VERSION
+              value: {{ .Values.s3.awsSigsVersion | quote }}
+            - name: ALLOW_DIRECTORY_LIST
+              value: {{ .Values.s3.allowDirectoryList | quote }}
+            - name: PROVIDE_INDEX_PAGE
+              value: {{ .Values.s3.provideIndexPage | quote }}
+            - name: PROXY_CACHE_VALID_OK
+              value: {{ .Values.s3.cache.validOk | quote }}
+            - name: PROXY_CACHE_VALID_NOTFOUND
+              value: {{ .Values.s3.cache.validNotFound | quote }}
+            - name: PROXY_CACHE_VALID_FORBIDDEN
+              value: {{ .Values.s3.cache.validForbidden | quote }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
