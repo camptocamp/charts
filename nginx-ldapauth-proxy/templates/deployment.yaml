@@ -1,50 +1,47 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "nginx-ldapauth-proxy.fullname" . }}
+  name: {{ include "nginx-ldapauth-proxy.fullname" . }}
   labels:
-    app: {{ template "nginx-ldapauth-proxy.name" . }}
-    chart: {{ template "nginx-ldapauth-proxy.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    {{- include "nginx-ldapauth-proxy.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
-      app: {{ template "nginx-ldapauth-proxy.name" . }}
-      release: {{ .Release.Name }}
-  replicas: {{ .Values.replicaCount }}
+      {{- include "nginx-ldapauth-proxy.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      labels:
-        app: {{ template "nginx-ldapauth-proxy.name" . }}
-        release: {{ .Release.Name }}
+      {{- with .Values.podAnnotations }}
       annotations:
-        checksum/config: {{ include (print .Template.BasePath "/configmap.yaml") . | sha256sum }}
-    spec:
-    {{- if .Values.image.pullSecrets }}
-      {{- range $pullSecret := .Values.image.pullSecrets }}
-      imagePullSecrets:
-        - name: {{ $pullSecret }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
-    {{- end }}
+      labels:
+        {{- include "nginx-ldapauth-proxy.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "nginx-ldapauth-proxy.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-{{- if and .Values.proxy.ldapHost .Values.secrets.ldapBindPassword }}
-          env:
-            - name: LDAP_BIND_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ template "nginx-ldapauth-proxy.fullname" . }}
-                  key: ldapBindPassword
-{{- end }}
           ports:
-            - containerPort: {{ .Values.service.internalPort }}
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
           livenessProbe:
-            httpGet:
-              path: /_ping
-              port: {{ .Values.service.internalPort }}
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             httpGet:
               path: /_ping
@@ -58,7 +55,12 @@ spec:
             - mountPath: /var/run/
               name: nginx-pid
           resources:
-{{ toYaml .Values.resources | indent 12 }}
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
       volumes:
         - name: nginx-cache
           emptyDir: {}
@@ -67,15 +69,15 @@ spec:
         - name: config
           configMap:
             name: {{ template "nginx-ldapauth-proxy.fullname" . }}
-    {{- if .Values.nodeSelector }}
+      {{- if .Values.nodeSelector }}
       nodeSelector:
-{{ toYaml .Values.nodeSelector | indent 8 }}
-    {{- end }}
-    {{- with .Values.affinity }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
       affinity:
-{{ toYaml . | indent 8 }}
-    {{- end }}
-    {{- with .Values.tolerations }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
       tolerations:
-{{ toYaml . | indent 8 }}
-    {{- end }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
