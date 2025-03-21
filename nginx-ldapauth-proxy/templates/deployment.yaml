@@ -60,15 +60,18 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
         - name: nginx-cache
           emptyDir: {}
         - name: nginx-pid
           emptyDir: {}
+      {{- if .Values.existingConfig }}
+      {{- toYaml .Values.existingConfig | nindent 8 }}
+      {{- else }}
         - name: config
           configMap:
             name: {{ template "nginx-ldapauth-proxy.fullname" . }}
+      {{- end }}
       {{- if .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
