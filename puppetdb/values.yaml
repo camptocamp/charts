@@ -2,18 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-autosign:
-  psk: ''
-
-initContainersImage:
-  # This image can be replaced by an open source version of the puppet agent with a higher version
-  repository: puppet/puppet-agent
-  tag: 7.20.0
-  pullPolicy: IfNotPresent
-
-securityContext:
-  supplementalGroups: [999]
-
 puppetdb:
   replicaCount: 1
   envs: []
@@ -71,30 +59,6 @@ puppetdb:
 
   postgresql_cert: ""
 
-  puppetdb_ini: |
-    [global]
-    vardir = /opt/puppetlabs/server/data/puppetdb
-
-    [command-processing]
-
-    [database]
-    subname = //postgresql:5432/puppetdb
-    username = puppetdb
-    password = puppetdb
-
-    [jetty]
-    host = 127.0.0.1
-    port = 8080
-    ssl-host = 0.0.0.0
-    ssl-port = 8081
-    ssl-key = /etc/puppetlabs/puppet/ssl/private_keys/puppetdb.pem
-    ssl-cert = /etc/puppetlabs/puppet/ssl/certs/puppetdb.pem
-    ssl-ca-cert = /etc/puppetlabs/puppet/ssl/certs/ca.pem
-
-    [nrepl]
-    enabled = false
-    port = 8082
-    host = 127.0.0.1
 
   metrics_conf: |
     metrics: {
