@@ -2,18 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-autosign:
-  psk: ''
-
-initContainersImage:
-  # This image can be replaced by an open source version of the puppet agent with a higher version
-  repository: puppet/puppet-agent
-  tag: 7.20.0
-  pullPolicy: IfNotPresent
-
-securityContext:
-  supplementalGroups: [999]
-
 puppetdb:
   replicaCount: 1
   envs: []
