@@ -4,20 +4,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ template "nginx-ldapauth-proxy.fullname" . }}
+  name: {{ include "nginx-ldapauth-proxy.fullname" . }}
   labels:
     app: {{ template "nginx-ldapauth-proxy.name" . }}
     chart: {{ template "nginx-ldapauth-proxy.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    labels:
-      {{- range $key, $value := .Values.ingress.labels }}
-        {{ $key }}: {{ $value | quote }}
-      {{- end }}
+{{- range $key, $value := .Values.ingress.labels }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+  {{- with .Values.ingress.annotations }}
   annotations:
-    {{- range $key, $value := .Values.ingress.annotations }}
-      {{ $key }}: {{ $value | quote }}
-    {{- end }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   rules:
     {{- range $host := .Values.ingress.hosts }}
@@ -32,8 +31,34 @@ spec:
                 port:
                   number: {{ $servicePort }}
     {{- end -}}
+  {{- with .Values.ingress.className }}
+  ingressClassName: {{ . }}
+  {{- end }}
   {{- if .Values.ingress.tls }}
   tls:
-{{ toYaml .Values.ingress.tls | indent 4 }}
-  {{- end -}}
-{{- end -}}
+    {{- range .Values.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- with .pathType }}
+            pathType: {{ . }}
+            {{- end }}
+            backend:
+              service:
+                name: {{ include "nginx-ldapauth-proxy.fullname" $ }}
+                port:
+                  number: {{ $.Values.service.port }}
+          {{- end }}
+    {{- end }}
+{{- end }}

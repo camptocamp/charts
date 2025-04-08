@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "nginx-ldapauth-proxy.fullname" . }}-test-connection"
+  labels:
+    {{- include "nginx-ldapauth-proxy.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "nginx-ldapauth-proxy.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
