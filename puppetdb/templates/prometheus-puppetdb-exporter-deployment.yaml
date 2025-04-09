@@ -74,7 +74,7 @@ spec:
           emptyDir: {}
         - name: secrets
           secret:
-            secretName: {{ include "puppetdb.fullname" . }}
+            secretName: {{ .Values.puppetdb.psk.existingSecret | default ( printf "%s" (include "puppetdb.fullname" . ))}}
       {{- with .Values.prometheusPuppetdbExporter.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
