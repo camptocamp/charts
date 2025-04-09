@@ -79,6 +79,7 @@ puppetdb:
 
 puppetboard:
   inventory_facts: 'Hostname, fqdn, IP Address, ipaddress, OS, lsbdistdescription, Architecture, hardwaremodel, Kernel Version, kernelrelease, Puppet Version, puppetversion'
+  puppetServerURL: puppet-puppetserver
   #overview_filter:
 
 autosign:
