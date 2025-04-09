@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: 6.0.0
 description: A Helm chart for Puppetboard
 name: puppetboard
-version: 1.0.0
+version: 1.0.1
