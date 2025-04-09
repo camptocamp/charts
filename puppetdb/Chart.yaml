@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: 8.8.0
 description: A Helm chart for PuppetDB
 name: puppetdb
-version: 1.0.2
+version: 1.0.4
