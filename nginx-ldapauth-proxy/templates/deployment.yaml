@@ -27,7 +27,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "nginx-ldapauth-proxy.serviceAccountName" . }}
+      serviceAccountName: {{ .Values.serviceAccountName | default (printf "%s" (include "nginx-ldapauth-proxy.serviceAccountName" . ))}}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
