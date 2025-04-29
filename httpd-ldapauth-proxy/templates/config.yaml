@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: httpd
 data:
-  httpd.conf: |
+  httpd.conf: |-
     ServerRoot "/usr/local/apache2"
     Listen 8080
     LoadModule mpm_event_module modules/mod_mpm_event.so
@@ -83,8 +83,8 @@ data:
         LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
         LogFormat "%h %l %u %t \"%r\" %>s %b" common
         <IfModule logio_module>
-          # You need to enable mod_logio.c to use %I and %O
-          LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+            # You need to enable mod_logio.c to use %I and %O
+            LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
         </IfModule>
         #
         # The location and format of the access logfile (Common Logfile Format).
@@ -197,24 +197,47 @@ data:
     SSLRandomSeed startup builtin
     SSLRandomSeed connect builtin
     </IfModule>
+    Include /tmp/httpdldap.conf
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: entrypoint
+data:
+  entrypoint.sh: |-
+    #!/bin/bash
+    export CONFIGDIR=/run/config/
+    cp ${CONFIGDIR}httpdldaptemplate.conf /tmp/httpdldap.conf
+    sed -i  "s/__BINDDN__/$(cat /run/secrets/camptocamp/ldap/login)/g" /tmp/httpdldap.conf 
+    sed -i  "s/__BINDDNPASSWORD__/$(cat /run/secrets/camptocamp/ldap/password)/g" /tmp/httpdldap.conf 
+    httpd-foreground
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: httpdldaptemplate
+data:
+  httpdldaptemplate.conf: |-
     <VirtualHost *:8080>
-    <Location />
-      Order allow,deny
-      Allow from all
-      ProxyPass  {{ .Values.backendURL }}
-      ProxyPassReverse {{ .Values.backendURL }}
-      AuthType Basic
-      AuthName "Enter LDAP credentials"
-      AuthBasicProvider ldap
-      AuthLDAPBindDN {{ .Values.ldap.bindDN }}
-      AuthLDAPBindPassword "exec:/usr/bin/cat /run/secrets/camptocamp/ldap/password"
-      AuthLDAPGroupAttribute member
-      AuthLDAPSubGroupClass group
-      AuthLDAPGroupAttributeIsDN On
-      AuthLDAPURL {{ .Values.ldap.url }}
-      {{- range $.Values.ldap.requires }}
-      Require {{ . }}
-      {{- end }}
-    </Location>
+      <Location />
+          Order allow,deny
+          Allow from all
+          ProxyPass  {{ .Values.backendURL }}
+          ProxyPassReverse {{ .Values.backendURL }}
+          AuthType Basic
+          AuthName "Enter LDAP credentials"
+          AuthBasicProvider ldap
+          {{- if .Values.ldap.auth.enabled }}
+          AuthLDAPBindDN __BINDDN__
+          AuthLDAPBindPassword __BINDDNPASSWORD__
+          {{ end -}}
+          AuthLDAPGroupAttribute member
+          AuthLDAPSubGroupClass group
+          AuthLDAPGroupAttributeIsDN On
+          AuthLDAPURL {{ .Values.ldap.url }}
+          {{- range $.Values.ldap.requires }}
+          Require {{ . }}
+          {{- end }}
+      </Location>
     ProxyPreserveHost On
     </VirtualHost>

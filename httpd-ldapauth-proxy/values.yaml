@@ -5,7 +5,9 @@
 backendURL: 'https://backend.local'
 ldap:
   url: ldaps://ldap.local:636/o=company,c=com?uid
-  bindDN: "cn=binddn,ou=service,o=company,c=com"
+  auth:
+    enabled: false
+    secretName: ""
   requires:
     - ldap-group cn=customer,ou=groups,o=company,c=com
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
