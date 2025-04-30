@@ -31,6 +31,9 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          command:
+          - '/bin/bash'
+          - '/run/config/entrypoint.sh'
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -45,10 +48,18 @@ spec:
             - name: config
               mountPath: /usr/local/apache2/conf/httpd.conf
               subPath: httpd.conf
+            - name: ldapconfigtemplate
+              mountPath: /run/config/httpdldaptemplate.conf
+              subPath: httpdldaptemplate.conf
+            - name: entrypoint
+              mountPath: /run/config/entrypoint.sh
+              subPath: entrypoint.sh
             - name: logs
               mountPath: /usr/local/apache2/logs/
-            - name: password
+          {{ if .Values.ldap.auth.enabled }}
+            - name: binddn
               mountPath: /run/secrets/camptocamp/ldap/
+          {{- end }}
           {{- with .Values.volumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -56,11 +67,19 @@ spec:
         - name: config
           configMap:
             name: httpd
+        - name: ldapconfigtemplate
+          configMap:
+            name: httpdldaptemplate
         - name: logs
           emptyDir: {}
-        - name: password
+        - name: entrypoint
+          configMap:
+            name: entrypoint
+        {{ if .Values.ldap.auth.enabled }}
+        - name: binddn
           secret:
-            secretName: ldap-access
+            secretName: {{ .Values.ldap.auth.secret }}
+        {{- end }}
       {{- with .Values.volumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
