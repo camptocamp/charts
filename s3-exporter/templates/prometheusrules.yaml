@@ -20,7 +20,7 @@ spec:
           summary: Latest backup file  '{{ "{{ $labels.file }}" }}' is more than 1 day
             old ({{ "{{ $value | humanizeDuration }}" }})
       - alert: NoMetricsForBackup
-        expr: absent(s3_file_count{namespace={{ quote .Release.Namespace }} })
+        expr: absent(s3_objects{namespace={{ quote .Release.Namespace }} })
         for: 5m
         labels:
           {{- toYaml .Values.prometheusrules.labels | nindent 10 }}
