@@ -7,6 +7,9 @@ spec:
   endpoints:
   - port: http
     path: /metrics
+    params:
+      bucket:
+        - {{ .Values.s3.bucket }}
   namespaceSelector:
     matchNames:
     - {{ .Release.Namespace }}
