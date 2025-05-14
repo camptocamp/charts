@@ -1,0 +1,32 @@
+{{ $root := . }}
+{{- range $key, $value := .Values.projects }}
+{{-   if $value.defaultNetworkPoliciesEnable }}
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  labels:
+{{    include "common.labels.standard" $root | indent 4 }}
+  name: default-deny
+  namespace: {{ $key }}
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+---
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  labels:
+{{    include "common.labels.standard" $root | indent 4 }}
+  name: allow-from-self
+  namespace: {{ $key }}
+spec:
+  ingress:
+  - from:
+    - podSelector: {}
+  podSelector: {}
+  policyTypes:
+  - Ingress
+{{-   end }}
+{{- end }}
