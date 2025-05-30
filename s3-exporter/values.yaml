@@ -41,9 +41,10 @@ serviceAccount:
   create: false
 
 servicemonitor:
-  enabled: false
+  enabled: true
 
 prometheusrules:
+  enabled: true
   oldestfiledays: 7
   labels:
     severity: "warning"
@@ -53,16 +54,15 @@ s3:
   accessKey: "S3-ACCESS-KEY"
   secretKey: "S3-SECRET-KEY"
   region: "us-east-1"
-  # If set allows to select the name of the secret used for the AccessKey and SecretKey.
-  # The default value is the release fullname.
-  secretName:
 
+  # The name of the existing secret
   # This will disable the creation of a secret in this chart and use an existing one.
   # The secret must contain these keys:
   #  - AWS_ACCESS_KEY_ID
   #  - AWS_SECRET_ACCESS_KEY
   # Optionnally any other environment variable taken by the s3-exporter.
-  existingSecret: false
+  existingSecret: ""
+
   # Bucket to use iun servicemonitor, only used if servicemonitor is enabled
   bucket: ""
 
