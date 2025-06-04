@@ -1,4 +1,4 @@
-{{ if .Values.servicemonitor.enabled }}
+{{- if .Values.servicemonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -6,7 +6,7 @@ metadata:
 spec:
   endpoints:
   - port: http
-    path: /metrics
+    path: /probe
     params:
       bucket:
         - {{ .Values.s3.bucket }}
@@ -15,10 +15,6 @@ spec:
     - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      {{- include "s3-exporter.selectorLabels" . | nindent 6 }}
-  {{ with .Values.servicemonitor.targetLabels }}
-  targetLabels:
-    {{- toYaml . | nindent 4 }}
-  {{ end }}
-{{ end }}
+      {{- include "s3-exporter.labels" . | nindent 6 }}
+{{- end }}
 

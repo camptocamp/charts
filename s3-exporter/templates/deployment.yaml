@@ -44,7 +44,7 @@ spec:
           {{- end }}
           envFrom:
           - secretRef:
-              name: {{ template "s3-exporter.bucketAccessSecretName" . }}
+              name: {{ .Values.s3.existingSecret | default (include "s3-exporter.fullname" .) }}
           ports:
             - name: exporter
               containerPort: 9340
