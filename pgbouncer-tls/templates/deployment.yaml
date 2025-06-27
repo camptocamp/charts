@@ -80,6 +80,29 @@ spec:
             - name: config
               mountPath: /opt/bitnami/pgbouncer/conf/
               readOnly: true
+        - name: proxy
+          image: "{{ .Values.proxy_image.repository }}:{{ .Values.proxy_image.tag }}"
+          imagePullPolicy: {{ .Values.proxy_image.pullPolicy }}
+          ports:
+            - name: proxyprotocol
+              containerPort: 6433
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 6433
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          readinessProbe:
+            tcpSocket:
+              port: 6433
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.proxy_resources | nindent 12 }}
+          volumeMounts:
+            - name: config-proxy
+              mountPath: /usr/local/etc/haproxy/
+              readOnly: true
       volumes:
         - name: cert
           secret:
@@ -92,6 +115,10 @@ spec:
         - name: config
           secret:
             secretName: {{ include "pgbouncer-tls.fullname" $ }}
+            defaultMode: 0400
+        - name: config-proxy
+          configMap:
+            name: {{ include "pgbouncer-tls.fullname" $ }}-proxy
             defaultMode: 0400
       {{- with .Values.nodeSelector }}
       nodeSelector:

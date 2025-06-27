@@ -5,14 +5,15 @@ metadata:
   labels:
     {{- include "pgbouncer-tls.labels" . | nindent 4 }}
   annotations:
-      service.beta.kubernetes.io/scw-loadbalancer-id: {{ .Values.public_endpoint.loadbalancer_id }}
-      service.beta.kubernetes.io/scw-loadbalancer-externally-managed: "true"
+    service.beta.kubernetes.io/scw-loadbalancer-id: {{ .Values.public_endpoint.loadbalancer_id }}
+    service.beta.kubernetes.io/scw-loadbalancer-externally-managed: "true"
+    service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
 spec:
   type: LoadBalancer
   ports:
-    - port: {{ .Values.public_endpoint.port }}
-      targetPort: postgres
+    - port: {{ .Values.public_endpoint.port_proxyprotocol }}
+      targetPort: proxyprotocol
       protocol: TCP
-      name: postgres
+      name: proxyprotocol
   selector:
     {{- include "pgbouncer-tls.selectorLabels" . | nindent 4 }}

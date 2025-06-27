@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "pgbouncer-tls.fullname" . }}-proxy
+  labels:
+    {{- include "pgbouncer-tls.labels" . | nindent 4 }}
+data:
+  haproxy.cfg: |
+    global
+      log stdout format raw local0
+      daemon
+      maxconn 10
+
+    defaults
+      mode tcp
+      log global
+      option dontlognull
+      timeout connect 5s
+      timeout client  1d
+      timeout server  1d
+
+    frontend incoming
+      bind 0.0.0.0:6433 accept-proxy
+      default_backend pgbouncer
+      log-format "%t %ci:%cp connected"
+
+    backend pgbouncer
+      server local 127.0.0.1:6432

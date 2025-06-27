@@ -38,6 +38,11 @@ image:
   pullPolicy: Always
   tag: "1"
 
+proxy_image:
+  repository: haproxy
+  pullPolicy: Always
+  tag: "3.2"
+
 # This is to override the chart name.
 nameOverride: ""
 fullnameOverride: ""
