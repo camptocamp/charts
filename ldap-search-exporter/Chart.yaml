@@ -1,4 +1,6 @@
 apiVersion: v2
-description: A Helm chart to deploy ldap-search-exporter on Kubernetes
 name: ldap-search-exporter
-version: 0.2.1
+description: A Helm chart to deploy ldap-search-exporter on Kubernetes
+type: application
+version: 1.0.0
+appVersion: "1.16.0"
