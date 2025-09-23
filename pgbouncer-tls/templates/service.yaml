@@ -8,8 +8,8 @@ metadata:
     service.beta.kubernetes.io/scw-loadbalancer-id: {{ .Values.public_endpoint.loadbalancer_id }}
     service.beta.kubernetes.io/scw-loadbalancer-externally-managed: "true"
     service.beta.kubernetes.io/scw-loadbalancer-proxy-protocol-v2: "true"
-    service.beta.kubernetes.io/scw-loadbalancer-timeout-client: "1h"
-    service.beta.kubernetes.io/scw-loadbalancer-timeout-tunnel: "1h"
+    service.beta.kubernetes.io/scw-loadbalancer-timeout-client: "24h"
+    service.beta.kubernetes.io/scw-loadbalancer-timeout-tunnel: "24h"
 spec:
   type: LoadBalancer
   ports:
