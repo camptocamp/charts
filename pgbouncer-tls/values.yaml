@@ -34,9 +34,9 @@ members:
 # Configuration for pgbouncer deployment
 
 image:
-  repository: bitnami/pgbouncer
+  repository: ghcr.io/camptocamp/pgbouncer
   pullPolicy: Always
-  tag: "1"
+  tag: latest
 
 proxy_image:
   repository: haproxy
