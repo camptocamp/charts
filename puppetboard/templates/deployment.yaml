@@ -23,26 +23,6 @@ spec:
       serviceAccountName: {{ template "puppetboard.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      initContainers:
-        - name: {{ .Chart.Name }}-autosign
-          image: "{{ .Values.initContainersImage.repository }}:{{ .Values.initContainersImage.tag }}"
-          imagePullPolicy: {{ .Values.initContainersImage.pullPolicy }}
-          command: ["sh", "-c"]
-          args:
-          - "psk=$(cat /run/secrets/autosign_psk); hostname=$(/opt/puppetlabs/bin/puppet config print certname | tr -d '\n'); echo \"custom_attributes:\n  1.2.840.113549.1.9.7: 'hashed;$(echo -n $psk/$hostname/puppetboard/production | openssl dgst -binary -sha256 | openssl base64)'\nextension_requests:\n  pp_role: 'puppetboard'\n  pp_environment: 'production'\" > /etc/puppetlabs/puppet/csr_attributes.yaml; /opt/puppetlabs/bin/puppet ssl submit_request --environment production --server {{ .Values.puppetboard.puppetServerURL }} --certificate_revocation=false --waitforcert 60 --confdir /etc/puppetlabs/puppet; cd /etc/puppetlabs/puppet/ssl && cp private_keys/$hostname.pem private_keys/puppetboard.pem && cp certs/$hostname.pem certs/puppetboard.pem ; mv /etc/puppetlabs/puppet/ssl/* /srv/puppetssl/; chown -R 100:101 /srv/puppetssl/"
-          env:
-            - name: HOME
-              value: /tmp
-          volumeMounts:
-            - mountPath: /run/secrets/autosign_psk
-              name: secrets
-              subPath: autosign_psk
-            - mountPath: /etc/puppetlabs/puppet
-              name: confdir
-            - mountPath: /srv/puppetssl
-              name: ssldir
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
       containers:
 {{- if .Values.containers }}
 {{ toYaml .Values.containers | indent 8 }}
@@ -60,7 +40,7 @@ spec:
             - name: SECRET_KEY
               valueFrom:
                 secretKeyRef:
-                  name: puppetdbsecretkey
+                  name: puppetboardsecretkeys
                   key: key
             - name: PUPPETBOARD_PORT
               value: '8080'
@@ -75,16 +55,17 @@ spec:
             - name: PUPPETDB_PORT
               value: {{ .Values.puppetdb.port | quote }}
             - name: PUPPETDB_KEY
-              value: /etc/puppetlabs/puppet/ssl/private_keys/puppetboard.pem
+              value: /run/secrets/voxpupuli.org/certs/private.pem
             - name: PUPPETDB_CERT
-              value: /etc/puppetlabs/puppet/ssl/certs/puppetboard.pem
+              value: /run/secrets/voxpupuli.org/certs/cert.pem
             - name: PUPPETDB_SSL_VERIFY
-              value: /etc/puppetlabs/puppet/ssl/certs/ca.pem
+              value: /run/secrets/voxpupuli.org/certs/ca.pem
             - name: DEFAULT_ENVIRONMENT
               value: '*'
           volumeMounts:
-            - mountPath: /etc/puppetlabs/puppet/ssl
-              name: ssldir
+            - name: puppetboardpems
+              mountPath: '/run/secrets/voxpupuli.org/certs/'
+             
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -92,9 +73,9 @@ spec:
           emptyDir: {}
         - name: ssldir
           emptyDir: {}
-        - name: secrets
+        - name: puppetboardpems
           secret:
-            secretName: {{ .Values.pskExistingSecret | default ( printf "%s" (include "puppetdb.fullname" . ))}}
+            secretName: {{ .Values.certSecret | default "puppetboardpems" }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -5,13 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: docker.io/camptocamp/puppetboard
-  tag: 6.0.0
-  pullPolicy: IfNotPresent
-
-initContainersImage:
-  repository: docker.io/puppet/puppet-agent
-  tag: 6.15.0
+  repository: ghcr.io/voxpupuli/puppetboard:6.0.1
+  tag: 6.0.1
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -81,6 +76,3 @@ puppetboard:
   inventory_facts: 'Hostname, fqdn, IP Address, ipaddress, OS, lsbdistdescription, Architecture, hardwaremodel, Kernel Version, kernelrelease, Puppet Version, puppetversion'
   puppetServerURL: puppet-puppetserver
   #overview_filter:
-
-autosign:
-  psk: ''
