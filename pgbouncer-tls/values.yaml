@@ -22,7 +22,7 @@ public_endpoint:
 
 
 certificates:
-  duration: 8760h # 1 year
+  duration: 87600h # 10 year
   renewBefore: 240h # 10 days
 
 members:
