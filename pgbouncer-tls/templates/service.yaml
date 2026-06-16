@@ -12,6 +12,7 @@ metadata:
     service.beta.kubernetes.io/scw-loadbalancer-timeout-tunnel: "24h"
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: {{ .Values.externalTrafficPolicy }}
   ports:
     - port: {{ .Values.public_endpoint.port_proxyprotocol }}
       targetPort: proxyprotocol
