@@ -57,6 +57,7 @@ spec:
                 - psql -t -c "SHOW STATE" | grep active | grep yes
             initialDelaySeconds: 5
             periodSeconds: 5
+            timeoutSeconds: 5
           readinessProbe:
             exec:
               command:
@@ -65,6 +66,7 @@ spec:
                 - psql -t -c "SHOW STATE" | grep active | grep yes
             initialDelaySeconds: 5
             periodSeconds: 5
+            timeoutSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           securityContext:
