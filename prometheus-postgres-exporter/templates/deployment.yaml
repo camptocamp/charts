@@ -66,6 +66,16 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /etc/prometheus-postgres-exporter/
+          livenessProbe:
+            httpGet:
+              path: /
+              port: metrics
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: metrics
+            timeoutSeconds: 1
       volumes:
         - name: config
           configMap:
