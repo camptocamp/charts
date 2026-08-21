@@ -18,6 +18,7 @@ spec:
         pginstance: master
         config-hash: {{ include "prometheus-postgres-exporter.confighash" (merge (dict "role" "master") $) | quote }}
     spec:
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
       containers:
         - name: exporter
           image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
@@ -92,6 +93,7 @@ spec:
         pginstance: replica{{ $index }}
         config-hash: {{ include "prometheus-postgres-exporter.confighash" (merge (dict "role" "replica") $) | quote }}
     spec:
+      affinity: {{ toYaml .Values.affinity | nindent 8 }}
       containers:
         - name: exporter
           image: {{ $.Values.image.repository }}:{{ $.Values.image.tag }}
