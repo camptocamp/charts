@@ -97,8 +97,6 @@ spec:
               name: confdir
             - mountPath: /var/log/puppetlabs
               name: logs
-            - mountPath: /opt/puppetlabs/server/data/puppetserver/.puppetlabs/etc/puppet
-              name: user-confdir
             {{- if .Values.gnupg.enabled}}
             - mountPath: /opt/puppetlabs/server/data/puppetserver/.gnupg
               name: gnupgdir
