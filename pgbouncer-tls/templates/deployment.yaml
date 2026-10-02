@@ -27,6 +27,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
+            - "/usr/local/bin/pgbouncer"
             - /etc/pgbouncer/pgbouncer.ini
           env: # for liveness probe
             - name: PGHOST
