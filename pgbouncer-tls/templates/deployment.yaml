@@ -113,10 +113,27 @@ spec:
           secret:
             secretName: {{ include "pgbouncer-tls.fullname" $ }}-pgbouncer-probes
             defaultMode: 0400
+        {{- if .Values.mount_secret_name }}
+        - name: config
+          projected:
+            defaultMode: 0400
+            sources:
+              - secret:
+                  name: {{ .Values.mount_secret_name }}
+                  items:
+                    - key: pgbouncer.ini
+                      path: pgbouncer.ini
+              - secret:
+                  name: {{ include "pgbouncer-tls.fullname" $ }}
+                  items:
+                    - key: userlist.txt
+                      path: userlist.txt
+        {{- else }}
         - name: config
           secret:
             secretName: {{ include "pgbouncer-tls.fullname" $ }}
             defaultMode: 0400
+        {{- end }}
         - name: config-proxy
           configMap:
             name: {{ include "pgbouncer-tls.fullname" $ }}-proxy
