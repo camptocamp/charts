@@ -80,4 +80,8 @@ externalTrafficPolicy: Cluster
 livenessProbe:
   timeoutSeconds: 5
   periodSeconds: 5
-  failureThreshold: 3	
+  failureThreshold: 3
+readinessProbe:
+  timeoutSeconds: 5
+  periodSeconds: 5
+  failureThreshold: 3
