@@ -1,7 +1,7 @@
 ## Container image
 image:
   repository: prom/blackbox-exporter
-  tag: v0.25.0
+  tag: v0.29.1
   pullPolicy: IfNotPresent
 
 ## Node labels for pod assigment
